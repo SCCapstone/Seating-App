@@ -1,11 +1,11 @@
 # Seating App - Capstone 2018
 
-## Frameworks Being Used
+## Frameworks
 - Angular v6.1.5
- /tDocumentation: https://angular.io/guide/architecture
- /tAngular "Cheat Sheet": https://angular.io/guide/cheatsheet
+ Documentation: https://angular.io/guide/architecture
+ Angular "Cheat Sheet": https://angular.io/guide/cheatsheet
 - Boostrap v4.1.3 CDN
- /tDocumentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
+ Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
 ## Running App Locally
 Prerequisites:
