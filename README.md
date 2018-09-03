@@ -13,7 +13,7 @@ Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 ## Running App Locally
 Prerequisites:
 - Make sure to have npm installed.
-- Run "npm install -g @angular/cli" without quotations to install Angular CLI globally on your machine.
+- Run `npm install -g @angular/cli` to install Angular CLI globally on your machine.
 
 If this is your first time:
 - Download master source folder from GitHub.
