@@ -1,5 +1,9 @@
 # Seating App - Capstone 2018
 
+## Live View
+http://ec2-34-229-41-198.compute-1.amazonaws.com
+>Last Updated: September 1, 2018
+
 ## Frameworks
 - Angular v6.1.5
 
