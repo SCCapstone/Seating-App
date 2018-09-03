@@ -2,10 +2,10 @@
 
 ## Frameworks Being Used
 - Angular v6.1.5
-    Documentation: https://angular.io/guide/architecture
-    Angular "Cheat Sheet": https://angular.io/guide/cheatsheet
+ /tDocumentation: https://angular.io/guide/architecture
+ /tAngular "Cheat Sheet": https://angular.io/guide/cheatsheet
 - Boostrap v4.1.3 CDN
-    Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
+ /tDocumentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
 ## Running App Locally
 Prerequisites:
