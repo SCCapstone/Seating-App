@@ -22,8 +22,8 @@ Otherwise just pull current `/src` folder from GitHub (unless new dependencies h
 
 1.  Once you have the current copy of the repository, open your command prompt and navigate to the folders location on your desktop.
 2.  Type in the command `ng serve -o` and this will open a local webpage with our app. <br />
->>The app will automatically reload if you change source files (Once file is saved). <br />
->>To Exit the process, press `Ctrl + C` then type Y and Enter on Windows CMD (`Ctrl + C` will work with most other CMD's). <br />
+>The app will automatically reload if you change source files (Once file is saved). <br />
+>To Exit the process, press `Ctrl + C` then type Y and Enter on Windows CMD (`Ctrl + C` will work with most other CMD's). <br />
 3.  Once your done editing your files, and checks are made, commit and push to GitHub.
 
 ## File Structure
