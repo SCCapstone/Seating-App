@@ -4,7 +4,6 @@
 - Angular v6.1.5
 
 Documentation: https://angular.io/guide/architecture
-
 Angular "Cheat Sheet": https://angular.io/guide/cheatsheet
 
 - Boostrap v4.1.3 CDN
@@ -23,8 +22,8 @@ Otherwise just pull current "/src" folder from GitHub (unless new dependencies h
 
 1.  Once you have the current copy of the repository, open your command prompt and navigate to the folders location on your desktop.
 2.  Type in the command "ng serve -o" and this will open a local webpage with our app.
-    (Any edit you make will be updated with simply saving, unless command prompt is closed or process is stopped.)
-    (To Exit the process, press Ctrl + C then type Y and Enter on Windows)
+(Any edit you make will be updated with simply saving, unless command prompt is closed or process is stopped.)
+(To Exit the process, press Ctrl + C then type Y and Enter on Windows)
 3.  Once your done editing your files, and checks are made, commit and push to GitHub.
 
 ## Development server
