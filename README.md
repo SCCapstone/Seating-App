@@ -33,8 +33,11 @@ Otherwise just pull current "/src" folder from GitHub (unless new dependencies h
   /e2e
   /node_modules
   /src
-  ...
 ```
+### /dist
+### /e2e
+### /node_modules
+### /src
 
 ## Development server
 
