@@ -26,6 +26,16 @@ Otherwise just pull current "/src" folder from GitHub (unless new dependencies h
 (To Exit the process, press Ctrl + C then type Y and Enter on Windows) <br />
 3.  Once your done editing your files, and checks are made, commit and push to GitHub.
 
+## File Structure
+```
+/Seating-App-master
+  /dist
+  /e2e
+  /node_modules
+  /src
+  ...
+```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
