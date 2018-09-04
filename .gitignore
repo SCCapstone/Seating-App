@@ -5,7 +5,8 @@
 /tmp
 /out-tsc
 
-
+# dependencies
+/node_modules
 
 # IDEs and editors
 /.idea
