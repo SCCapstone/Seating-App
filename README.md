@@ -15,7 +15,7 @@ Angular "Cheat Sheet": https://angular.io/guide/cheatsheet
 Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
 ## Running App Locally
-<h3>Prerequisites:</h3>
+<h4>Prerequisites:</h4>
 
 - Make sure to have NPM installed. <br />
 
@@ -25,7 +25,8 @@ Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
 >GitHub Desktop application works great for fetching and pushing to and from origin.  Keeps your local repository updated. <br />
 
-<h3>If this is your first time:</h3>
+<h4>If this is your first time:</h4>
+
 1. Run `npm install -g @angular/cli` to install Angular CLI globally on your machine. <br />
 
 2. Download source from GitHub. <br />
@@ -37,16 +38,19 @@ Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
 >This creates your `node_modules/` directory.  If dependencies are added, group mates should be informed to update their local repositories. <br />
 
-<h3>Otherwise:</h3>
+<h4>Otherwise:</h4>
 
-1. Navigate to your local source folder in the command prompt.
+1. Navigate to your local source folder in the command prompt. <br />
+
 2. Use `git fetch` or the GitHub Desktop application to make sure your repo matches our GitHub. <br />
+
 3. Type in the command `ng serve -o` and this will open a local webpage with our app. <br />
+
 >The app will automatically reload if you change source files (Once file is saved). <br />
 
 >To Exit the process, press `Ctrl + C` then type Y and Enter on Windows CMD (`Ctrl + C` will work with most other CMD's). <br />
 
-4.  Once your done editing your files, and checks are made, commit and push to GitHub.
+4.  Once your done editing your files, and checks are made, commit and push to GitHub. <br />
 
 ## File Structure
 
