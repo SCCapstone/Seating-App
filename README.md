@@ -19,13 +19,13 @@ Prerequisites:
 - Make sure to have NPM installed.
 >If not, the link is: https://www.npmjs.com/get-npm
 - Run `npm install -g @angular/cli` to install Angular CLI globally on your machine.
-- Run `npm install` to install local dependecies defined in the package-lock.json file.
->This creates your `node_modules/` directory.
 
 If this is your first time:
-- Download master source folder from GitHub.
+- Download source from GitHub.
+- Run `npm install` to install local dependecies defined in the package-lock.json file.
+>This creates your `node_modules/` directory.  If dependencies are added, group mates should be informed to update their local repositories.
 
-Otherwise just pull current `/src` folder from GitHub (unless new dependencies have been added to the source)
+Otherwise:
 
 1.  Once you have the current copy of the repository, open your command prompt and navigate to the folders location on your desktop. <br />
 2.  Type in the command `ng serve -o` and this will open a local webpage with our app. <br />
