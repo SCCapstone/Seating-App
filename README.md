@@ -56,12 +56,15 @@ Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 ## File Structure
 
 <h4>Before `npm install` is ran, this will be what your source looks like. </h4>
+
 ```
 /Seating-App
   /e2e
   /src
 ```
+
 <h4>After `npm install` is ran, our dependencies will be installed into a folder called `node_modules/` and should look like...</h4>
+
 ```
 /Seating-App
   /e2e
