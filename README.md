@@ -8,7 +8,8 @@ http://ec2-34-229-41-198.compute-1.amazonaws.com
 - Angular v6.1.5
 
 Documentation: https://angular.io/guide/architecture <br />
-Angular "Cheat Sheet": https://angular.io/guide/cheatsheet
+
+Angular "Cheat Sheet": https://angular.io/guide/cheatsheet <br />
 
 - Boostrap v4.1.3 CDN
 
@@ -54,35 +55,48 @@ Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
 ## File Structure
 
+<h4>Before `npm install` is ran, this will be what your source looks like. </h4>
 ```
-/Seating-App-master
-  /dist
+/Seating-App
+  /e2e
+  /src
+```
+<h4>After `npm install` is ran, our dependencies will be installed into a folder called `node_modules/` and should look like...</h4>
+```
+/Seating-App
   /e2e
   /node_modules
   /src
 ```
 
-### /dist
-
-Folder created and populated when the command `ng build` is ran.  This builds the application into a compressed version avaliable to be placed onto a live server.
-
-### /e2e
+<h3>/e2e</h3>
 
 Used by Angular for core struture.
 
-### /node_modules
+<h3>/node_modules</h3>
 
 Contains all core files / components / frameworks we are currently using to produce this web app.  This contains folders like Angulars core and MySQL core, along with a bunch of utilities.  This folder should not be changed unless new dependencies are added.  If new dependencies are added, all group mates should be notified to update.
 
-### /src
+<h3>/src</h3>
 
-Most important folder because it contains our app. <br />
+Most important folder because it contains our app.
 
 ```
 /src
   /app
+    /login                  (Login Component folder)
+    /example*               (Example component folder)
+    app-routing.module.ts   (Routing component)
+    app.component.html      (Main App html)
+    app.component.scss      (Main App scss)
+    app.component.spec.ts
+    app.component.ts
+    app.module.ts
   /assets
   /enviroments
+  index.html
+  styles.scss
+  ...
 ```
 
 ## Creating New Components
