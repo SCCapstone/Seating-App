@@ -15,7 +15,7 @@ Angular "Cheat Sheet": https://angular.io/guide/cheatsheet
 Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
 ## Running App Locally
-Prerequisites:
+<h4>Prerequisites:</h4>
 - Make sure to have NPM installed.
 >If not, the link is: https://www.npmjs.com/get-npm
 - Must have Git installed.
