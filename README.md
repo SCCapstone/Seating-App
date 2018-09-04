@@ -16,8 +16,11 @@ Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
 ## Running App Locally
 Prerequisites:
-- Make sure to have npm installed.
+- Make sure to have NPM installed.
+>If not, the link is: https://www.npmjs.com/get-npm
 - Run `npm install -g @angular/cli` to install Angular CLI globally on your machine.
+- Run `npm install` to install local dependecies defined in the package-lock.json file.
+>This creates your `node_modules/` directory.
 
 If this is your first time:
 - Download master source folder from GitHub.
