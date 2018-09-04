@@ -18,11 +18,15 @@ Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 Prerequisites:
 - Make sure to have NPM installed.
 >If not, the link is: https://www.npmjs.com/get-npm
-- Run `npm install -g @angular/cli` to install Angular CLI globally on your machine.
+- Must have Git installed.
+>GitHub Desktop application works great for fetching and pushing to and from origin.  Keeps your local repository updated.
 
 If this is your first time:
-- Download source from GitHub.
-- Run `npm install` to install local dependecies defined in the package-lock.json file.
+1. Run `npm install -g @angular/cli` to install Angular CLI globally on your machine.
+2. Download source from GitHub.
+- Navigate to the folder where you want to clone the repo.
+- Run `git clone https://github.com/SCCapstone/Seating-App.git` to clone our repo.
+3. Run `npm install` to install local dependecies defined in the package-lock.json file.
 >This creates your `node_modules/` directory.  If dependencies are added, group mates should be informed to update their local repositories.
 
 Otherwise:
