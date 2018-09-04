@@ -16,18 +16,18 @@ Documentation: https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
 ## Running App Locally
 <h3>Prerequisites:</h3>
-- Make sure to have NPM installed.<br />
->If not, the link is: https://www.npmjs.com/get-npm
-- Must have Git installed.<br />
->GitHub Desktop application works great for fetching and pushing to and from origin.  Keeps your local repository updated.
+- Make sure to have NPM installed. <br />
+>If not, the link is: https://www.npmjs.com/get-npm <br />
+- Must have Git installed. <br />
+>GitHub Desktop application works great for fetching and pushing to and from origin.  Keeps your local repository updated. <br />
 
 <h3>If this is your first time:</h3>
-1. Run `npm install -g @angular/cli` to install Angular CLI globally on your machine.
-2. Download source from GitHub.
-- Navigate to the folder where you want to clone the repo.
-- Run `git clone https://github.com/SCCapstone/Seating-App.git` to clone our repo.
-3. Run `npm install` to install local dependecies defined in the package-lock.json file.
->This creates your `node_modules/` directory.  If dependencies are added, group mates should be informed to update their local repositories.
+1. Run `npm install -g @angular/cli` to install Angular CLI globally on your machine. <br />
+2. Download source from GitHub. <br />
+- Navigate to the folder where you want to clone the repo. <br />
+- Run `git clone https://github.com/SCCapstone/Seating-App.git` to clone our repo. <br />
+3. Run `npm install` to install local dependecies defined in the package-lock.json file. <br />
+>This creates your `node_modules/` directory.  If dependencies are added, group mates should be informed to update their local repositories. <br />
 
 <h3>Otherwise:</h3>
 
