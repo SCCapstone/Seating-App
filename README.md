@@ -1,6 +1,15 @@
-# MeanCourse
+# Capstone Seating App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.
+## Frameworks
+
+## Initial Install
+
+Clone
+Run `npm install`
+Run `npm run start:server` to start backend and connect to DB.
+Run `ng serve -o` to start Angular and open locally.
+
+Set up a MongoDB and connect it by changing the `mongoose.connect` to your DB information.
 
 ## Development server
 
