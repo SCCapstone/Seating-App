@@ -15,28 +15,20 @@ Run `npm install` to install dependencies. <br>
 Run `npm run start:server` to start backend and connect to DB. <br>
 Run `ng serve -o` to start Angular and open locally. <br>
 
-Set up a MongoDB and connect it by changing the `mongoose.connect` to your DB information.
+Set up MongoDB and connect backend to it.
 
-## Development server
+## MongoDB
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Go to https://cloud.mongodb.com and set up an account. <br>
+Open a free cluster, select all free settings (don't have to change anything). <br>
 
-## Code scaffolding
+Under the header of your new cluster you will see a `Overview` and `Security` tab, click on the `Security` tab. <br>
+Under MongoDB Users, click `Add new User` and pick any name and password, but remember these. <br>
+>> Under `User Privileges` click `Read and Write to any database` and save user.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Go back to your cluster and click `Connect`. <br>
+Under `Choose a connection method:` choose `Connect Your Application`. <br>
+Select `SRV connection string (3.6+ driver)` and copy the text. <br>
+Put this text in the `App.js` file when `mongoose.connect` is called. <br>
+> Make sure the name and password without the `<``>` are from the User you created. <br>
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
