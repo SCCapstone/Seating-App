@@ -4,10 +4,10 @@
 
 ## Initial Install
 
-Clone
-Run `npm install`
-Run `npm run start:server` to start backend and connect to DB.
-Run `ng serve -o` to start Angular and open locally.
+Clone the repo. <br>
+Run `npm install`. <br>
+Run `npm run start:server` to start backend and connect to DB. <br>
+Run `ng serve -o` to start Angular and open locally. <br>
 
 Set up a MongoDB and connect it by changing the `mongoose.connect` to your DB information.
 
