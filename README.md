@@ -1,6 +1,10 @@
 # Capstone Seating App
 
 ## Frameworks
+Angular CLI `v6.0.0` <br>
+Express `v4.16.3` <br>
+Mongoose `v5.1.2` <br>
+Rxjs `v6.0.0` <br>
 
 ## Initial Install
 
