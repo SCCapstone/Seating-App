@@ -51,3 +51,5 @@ This is an unordered list. Anyone want to put it in the right order? (No using t
 - November
 - February
 - October
+
+This is a line edited in the master branch. I created it to cause a merge conflict with my side branch.
