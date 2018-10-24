@@ -40,6 +40,8 @@ This is a location where we can all practice committing and pushing changes to g
 ### Brett Taylor enters the fight
 
 This is an unordered list. Anyone want to put it in the right order? (No using the in browser editor!)
+
+I ordered your list Dalton.
 - January
 - February
 - March
