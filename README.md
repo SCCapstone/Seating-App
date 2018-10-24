@@ -48,6 +48,6 @@ This is an unordered list. Anyone want to put it in the right order?
 - June
 - April
 - September
-- February
 - November
+- February
 - October
