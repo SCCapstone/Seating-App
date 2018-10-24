@@ -32,3 +32,22 @@ Under `Choose a connection method:` choose `Connect Your Application`. <br>
 Put this text in the `App.js` file when `mongoose.connect` is called. <br>
 > Make sure the name and password without the `<``>` are from the User you created. <br>
 
+# Source Control Milestone Section
+
+This is a location where we can all practice committing and pushing changes to github without affecting our actual code.
+
+### Dalton Rothenberger was Here
+
+This is an unordered list. Anyone want to put it in the right order?
+- March
+- August
+- December
+- July
+- January
+- May
+- June
+- April
+- September
+- February
+- November
+- October
