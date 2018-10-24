@@ -55,3 +55,5 @@ This is an unordered list. Anyone want to put it in the right order? (No using t
 This line was written in a new branch.
 
 So was this line.
+
+This is a line edited in the master branch. I created it to cause a merge conflict with my side branch.
