@@ -58,7 +58,11 @@ I ordered your list Dalton.
 This line was written in a new branch.
 
 So was this line.
+<<<<<<< HEAD
+New branch linee
+=======
 
 This is a line edited in the master branch. I created it to cause a merge conflict with my side branch.
 
 Oh look, another line written!
+>>>>>>> master
