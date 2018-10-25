@@ -37,22 +37,32 @@ Put this text in the `App.js` file when `mongoose.connect` is called. <br>
 This is a location where we can all practice committing and pushing changes to github without affecting our actual code.
 
 ### Dalton Rothenberger was Here
+### Brett Taylor enters the fight
 
 This is an unordered list. Anyone want to put it in the right order? (No using the in browser editor!)
-- March
-- August
-- December
-- July
+
+I ordered your list Dalton.
 - January
+- February
+- March
+- April
 - May
 - June
-- April
+- July
+- August
 - September
-- November
-- February
 - October
+- November
+- December
 
 This line was written in a new branch.
 
 So was this line.
+<<<<<<< HEAD
 New branch linee
+=======
+
+This is a line edited in the master branch. I created it to cause a merge conflict with my side branch.
+
+Oh look, another line written!
+>>>>>>> master
