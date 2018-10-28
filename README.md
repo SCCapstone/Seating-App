@@ -40,6 +40,7 @@ This is a location where we can all practice committing and pushing changes to g
 ### Brett Taylor enters the fight
 ### Davis Coffey is also present
 ### George Gordon
+### Justin Gallman tips the scales
 
 This is an unordered list. Anyone want to put it in the right order? (No using the in browser editor!)
 
