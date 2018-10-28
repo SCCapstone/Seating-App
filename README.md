@@ -39,6 +39,7 @@ This is a location where we can all practice committing and pushing changes to g
 ### Dalton Rothenberger was Here
 ### Brett Taylor enters the fight
 ### Davis Coffey is also present
+### George Gordon
 
 This is an unordered list. Anyone want to put it in the right order? (No using the in browser editor!)
 
