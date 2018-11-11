@@ -31,37 +31,3 @@ Under `Choose a connection method:` choose `Connect Your Application`. <br>
 > Select `SRV connection string (3.6+ driver)` and copy the text. <br>
 Put this text in the `App.js` file when `mongoose.connect` is called. <br>
 > Make sure the name and password without the `<``>` are from the User you created. <br>
-
-# Source Control Milestone Section
-
-This is a location where we can all practice committing and pushing changes to github without affecting our actual code.
-
-### Dalton Rothenberger was Here
-### Brett Taylor enters the fight
-### Davis Coffey is also present
-### George Gordon
-### Justin Gallman tips the scales
-
-This is an unordered list. Anyone want to put it in the right order? (No using the in browser editor!)
-
-I ordered your list Dalton.
-- January
-- February
-- March
-- April
-- May
-- June
-- July
-- August
-- September
-- October
-- November
-- December
-
-This line was written in a new branch.
-
-So was this line.
-New branch linee
-New new branch line.
-
-Changing the readme again
