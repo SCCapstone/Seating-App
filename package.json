@@ -27,6 +27,7 @@
     "core-js": "^2.5.4",
     "express": "^4.16.3",
     "mongoose": "^5.1.2",
+    "multer": "^1.4.1",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
@@ -47,7 +48,7 @@
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
     "nodemon": "^1.17.4",
-    "protractor": "~5.3.0",
+    "protractor": "^5.4.1",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
     "typescript": "~2.7.2"
