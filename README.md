@@ -37,7 +37,7 @@ Put this text in the `App.js` file when `mongoose.connect` is called. <br>
 This is a location where we can all practice committing and pushing changes to github without affecting our actual code.
 
 ### Dalton Rothenberger was Here
-### Brett Taylor enters the fight
+### Brett Taylor was here too
 
 This is an unordered list. Anyone want to put it in the right order? (No using the in browser editor!)
 
