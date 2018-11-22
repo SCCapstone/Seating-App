@@ -1,0 +1,29 @@
+<main>
+  <h1 style="text-align: center; margin-top:10%;">Seating App</h1>
+
+  <mat-grid-list cols="2" rowHeight="2:2" gutterSize="20px">
+    <mat-grid-tile>
+      <mat-card>
+        <h3>About Us</h3>
+        <p>
+          Proin convallis sem magna, eu eleifend augue posuere vitae. Morbi
+          suscipit, nunc quis pretium facilisis, nunc lacus pharetra ligula, eu
+          fringilla enim orci et ex. Vivamus consequat feugiat dignissim.
+          Quisque maximus mattis odio et aliquet. Integer gravida dapibus
+          mauris, sit amet hendrerit risus volutpat at. Suspendisse quam sem,
+          auctor eu auctor id, consectetur a enim. Aenean eu est nec mauris
+          semper mattis.
+        </p>
+        <mat-card-subtitle style="text-align:right"
+          >Learn more at blah blah blah.</mat-card-subtitle
+        >
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Login"><app-login></app-login></mat-tab>
+        <mat-tab label="Register"><app-signup></app-signup></mat-tab>
+      </mat-tab-group>
+    </mat-grid-tile>
+  </mat-grid-list>
+</main>

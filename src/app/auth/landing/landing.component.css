@@ -1,0 +1,16 @@
+mat-tab-group {
+  background-color: #f7f7f7;
+}
+mat-tab-label-active {
+  background-color: #7e6cbd;
+  color: #ffffff;
+}
+
+mat-card {
+  background-color: #f5f5f5;
+}
+
+main {
+  width: 80%;
+  margin: 1rem auto;
+}
