@@ -1,8 +1,11 @@
-# Capstone Seating App
+# Capstone Seating App Test
 
 MEAN Stack Seating App
+Testing
+Purposes
 
 ## Frameworks
+
 Angular CLI `v6.0.0` <br>
 Express `v4.16.3` <br>
 Mongoose `v5.1.2` <br>
@@ -23,12 +26,14 @@ Go to https://cloud.mongodb.com and set up an account. <br>
 Open a free cluster, select all free settings (don't have to change anything). <br>
 
 Under the header of your new cluster you will see a `Overview` and `Security` tab, click on the `Security` tab. <br>
+
 > Under MongoDB Users, click `Add new User` and pick any name and password, but remember these. <br>
->> Under `User Privileges` click `Read and Write to any database` and save user.
+>
+> > Under `User Privileges` click `Read and Write to any database` and save user.
 
 Go back to your cluster and click `Connect`. <br>
 Under `Choose a connection method:` choose `Connect Your Application`. <br>
-> Select `SRV connection string (3.6+ driver)` and copy the text. <br>
-Put this text in the `App.js` file when `mongoose.connect` is called. <br>
-> Make sure the name and password without the `<``>` are from the User you created. <br>
 
+> Select `SRV connection string (3.6+ driver)` and copy the text. <br>
+> Put this text in the `App.js` file when `mongoose.connect` is called. <br>
+> Make sure the name and password without the ` <``> ` are from the User you created. <br>
