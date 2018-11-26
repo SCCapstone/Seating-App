@@ -36,3 +36,10 @@ a {
   background-color: #4c86d1 !important;
   color: #ffffff;
 }
+
+.logo {
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}

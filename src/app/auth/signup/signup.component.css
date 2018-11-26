@@ -9,3 +9,8 @@ mat-spinner {
 mat-card {
   background-color: #f7f7f7;
 }
+
+.register-button {
+  background-color: #461e64b4;
+  color: #ffffff;
+}
