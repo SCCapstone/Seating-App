@@ -6,9 +6,11 @@ import { SignupComponent } from "./signup/signup.component";
 import { LandingComponent } from "./landing/landing.component";
 
 const routes: Routes = [
+  { path: "", redirectTo: "landing", pathMatch: "full" },
   { path: "login", component: LoginComponent },
   { path: "signup", component: SignupComponent },
-  { path: "", component: LandingComponent }
+  { path: "landing", component: LandingComponent },
+  { path: "register-success", redirectTo: "landing", pathMatch: "full" }
 ];
 
 @NgModule({

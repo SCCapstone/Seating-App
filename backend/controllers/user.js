@@ -13,8 +13,7 @@ exports.createUser = (req, res, next) => {
       .save()
       .then(result => {
         res.status(201).json({
-          message: "User created!",
-          result: result
+          message: "User created!"
         });
       })
       .catch(err => {
@@ -23,7 +22,7 @@ exports.createUser = (req, res, next) => {
         });
       });
   });
-}
+};
 
 exports.userLogin = (req, res, next) => {
   let fetchedUser;
@@ -31,7 +30,7 @@ exports.userLogin = (req, res, next) => {
     .then(user => {
       if (!user) {
         return res.status(401).json({
-          message: "Auth failed"
+          message: "That email does not match a registered email."
         });
       }
       fetchedUser = user;
@@ -40,7 +39,7 @@ exports.userLogin = (req, res, next) => {
     .then(result => {
       if (!result) {
         return res.status(401).json({
-          message: "Auth failed"
+          message: "That password does not match this email."
         });
       }
       const token = jwt.sign(
@@ -59,4 +58,4 @@ exports.userLogin = (req, res, next) => {
         message: "Invalid authentication credentials!"
       });
     });
-}
+};
