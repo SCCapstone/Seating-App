@@ -1,17 +1,45 @@
-<h2>Seating App</h2>
+<h1>Seating App</h1>
 <ul>
   <li *ngIf="userIsAuthenticated">
-    <button class="nav-button" mat-raised-button>Live View</button>
+    <button
+      class="nav-button"
+      mat-raised-button
+      routerLink="/main/dashboard"
+      routerLinkActive="active-nav"
+    >
+      Live View
+    </button>
   </li>
   <li *ngIf="userIsAuthenticated">
-    <button class="nav-button" mat-raised-button>Reservations</button>
+    <button
+      class="nav-button"
+      mat-raised-button
+      routerLink="/main/reservations"
+      routerLinkActive="active-nav"
+    >
+      Reservations
+    </button>
   </li>
   <li *ngIf="userIsAuthenticated">
-    <button class="nav-button" mat-raised-button>Store Manager</button>
+    <button
+      class="nav-button"
+      mat-raised-button
+      routerLink="/main/manager"
+      routerLinkActive="active-nav"
+    >
+      Store Manager
+    </button>
   </li>
   <div class="space"></div>
   <li *ngIf="userIsAuthenticated">
-    <button class="nav-button" mat-raised-button>My Account</button>
+    <button
+      class="nav-button"
+      mat-raised-button
+      routerLink="/main/account"
+      routerLinkActive="active-nav"
+    >
+      My Account
+    </button>
   </li>
   <li *ngIf="userIsAuthenticated">
     <button class="nav-button-logout" mat-raised-button (click)="onLogout()">

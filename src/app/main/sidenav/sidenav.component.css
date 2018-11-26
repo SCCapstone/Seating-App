@@ -1,8 +1,10 @@
 ul {
   list-style: none;
-  padding: 0;
   margin: 0;
   display: block;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 2vh;
 }
 
 li {
@@ -19,11 +21,18 @@ a {
 }
 
 .nav-button {
-  background-color: #e7e7e7 !important;
-  color: #202020 !important;
+  width: 100%;
+  background-color: #e7e7e7;
+  color: #202020;
 }
 
 .nav-button-logout {
+  width: 100%;
   background-color: #d14c4c !important;
   color: #ffffff !important;
+}
+
+.active-nav {
+  background-color: #4c86d1 !important;
+  color: #ffffff;
 }

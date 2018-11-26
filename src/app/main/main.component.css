@@ -9,7 +9,8 @@ mat-sidenav {
   padding-left: 10px;
   padding-right: 10px;
   background-color: #4e2a6bc9;
-  color: #e2e2e2;
+  color: #ffffff;
+  text-align: center;
 }
 
 mat-sidenav-content {

@@ -14,6 +14,9 @@ import { PostsModule } from "./posts/posts.module";
 import { MainComponent } from "./main/main.component";
 import { SidenavComponent } from "./main/sidenav/sidenav.component";
 import { DashboardComponent } from "./main/dashboard/dashboard.component";
+import { ReservationsComponent } from "./main/reservations/reservations.component";
+import { ManagerComponent } from "./main/manager/manager.component";
+import { AccountComponent } from "./main/account/account.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { DashboardComponent } from "./main/dashboard/dashboard.component";
     ErrorComponent,
     MainComponent,
     SidenavComponent,
-    DashboardComponent
+    DashboardComponent,
+    ReservationsComponent,
+    ManagerComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
