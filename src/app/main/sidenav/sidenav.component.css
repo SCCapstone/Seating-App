@@ -2,6 +2,11 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: block;
+}
+
+li {
+  margin-bottom: 10px;
 }
 
 a {
@@ -9,6 +14,16 @@ a {
   color: white;
 }
 
-ul {
-  display: flex;
+.space {
+  margin-top: 50px;
+}
+
+.nav-button {
+  background-color: #e7e7e7 !important;
+  color: #202020 !important;
+}
+
+.nav-button-logout {
+  background-color: #d14c4c !important;
+  color: #ffffff !important;
 }
