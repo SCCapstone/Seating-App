@@ -38,8 +38,7 @@ export class AuthService {
     const authData: AuthData = { email: email, password: password };
     this.http.post(BACKEND_URL + "/signup", authData).subscribe(
       () => {
-        //console.log("Testing User Created!!");
-        this.router.navigate(["/login"]);
+        this.router.navigate(["/"]);
       },
       error => {
         this.authStatusListener.next(false);

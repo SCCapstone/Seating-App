@@ -12,12 +12,12 @@ exports.createUser = (req, res, next) => {
     user
       .save()
       .then(result => {
-        res.status(201).json({
+        return res.status(500).json({
           message: "User created!"
         });
       })
       .catch(err => {
-        res.status(500).json({
+        return res.status(500).json({
           message: "Invalid authentication credentials!"
         });
       });
