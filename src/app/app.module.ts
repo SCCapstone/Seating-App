@@ -10,13 +10,9 @@ import { AuthInterceptor } from "./auth/auth-interceptor";
 import { ErrorInterceptor } from "./error-interceptor";
 import { ErrorComponent } from "./error/error.component";
 import { AngularMaterialModule } from "./angular-material.module";
-import { PostsModule } from "./posts/posts.module";
 import { MainComponent } from "./main/main.component";
 import { SidenavComponent } from "./main/sidenav/sidenav.component";
-import { DashboardComponent } from "./main/dashboard/dashboard.component";
-import { ReservationsComponent } from "./main/reservations/reservations.component";
-import { ManagerComponent } from "./main/manager/manager.component";
-import { AccountComponent } from "./main/account/account.component";
+import { ReservationsModule } from "./main/reservations/reservations.module";
 
 @NgModule({
   declarations: [
@@ -24,11 +20,7 @@ import { AccountComponent } from "./main/account/account.component";
     HeaderComponent,
     ErrorComponent,
     MainComponent,
-    SidenavComponent,
-    DashboardComponent,
-    ReservationsComponent,
-    ManagerComponent,
-    AccountComponent
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +28,7 @@ import { AccountComponent } from "./main/account/account.component";
     BrowserAnimationsModule,
     HttpClientModule,
     AngularMaterialModule,
-    PostsModule
+    ReservationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
