@@ -1,0 +1,45 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSaveReservation()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="Name" />
+      <mat-error *ngIf="form.get('name').invalid"
+        >Please enter a reservation name.</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="size"
+        placeholder="Reservation Size"
+      />
+      <mat-error *ngIf="form.get('size').invalid"
+        >Please enter a reservation name.</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="phone"
+        placeholder="Phone Number"
+      />
+      <mat-error *ngIf="form.get('phone').invalid"
+        >Please enter a reservation name.</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="4"
+        formControlName="notes"
+        placeholder="Special Occasion, Allergens, Childern, Etc."
+      ></textarea>
+      <mat-error *ngIf="form.get('notes').invalid"
+        >Please enter a reservation size.</mat-error
+      >
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Save</button>
+  </form>
+</mat-card>

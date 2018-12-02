@@ -1,0 +1,18 @@
+.example-container {
+  width: auto;
+  min-height: 100vh;
+  background-color: #e7e7e7;
+}
+
+mat-sidenav {
+  width: 200px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #461e64b4;
+  color: #ffffff;
+  text-align: center;
+}
+
+mat-sidenav-content {
+  padding: 10px;
+}

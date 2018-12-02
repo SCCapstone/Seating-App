@@ -1,0 +1,12 @@
+.create-button {
+  background-color: #461e64b4 !important;
+  color: #ffffff !important;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.no-style {
+  text-decoration: none;
+  color: #000000;
+}
