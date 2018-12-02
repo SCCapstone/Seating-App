@@ -15,18 +15,18 @@
         placeholder="Reservation Size"
       />
       <mat-error *ngIf="form.get('size').invalid"
-        >Please enter a reservation name.</mat-error
+        >Please enter a reservation size.</mat-error
       >
     </mat-form-field>
     <mat-form-field>
       <input
         matInput
-        type="text"
+        type="number"
         formControlName="phone"
         placeholder="Phone Number"
       />
       <mat-error *ngIf="form.get('phone').invalid"
-        >Please enter a reservation name.</mat-error
+        >Please enter a phone number without hyphens.</mat-error
       >
     </mat-form-field>
     <mat-form-field>
@@ -34,10 +34,10 @@
         matInput
         rows="4"
         formControlName="notes"
-        placeholder="Special Occasion, Allergens, Childern, Etc."
+        placeholder="Time, Special Occasion, Allergens, Childern, Etc."
       ></textarea>
       <mat-error *ngIf="form.get('notes').invalid"
-        >Please enter a reservation size.</mat-error
+        >Please enter notes.</mat-error
       >
     </mat-form-field>
     <button mat-raised-button color="accent" type="submit">Save</button>
