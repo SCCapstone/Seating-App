@@ -1,14 +1,62 @@
+<!--
+  <mat-card> <mat-card-title>Store Manager</mat-card-title> </mat-card>
+  <mat-card>
+      <mat-card-title>
+          <a
+          class="create-button"
+          mat-raised-button
+          routerLink="/main/manager/create"
+          routerLinkActive="mat-accent"
+          >Create</a
+        ></mat-card-title
+      >
+    </mat-card>
+    <router-outlet></router-outlet>
+-->
+
 <mat-card> <mat-card-title>Store Manager</mat-card-title> </mat-card>
-<mat-card>
-    <mat-card-title>
-        <a
-        class="create-button"
-        mat-raised-button
-        routerLink="/main/manager/create"
-        routerLinkActive="mat-accent"
-        >Create</a
-      ></mat-card-title
-    >
+<div class="store-bar">
+  <mat-card>
+    <button mat-raised-button color="primary">Add Store</button>
+    <mat-list>
+      <mat-list-item
+        >Store 1<button mat-raised-button class="store-button" color="accent">
+          Edit Store
+        </button></mat-list-item
+      >
+      <mat-list-item
+        >Store 2<button mat-raised-button class="store-button" color="accent">
+          Edit Store
+        </button></mat-list-item
+      >
+      <mat-list-item
+        >Store 3<button mat-raised-button class="store-button" color="accent">
+          Edit Store
+        </button></mat-list-item
+      >
+    </mat-list>
   </mat-card>
-  <router-outlet></router-outlet>
-  
+</div>
+
+<div class="hosts-bar">
+  <mat-card>
+    <button mat-raised-button color="primary">Add Host</button>
+    <mat-list>
+      <mat-list-item
+        >Host 1<button mat-raised-button class="store-button" color="accent">
+          Edit Host
+        </button></mat-list-item
+      >
+      <mat-list-item
+        >Host 2<button mat-raised-button class="store-button" color="accent">
+          Edit Host
+        </button></mat-list-item
+      >
+      <mat-list-item
+        >Host 3<button mat-raised-button class="store-button" color="accent">
+          Edit Host
+        </button></mat-list-item
+      >
+    </mat-list>
+  </mat-card>
+</div>

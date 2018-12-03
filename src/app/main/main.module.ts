@@ -8,13 +8,15 @@ import { AccountComponent } from "./account/account.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ManagerComponent } from "./manager/manager.component";
 import { ReservationsComponent } from "./reservations/reservations.component";
+import { CanvasComponent } from './dashboard/canvas/canvas.component';
 
 @NgModule({
   declarations: [
     AccountComponent,
     DashboardComponent,
     ManagerComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    CanvasComponent
   ],
   imports: [CommonModule, AngularMaterialModule, FormsModule, MainRoutingModule]
 })
