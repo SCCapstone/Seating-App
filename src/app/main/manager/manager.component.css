@@ -1,7 +1,16 @@
-.create-button {
+/* .create-button {
     background-color: #461e64b4 !important;
     color: #ffffff !important;
     position: absolute;
     right: 20px;
     bottom: 20px;
-  }
+  } */
+
+.store-button {
+  position: absolute;
+  right: 0px;
+}
+
+mat-card {
+  margin-bottom: 25px;
+}
