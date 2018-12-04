@@ -1,39 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import "fabric";
+import { $ } from "protractor";
 
 declare let fabric;
 
 @Component({
-  selector: 'app-canvas',
-  templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.css']
+  selector: "app-canvas",
+  templateUrl: "./canvas.component.html",
+  styleUrls: ["./canvas.component.css"]
 })
 export class CanvasComponent implements OnInit {
-
   private canvas;
-  private blueRect;
-  private redRect;
+  private rectTable;
+  private circleTable;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.canvas = new fabric.Canvas("canvas", {
-    });
+    this.canvas = new fabric.Canvas("canvas", {});
 
-    this.redRect = new fabric.Rect({
-      width: 200,
-      height: 200,
+
+  }
+
+  // Add a rectangle object to the canvas
+  addRect() {
+    this.rectTable = new fabric.Rect({
+      // top: 100,
+      // left: 0,
+      width: 100,
+      height: 100,
       fill: "red"
     });
+    this.canvas.add(this.rectTable);
+    this.canvas.centerObject(this.rectTable);
+  }
 
-    this.blueRect = new fabric.Rect({
-      width: 200,
-      height: 200,
+  // Add a circle object to the canvas
+  addCircle() {
+    this.circleTable = new fabric.Circle({
+      // top: 25,
+      // left: 100,
+      radius: 75,
       fill: "blue"
     });
-
-    this.canvas.add(this.redRect);
-    this.canvas.add(this.blueRect);
-    this.canvas.centerObject(this.blueRect);
+    this.canvas.add(this.circleTable);
+    this.canvas.centerObject(this.circleTable);
   }
 }
