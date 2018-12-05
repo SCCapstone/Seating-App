@@ -6,3 +6,11 @@ textarea {
 mat-spinner {
   margin: auto;
 }
+
+.time-date {
+  display: flex;
+}
+
+.spacer {
+  width: 10vw;
+}

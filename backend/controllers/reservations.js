@@ -5,6 +5,8 @@ exports.createReservation = (req, res, next) => {
     name: req.body.name,
     size: req.body.size,
     phone: req.body.phone,
+    time: req.body.time,
+    date: req.body.date,
     notes: req.body.notes,
     creator: req.userData.userId
   });
@@ -32,6 +34,8 @@ exports.updateReservation = (req, res, next) => {
     name: req.body.name,
     size: req.body.size,
     phone: req.body.phone,
+    time: req.body.time,
+    date: req.body.date,
     notes: req.body.notes,
     creator: req.userData.userId
   });
@@ -48,7 +52,7 @@ exports.updateReservation = (req, res, next) => {
     })
     .catch(error => {
       res.status(500).json({
-        message: "Couldn't udpate reservation!"
+        message: "Couldn't update reservation!"
       });
     });
 };

@@ -7,13 +7,27 @@ mat-spinner {
   margin: auto;
 }
 
-mat-paginator {
-  margin-top: 1rem;
-}
-
 .info-text {
   text-align: center;
 }
 .spacer {
   margin-right: 15%;
+}
+.reservation-header {
+  display: flex;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.list-box {
+  width: 15vw;
+}
+
+.list-box-time {
+  width: 10vw;
+}
+.list-box-date {
+  width: 15vw;
 }
