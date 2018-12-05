@@ -1,6 +1,9 @@
 .account-button {
   position: absolute;
   right: 0px;
+  text-decoration: none;
+    background-color: #461e64b4 !important;
+    color: #ffffff !important;
 }
 
 mat-card {
