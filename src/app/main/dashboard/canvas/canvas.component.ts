@@ -4,6 +4,8 @@ import { $ } from "protractor";
 
 declare let fabric;
 
+
+
 @Component({
   selector: "app-canvas",
   templateUrl: "./canvas.component.html",
@@ -14,10 +16,13 @@ export class CanvasComponent implements OnInit {
   private rectTable;
   private circleTable;
 
+
+
   constructor() {}
 
   ngOnInit() {
     this.canvas = new fabric.Canvas("canvas", {});
+
 
 
   }
@@ -45,5 +50,10 @@ export class CanvasComponent implements OnInit {
     });
     this.canvas.add(this.circleTable);
     this.canvas.centerObject(this.circleTable);
+  }
+
+  // Delete the selected object
+  discardObject() {
+    this.canvas.remove(this.canvas.getActiveObject());
   }
 }
