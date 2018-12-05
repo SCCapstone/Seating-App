@@ -1,7 +1,10 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-<mat-card>
-  <p>Name<a class="spacer"></a>Size<a class="spacer"></a>Notes</p>
+<mat-card class="reservation-header">
+  <div class="list-box-time">Time</div>
+  <div class="list-box-date">Day</div>
+  <div class="list-box">Name</div>
+  <div class="list-box">Size</div>
 </mat-card>
 
 <mat-accordion multi="true" *ngIf="reservations.length > 0 && !isLoading">
@@ -9,9 +12,13 @@
     <mat-expansion-panel-header
       *ngIf="userIsAuthenticated && userId === reservation.creator"
     >
-      {{ reservation.name }}<a class="spacer"></a>{{ reservation.size
-      }}<a class="spacer"></a>{{ reservation.notes }}
+      <div class="list-box-time">{{ reservation.time }}</div>
+      <div class="list-box-date">{{ reservation.date }}</div>
+      <div class="list-box">{{ reservation.name }}</div>
+      <div class="list-box">{{ reservation.size }}</div>
+      
     </mat-expansion-panel-header>
+    <p>Time / Date: {{ reservation.time }} / {{ reservation.date }}</p>
     <p>Name: {{ reservation.name }}</p>
     <p>Size: {{ reservation.size }}</p>
     <p>Phone Number: {{ reservation.phone }}</p>
@@ -31,13 +38,7 @@
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
-<mat-paginator
-  [length]="totalReservations"
-  [pageSize]="reservationsPerPage"
-  [pageSizeOptions]="pageSizeOptions"
-  (page)="onChangedPage($event)"
-  *ngIf="reservations.length > 0"
-></mat-paginator>
+
 <p class="info-text mat-body-1" *ngIf="reservations.length <= 0 && !isLoading">
   No reservations added yet!
 </p>

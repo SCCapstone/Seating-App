@@ -1,5 +1,21 @@
-<h1>Live View</h1>
-<div class="canvas--wrap">
-  <canvas id="canvas" class="canvas" width="800" height="800" style="border: 1px solid #000;"></canvas>
-</div>
+<mat-card class="table-view">
+  <div class="table-button-group">
+    <button mat-rasied-button class="table-button" (click)="addRect()">
+      Add Rectangle Table
+    </button>
+    <button mat-rasied-button class="table-button" (click)="addCircle()">
+      Add Circle Table
+    </button>
+    <button mat-rasied-button class="table-button" (click)="discardObject()">
+      Delete Selected Table
+    </button>
+    <button mat-rasied-button class="table-button" (click)="lockObject()">
+      Lock Selected Table
+    </button>
+  </div>
+  <div class="canvas-wrap" id="canvas-wrap">
+    <canvas id="canvas" class="canvas" style="border: 1px solid rgb(54, 54, 54);"></canvas>
+  </div>
+</mat-card>
+  
 
