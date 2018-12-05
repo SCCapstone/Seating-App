@@ -56,4 +56,14 @@ export class CanvasComponent implements OnInit {
   discardObject() {
     this.canvas.remove(this.canvas.getActiveObject());
   }
+
+  // Lock object in place
+  lockObject() {
+    (this.canvas.getActiveObject()).lockMovementX = true;
+    (this.canvas.getActiveObject()).lockMovementY = true;
+    (this.canvas.getActiveObject()).lockScalingX = true;
+    (this.canvas.getActiveObject()).lockScalingY = true;
+    (this.canvas.getActiveObject()).lockUniScaling = true;
+    (this.canvas.getActiveObject()).lockRotation = true;
+  }
 }
