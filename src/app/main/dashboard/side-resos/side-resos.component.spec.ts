@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SideResosComponent } from './side-resos.component';
+import { SideResosComponent } from "./side-resos.component";
 
-describe('SideResosComponent', () => {
+describe("SideResosComponent", () => {
   let component: SideResosComponent;
   let fixture: ComponentFixture<SideResosComponent>;
 
@@ -19,7 +19,7 @@ describe('SideResosComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
