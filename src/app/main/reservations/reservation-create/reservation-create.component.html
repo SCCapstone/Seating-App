@@ -41,10 +41,10 @@
       </mat-form-field>
       <div class="spacer"></div>
       <mat-form-field>
-        <input 
+        <input
           matInput
           [matDatepicker]="picker1"
-          placeholder="Angular forms"
+          placeholder="Date"
           formControlName="date"
           required>
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -56,7 +56,7 @@
         matInput
         rows="4"
         formControlName="notes"
-        placeholder="Time, Special Occasion, Allergens, Childern, Etc."
+        placeholder="Notes (Special Occasion, Allergens, Childern, Etc.)"
       ></textarea>
       <mat-error *ngIf="form.get('notes').invalid"
         >Please enter notes.</mat-error
