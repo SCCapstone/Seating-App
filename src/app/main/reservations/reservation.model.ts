@@ -3,6 +3,8 @@ export interface Reservation {
   name: string;
   size: string;
   phone: string;
+  time: string;
+  date: string;
   notes: string;
   creator: string;
 }

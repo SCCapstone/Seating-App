@@ -33,6 +33,8 @@ export class ReservationsService {
                 name: reservation.name,
                 size: reservation.size,
                 phone: reservation.phone,
+                time: reservation.time,
+                date: reservation.date,
                 notes: reservation.notes,
                 id: reservation._id,
                 creator: reservation.creator
@@ -61,12 +63,14 @@ export class ReservationsService {
       name: string;
       size: string;
       phone: string;
+      time: string;
+      date: string;
       notes: string;
       creator: string;
     }>(BACKEND_URL + id);
   }
 
-  addReservation(name: string, size: string, phone: string, notes: string) {
+  addReservation(name: string, size: string, phone: string, time: string, date: string, notes: string) {
     /**const reservationData = new FormData();
     reservationData.append("name", name);
     reservationData.append("size", size);
@@ -78,6 +82,8 @@ export class ReservationsService {
       name: name,
       size: size,
       phone: phone,
+      time: time,
+      date: date,
       notes: notes,
       creator: null
     };
@@ -96,6 +102,8 @@ export class ReservationsService {
     name: string,
     size: string,
     phone: string,
+    time: string,
+    date: string,
     notes: string
   ) {
     let reservationData: Reservation | FormData;
@@ -105,6 +113,8 @@ export class ReservationsService {
       reservationData.append("name", name);
       reservationData.append("size", size);
       reservationData.append("phone", phone);
+      reservationData.append("time", time);
+      reservationData.append("date", date);
       reservationData.append("notes", notes);
     } else {
       reservationData = {
@@ -112,6 +122,8 @@ export class ReservationsService {
         name: name,
         size: size,
         phone: phone,
+        time: time,
+        date: date,
         notes: notes,
         creator: null
       };

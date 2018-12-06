@@ -1,0 +1,15 @@
+.dashboard-view {
+    width: 100%;
+    height: 95vh;
+    display: flex;
+}
+.canvas-view {
+    width: 65vw;
+    height: 100%;
+    display: block;
+}
+.side-view {
+    margin-left: 15px;
+    width: 20vw;
+    display: block;
+}

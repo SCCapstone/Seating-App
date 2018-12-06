@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card style="margin-top:15px;">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onSaveReservation()" *ngIf="!isLoading">
     <mat-form-field>
@@ -29,12 +29,34 @@
         >Please enter a phone number without hyphens.</mat-error
       >
     </mat-form-field>
+    <div class="time-date">
+      <mat-form-field>
+        <mat-select placeholder="Dining Time" type="text" formControlName="time" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let time of times" [value]="time.value">
+            {{time.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('time').invalid">Please choose a dining time.</mat-error>
+      </mat-form-field>
+      <div class="spacer"></div>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker1"
+          placeholder="Date"
+          formControlName="date"
+          required>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
     <mat-form-field>
       <textarea
         matInput
         rows="4"
         formControlName="notes"
-        placeholder="Time, Special Occasion, Allergens, Childern, Etc."
+        placeholder="Notes (Special Occasion, Allergens, Childern, Etc.)"
       ></textarea>
       <mat-error *ngIf="form.get('notes').invalid"
         >Please enter notes.</mat-error

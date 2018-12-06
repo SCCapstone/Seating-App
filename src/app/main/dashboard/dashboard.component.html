@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8"/>
-    <title>Canvas tutorial</title>
-    <script type="text/javascript">
-      function draw() {
-        var canvas = document.getElementById('tutorial');
-        if (canvas.getContext) {
-          var ctx = canvas.getContext('2d');
-        }
-      }
-    </script>
-    <style type="text/css">
-      canvas { border: 1px solid black; }
-    </style>
-  </head>
-  <body onload="draw();">
-    <canvas id="tutorial" width="1682" height="1000"></canvas>
-  </body>
-</html>
+<div class="dashboard-view">
+    <div class="canvas-view">
+        <app-canvas></app-canvas>
+    </div>
+    <div class="side-view">
+        <app-side-resos></app-side-resos>
+        <app-side-servers></app-side-servers>
+    </div>
+</div>
