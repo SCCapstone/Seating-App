@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import "fabric";
 import { $ } from "protractor";
+import { getNumberOfCurrencyDigits } from "@angular/common";
 
 declare let fabric;
 
@@ -15,6 +16,7 @@ export class CanvasComponent implements OnInit {
   private canvas;
   private rectTable;
   private circleTable;
+  private textBox;
 
 
 
@@ -25,33 +27,59 @@ export class CanvasComponent implements OnInit {
     const canvasSpec  = document.getElementById("canvas-wrap");
     this.canvas.setHeight(canvasSpec.clientHeight - 50);
     this.canvas.setWidth(canvasSpec.clientWidth);
-
-
   }
 
   // Add a rectangle object to the canvas
   addRect() {
+    // prompt to get party size
+    const partySize = prompt("What is the party size?", "Please enter a number");
+    // creates rectangle
     this.rectTable = new fabric.Rect({
-      // top: 100,
-      // left: 0,
       width: 100,
       height: 100,
-      fill: "red"
+      fill: "purple",
+      originX: "center",
+      originY: "center",
     });
-    this.canvas.add(this.rectTable);
-    this.canvas.centerObject(this.rectTable);
+    // creates textbox
+    this.textBox = new fabric.Textbox(partySize, {
+      originX: "center",
+      originY: "center",
+      fontSize: 64
+    });
+    // groups them together
+    const group = new fabric.Group([this.rectTable, this.textBox ], {
+      top: 100,
+      left: 150
+    });
+    this.canvas.add(group);
+    this.canvas.centerObject(group);
   }
 
   // Add a circle object to the canvas
   addCircle() {
+    // prompt to get party size
+    const partySize = prompt("What is the party size?", "Please enter a number");
+    // creates circle
     this.circleTable = new fabric.Circle({
-      // top: 25,
-      // left: 100,
       radius: 75,
-      fill: "blue"
+      fill: "purple",
+      originX: "center",
+      originY: "center",
     });
-    this.canvas.add(this.circleTable);
-    this.canvas.centerObject(this.circleTable);
+    // creates textbox
+    this.textBox = new fabric.Textbox(partySize, {
+      originX: "center",
+      originY: "center",
+      fontSize: 64
+    });
+   // groups them together
+    const group = new fabric.Group([this.circleTable, this.textBox ], {
+      top: 100,
+      left: 150
+    });
+    this.canvas.add(group);
+    this.canvas.centerObject(group);
   }
 
   // Delete the selected object
@@ -79,4 +107,21 @@ export class CanvasComponent implements OnInit {
       (this.canvas.getActiveObject()).lockRotation = false;
     }
   }
+
+  /*
+  // makes a textbox
+  addTextBox() {
+    this.textBox = new fabric.Textbox("Add Party Info", {
+      width: 100,
+      height: 100,
+      fontSize: 16,
+      textBackgroundColor: "purple",
+      cornerStyle: "circle",
+      textAlign: "center"
+    });
+    this.canvas.add(this.textBox);
+    this.canvas.centerObject(this.textBox);
+
+  }
+  */
 }
