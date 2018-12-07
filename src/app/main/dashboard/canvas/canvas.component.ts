@@ -32,7 +32,7 @@ export class CanvasComponent implements OnInit {
   // Add a rectangle object to the canvas
   addRect() {
     // prompt to get party size
-    const partySize = prompt("What is the party size?", "Please enter a number");
+    const partySize = prompt("What is the table number?", "Please enter a table number.");
     // creates rectangle
     this.rectTable = new fabric.Rect({
       width: 100,
@@ -59,7 +59,7 @@ export class CanvasComponent implements OnInit {
   // Add a circle object to the canvas
   addCircle() {
     // prompt to get party size
-    const partySize = prompt("What is the party size?", "Please enter a number");
+    const partySize = prompt("What is the table number?", "Please enter a table number.");
     // creates circle
     this.circleTable = new fabric.Circle({
       radius: 75,
