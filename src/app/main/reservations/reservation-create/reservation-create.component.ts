@@ -69,7 +69,9 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
       date: new FormControl(null, {
         validators: [Validators.required]
       }),
-      notes: new FormControl(null, {})
+      notes: new FormControl(null, {
+        validators: [Validators.required]
+      })
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("reservationId")) {
