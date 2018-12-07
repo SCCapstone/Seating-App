@@ -13,12 +13,12 @@
       *ngIf="userIsAuthenticated && userId === reservation.creator"
     >
       <div class="list-box-time">{{ reservation.time }}</div>
-      <div class="list-box-date">{{ reservation.date }}</div>
+      <div class="list-box-date">{{ reservation.date.substring(0, 10) }}</div>
       <div class="list-box">{{ reservation.name }}</div>
       <div class="list-box">{{ reservation.size }}</div>
-      
+
     </mat-expansion-panel-header>
-    <p>Time / Date: {{ reservation.time }} / {{ reservation.date }}</p>
+    <p>Time / Date: {{ reservation.time }} / {{ reservation.date.substring(0, 10) }}</p>
     <p>Name: {{ reservation.name }}</p>
     <p>Size: {{ reservation.size }}</p>
     <p>Phone Number: {{ reservation.phone }}</p>
