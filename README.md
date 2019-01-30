@@ -2,26 +2,26 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.
 
-## Development server
+## Local Development Server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Download the source by cloning this master branch.
+Run `npm install` to install local and development dependencies.
 
-## Code scaffolding
+Because we are running a MEAN stack application with a node and express server, we need to first build the angular application and then run the server using the built code provided by the angular CLI.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng build`, this will create the angular application within our backend server.
 
-## Build
+Start the node server with, `npm run start:server` which will serve the angular application after the node server is started.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+To access this locally ran application, navigate to `localhost:3000` in your web browser.
 
-## Running unit tests
+## Testing
+
+### Running Unit Tests (Karma & Jasmine via Angular CLI)
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+### Running Behavior Tests (Selenium)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
