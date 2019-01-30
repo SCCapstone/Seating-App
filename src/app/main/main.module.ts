@@ -8,9 +8,9 @@ import { AccountComponent } from "./account/account.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ManagerComponent } from "./manager/manager.component";
 import { ReservationsComponent } from "./reservations/reservations.component";
-import { CanvasComponent } from './dashboard/canvas/canvas.component';
-import { SideResosComponent } from './dashboard/side-resos/side-resos.component';
-import { SideServersComponent } from './dashboard/side-servers/side-servers.component';
+import { CanvasComponent } from "./dashboard/canvas/canvas.component";
+import { SideResosComponent } from "./dashboard/side-resos/side-resos.component";
+import { SideServersComponent } from "./dashboard/side-servers/side-servers.component";
 
 @NgModule({
   declarations: [

@@ -18,7 +18,6 @@ export interface Time {
   styleUrls: ["./reservation-create.component.css"]
 })
 export class ReservationCreateComponent implements OnInit, OnDestroy {
- 
   enteredName = "";
   enteredSize = "";
   enteredPhone = "";
@@ -32,15 +31,15 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
   private reservationId: string;
   private authStatusSub: Subscription;
   times: Time[] = [
-    {value: '4:30 pm', viewValue: '4:30 pm'},
-    {value: '5:00 pm', viewValue: '5:00 pm'},
-    {value: '5:30 pm', viewValue: '5:30 pm'},
-    {value: '6:00 pm', viewValue: '6:00 pm'},
-    {value: '6:30 pm', viewValue: '6:30 pm'},
-    {value: '7:00 pm', viewValue: '7:00 pm'},
-    {value: '7:30 pm', viewValue: '7:30 pm'},
-    {value: '8:00 pm', viewValue: '8:00 pm'}
-  ]
+    { value: "4:30 pm", viewValue: "4:30 pm" },
+    { value: "5:00 pm", viewValue: "5:00 pm" },
+    { value: "5:30 pm", viewValue: "5:30 pm" },
+    { value: "6:00 pm", viewValue: "6:00 pm" },
+    { value: "6:30 pm", viewValue: "6:30 pm" },
+    { value: "7:00 pm", viewValue: "7:00 pm" },
+    { value: "7:30 pm", viewValue: "7:30 pm" },
+    { value: "8:00 pm", viewValue: "8:00 pm" }
+  ];
 
   constructor(
     public reservationsService: ReservationsService,
@@ -71,6 +70,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       }),
       notes: new FormControl(null, {
+        validators: [Validators.required]
       })
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
