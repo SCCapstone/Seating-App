@@ -23,5 +23,19 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ### Running Behavior Tests (Selenium)
 
+Before running Selenium tests you will need to:
+
+1. Install Selenium Side Runner globally with `npm install -g selenium-side-runner`
+2. Have Google chrome installed.
+3. Install ChromeDriver from [here](https://chromedriver.storage.googleapis.com/index.html?path=2.45/).
+
+Start the server as you would normally, `ng build` then `npm run start:server`.
+
+In a seperate command prompt you can then run the tests.
+
+Using the command `selenium-side-runner tests/*.side` will automatically run all our selenium tests.
+
+
+
 
 
