@@ -30,6 +30,7 @@ Before running Selenium tests you must:
 1. Install Selenium Side Runner globally with `npm install -g selenium-side-runner`
 2. Have Google chrome installed.
 3. Install ChromeDriver from [here](https://chromedriver.storage.googleapis.com/index.html?path=2.45/).
+4. Place the `chromedriver` in your `C:/Windows/` directory.
 
 Start the server as you would normally, `ng build` then `npm run start:server`.
 
