@@ -21,13 +21,16 @@ To access this locally ran application, navigate to `localhost:3000` in your web
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-### Running Behavior Tests (Selenium)
+### Running Selenium Tests
 
-Before running Selenium tests you will need to:
+Make sure this repo is cloned locally and run `npm install`.
+
+Before running Selenium tests you must:
 
 1. Install Selenium Side Runner globally with `npm install -g selenium-side-runner`
 2. Have Google chrome installed.
 3. Install ChromeDriver from [here](https://chromedriver.storage.googleapis.com/index.html?path=2.45/).
+4. Place the `chromedriver` in your `C:/Windows/` directory.
 
 Start the server as you would normally, `ng build` then `npm run start:server`.
 
