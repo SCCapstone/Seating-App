@@ -6,20 +6,12 @@ import { AuthService } from "./auth/auth.service";
 
 
 describe("AppComponent", () => {
-  beforeEach(async(() => {
+  it("should create", () => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      providers: [AuthService],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
-  it("should create the app", async(() => {
+      declarations: [ AppComponent ]
+    });
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+    const component = fixture.componentInstance;
+    expect(component).toBeDefined();
+  });
 });
