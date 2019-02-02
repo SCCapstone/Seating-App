@@ -4,7 +4,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { AppComponent } from "./app.component";
 import { AuthService } from "./auth/auth.service";
 import { HttpClientModule } from "@angular/common/http";
- // import { Router, RouterOutlet } from "@angular/router";
+
 
 
 describe("AppComponent", () => {
