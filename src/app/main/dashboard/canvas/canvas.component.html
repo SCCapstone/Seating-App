@@ -6,16 +6,22 @@
     <button mat-rasied-button class="table-button" (click)="addCircle()">
       Add Circle Table
     </button>
-    <button mat-rasied-button class="table-button" (click)="discardObject()">
+    <button mat-rasied-button class="table-button" (click)="toggleLockObject()">
+        Lock/Unlock Selected Table
+      </button>
+    <button mat-rasied-button class="delete-button" (click)="discardObject()">
       Delete Selected Table
     </button>
-    <button mat-rasied-button class="table-button" (click)="lockObject()">
-      Lock Selected Table
+    <button mat-rasied-button class="save-to-json" (click)="saveCanvas()">
+      Save to JSON
+    </button>
+    <button mat-rasied-button class="load-from-json" (click)="loadCanvas()">
+      Load from JSON
     </button>
   </div>
   <div class="canvas-wrap" id="canvas-wrap">
     <canvas id="canvas" class="canvas" style="border: 1px solid rgb(54, 54, 54);"></canvas>
   </div>
 </mat-card>
-  
+
 

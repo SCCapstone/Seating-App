@@ -70,7 +70,14 @@ export class ReservationsService {
     }>(BACKEND_URL + id);
   }
 
-  addReservation(name: string, size: string, phone: string, time: string, date: string, notes: string) {
+  addReservation(
+    name: string,
+    size: string,
+    phone: string,
+    time: string,
+    date: string,
+    notes: string
+  ) {
     /**const reservationData = new FormData();
     reservationData.append("name", name);
     reservationData.append("size", size);
