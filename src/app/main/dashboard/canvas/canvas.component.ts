@@ -2,10 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import "fabric";
 import { $ } from "protractor";
 import { getNumberOfCurrencyDigits } from "@angular/common";
+import { Canvas } from "fabric/fabric-impl";
 
 declare let fabric;
-
-
 
 @Component({
   selector: "app-canvas",
@@ -18,8 +17,6 @@ export class CanvasComponent implements OnInit {
   private circleTable;
   private textBox;
 
-
-
   constructor() {}
 
   ngOnInit() {
@@ -29,11 +26,14 @@ export class CanvasComponent implements OnInit {
     this.canvas.setWidth(canvasSpec.clientWidth);
   }
 
-  // Add a rectangle object to the canvas
+/**
+ * Creates a rectangle table object and places it in the center of the canvas.
+ */
   addRect() {
-    // prompt to get party size
-    const partySize = prompt("What is the table number?", "Please enter a table number.");
-    // creates rectangle
+    // prompt to get table number.
+    const tableNumber = prompt("What is the table number?", "Please enter a table number.");
+
+    // creates rectangle object
     this.rectTable = new fabric.Rect({
       width: 100,
       height: 100,
@@ -41,12 +41,14 @@ export class CanvasComponent implements OnInit {
       originX: "center",
       originY: "center",
     });
+
     // creates textbox
-    this.textBox = new fabric.Textbox(partySize, {
+    this.textBox = new fabric.Textbox(tableNumber, {
       originX: "center",
       originY: "center",
       fontSize: 64
     });
+
     // groups them together
     const group = new fabric.Group([this.rectTable, this.textBox ], {
       top: 100,
@@ -59,7 +61,7 @@ export class CanvasComponent implements OnInit {
   // Add a circle object to the canvas
   addCircle() {
     // prompt to get party size
-    const partySize = prompt("What is the table number?", "Please enter a table number.");
+    const tableNumber = prompt("What is the table number?", "Please enter a table number.");
     // creates circle
     this.circleTable = new fabric.Circle({
       radius: 75,
@@ -68,7 +70,7 @@ export class CanvasComponent implements OnInit {
       originY: "center",
     });
     // creates textbox
-    this.textBox = new fabric.Textbox(partySize, {
+    this.textBox = new fabric.Textbox(tableNumber, {
       originX: "center",
       originY: "center",
       fontSize: 64
@@ -108,6 +110,23 @@ export class CanvasComponent implements OnInit {
     }
   }
 
+  /**
+   * Saves what is currently on the canvas to JSON data, and outputs onto console
+  */
+  saveCanvas() {
+    const json_data = JSON.stringify(this.canvas.toJSON());
+    console.log(json_data);
+  }
+
+  /**
+   * Prompts the user for JSON data, and then places it on the canvas.
+   */
+  loadCanvas() {
+    const json_data = prompt("Enter JSON data", "");
+    this.canvas.loadFromJSON(json_data);
+
+    this.canvas.renderAll();
+  }
   /*
   // makes a textbox
   addTextBox() {
