@@ -3,8 +3,14 @@
   <mat-card>
     <button mat-raised-button color="">Profile</button>
     <mat-list>
+
+ <!--Will need new pages for the edits of these buttons below-->
+
       <mat-list-item
-        >Phone Number<button mat-raised-button class="account-button">
+        >Phone Number<button mat-raised-button 
+        routerLink="/main/account/editphone"
+        routerLinkActive="mat-accent"
+        class="account-button">
           Edit
         </button></mat-list-item
       >
