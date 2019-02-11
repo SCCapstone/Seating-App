@@ -11,6 +11,7 @@ import { ReservationsComponent } from "./reservations/reservations.component";
 import { CanvasComponent } from "./dashboard/canvas/canvas.component";
 import { SideResosComponent } from "./dashboard/side-resos/side-resos.component";
 import { SideServersComponent } from "./dashboard/side-servers/side-servers.component";
+import { AccountEditComponent } from '../account-edit/account-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SideServersComponent } from "./dashboard/side-servers/side-servers.comp
     ReservationsComponent,
     CanvasComponent,
     SideResosComponent,
-    SideServersComponent
+    SideServersComponent,
+    AccountEditComponent
   ],
   imports: [CommonModule, AngularMaterialModule, FormsModule, MainRoutingModule]
 })

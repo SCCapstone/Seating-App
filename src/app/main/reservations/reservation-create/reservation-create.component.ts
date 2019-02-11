@@ -47,6 +47,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
     private authService: AuthService
   ) {}
 
+  //Form control when initialized; validation length and authentication.
   ngOnInit() {
     this.authStatusSub = this.authService
       .getAuthStatusListener()
