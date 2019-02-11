@@ -17,6 +17,7 @@ export interface Time {
   templateUrl: "./reservation-create.component.html",
   styleUrls: ["./reservation-create.component.css"]
 })
+
 export class ReservationCreateComponent implements OnInit, OnDestroy {
   enteredName = "";
   enteredSize = "";
