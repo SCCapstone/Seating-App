@@ -1,3 +1,6 @@
+<!--Page is pretty self explanitory. Is the form that appears when clicking create reservation
+Uses form control built in-->
+
 <mat-card style="margin-top:15px;">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onSaveReservation()" *ngIf="!isLoading">
@@ -27,7 +30,7 @@
       />
       <mat-error *ngIf="form.get('phone').invalid"
         >Please enter a phone number without hyphens.</mat-error
-      >
+      > <!--No hypens since must be number. Will add check for char length-->
     </mat-form-field>
     <div class="time-date">
       <mat-form-field>

@@ -1,11 +1,9 @@
-
-
-<!--
-
 <mat-card> <mat-card-title>Account</mat-card-title> </mat-card>
 <div class="profile-bar">
   <mat-card>
-    <button mat-raised-button color="">Profile</button>
+    <button mat-raised-button color=""
+    routerLink="/main/account/edit"
+    routerLinkActive="mat-accent">Profile Settings</button>
     <mat-list>
 
   <!--    <a
@@ -14,29 +12,26 @@
       [routerLink]="['/main/account/edit', account.id]"
       >EDIT</a
     >
-  --
+  -->
 
-      <mat-list-item
-        >Phone Number<button mat-raised-button 
-        routerLink="/main/account/editphone"
-        routerLinkActive="mat-accent"
-        class="account-button">
-          Edit
-        </button></mat-list-item
-      >
+  <mat-list-item
+  >Phone Number</mat-list-item
+>
+
       
       <mat-list-item
-        >Email<button mat-raised-button class="account-button">
-          Edit
-        </button></mat-list-item
+        >Email</mat-list-item
       >
     </mat-list>
+  
   </mat-card>
+
+
 </div>
 
 <div class="settings-bar">
   <mat-card>
-    <button mat-raised-button color="">General</button>
+    <button mat-raised-button color="">General Settings</button>
     <mat-list>
       <mat-list-item
       >Notifications<button mat-raised-button class="account-button">
@@ -51,4 +46,3 @@
     </mat-list>
   </mat-card>
 </div>
--->
