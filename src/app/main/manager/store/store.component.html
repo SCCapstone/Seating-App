@@ -1,22 +1,12 @@
 <div class="store-bar">
   <mat-card>
-    <button mat-raised-button color="primary">Add Store</button>
+    <h3>Manage Stores</h3>
+    <button mat-raised-button (click)="openAddStore()">Add Store</button>
     <mat-list>
-      <mat-list-item
-        >Store 1<button mat-raised-button class="store-button" color="accent">
-          Edit Store
-        </button></mat-list-item
-      >
-      <mat-list-item
-        >Store 2<button mat-raised-button class="store-button" color="accent">
-          Edit Store
-        </button></mat-list-item
-      >
-      <mat-list-item
-        >Store 3<button mat-raised-button class="store-button" color="accent">
-          Edit Store
-        </button></mat-list-item
-      >
+      <mat-list-item>
+        Store 1
+        <button mat-raised-button style="margin-left:auto" (click)="openEditStore()">Edit Store</button>
+      </mat-list-item>
     </mat-list>
   </mat-card>
 </div>

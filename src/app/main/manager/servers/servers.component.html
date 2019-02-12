@@ -1,22 +1,12 @@
 <div class="servers-bar">
-    <mat-card>
-      <button mat-raised-button color="primary">Add Server</button>
-      <mat-list>
-        <mat-list-item
-          >Server 1<button mat-raised-button class="store-button" color="accent">
-            Edit Server
-          </button></mat-list-item
-        >
-        <mat-list-item
-          >Server 2<button mat-raised-button class="store-button" color="accent">
-            Edit Server
-          </button></mat-list-item
-        >
-        <mat-list-item
-          >Server 3<button mat-raised-button class="store-button" color="accent">
-            Edit Server
-          </button></mat-list-item
-        >
-      </mat-list>
-    </mat-card>
-  </div>
+  <mat-card>
+    <h3>Manage Servers</h3>
+    <button mat-raised-button (click)="openAddServer()">Add Server</button>
+    <mat-list>
+      <mat-list-item>
+        Server 1
+        <button mat-raised-button style="margin-left:auto" (click)="openEditServer()">Edit Server</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>
