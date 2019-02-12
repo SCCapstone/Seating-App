@@ -31,3 +31,8 @@ mat-spinner {
 .list-box-date {
   width: 15vw;
 }
+
+.container {
+  padding-left: 20px;
+  padding-right: 20px;
+}

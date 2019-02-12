@@ -11,6 +11,12 @@ import { ReservationsComponent } from "./reservations/reservations.component";
 import { CanvasComponent } from "./dashboard/canvas/canvas.component";
 import { SideResosComponent } from "./dashboard/side-resos/side-resos.component";
 import { SideServersComponent } from "./dashboard/side-servers/side-servers.component";
+import { StoreComponent } from './manager/store/store.component';
+import { FpBuilderComponent } from './manager/fp-builder/fp-builder.component';
+import { HostsComponent } from './manager/hosts/hosts.component';
+import { ServersComponent } from './manager/servers/servers.component';
+import { SideTableComponent } from './dashboard/side-table/side-table.component';
+import { SideStoreComponent } from './dashboard/side-store/side-store.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,13 @@ import { SideServersComponent } from "./dashboard/side-servers/side-servers.comp
     ReservationsComponent,
     CanvasComponent,
     SideResosComponent,
-    SideServersComponent
+    SideServersComponent,
+    StoreComponent,
+    FpBuilderComponent,
+    HostsComponent,
+    ServersComponent,
+    SideTableComponent,
+    SideStoreComponent
   ],
   imports: [CommonModule, AngularMaterialModule, FormsModule, MainRoutingModule]
 })

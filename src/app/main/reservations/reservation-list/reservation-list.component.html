@@ -1,44 +1,47 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-<mat-card class="reservation-header">
-  <div class="list-box-time">Time</div>
-  <div class="list-box-date">Day</div>
-  <div class="list-box">Name</div>
-  <div class="list-box">Size</div>
-</mat-card>
+<div class="container">
+  <mat-card class="reservation-header">
+    <div class="list-box-time">Time</div>
+    <div class="list-box-date">Day</div>
+    <div class="list-box">Name</div>
+    <div class="list-box">Size</div>
+  </mat-card>
 
-<mat-accordion multi="true" *ngIf="reservations.length > 0 && !isLoading">
-  <mat-expansion-panel *ngFor="let reservation of reservations">
-    <mat-expansion-panel-header
-      *ngIf="userIsAuthenticated && userId === reservation.creator"
-    >
-      <div class="list-box-time">{{ reservation.time }}</div>
-      <div class="list-box-date">{{ reservation.date.substring(0, 10) }}</div>
-      <div class="list-box">{{ reservation.name }}</div>
-      <div class="list-box">{{ reservation.size }}</div>
-
-    </mat-expansion-panel-header>
-    <p>Time / Date: {{ reservation.time }} / {{ reservation.date.substring(0, 10) }}</p>
-    <p>Name: {{ reservation.name }}</p>
-    <p>Size: {{ reservation.size }}</p>
-    <p>Phone Number: {{ reservation.phone }}</p>
-    <p>Notes: {{ reservation.notes }}</p>
-    <mat-action-row
-      *ngIf="userIsAuthenticated && userId === reservation.creator"
-    >
-      <a
-        mat-button
-        color="primary"
-        [routerLink]="['/main/reservations/edit', reservation.id]"
-        >EDIT</a
+  <mat-accordion multi="true" *ngIf="reservations.length > 0 && !isLoading">
+    <mat-expansion-panel *ngFor="let reservation of reservations">
+      <mat-expansion-panel-header
+        *ngIf="userIsAuthenticated && userId === reservation.creator"
       >
-      <button mat-button color="warn" (click)="onDelete(reservation.id)">
-        DELETE
-      </button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
+        <div class="list-box-time">{{ reservation.time }}</div>
+        <div class="list-box-date">{{ reservation.date.substring(0, 10) }}</div>
+        <div class="list-box">{{ reservation.name }}</div>
+        <div class="list-box">{{ reservation.size }}</div>
 
-<p class="info-text mat-body-1" *ngIf="reservations.length <= 0 && !isLoading">
-  No reservations added yet!
-</p>
+      </mat-expansion-panel-header>
+      <p>Time / Date: {{ reservation.time }} / {{ reservation.date.substring(0, 10) }}</p>
+      <p>Name: {{ reservation.name }}</p>
+      <p>Size: {{ reservation.size }}</p>
+      <p>Phone Number: {{ reservation.phone }}</p>
+      <p>Notes: {{ reservation.notes }}</p>
+      <mat-action-row
+        *ngIf="userIsAuthenticated && userId === reservation.creator"
+      >
+        <a
+          mat-button
+          color="primary"
+          [routerLink]="['/main/reservations/edit', reservation.id]"
+          >EDIT</a
+        >
+        <button mat-button color="warn" (click)="onDelete(reservation.id)">
+          DELETE
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <p class="info-text mat-body-1" *ngIf="reservations.length <= 0 && !isLoading">
+    No reservations added yet!
+  </p>
+</div>
+
