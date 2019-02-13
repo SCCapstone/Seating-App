@@ -2,6 +2,8 @@ const express = require("express");
 
 const FloorplanController = require("../controllers/floorplans");
 
+const checkAuth = require("../middleware/check-auth");
+
 const router = express.Router();
 
 router.post("", checkAuth, FloorplanController.createFloorplan);

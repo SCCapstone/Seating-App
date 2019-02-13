@@ -114,7 +114,8 @@ export class FpBuilderComponent implements OnInit {
    * Saves what is currently on the canvas to JSON data, and outputs onto console
   */
   saveCanvas() {
-    const json_data = JSON.stringify(this.canvas.toJSON());
+    // const json_data = JSON.stringify(this.canvas.toJSON());
+    const json_data = this.canvas.toJSON();
 
     // This is where the json data will need to be put onto the server.
     console.log(json_data);
