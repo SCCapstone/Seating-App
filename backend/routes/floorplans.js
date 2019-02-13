@@ -4,4 +4,14 @@ const FloorplanController = require("../controllers/floorplans");
 
 const router = express.Router();
 
+router.post("", checkAuth, FloorplanController.createFloorplan);
+
+router.put("/:id", checkAuth, FloorplanController.updateFloorplan);
+
+// router.get("", FloorplanController.getFloorplans);
+
+router.get("/:id", FloorplanController.getFloorplan);
+
+router.delete("/:id", checkAuth, FloorplanController.deleteFloorplan);
+
 module.exports = router;
