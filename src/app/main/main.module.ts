@@ -11,7 +11,7 @@ import { ReservationsComponent } from "./reservations/reservations.component";
 import { CanvasComponent } from "./dashboard/canvas/canvas.component";
 import { SideResosComponent } from "./dashboard/side-resos/side-resos.component";
 import { SideServersComponent } from "./dashboard/side-servers/side-servers.component";
-import { StoreComponent, StoreAddComponent, StoreEditComponent } from './manager/store/store.component';
+// import { StoreComponent, StoreAddComponent, StoreEditComponent } from './manager/store/store.component';
 import { FpBuilderComponent } from './manager/fp-builder/fp-builder.component';
 import { HostsComponent, HostsAddComponent, HostsEditComponent } from './manager/hosts/hosts.component';
 import { ServersComponent, ServersAddComponent, ServersEditComponent } from './manager/servers/servers.component';
@@ -27,9 +27,11 @@ import { SideStoreComponent } from './dashboard/side-store/side-store.component'
     CanvasComponent,
     SideResosComponent,
     SideServersComponent,
+    /**
     StoreComponent,
     StoreEditComponent,
     StoreAddComponent,
+    */
     FpBuilderComponent,
     HostsComponent,
     HostsAddComponent,
@@ -47,11 +49,12 @@ import { SideStoreComponent } from './dashboard/side-store/side-store.component'
     ServersEditComponent,
     HostsComponent,
     HostsAddComponent,
-    HostsEditComponent,
+    HostsEditComponent/**,
     StoreComponent,
     StoreAddComponent,
     StoreEditComponent
+    */
   ],
-  bootstrap: [ServersComponent, HostsComponent, StoreComponent]
+  bootstrap: [ServersComponent, HostsComponent, /** StoreComponent */]
 })
 export class MainModule {}
