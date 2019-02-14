@@ -1,45 +1,63 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { ActivatedRoute, ParamMap } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Component, Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
-import { AuthService } from "../../../auth/auth.service";
+@Component({
+  selector: 'app-account-edit',
+  templateUrl: './account-edit.component.html',
+  styleUrls: ['./account-edit.component.css']
+})
+export class AccountEComponent {
 
-export interface Time {
-  value: string;
-  viewValue: string;
+  constructor(public dialog: MatDialog) { }
+
+  openAddHost(): void {
+    const dialogRef = this.dialog.open(AccountEComponent, {
+      width: '60%',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  openEditHost(): void {
+    const dialogRef = this.dialog.open(AccountEComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+}
+
+
+@Component({ //may need to get rid of
+  selector: 'app-account-edit-add',
+  templateUrl: 'hosts-add.component.html',
+})
+export class AccountAddComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<AccountAddComponent>) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }
 
 @Component({
-  selector: "app-account-edit",
-  templateUrl: "./account-edit.component.html",
-  styleUrls: ["./account-edit.component.css"]
+  selector: 'app-account-edit',
+  templateUrl: 'account-edit.component.html',
 })
-
-export class AccountEditComponent implements OnInit {
+export class AccountEditComponent {
 
   constructor(
-    public route: ActivatedRoute,
-    private authService: AuthService
-  ) { 
-    
-  }
+    public dialogRef: MatDialogRef<AccountEditComponent>) {}
 
-  ngOnInit() {
-    this.authStatusSub = this.authService
-      .getAuthStatusListener()
-      .subscribe(authStatus => {
-        this.isLoading = false;
-      });
-    this.form = new FormGroup({
-      name: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      }),
-      phone: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(10)]
-      })
-      
-    });
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

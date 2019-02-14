@@ -1,5 +1,5 @@
 
-/**
+
 import { Component, Inject, OnInit, OnDestroy } from "@angular/core";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -125,4 +125,3 @@ export class StoreEditComponent {
     this.dialogRef.close();
   }
 }
-*/
