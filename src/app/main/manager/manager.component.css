@@ -4,13 +4,19 @@
     position: absolute;
     right: 20px;
     bottom: 20px;
-  } */
+  }
 
 .store-button {
   position: absolute;
   right: 0px;
 }
+*/
 
 mat-card {
   margin-bottom: 25px;
+}
+
+.container {
+  padding-left: 20px;
+  padding-right: 20px;
 }

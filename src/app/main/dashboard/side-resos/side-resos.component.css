@@ -1,0 +1,37 @@
+:host {
+  display: block;
+  margin-top: 1rem;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+mat-card {
+  padding: 15px;
+}
+
+.info-text {
+  text-align: center;
+}
+.spacer {
+  margin-right: 15%;
+}
+.reservation-header {
+  display: flex;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.list-box {
+  width: 15vw;
+}
+
+.list-box-time {
+  width: 15vw;
+}
+.list-box-date {
+  width: 15vw;
+}

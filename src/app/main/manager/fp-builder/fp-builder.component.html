@@ -1,5 +1,7 @@
-<mat-card class="table-view">
-  <!--
+<mat-expansion-panel style="margin-top: 15px; margin-bottom: 15px">
+  <mat-expansion-panel-header>
+    <h3>Floor Plan Builder</h3>
+  </mat-expansion-panel-header>
   <div class="table-button-group">
     <button mat-rasied-button class="table-button" (click)="addRect()">
       Add Rectangle Table
@@ -10,23 +12,19 @@
     <button mat-rasied-button class="table-button" (click)="toggleLockObject()">
         Lock/Unlock Selected Table
       </button>
-    <button mat-rasied-button class="delete-button" (click)="discardObject()"> 
+    <button mat-rasied-button class="delete-button" (click)="discardObject()">
       Delete Selected Table
     </button>
-    <button mat-rasied-button class="save-to-json" (click)="saveCanvas()">  <!--temporary solution to save and load the convas. will need to be able to do it live refresh soon-->
+    <button mat-rasied-button class="save-to-json" (click)="saveCanvas()">
       Save to JSON
     </button>
     <button mat-rasied-button class="load-from-json" (click)="loadCanvas()">
       Load from JSON
     </button>
   </div>
-  -->
-  <button mat-rasied-button class="load-from-json" (click)="loadCanvas()">
-    Load from JSON
-  </button>
-  <div class="canvas-wrap" id="canvas-wrap">
-    <canvas id="canvas" class="canvas" style="border: 1px solid rgb(54, 54, 54);"></canvas>
+  <div class="table-view">
+    <div class="canvas-wrap" id="canvas-wrap">
+      <canvas id="canvas" class="canvas" style="border: 1px solid rgb(54, 54, 54);"></canvas>
+    </div>
   </div>
-</mat-card>
-
-
+</mat-expansion-panel>
