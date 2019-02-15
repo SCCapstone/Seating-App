@@ -3,6 +3,12 @@ import "fabric";
 import { $ } from "protractor";
 import { getNumberOfCurrencyDigits } from "@angular/common";
 import { Canvas } from "fabric/fabric-impl";
+import { FloorplansService } from "./floorplan.service";
+import { Subscription } from 'rxjs';
+import { ReservationsService } from '../../reservations/reservations.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Floorplan } from './floorplan.model';
 
 declare let fabric;
 
@@ -17,13 +23,53 @@ export class FpBuilderComponent implements OnInit {
   private circleTable;
   private textBox;
 
-  constructor() {}
+  floorplan: Floorplan;
+  private floorplanId: string;
+  private authStatusSub: Subscription;
+
+  isLoading = false;
+
+  constructor(
+    public floorplansService: FloorplansService,
+    public route: ActivatedRoute,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
+    this.authStatusSub = this.authService
+    .getAuthStatusListener()
+    .subscribe(authStatus => {
+      this.isLoading = false;
+    });
     this.canvas = new fabric.Canvas("canvas", {});
     const canvasSpec  = document.getElementById("canvas-wrap");
     this.canvas.setHeight(canvasSpec.clientHeight - 50);
     this.canvas.setWidth(canvasSpec.clientWidth);
+
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      /**
+       * I think this line is the key to a lot of this. How can I get the id
+       * of the floorplan without typing it into the address bar?
+       */
+      if (paramMap.has("floorplanId")) {
+        console.log("loading floorplan");
+        this.floorplanId = paramMap.get("floorplanId");
+        this.isLoading = true;
+        this.floorplansService
+          .getFloorplan(this.floorplanId)
+          .subscribe(floorplanData => {
+            this.isLoading = false;
+            this.floorplan = {
+              id: floorplanData._id,
+              json: floorplanData.json,
+              creator: floorplanData.creator
+            };
+          });
+      } else {
+        console.log("Creating floorplan");
+        this.floorplanId = null;
+      }
+    });
   }
 
 /**
@@ -116,6 +162,7 @@ export class FpBuilderComponent implements OnInit {
   saveCanvas() {
     // const json_data = JSON.stringify(this.canvas.toJSON());
     const json_data = this.canvas.toJSON();
+
 
     // This is where the json data will need to be put onto the server.
     console.log(json_data);

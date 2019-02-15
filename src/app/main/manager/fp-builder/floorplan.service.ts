@@ -64,7 +64,7 @@ export class FloorplansService {
 
 
 
-  deleteReservations(floorplanId: string) {
+  deleteFloorplans(floorplanId: string) {
     return this.http.delete(BACKEND_URL + floorplanId);
   }
 }
