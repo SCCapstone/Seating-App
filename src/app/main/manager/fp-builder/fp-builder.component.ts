@@ -24,6 +24,7 @@ export class FpBuilderComponent implements OnInit {
   private textBox;
 
   floorplan: Floorplan;
+  private mode = "create";
   private floorplanId: string;
   private authStatusSub: Subscription;
 
@@ -53,6 +54,7 @@ export class FpBuilderComponent implements OnInit {
        */
       if (paramMap.has("floorplanId")) {
         console.log("loading floorplan");
+        this.mode = "edit";
         this.floorplanId = paramMap.get("floorplanId");
         this.isLoading = true;
         this.floorplansService
@@ -67,6 +69,7 @@ export class FpBuilderComponent implements OnInit {
           });
       } else {
         console.log("Creating floorplan");
+        this.mode = "create";
         this.floorplanId = null;
       }
     });
@@ -163,18 +166,42 @@ export class FpBuilderComponent implements OnInit {
     // const json_data = JSON.stringify(this.canvas.toJSON());
     const json_data = this.canvas.toJSON();
 
+    this.floorplansService.addFloorplan(json_data);
+
+    /**
+    if (this.mode === "create") {
+      this.floorplansService.addFloorplan(
+        json_data
+      );
+    } else {
+      this.floorplansService.updateFloorplan(
+        this.floorplanId,
+        json_data
+      );
+    }
+    */
 
     // This is where the json data will need to be put onto the server.
-    console.log(json_data);
+    // console.log(json_data);
   }
 
   /**
    * Prompts the user for JSON data, and then places it on the canvas.
    */
   loadCanvas() {
-    const json_data = prompt("Enter JSON data", "");
-    this.canvas.loadFromJSON(json_data);
+    // Currently prompts user for object ID. **TODO
+    const floorplan_id = prompt("Enter floorplan object ID", "");
 
+    this.floorplansService.getFloorplan(floorplan_id).subscribe(floorplanData => {
+      this.floorplan = {
+        id: floorplanData._id,
+        json: floorplanData.json,
+        creator: floorplanData.creator
+      };
+
+      this.canvas.loadFromJSON(this.floorplan.json);
+    });
+    // Redraws the canvas.
     this.canvas.renderAll();
   }
   /*

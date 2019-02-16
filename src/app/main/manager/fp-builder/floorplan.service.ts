@@ -46,7 +46,7 @@ export class FloorplansService {
         floorplanData
       )
       .subscribe(responseData => {
-        this.router.navigate(["/main/floorplans"]);
+        this.router.navigate(["/main/dashboard"]);
       });
   }
 
