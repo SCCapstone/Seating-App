@@ -24,19 +24,23 @@ export class FloorplansService {
   }
 
   getFloorplan(id: string) {
+ // getFloorplan(id: string) {
     return this.http.get<{
       _id: string;
+      name: string;
       json: JSON;
       creator: string;
     }>(BACKEND_URL + id);
   }
 
   addFloorplan(
+    name: string,
     json: JSON
   ) {
 
     const floorplanData: Floorplan = {
       id: null,
+      name: name,
       json: json,
       creator: null
     };
@@ -52,11 +56,13 @@ export class FloorplansService {
 
   updateFloorplan(
     id: string,
+    name: string,
     json: JSON
   ) {
     let floorplanData: Floorplan;
     floorplanData = {
       id: id,
+      name: name,
       json: json,
       creator: null
     };

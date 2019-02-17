@@ -63,6 +63,7 @@ export class FpBuilderComponent implements OnInit {
             this.isLoading = false;
             this.floorplan = {
               id: floorplanData._id,
+              name: floorplanData.name,
               json: floorplanData.json,
               creator: floorplanData.creator
             };
@@ -165,8 +166,9 @@ export class FpBuilderComponent implements OnInit {
   saveCanvas() {
     // const json_data = JSON.stringify(this.canvas.toJSON());
     const json_data = this.canvas.toJSON();
+    const fpName = prompt("Enter name for floorplan", "");
 
-    this.floorplansService.addFloorplan(json_data);
+    this.floorplansService.addFloorplan(fpName, json_data);
 
     /**
     if (this.mode === "create") {
@@ -189,12 +191,13 @@ export class FpBuilderComponent implements OnInit {
    * Prompts the user for JSON data, and then places it on the canvas.
    */
   loadCanvas() {
-    // Currently prompts user for object ID. **TODO
-    const floorplan_id = prompt("Enter floorplan object ID", "");
+    // Currently prompts user for name. **TODO
+    const fpId = prompt("Enter floorplan ID", "");
 
-    this.floorplansService.getFloorplan(floorplan_id).subscribe(floorplanData => {
+    this.floorplansService.getFloorplan(fpId).subscribe(floorplanData => {
       this.floorplan = {
         id: floorplanData._id,
+        name: floorplanData.name,
         json: floorplanData.json,
         creator: floorplanData.creator
       };
