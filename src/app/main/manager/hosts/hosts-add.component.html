@@ -1,7 +1,11 @@
-<h1 mat-dialog-title>Host Add</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
+<h1 mat-dialog-title>Add Host</h1>
+<mat-form-field appearance="legacy">
+  <mat-label>Enter Host Name</mat-label>
+  <input matInput placeholder="Type Here">
+</mat-form-field>
+<br />
+<div mat-dialog-actions class="store-bar">
+  <button mat-rasied-button color="primary" (click)="onNoClick()">Save</button>
+  &nbsp;
+  <button mat-rasied-button color="warn" (click)="onNoClick()">Cancel</button>
 </div>
