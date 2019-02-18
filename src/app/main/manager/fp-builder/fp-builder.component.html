@@ -15,18 +15,12 @@
     <button mat-rasied-button class="delete-button" (click)="discardObject()">
       Delete Selected Table
     </button>
-    <button mat-rasied-button class="table-button" (click)="saveCanvas()">
-      Save to JSON
-    </button>
-    <button mat-rasied-button class="table-button" (click)="loadCanvas()">
-      Load from JSON
-    </button>
   </div>
 
     <mat-form-field>
       <mat-select>
         <ng-container *ngFor="let floorplan of floorplanList">
-          <mat-option *ngIf="userIsAuthenticated && userId === floorplan.creator" [value]="floorplan.id">
+          <mat-option (click)="loadCanvas(floorplan.id)" *ngIf="userIsAuthenticated && userId === floorplan.creator">
             {{floorplan.name}}
           </mat-option>
         </ng-container>
@@ -38,5 +32,14 @@
     <div class="canvas-wrap" id="canvas-wrap">
       <canvas id="canvas" class="canvas" style="border: 1px solid rgb(54, 54, 54);"></canvas>
     </div>
+  </div>
+
+  <div class="table-button-group">
+    <button mat-rasied-button class="table-button" (click)="saveCanvas()">
+      Save Floorplan
+    </button>
+    <button mat-rasied-button class="table-button" (click)="loadCanvas()">
+      Load from JSON
+    </button>
   </div>
 </mat-expansion-panel>

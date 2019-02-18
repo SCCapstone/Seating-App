@@ -5,7 +5,6 @@ import { getNumberOfCurrencyDigits } from "@angular/common";
 import { Canvas } from "fabric/fabric-impl";
 import { FloorplansService } from "./floorplan.service";
 import { Subscription } from 'rxjs';
-import { ReservationsService } from '../../reservations/reservations.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Floorplan } from './floorplan.model';
@@ -216,18 +215,17 @@ export class FpBuilderComponent implements OnInit {
   /**
    * Prompts the user for JSON data, and then places it on the canvas.
    */
-  loadCanvas() {
+  loadCanvas(id: string) {
     // Currently prompts user for name. **TODO
-    const fpId = prompt("Enter floorplan ID", "");
+    console.log("Loading Floorplan with ID: " + id);
 
-    this.floorplansService.getFloorplan(fpId).subscribe(floorplanData => {
+    this.floorplansService.getFloorplan(id).subscribe(floorplanData => {
       this.floorplan = {
         id: floorplanData._id,
         name: floorplanData.name,
         json: floorplanData.json,
         creator: floorplanData.creator
       };
-
       this.canvas.loadFromJSON(this.floorplan.json);
     });
     // Redraws the canvas.
