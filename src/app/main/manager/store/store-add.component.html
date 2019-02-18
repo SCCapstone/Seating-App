@@ -1,7 +1,15 @@
 <h1 mat-dialog-title>Add Store</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
+<mat-form-field appearance="legacy">
+  <mat-label>Enter Store Name</mat-label>
+  <input matInput placeholder="Type Here">
+</mat-form-field>
+<br />
+<mat-form-field appearance="legacy">
+  <mat-label>Enter Store Adress</mat-label>
+  <input matInput placeholder="Type Here">
+</mat-form-field>
+<div mat-dialog-actions class="store-bar">
+  <button mat-rasied-button color="primary" (click)="onNoClick()">Save</button>
+  &nbsp;
+  <button mat-rasied-button color="warn" (click)="onNoClick()">Cancel</button>
 </div>
