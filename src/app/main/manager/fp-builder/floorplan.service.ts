@@ -19,6 +19,35 @@ export class FloorplansService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  getFloorplans() {
+    this.http
+      .get<{ message: string; floorplans: any; }>(
+        BACKEND_URL
+      )
+      .pipe(
+        map(floorplanData => {
+          return {
+            floorplans: floorplanData.floorplans.map(floorplan => {
+              return {
+                name: floorplan.name,
+                json: floorplan.json,
+                id: floorplan._id,
+                creator: floorplan.creator
+              };
+            })
+
+          };
+        })
+      )
+      .subscribe(transformedFloorplanData => {
+        this.floorplans = transformedFloorplanData.floorplans;
+        this.floorplansUpdated.next({
+          floorplans: [...this.floorplans],
+          // floorplanCount: transformedFloorplanData.maxFloorplans
+        });
+      });
+  }
+
   getFloorplanUpdateListener() {
     return this.floorplansUpdated.asObservable();
   }

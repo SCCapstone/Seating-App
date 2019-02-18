@@ -56,6 +56,7 @@ exports.updateFloorplan = (req, res, next) => {
 };
 
 exports.getFloorplans = (req, res, next) => {
+  const floorplanQuery = Floorplan.find();
   let fetchedFloorplans;
 
   floorplanQuery

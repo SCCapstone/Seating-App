@@ -24,11 +24,17 @@ export class FpBuilderComponent implements OnInit {
   private textBox;
 
   floorplan: Floorplan;
+  floorplanList: Floorplan[] = [];
   private mode = "create";
   private floorplanId: string;
+  private floorplansSub: Subscription;
   private authStatusSub: Subscription;
 
+  totalFloorplans = 0;
+
   isLoading = false;
+  userIsAuthenticated = false;
+  userId: string;
 
   constructor(
     public floorplansService: FloorplansService,
@@ -37,21 +43,41 @@ export class FpBuilderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
+    this.floorplansService.getFloorplans();
+    this.userId = this.authService.getUserId();
+    this.floorplansSub = this.floorplansService
+      .getFloorplanUpdateListener()
+      .subscribe(
+        (floorplanData: {
+          floorplans: Floorplan[];
+          floorplanCount: number;
+        }) => {
+          this.isLoading = false;
+          this.totalFloorplans = floorplanData.floorplanCount;
+          this.floorplanList = floorplanData.floorplans;
+        }
+      );
+    this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
+      });
+
+/*     this.authStatusSub = this.authService
     .getAuthStatusListener()
     .subscribe(authStatus => {
       this.isLoading = false;
-    });
+    }); */
     this.canvas = new fabric.Canvas("canvas", {});
     const canvasSpec  = document.getElementById("canvas-wrap");
     this.canvas.setHeight(canvasSpec.clientHeight - 50);
     this.canvas.setWidth(canvasSpec.clientWidth);
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      /**
-       * I think this line is the key to a lot of this. How can I get the id
-       * of the floorplan without typing it into the address bar?
-       */
+
       if (paramMap.has("floorplanId")) {
         console.log("loading floorplan");
         this.mode = "edit";
