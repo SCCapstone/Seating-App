@@ -11,6 +11,7 @@ const BACKEND_URL = environment.apiUrl + "/stores/";
 
 @Injectable({ providedIn: "root" })
 export class StoresService {
+  storeToUpdate = "none";
   private stores: Store[] = [];
   private storesUpdated = new Subject<{
     stores: Store[];
@@ -87,5 +88,12 @@ export class StoresService {
 
   deleteStore(storeId: string) {
     return this.http.delete(BACKEND_URL + storeId);
+  }
+
+  setStoreToEdit(id: string) {
+    this.storeToUpdate = id;
+  }
+  getStoreToEdit() {
+    return this.storeToUpdate;
   }
 }

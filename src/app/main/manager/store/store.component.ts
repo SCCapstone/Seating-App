@@ -1,6 +1,6 @@
 
 
-import { Component, Inject, OnInit, OnDestroy } from "@angular/core";
+import { Component, Inject, OnInit, OnDestroy, Input } from "@angular/core";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
@@ -16,6 +16,7 @@ import { AuthService } from "../../../auth/auth.service";
   styleUrls: ["./store.component.css"]
 })
 export class StoreComponent implements OnInit, OnDestroy {
+  editStoreID = "none";
   stores: Store[] = [];
   isLoading = false;
   totalStores = 0;
@@ -72,7 +73,8 @@ export class StoreComponent implements OnInit, OnDestroy {
       console.log("The dialog was closed");
     });
   }
-  openEditStore(): void {
+  openEditStore(id: string): void {
+    this.storesService.setStoreToEdit(id);
     const dialogRef = this.dialog.open(StoreEditComponent, {
       width: "400px"
     });
@@ -142,8 +144,86 @@ export class StoreAddComponent implements OnInit, OnDestroy {
   selector: "app-store-edit",
   templateUrl: "store-edit.component.html"
 })
-export class StoreEditComponent {
-  constructor(public dialogRef: MatDialogRef<StoreEditComponent>) {}
+export class StoreEditComponent implements OnInit, OnDestroy {
+  storeToEdit = "none";
+  enteredName = "";
+  store: Store;
+  isLoading = false;
+  form: FormGroup;
+  private mode = "edit";
+  private storeId: string;
+  private authStatusSub: Subscription;
+  constructor(
+    public dialogRef: MatDialogRef<StoreEditComponent>,
+    public storesService: StoresService,
+    public route: ActivatedRoute,
+    public authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.storeToEdit = this.storesService.getStoreToEdit();
+    console.log(this.storeToEdit);
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(authStatus => {
+        this.isLoading = false;
+      });
+    this.form = new FormGroup({
+      name: new FormControl(null, {
+        validators: [Validators.required]
+      })
+    });
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has(this.storeToEdit)) {
+        console.log("Edit mode entered");
+        this.mode = "edit";
+        this.storeId = paramMap.get(this.storeToEdit);
+        this.isLoading = true;
+        this.storesService
+          .getStore(this.storeId)
+          .subscribe(storeData => {
+            this.isLoading = false;
+            this.store = {
+              id: storeData._id,
+              name: storeData.name,
+              creator: storeData.creator
+            };
+            this.form.setValue({
+              name: this.store.name
+            });
+          });
+      }
+    });
+  }
+
+  onUpdateStore() {
+    if (this.form.invalid) {
+      return;
+    }
+    this.storeId = this.storeToEdit;
+    this.isLoading = true;
+      this.storesService.updateStore(
+        this.storeId,
+        this.form.value.name
+    );
+    this.isLoading = false;
+    this.dialogRef.close();
+    this.form.reset();
+  }
+
+  onDelete() {
+    this.isLoading = true;
+    this.storesService.deleteStore(this.storeToEdit).subscribe(
+      () => {
+        this.isLoading = false;
+        this.dialogRef.close();
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
