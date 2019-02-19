@@ -24,6 +24,7 @@ export class FpBuilderComponent implements OnInit {
 
   floorplan: Floorplan;
   floorplanList: Floorplan[] = [];
+  selected = "None";
   private mode = "create";
   private floorplanId: string;
   private floorplansSub: Subscription;
@@ -226,6 +227,7 @@ export class FpBuilderComponent implements OnInit {
         json: floorplanData.json,
         creator: floorplanData.creator
       };
+      this.selected = floorplanData.name;
       this.canvas.loadFromJSON(this.floorplan.json);
     });
     // Redraws the canvas.
