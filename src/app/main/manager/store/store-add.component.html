@@ -1,6 +1,14 @@
 <h1 mat-dialog-title>Add Store</h1>
-<div mat-dialog-content>
-</div>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSaveStore()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" FormControlName="name" placeholder="Store Name" />
+      <mat-error *ngIf="form.get('name').invalid">Please enter a store name.</mat-error>
+    </mat-form-field>
+    <button style="margin-left:2rem;" mat-raised-button color="accent" type="submit">Add</button>
+  </form>
+</mat-card>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button style="margin-left:auto;" mat-button (click)="onNoClick()">Close</button>
 </div>

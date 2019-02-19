@@ -15,63 +15,11 @@ import { AuthService } from "../../../auth/auth.service";
   templateUrl: "./store.component.html",
   styleUrls: ["./store.component.css"]
 })
-export class StoreComponent implements OnInit, OnDestroy {
-  enteredName = "";
-  store: Store;
-  isLoading = false;
-  form: FormGroup;
-  private mode = "create";
-  private storeId: string;
-  private authStatusSub: Subscription;
+export class StoreComponent {
 
   constructor(
-    public dialog: MatDialog,
-    public storesService: StoresService,
-    public route: ActivatedRoute,
-    public authService: AuthService
+    public dialog: MatDialog
   ) {}
-
-  ngOnInit() {
-    this.authStatusSub = this.authService
-      .getAuthStatusListener()
-      .subscribe(authStatus => {
-        this.isLoading = false;
-      });
-    this.form = new FormGroup({
-      name: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
-      })
-    });
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has("storeId")) {
-        console.log("Edit mode entered");
-        this.mode = "edit";
-        this.storeId = paramMap.get("storeId");
-        this.isLoading = true;
-        this.storesService
-          .getStore(this.storeId)
-          .subscribe(storeData => {
-            this.isLoading = false;
-            this.store = {
-              id: storeData._id,
-              name: storeData.name,
-              creator: storeData.creator
-            };
-            this.form.setValue({
-              name: this.store.name,
-            });
-          });
-      } else {
-        console.log("Create mode entered");
-        this.mode = "create";
-        this.storeId = null;
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.authStatusSub.unsubscribe();
-  }
 
   openAddStore(): void {
     const dialogRef = this.dialog.open(StoreAddComponent, {
@@ -149,6 +97,22 @@ export class StoreAddComponent implements OnInit, OnDestroy {
         this.storeId = null;
       }
     });
+  }
+
+  onSaveStore() {
+    this.isLoading = true;
+    if (this.mode === "create") {
+      this.storesService.addStore(
+        this.form.value.name
+      );
+    } else {
+      this.storesService.updateStore(
+        this.storeId,
+        this.form.value.name
+      );
+    }
+    console.log("Store ADDED");
+    this.form.reset();
   }
 
   ngOnDestroy() {

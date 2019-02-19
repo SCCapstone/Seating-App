@@ -9,7 +9,7 @@ exports.createStore = (req, res, next) => {
     .save()
     .then(createdStore => {
       res.status(201).json({
-        message: "Reservation added successfully",
+        message: "Store added successfully",
         store: {
           ...createdStore,
           id: createdStore._id
@@ -18,7 +18,7 @@ exports.createStore = (req, res, next) => {
     })
     .catch(error => {
       res.status(500).json({
-        message: "Creating a reservation failed!"
+        message: "Creating a store failed!"
       });
     });
 };
@@ -39,7 +39,7 @@ exports.updateStore = (req, res, next) => {
     })
     .catch(error => {
       res.status(500).json({
-        message: "Couldn't update reservation!"
+        message: "Couldn't update store!"
       });
     });
 };
@@ -77,12 +77,12 @@ exports.getStore = (req, res, next) => {
       if (store) {
         res.status(200).json(store);
       } else {
-        res.status(404).json({ message: "Reservation not found!" });
+        res.status(404).json({ message: "Store not found!" });
       }
     })
     .catch(error => {
       res.status(500).json({
-        message: "Fetching reservation failed!"
+        message: "Fetching store failed!"
       });
     });
 };

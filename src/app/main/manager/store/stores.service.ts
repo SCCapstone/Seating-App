@@ -61,12 +61,6 @@ export class StoresService {
   }
 
   addStore(name: string) {
-    /**const reservationData = new FormData();
-    reservationData.append("name", name);
-    reservationData.append("size", size);
-    reservationData.append("phone", phone);
-    reservationData.append("notes", notes);
-    */
     const storeData: Store = {
       id: null,
       name: name,
@@ -75,7 +69,7 @@ export class StoresService {
     this.http
       .post<{ message: string; store: Store }>(BACKEND_URL, storeData)
       .subscribe(responseData => {
-        this.router.navigate(["/main/stores"]);
+        this.router.navigate(["/main/dashboard"]);
       });
   }
 

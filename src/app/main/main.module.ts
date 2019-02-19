@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AngularMaterialModule } from "../angular-material.module";
 import { MainRoutingModule } from "./main-routing.module";
@@ -40,7 +40,7 @@ import { SideStoreComponent } from './dashboard/side-store/side-store.component'
     SideTableComponent,
     SideStoreComponent
   ],
-  imports: [CommonModule, AngularMaterialModule, FormsModule, MainRoutingModule],
+  imports: [CommonModule, AngularMaterialModule, FormsModule, MainRoutingModule, ReactiveFormsModule],
   entryComponents: [
     ServersComponent,
     ServersAddComponent,
