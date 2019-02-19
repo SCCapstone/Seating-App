@@ -1,6 +1,6 @@
 const express = require("express");
 
-const ReservationController = require("../controllers/servers");
+const ServerController = require("../controllers/servers");
 
 const checkAuth = require("../middleware/check-auth");
 
