@@ -1,5 +1,3 @@
-
-
 import { Component, Inject, OnInit, OnDestroy, Input } from "@angular/core";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -24,7 +22,7 @@ export class StoreComponent implements OnInit, OnDestroy {
   currentPage = 1;
   userIsAuthenticated = false;
   userId: string;
-  private reservationsSub: Subscription;
+  private storesSub: Subscription;
   private authStatusSub: Subscription;
 
   constructor(
@@ -40,7 +38,7 @@ export class StoreComponent implements OnInit, OnDestroy {
       this.currentPage
     );
     this.userId = this.authService.getUserId();
-    this.reservationsSub = this.storesService
+    this.storesSub = this.storesService
       .getStoreUpdateListener()
       .subscribe(
         (storeData: {
@@ -60,7 +58,7 @@ export class StoreComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.reservationsSub.unsubscribe();
+    this.storesSub.unsubscribe();
     this.authStatusSub.unsubscribe();
   }
 

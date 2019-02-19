@@ -1,7 +1,18 @@
-<h1 mat-dialog-title>Server Add</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-</div>
+<h1 mat-dialog-title>Add Server</h1>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSaveServer()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="Server Name" />
+      <mat-error *ngIf="form.get('name').invalid">Please enter a server name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="store" placeholder="Store ID" />
+      <mat-error *ngIf="form.get('name').invalid">Please enter a store ID.</mat-error>
+    </mat-form-field>
+    <button style="margin-left:2rem;" mat-raised-button color="accent" type="submit">Add</button>
+  </form>
+</mat-card>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button style="margin-left:auto;" mat-button (click)="onNoClick()">Close</button>
 </div>

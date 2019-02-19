@@ -52,7 +52,7 @@ exports.updateServer = (req, res, next) => {
 exports.getServers = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  const serverQuery = Reservation.find();
+  const serverQuery = Server.find();
   let fetchedServers;
   if (pageSize && currentPage) {
     serverQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
