@@ -231,6 +231,24 @@ export class FpBuilderComponent implements OnInit {
     // Redraws the canvas.
     this.canvas.renderAll();
   }
+
+  deleteFloorplan(id: string) {
+    // Currently prompts user for name. **TODO
+    console.log("Deleteing Floorplan with ID: " + id);
+
+/**   this.floorplansService.getFloorplan(id).subscribe(floorplanData => {
+      this.floorplan = {
+        id: floorplanData._id,
+        name: floorplanData.name,
+        json: floorplanData.json,
+        creator: floorplanData.creator
+      };
+      this.canvas.loadFromJSON(this.floorplan.json);
+       */
+    //});
+    // Redraws the canvas.
+    //this.canvas.renderAll();
+  }
   /*
   // makes a textbox
   addTextBox() {

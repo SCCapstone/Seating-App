@@ -17,15 +17,18 @@
     </button>
   </div>
 
-    <mat-form-field>
-      <mat-select>
-        <ng-container *ngFor="let floorplan of floorplanList">
-          <mat-option (click)="loadCanvas(floorplan.id)" *ngIf="userIsAuthenticated && userId === floorplan.creator">
-            {{floorplan.name}}
-          </mat-option>
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-select>
+      <ng-container *ngFor="let floorplan of floorplanList">
+        <mat-option (click)="loadCanvas(floorplan.id)" *ngIf="userIsAuthenticated && userId === floorplan.creator">
+          {{floorplan.name}}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+  <button style="margin-left: 3rem;" mat-rasied-button class="delete-button" (click)="deleteFloorplan(floorplan.id)">
+    Delete Floorplan
+  </button>
 
 
   <div class="table-view">
