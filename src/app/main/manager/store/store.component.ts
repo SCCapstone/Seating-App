@@ -15,11 +15,53 @@ import { AuthService } from "../../../auth/auth.service";
   templateUrl: "./store.component.html",
   styleUrls: ["./store.component.css"]
 })
-export class StoreComponent {
+export class StoreComponent implements OnInit, OnDestroy {
+  stores: Store[] = [];
+  isLoading = false;
+  totalStores = 0;
+  storesPerPage = 10;
+  currentPage = 1;
+  userIsAuthenticated = false;
+  userId: string;
+  private reservationsSub: Subscription;
+  private authStatusSub: Subscription;
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public storesService: StoresService,
+    private authService: AuthService
   ) {}
+
+  ngOnInit() {
+    this.isLoading = true;
+    this.storesService.getStores(
+      this.storesPerPage,
+      this.currentPage
+    );
+    this.userId = this.authService.getUserId();
+    this.reservationsSub = this.storesService
+      .getStoreUpdateListener()
+      .subscribe(
+        (storeData: {
+          stores: Store[];
+        }) => {
+          this.isLoading = false;
+          this.stores = storeData.stores;
+        }
+      );
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
+      });
+  }
+
+  ngOnDestroy() {
+    this.reservationsSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
+  }
 
   openAddStore(): void {
     const dialogRef = this.dialog.open(StoreAddComponent, {
@@ -50,7 +92,6 @@ export class StoreAddComponent implements OnInit, OnDestroy {
   store: Store;
   isLoading = false;
   form: FormGroup;
-  private mode = "create";
   private storeId: string;
   private authStatusSub: Subscription;
 
@@ -69,49 +110,22 @@ export class StoreAddComponent implements OnInit, OnDestroy {
       });
     this.form = new FormGroup({
       name: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
+        validators: [Validators.required]
       })
     });
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has("storeId")) {
-        console.log("Edit mode entered");
-        this.mode = "edit";
-        this.storeId = paramMap.get("storeId");
-        this.isLoading = true;
-        this.storesService
-          .getStore(this.storeId)
-          .subscribe(storeData => {
-            this.isLoading = false;
-            this.store = {
-              id: storeData._id,
-              name: storeData.name,
-              creator: storeData.creator
-            };
-            this.form.setValue({
-              name: this.store.name,
-            });
-          });
-      } else {
-        console.log("Create mode entered");
-        this.mode = "create";
-        this.storeId = null;
-      }
-    });
+    this.storeId = null;
   }
 
   onSaveStore() {
-    this.isLoading = true;
-    if (this.mode === "create") {
-      this.storesService.addStore(
-        this.form.value.name
-      );
-    } else {
-      this.storesService.updateStore(
-        this.storeId,
-        this.form.value.name
-      );
+    if (this.form.invalid) {
+      return;
     }
-    console.log("Store ADDED");
+    this.isLoading = true;
+    this.storesService.addStore(
+      this.form.value.name
+    );
+    this.isLoading = false;
+    this.dialogRef.close();
     this.form.reset();
   }
 

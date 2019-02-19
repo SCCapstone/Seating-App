@@ -3,7 +3,7 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onSaveStore()" *ngIf="!isLoading">
     <mat-form-field>
-      <input matInput type="text" FormControlName="name" placeholder="Store Name" />
+      <input matInput type="text" formControlName="name" placeholder="Store Name" />
       <mat-error *ngIf="form.get('name').invalid">Please enter a store name.</mat-error>
     </mat-form-field>
     <button style="margin-left:2rem;" mat-raised-button color="accent" type="submit">Add</button>

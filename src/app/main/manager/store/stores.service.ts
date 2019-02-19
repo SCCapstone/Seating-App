@@ -69,7 +69,7 @@ export class StoresService {
     this.http
       .post<{ message: string; store: Store }>(BACKEND_URL, storeData)
       .subscribe(responseData => {
-        this.router.navigate(["/main/dashboard"]);
+        this.router.navigate(["/main/manager"]);
       });
   }
 
@@ -81,7 +81,7 @@ export class StoresService {
       creator: null
     };
     this.http.put(BACKEND_URL + id, storeData).subscribe(response => {
-      this.router.navigate(["/main/stores"]);
+      this.router.navigate(["/main/manager"]);
     });
   }
 
