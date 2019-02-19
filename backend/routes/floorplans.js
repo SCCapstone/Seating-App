@@ -10,7 +10,7 @@ router.post("", checkAuth, FloorplanController.createFloorplan);
 
 router.put("/:id", checkAuth, FloorplanController.updateFloorplan);
 
-// router.get("", FloorplanController.getFloorplans);
+router.get("", FloorplanController.getFloorplans);
 
 router.get("/:id", FloorplanController.getFloorplan);
 
