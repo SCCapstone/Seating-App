@@ -1,17 +1,17 @@
 <h1 mat-dialog-title>Edit Store</h1>
 <mat-card>
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <form [formGroup]="form" (submit)="onUpdateStore()" *ngIf="!isLoading">
-      <mat-form-field>
-        <input matInput type="text" formControlName="name" placeholder="Store Name" />
-        <mat-error *ngIf="form.get('name').invalid">Please enter a store name.</mat-error>
-      </mat-form-field>
-      <button style="margin-left:2rem;" mat-raised-button color="accent" type="submit">Update</button>
-    </form>
-  </mat-card>
-<button mat-button color="warn" (click)="onDelete()">
-    DELETE
-</button>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onUpdateStore()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="Store Name" />
+      <mat-error *ngIf="form.get('name').invalid">Please enter a store name.</mat-error>
+    </mat-form-field>
+    <div class="form-btn-group">
+      <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>
+      <button class="form-buttons" mat-raised-button color="accent" (click)="onDelete()">DELETE</button>
+    </div>
+  </form>
+</mat-card>
 <div mat-dialog-actions>
   <button style="margin-left: auto;" mat-button (click)="onNoClick()">Close</button>
 </div>

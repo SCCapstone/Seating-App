@@ -64,7 +64,7 @@ export class StoreComponent implements OnInit, OnDestroy {
 
   openAddStore(): void {
     const dialogRef = this.dialog.open(StoreAddComponent, {
-      width: "60%"
+      width: "500px"
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -74,7 +74,7 @@ export class StoreComponent implements OnInit, OnDestroy {
   openEditStore(id: string): void {
     this.storesService.setStoreToEdit(id);
     const dialogRef = this.dialog.open(StoreEditComponent, {
-      width: "400px"
+      width: "500px"
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -85,7 +85,8 @@ export class StoreComponent implements OnInit, OnDestroy {
 
 @Component({
   selector: "app-store-add",
-  templateUrl: "store-add.component.html"
+  templateUrl: "store-add.component.html",
+  styleUrls: ["./store.component.css"]
 })
 export class StoreAddComponent implements OnInit, OnDestroy {
   enteredName = "";
@@ -140,7 +141,8 @@ export class StoreAddComponent implements OnInit, OnDestroy {
 
 @Component({
   selector: "app-store-edit",
-  templateUrl: "store-edit.component.html"
+  templateUrl: "store-edit.component.html",
+  styleUrls: ["./store.component.css"]
 })
 export class StoreEditComponent implements OnInit, OnDestroy {
   storeToEdit = "none";

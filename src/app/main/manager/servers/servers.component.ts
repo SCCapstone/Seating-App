@@ -64,7 +64,7 @@ export class ServersComponent implements OnInit, OnDestroy {
 
   openAddServer(): void {
     const dialogRef = this.dialog.open(ServersAddComponent, {
-      width: '60%',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -74,7 +74,7 @@ export class ServersComponent implements OnInit, OnDestroy {
   openEditServer(id: string): void {
     this.serversService.setServerToEdit(id);
     const dialogRef = this.dialog.open(ServersEditComponent, {
-      width: '400px',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -87,6 +87,7 @@ export class ServersComponent implements OnInit, OnDestroy {
 @Component({
   selector: 'app-servers-add',
   templateUrl: 'servers-add.component.html',
+  styleUrls: ['./servers.component.css']
 })
 export class ServersAddComponent implements OnInit, OnDestroy {
   enteredName = "";
@@ -148,6 +149,7 @@ export class ServersAddComponent implements OnInit, OnDestroy {
 @Component({
   selector: 'app-servers-edit',
   templateUrl: 'servers-edit.component.html',
+  styleUrls: ['./servers.component.css']
 })
 export class ServersEditComponent implements OnInit, OnDestroy {
   serverToEdit = "none";

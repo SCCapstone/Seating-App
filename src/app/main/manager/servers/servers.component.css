@@ -1,5 +1,4 @@
 mat-card {
-  margin-bottom: 25px;
   padding-top: 10px;
 }
 
@@ -12,12 +11,31 @@ mat-list {
   background-color: #e7e7e7;
 }
 
-.header {
+mat-form-field {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+form{
+  display: grid !important;
+}
+.form-btn-group {
+  display: flex !important;
+}
+.form-buttons {
+  padding: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .add-button {
   margin-left: auto;
-  margin-right: 16px;
+  margin-right: auto;
+  margin-bottom: 10px;
   background-color: #461e64b4;
   color: #ffffff;
 }
