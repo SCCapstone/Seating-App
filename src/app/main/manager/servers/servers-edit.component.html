@@ -3,13 +3,19 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onUpdateServer()" *ngIf="!isLoading">
     <mat-form-field>
-      <input matInput type="text" formControlName="name" placeholder="Server Name" />
+      <input matInput type="text" formControlName="name" placeholder="Server name" />
       <mat-error *ngIf="form.get('name').invalid">Please enter a server name.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" formControlName="store" placeholder="Store ID" />
-      <mat-error *ngIf="form.get('name').invalid">Please enter a store ID.</mat-error>
-    </mat-form-field>
+        {{ selectedStore }}
+        <mat-select [(value)]="selectedStore">
+          <ng-container *ngFor="let store of storeList">
+            <mat-option (click)="setServerStore(store.name, store.id)" *ngIf="userIsAuthenticated && userId === store.creator">
+              {{store.name}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
     <div class="form-btn-group">
       <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>
       <button class="form-buttons" mat-raised-button color="accent" (click)="onDelete()">DELETE</button>

@@ -6,7 +6,7 @@
     <button class="add-button" mat-raised-button (click)="openAddServer()">Add Server</button>
     <mat-list *ngFor="let server of servers">
       <mat-list-item *ngIf="userIsAuthenticated && userId === server.creator">
-        {{ server.name }}
+        {{ server.name }} <div style="margin-left:auto;">{{ server.store }}</div>
         <button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditServer(server.id)">Edit Server</button>
       </mat-list-item>
     </mat-list>
