@@ -1,6 +1,10 @@
-<mat-expansion-panel style="margin-top: 15px">
+<mat-expansion-panel [expanded]="true" style="margin-top: 15px">
   <mat-expansion-panel-header>
     <h3>Servers</h3>
   </mat-expansion-panel-header>
-  <p>Here is a list of the servers</p>
+  <mat-list *ngFor="let server of servers">
+    <mat-list-item *ngIf="userIsAuthenticated && userId === server.creator">
+      {{ server.name }}
+    </mat-list-item>
+  </mat-list>
 </mat-expansion-panel>

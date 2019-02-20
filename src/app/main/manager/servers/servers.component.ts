@@ -8,6 +8,9 @@ import { ServersService } from "./servers.service";
 import { Server } from "./server.model";
 import { AuthService } from "../../../auth/auth.service";
 
+import { StoresService } from "../store/stores.service";
+import { Store } from "../store/store.model";
+
 @Component({
   selector: 'app-servers',
   templateUrl: './servers.component.html',
@@ -64,7 +67,7 @@ export class ServersComponent implements OnInit, OnDestroy {
 
   openAddServer(): void {
     const dialogRef = this.dialog.open(ServersAddComponent, {
-      width: '60%',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -74,7 +77,7 @@ export class ServersComponent implements OnInit, OnDestroy {
   openEditServer(id: string): void {
     this.serversService.setServerToEdit(id);
     const dialogRef = this.dialog.open(ServersEditComponent, {
-      width: '400px',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -87,6 +90,7 @@ export class ServersComponent implements OnInit, OnDestroy {
 @Component({
   selector: 'app-servers-add',
   templateUrl: 'servers-add.component.html',
+  styleUrls: ['./servers.component.css']
 })
 export class ServersAddComponent implements OnInit, OnDestroy {
   enteredName = "";
@@ -95,16 +99,46 @@ export class ServersAddComponent implements OnInit, OnDestroy {
   isLoading = false;
   form: FormGroup;
   private serverId: string;
+  private storeId: string;
+  private storesSub: Subscription;
   private authStatusSub: Subscription;
+
+  store: Store;
+  storeList: Store[] = [];
+  selectedStore = "None";
+  selectedStoreID = "None";
+  totalStores = 0;
+  storesPerPage = 10;
+  currentPage = 1;
+
+  userIsAuthenticated = false;
+  userId: string;
 
   constructor(
     public dialogRef: MatDialogRef<ServersAddComponent>,
     public serversService: ServersService,
+    public storesService: StoresService,
     public route: ActivatedRoute,
     public authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
+    this.storesService.getStores(this.storesPerPage, this.currentPage);
+    this.userId = this.authService.getUserId();
+    this.storesSub = this.storesService
+      .getStoreUpdateListener()
+      .subscribe(
+        (storeData: {
+          stores: Store[];
+          storeCount: number;
+        }) => {
+          this.isLoading = false;
+          this.totalStores = storeData.storeCount;
+          this.storeList = storeData.stores;
+        }
+      );
+    this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe(authStatus => {
@@ -112,9 +146,6 @@ export class ServersAddComponent implements OnInit, OnDestroy {
       });
     this.form = new FormGroup({
       name: new FormControl(null, {
-        validators: [Validators.required]
-      }),
-      store: new FormControl(null, {
         validators: [Validators.required]
       })
     });
@@ -125,14 +156,20 @@ export class ServersAddComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
+    console.log(this.selectedStoreID + ",  ," + this.selectedStore);
     this.isLoading = true;
     this.serversService.addServer(
       this.form.value.name,
-      this.form.value.store
+      this.selectedStoreID
     );
     this.isLoading = false;
     this.dialogRef.close();
     this.form.reset();
+  }
+
+  setServerStore(name: string, storeID: string) {
+    this.selectedStore = name;
+    this.selectedStoreID = storeID;
   }
 
   ngOnDestroy() {
@@ -148,6 +185,7 @@ export class ServersAddComponent implements OnInit, OnDestroy {
 @Component({
   selector: 'app-servers-edit',
   templateUrl: 'servers-edit.component.html',
+  styleUrls: ['./servers.component.css']
 })
 export class ServersEditComponent implements OnInit, OnDestroy {
   serverToEdit = "none";
@@ -158,10 +196,25 @@ export class ServersEditComponent implements OnInit, OnDestroy {
   form: FormGroup;
   private mode = "edit";
   private serverId: string;
+  private storeId: string;
+  private storesSub: Subscription;
   private authStatusSub: Subscription;
+
+  store: Store;
+  storeList: Store[] = [];
+  selectedStore = "None";
+  selectedStoreID = "None";
+  totalStores = 0;
+  storesPerPage = 10;
+  currentPage = 1;
+
+  userIsAuthenticated = false;
+  userId: string;
+
   constructor(
     public dialogRef: MatDialogRef<ServersEditComponent>,
     public serversService: ServersService,
+    public storesService: StoresService,
     public route: ActivatedRoute,
     public authService: AuthService
   ) {}
@@ -169,6 +222,21 @@ export class ServersEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.serverToEdit = this.serversService.getServerToEdit();
     console.log(this.serverToEdit);
+    this.storesService.getStores(this.storesPerPage, this.currentPage);
+    this.userId = this.authService.getUserId();
+    this.storesSub = this.storesService
+      .getStoreUpdateListener()
+      .subscribe(
+        (storeData: {
+          stores: Store[];
+          storeCount: number;
+        }) => {
+          this.isLoading = false;
+          this.totalStores = storeData.storeCount;
+          this.storeList = storeData.stores;
+        }
+      );
+    this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe(authStatus => {
@@ -177,34 +245,24 @@ export class ServersEditComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required]
-      }),
-      store: new FormControl(null, {
-        validators: [Validators.required]
-      }),
+      })
     });
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has(this.serverToEdit)) {
-        console.log("Edit mode entered");
-        this.mode = "edit";
-        this.serverId = paramMap.get(this.serverToEdit);
-        this.isLoading = true;
-        this.serversService
-          .getServer(this.serverId)
-          .subscribe(serverData => {
-            this.isLoading = false;
-            this.server = {
-              id: serverData._id,
-              name: serverData.name,
-              store: serverData.store,
-              creator: serverData.creator
-            };
-            this.form.setValue({
-              name: this.server.name,
-              store: this.server.store
-            });
-          });
-      }
-    });
+    this.serverId = this.serverToEdit;
+    this.isLoading = true;
+    this.serversService
+      .getServer(this.serverId)
+      .subscribe(serverData => {
+        this.isLoading = false;
+        this.server = {
+          id: serverData._id,
+          name: serverData.name,
+          store: serverData.store,
+          creator: serverData.creator
+        };
+        this.form.setValue({
+          name: this.server.name
+        });
+      });
   }
 
   onUpdateServer() {
@@ -216,11 +274,16 @@ export class ServersEditComponent implements OnInit, OnDestroy {
       this.serversService.updateServer(
         this.serverId,
         this.form.value.name,
-        this.form.value.store
+        this.selectedStoreID
     );
     this.isLoading = false;
     this.dialogRef.close();
     this.form.reset();
+  }
+
+  setServerStore(name: string, storeID: string) {
+    this.selectedStore = name;
+    this.selectedStoreID = storeID;
   }
 
   onDelete() {

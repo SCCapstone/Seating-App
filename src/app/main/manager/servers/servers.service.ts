@@ -64,6 +64,7 @@ export class ServersService {
   }
 
   addServer(name: string, store: string) {
+    console.log("STORE: " + store);
     const serverData: Server = {
       id: null,
       name: name,

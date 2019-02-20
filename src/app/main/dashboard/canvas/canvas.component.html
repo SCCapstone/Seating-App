@@ -1,16 +1,5 @@
 <mat-card class="table-view">
-  <mat-form-field>
-    <mat-select>
-      <ng-container *ngFor="let floorplan of floorplanList">
-        <mat-option (click)="loadCanvas(floorplan.id)" *ngIf="userIsAuthenticated && userId === floorplan.creator">
-          {{floorplan.name}}
-        </mat-option>
-      </ng-container>
-    </mat-select>
-  </mat-form-field>
   <div class="canvas-wrap" id="canvas-wrap">
     <canvas id="canvas" class="canvas" style="border: 1px solid rgb(54, 54, 54);"></canvas>
   </div>
 </mat-card>
-
-
