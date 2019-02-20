@@ -1,35 +1,40 @@
-const Store = require("../models/store");
+const Server = require("../models/server");
 
-exports.createStore = (req, res, next) => {
-  const store = new Store({
+exports.createServer = (req, res, next) => {
+  const server = new Server({
     name: req.body.name,
+    store: req.body.store,
     creator: req.userData.userId
   });
-  store
+  server
     .save()
-    .then(createdStore => {
+    .then(createdServer => {
       res.status(201).json({
-        message: "Store added successfully",
-        store: {
-          ...createdStore,
-          id: createdStore._id
+        message: "Server added successfully",
+        server: {
+          ...createdServer,
+          id: createdServer._id
         }
       });
     })
     .catch(error => {
       res.status(500).json({
-        message: "Creating a store failed!"
+        message: "Creating a server failed!"
       });
     });
 };
 
-exports.updateStore = (req, res, next) => {
-  const store = new Store({
+exports.updateServer = (req, res, next) => {
+  const server = new Server({
     _id: req.body.id,
     name: req.body.name,
+    store: req.body.store,
     creator: req.userData.userId
   });
-  Store.updateOne({ _id: req.params.id, creator: req.userData.userId }, store)
+  Server.updateOne(
+    { _id: req.params.id, creator: req.userData.userId },
+    server
+  )
     .then(result => {
       if (result.n > 0) {
         res.status(200).json({ message: "Update successful!" });
@@ -39,29 +44,29 @@ exports.updateStore = (req, res, next) => {
     })
     .catch(error => {
       res.status(500).json({
-        message: "Couldn't update store!"
+        message: "Couldn't update server!"
       });
     });
 };
 
-exports.getStores = (req, res, next) => {
+exports.getServers = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  const storeQuery = Store.find();
-  let fetchedStores;
+  const serverQuery = Server.find();
+  let fetchedServers;
   if (pageSize && currentPage) {
-    storeQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+    serverQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
   }
-  storeQuery
+  serverQuery
     .then(documents => {
-      fetchedStores = documents;
-      return Store.count();
+      fetchedServers = documents;
+      return Server.count();
     })
     .then(count => {
       res.status(200).json({
         message: "Reservations fetched successfully!",
-        stores: fetchedStores,
-        maxStores: count
+        servers: fetchedServers,
+        maxServers: count
       });
     })
     .catch(error => {
@@ -71,24 +76,24 @@ exports.getStores = (req, res, next) => {
     });
 };
 
-exports.getStore = (req, res, next) => {
-  Store.findById(req.params.id)
-    .then(store => {
-      if (store) {
-        res.status(200).json(store);
+exports.getServer = (req, res, next) => {
+  Server.findById(req.params.id)
+    .then(server => {
+      if (server) {
+        res.status(200).json(server);
       } else {
-        res.status(404).json({ message: "Store not found!" });
+        res.status(404).json({ message: "Server not found!" });
       }
     })
     .catch(error => {
       res.status(500).json({
-        message: "Fetching store failed!"
+        message: "Fetching server failed!"
       });
     });
 };
 
-exports.deleteStore = (req, res, next) => {
-  Store.deleteOne({ _id: req.params.id, creator: req.userData.userId })
+exports.deleteServer = (req, res, next) => {
+  Server.deleteOne({ _id: req.params.id, creator: req.userData.userId })
     .then(result => {
       console.log(result);
       if (result.n > 0) {
@@ -99,7 +104,7 @@ exports.deleteStore = (req, res, next) => {
     })
     .catch(error => {
       res.status(500).json({
-        message: "Deleting reservations failed!"
+        message: "Deleting server failed!"
       });
     });
 };

@@ -1,7 +1,17 @@
 <h1 mat-dialog-title>Edit Store</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-</div>
+<mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="form" (submit)="onUpdateStore()" *ngIf="!isLoading">
+      <mat-form-field>
+        <input matInput type="text" formControlName="name" placeholder="Store Name" />
+        <mat-error *ngIf="form.get('name').invalid">Please enter a store name.</mat-error>
+      </mat-form-field>
+      <button style="margin-left:2rem;" mat-raised-button color="accent" type="submit">Update</button>
+    </form>
+  </mat-card>
+<button mat-button color="warn" (click)="onDelete()">
+    DELETE
+</button>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button style="margin-left: auto;" mat-button (click)="onNoClick()">Close</button>
 </div>

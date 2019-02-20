@@ -3,6 +3,11 @@ import "fabric";
 import { $ } from "protractor";
 import { getNumberOfCurrencyDigits } from "@angular/common";
 import { Canvas } from "fabric/fabric-impl";
+import { FloorplansService } from "./floorplan.service";
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Floorplan } from './floorplan.model';
 
 declare let fabric;
 
@@ -17,13 +22,84 @@ export class FpBuilderComponent implements OnInit {
   private circleTable;
   private textBox;
 
-  constructor() {}
+  floorplan: Floorplan;
+  floorplanList: Floorplan[] = [];
+  selected = "None";
+  private mode = "create";
+  private floorplanId: string;
+  private floorplansSub: Subscription;
+  private authStatusSub: Subscription;
+
+  totalFloorplans = 0;
+
+  isLoading = false;
+  userIsAuthenticated = false;
+  userId: string;
+
+  constructor(
+    public floorplansService: FloorplansService,
+    public route: ActivatedRoute,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
+    this.isLoading = true;
+    this.floorplansService.getFloorplans();
+    this.userId = this.authService.getUserId();
+    this.floorplansSub = this.floorplansService
+      .getFloorplanUpdateListener()
+      .subscribe(
+        (floorplanData: {
+          floorplans: Floorplan[];
+          floorplanCount: number;
+        }) => {
+          this.isLoading = false;
+          this.totalFloorplans = floorplanData.floorplanCount;
+          this.floorplanList = floorplanData.floorplans;
+        }
+      );
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
+      });
+
+/*     this.authStatusSub = this.authService
+    .getAuthStatusListener()
+    .subscribe(authStatus => {
+      this.isLoading = false;
+    }); */
     this.canvas = new fabric.Canvas("canvas", {});
     const canvasSpec  = document.getElementById("canvas-wrap");
     this.canvas.setHeight(canvasSpec.clientHeight - 50);
     this.canvas.setWidth(canvasSpec.clientWidth);
+
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+
+      if (paramMap.has("floorplanId")) {
+        console.log("loading floorplan");
+        this.mode = "edit";
+        this.floorplanId = paramMap.get("floorplanId");
+        this.isLoading = true;
+        this.floorplansService
+          .getFloorplan(this.floorplanId)
+          .subscribe(floorplanData => {
+            this.isLoading = false;
+            this.floorplan = {
+              id: floorplanData._id,
+              name: floorplanData.name,
+              json: floorplanData.json,
+              creator: floorplanData.creator
+            };
+          });
+      } else {
+        console.log("Creating floorplan");
+        this.mode = "create";
+        this.floorplanId = null;
+      }
+    });
   }
 
 /**
@@ -116,20 +192,59 @@ export class FpBuilderComponent implements OnInit {
   saveCanvas() {
     // const json_data = JSON.stringify(this.canvas.toJSON());
     const json_data = this.canvas.toJSON();
+    const fpName = prompt("Enter name for floorplan", "");
+
+    this.floorplansService.addFloorplan(fpName, json_data);
+
+    /**
+    if (this.mode === "create") {
+      this.floorplansService.addFloorplan(
+        json_data
+      );
+    } else {
+      this.floorplansService.updateFloorplan(
+        this.floorplanId,
+        json_data
+      );
+    }
+    */
 
     // This is where the json data will need to be put onto the server.
-    console.log(json_data);
+    // console.log(json_data);
   }
 
   /**
    * Prompts the user for JSON data, and then places it on the canvas.
    */
-  loadCanvas() {
-    const json_data = prompt("Enter JSON data", "");
-    this.canvas.loadFromJSON(json_data);
+  loadCanvas(id: string) {
+    // Currently prompts user for name. **TODO
+    console.log("Loading Floorplan with ID: " + id);
 
+    this.floorplansService.getFloorplan(id).subscribe(floorplanData => {
+      this.floorplan = {
+        id: floorplanData._id,
+        name: floorplanData.name,
+        json: floorplanData.json,
+        creator: floorplanData.creator
+      };
+      this.selected = floorplanData.name;
+      this.canvas.loadFromJSON(this.floorplan.json);
+    });
+    // Redraws the canvas.
     this.canvas.renderAll();
   }
+
+  deleteFloorplan(id: string) {
+    // Currently prompts user for name. **TODO
+    console.log("Deleteing Floorplan with ID: " + id);
+    this.floorplansService.deleteFloorplans(id)
+      .subscribe(() => {
+        console.log("Deleted!");
+      });
+      this.canvas.renderAll();
+    }
+
+
   /*
   // makes a textbox
   addTextBox() {

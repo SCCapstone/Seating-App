@@ -1,6 +1,6 @@
-export interface Floorplan {
+export interface Server {
   id: string;
   name: string;
-  json: JSON;
+  store: string;
   creator: string;
 }

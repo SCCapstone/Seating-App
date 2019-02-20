@@ -1,11 +1,18 @@
 <h1 mat-dialog-title>Add Server</h1>
-<mat-form-field appearance="legacy">
-  <mat-label>Enter Server Name</mat-label>
-  <input matInput placeholder="Type Here">
-</mat-form-field>
-<br />
-<div mat-dialog-actions class="store-bar">
-  <button mat-rasied-button color="primary" (click)="onNoClick()">Save</button>
-  &nbsp;
-  <button mat-rasied-button color="warn" (click)="onNoClick()">Cancel</button>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSaveServer()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="Server Name" />
+      <mat-error *ngIf="form.get('name').invalid">Please enter a server name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" formControlName="store" placeholder="Store ID" />
+      <mat-error *ngIf="form.get('name').invalid">Please enter a store ID.</mat-error>
+    </mat-form-field>
+    <button style="margin-left:2rem;" mat-raised-button color="accent" type="submit">Add</button>
+  </form>
+</mat-card>
+<div mat-dialog-actions>
+  <button style="margin-left:auto;" mat-button (click)="onNoClick()">Close</button>
 </div>

@@ -1,29 +1,13 @@
 <mat-card class="table-view">
-  <!--
-  <div class="table-button-group">
-    <button mat-rasied-button class="table-button" (click)="addRect()">
-      Add Rectangle Table
-    </button>
-    <button mat-rasied-button class="table-button" (click)="addCircle()">
-      Add Circle Table
-    </button>
-    <button mat-rasied-button class="table-button" (click)="toggleLockObject()">
-        Lock/Unlock Selected Table
-      </button>
-    <button mat-rasied-button class="delete-button" (click)="discardObject()"> 
-      Delete Selected Table
-    </button>
-    <button mat-rasied-button class="save-to-json" (click)="saveCanvas()">  <!--temporary solution to save and load the convas. will need to be able to do it live refresh soon-->
-      Save to JSON
-    </button>
-    <button mat-rasied-button class="load-from-json" (click)="loadCanvas()">
-      Load from JSON
-    </button>
-  </div>
-  -->
-  <button mat-rasied-button class="load-from-json" (click)="loadCanvas()">
-    Load from JSON
-  </button>
+  <mat-form-field>
+    <mat-select>
+      <ng-container *ngFor="let floorplan of floorplanList">
+        <mat-option (click)="loadCanvas(floorplan.id)" *ngIf="userIsAuthenticated && userId === floorplan.creator">
+          {{floorplan.name}}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
   <div class="canvas-wrap" id="canvas-wrap">
     <canvas id="canvas" class="canvas" style="border: 1px solid rgb(54, 54, 54);"></canvas>
   </div>

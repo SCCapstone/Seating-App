@@ -19,24 +19,57 @@ export class FloorplansService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  getFloorplans() {
+    this.http
+      .get<{ message: string; floorplans: any; }>(
+        BACKEND_URL
+      )
+      .pipe(
+        map(floorplanData => {
+          return {
+            floorplans: floorplanData.floorplans.map(floorplan => {
+              return {
+                name: floorplan.name,
+                json: floorplan.json,
+                id: floorplan._id,
+                creator: floorplan.creator
+              };
+            })
+
+          };
+        })
+      )
+      .subscribe(transformedFloorplanData => {
+        this.floorplans = transformedFloorplanData.floorplans;
+        this.floorplansUpdated.next({
+          floorplans: [...this.floorplans],
+          // floorplanCount: transformedFloorplanData.maxFloorplans
+        });
+      });
+  }
+
   getFloorplanUpdateListener() {
     return this.floorplansUpdated.asObservable();
   }
 
   getFloorplan(id: string) {
+ // getFloorplan(id: string) {
     return this.http.get<{
       _id: string;
+      name: string;
       json: JSON;
       creator: string;
     }>(BACKEND_URL + id);
   }
 
   addFloorplan(
+    name: string,
     json: JSON
   ) {
 
     const floorplanData: Floorplan = {
       id: null,
+      name: name,
       json: json,
       creator: null
     };
@@ -46,17 +79,19 @@ export class FloorplansService {
         floorplanData
       )
       .subscribe(responseData => {
-        this.router.navigate(["/main/floorplans"]);
+        this.router.navigate(["/main/dashboard"]);
       });
   }
 
   updateFloorplan(
     id: string,
+    name: string,
     json: JSON
   ) {
     let floorplanData: Floorplan;
     floorplanData = {
       id: id,
+      name: name,
       json: json,
       creator: null
     };
@@ -64,7 +99,7 @@ export class FloorplansService {
 
 
 
-  deleteReservations(floorplanId: string) {
+  deleteFloorplans(floorplanId: string) {
     return this.http.delete(BACKEND_URL + floorplanId);
   }
 }

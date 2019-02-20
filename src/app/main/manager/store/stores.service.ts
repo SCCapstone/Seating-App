@@ -11,6 +11,7 @@ const BACKEND_URL = environment.apiUrl + "/stores/";
 
 @Injectable({ providedIn: "root" })
 export class StoresService {
+  storeToUpdate = "none";
   private stores: Store[] = [];
   private storesUpdated = new Subject<{
     stores: Store[];
@@ -61,12 +62,6 @@ export class StoresService {
   }
 
   addStore(name: string) {
-    /**const reservationData = new FormData();
-    reservationData.append("name", name);
-    reservationData.append("size", size);
-    reservationData.append("phone", phone);
-    reservationData.append("notes", notes);
-    */
     const storeData: Store = {
       id: null,
       name: name,
@@ -75,7 +70,7 @@ export class StoresService {
     this.http
       .post<{ message: string; store: Store }>(BACKEND_URL, storeData)
       .subscribe(responseData => {
-        this.router.navigate(["/main/stores"]);
+        this.router.navigate(["/main/manager"]);
       });
   }
 
@@ -87,11 +82,18 @@ export class StoresService {
       creator: null
     };
     this.http.put(BACKEND_URL + id, storeData).subscribe(response => {
-      this.router.navigate(["/main/stores"]);
+      this.router.navigate(["/main/manager"]);
     });
   }
 
   deleteStore(storeId: string) {
     return this.http.delete(BACKEND_URL + storeId);
+  }
+
+  setStoreToEdit(id: string) {
+    this.storeToUpdate = id;
+  }
+  getStoreToEdit() {
+    return this.storeToUpdate;
   }
 }

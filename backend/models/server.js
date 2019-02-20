@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
-const floorplanSchema = mongoose.Schema({
+const serverSchema = mongoose.Schema({
   name: { type: String, required: true },
-  json: { type: JSON, required: true },
+  store: { type: String, required: true },
   creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 
-module.exports = mongoose.model("Floorplan", floorplanSchema);
+module.exports = mongoose.model("Server", serverSchema);
