@@ -1,5 +1,6 @@
 mat-card {
   margin-bottom: 25px;
+  padding-top: 10px;
 }
 
 mat-list {
@@ -22,7 +23,7 @@ mat-list {
 }
 
 .edit-button {
-  background-color: #461e64b4;
+  background-color: #4c86d1;
   color: #ffffff;
   line-height: 30px;
 }

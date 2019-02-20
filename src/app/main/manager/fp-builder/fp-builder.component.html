@@ -1,10 +1,10 @@
 <mat-expansion-panel [expanded]="true" style="margin-top: 15px; margin-bottom: 15px">
   <mat-expansion-panel-header>
-    <h3>Floor Plan Builder</h3>
+    <h3>Floorplan Builder</h3>
   </mat-expansion-panel-header>
 
   <mat-form-field>
-    <h3>Floorplan:</h3> {{ selected }}
+    <h3>Select floorplan:</h3> {{ selected }}
     <mat-select [(value)]="selected">
       <ng-container *ngFor="let floorplan of floorplanList">
         <mat-option (click)="loadCanvas(floorplan.id)" *ngIf="userIsAuthenticated && userId === floorplan.creator">
