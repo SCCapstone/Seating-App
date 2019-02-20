@@ -6,3 +6,7 @@ mat-list {
   border-radius: 0.2rem;
   background-color: #e7e7e7;
 }
+
+mat-card {
+  margin-bottom: 20px;
+}
