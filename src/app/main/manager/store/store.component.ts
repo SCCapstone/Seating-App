@@ -173,27 +173,21 @@ export class StoreEditComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       })
     });
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has(this.storeToEdit)) {
-        console.log("Edit mode entered");
-        this.mode = "edit";
-        this.storeId = paramMap.get(this.storeToEdit);
-        this.isLoading = true;
-        this.storesService
-          .getStore(this.storeId)
-          .subscribe(storeData => {
-            this.isLoading = false;
-            this.store = {
-              id: storeData._id,
-              name: storeData.name,
-              creator: storeData.creator
-            };
-            this.form.setValue({
-              name: this.store.name
-            });
-          });
-      }
-    });
+    this.storeId = this.storeToEdit;
+    this.isLoading = true;
+    this.storesService
+      .getStore(this.storeId)
+      .subscribe(storeData => {
+        this.isLoading = false;
+        this.store = {
+          id: storeData._id,
+          name: storeData.name,
+          creator: storeData.creator
+        };
+        this.form.setValue({
+          name: this.store.name
+        });
+      });
   }
 
   onUpdateStore() {
