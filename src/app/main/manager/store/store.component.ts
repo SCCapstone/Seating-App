@@ -227,4 +227,3 @@ export class StoreEditComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 }
-*/

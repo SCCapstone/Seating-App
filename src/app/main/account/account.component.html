@@ -5,9 +5,7 @@
       <button mat-raised-button color="">Profile</button>
       <mat-list>
         <mat-list-item
-          >Phone Number<button mat-raised-button class="account-button">
-            Edit
-          </button></mat-list-item
+          >Phone Number<button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditAccount(phone.id)">Edit Phone</button></mat-list-item
         >
         <mat-list-item
           >Email<button mat-raised-button class="account-button">
