@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Floorplan } from './floorplan.model';
+import { ServersEditComponent } from '../servers/servers.component';
 
 declare let fabric;
 
@@ -118,6 +119,23 @@ export class FpBuilderComponent implements OnInit {
       originY: "center",
     });
 
+    // Adds subclasses for rectangles
+    this.rectTable.toObject = (function(toObject) {
+      return function() {
+        return fabric.util.object.extend(toObject.call(this), {
+          name: this.name,
+          serverId: this.serverId,
+          capacity: this.capacity,
+          guestsSeated: this.guestsSeated,
+          timeSeated: this.timeSeated,
+          notes: this.notes
+        });
+      };
+    })(this.rectTable.toObject);
+
+    this.rectTable.name = tableNumber;
+
+
     // creates textbox
     this.textBox = new fabric.Textbox(tableNumber, {
       originX: "center",
@@ -145,6 +163,22 @@ export class FpBuilderComponent implements OnInit {
       originX: "center",
       originY: "center",
     });
+
+    // Adds subclassing for circles
+    this.circleTable.toObject = (function(toObject) {
+      return function() {
+        return fabric.util.object.extend(toObject.call(this), {
+          name: this.name,
+          serverId: this.serverId,
+          capacity: this.capacity,
+          guestsSeated: this.guestsSeated,
+          timeSeated: this.timeSeated,
+          notes: this.notes
+        });
+      };
+    })(this.circleTable.toObject);
+
+    this.circleTable.name = tableNumber;
     // creates textbox
     this.textBox = new fabric.Textbox(tableNumber, {
       originX: "center",
