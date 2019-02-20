@@ -114,7 +114,7 @@ export class FpBuilderComponent implements OnInit {
     this.rectTable = new fabric.Rect({
       width: 100,
       height: 100,
-      fill: "purple",
+      fill: "#7B638E",
       originX: "center",
       originY: "center",
     });
@@ -140,7 +140,8 @@ export class FpBuilderComponent implements OnInit {
     this.textBox = new fabric.Textbox(tableNumber, {
       originX: "center",
       originY: "center",
-      fontSize: 64
+      fontSize: 64,
+      fill: "white"
     });
 
     // groups them together
@@ -159,7 +160,7 @@ export class FpBuilderComponent implements OnInit {
     // creates circle
     this.circleTable = new fabric.Circle({
       radius: 75,
-      fill: "purple",
+      fill: "#7B638E",
       originX: "center",
       originY: "center",
     });
@@ -183,7 +184,8 @@ export class FpBuilderComponent implements OnInit {
     this.textBox = new fabric.Textbox(tableNumber, {
       originX: "center",
       originY: "center",
-      fontSize: 64
+      fontSize: 64,
+      fill: "white"
     });
    // groups them together
     const group = new fabric.Group([this.circleTable, this.textBox ], {
