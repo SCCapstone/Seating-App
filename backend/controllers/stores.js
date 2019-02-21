@@ -3,6 +3,7 @@ const Store = require("../models/store");
 exports.createStore = (req, res, next) => {
   const store = new Store({
     name: req.body.name,
+    defaultFloorplan: req.body.floorplanId,
     creator: req.userData.userId
   });
   store
@@ -27,6 +28,7 @@ exports.updateStore = (req, res, next) => {
   const store = new Store({
     _id: req.body.id,
     name: req.body.name,
+    defaultFloorplan: req.body.floorplanId,
     creator: req.userData.userId
   });
   Store.updateOne({ _id: req.params.id, creator: req.userData.userId }, store)
