@@ -32,6 +32,7 @@ export class StoresService {
             stores: storeData.stores.map(store => {
               return {
                 name: store.name,
+                defaultFloorplan: store.defaultFloorplan,
                 id: store._id,
                 creator: store.creator
               };
@@ -57,14 +58,16 @@ export class StoresService {
     return this.http.get<{
       _id: string;
       name: string;
+      defaultFloorplan: string;
       creator: string;
     }>(BACKEND_URL + id);
   }
 
-  addStore(name: string) {
+  addStore(name: string, defaultFloorplan: string) {
     const storeData: Store = {
       id: null,
       name: name,
+      defaultFloorplan: defaultFloorplan,
       creator: null
     };
     this.http
@@ -74,11 +77,12 @@ export class StoresService {
       });
   }
 
-  updateStore(id: string, name: string) {
+  updateStore(id: string, name: string, defaultFloorplan: string) {
     let storeData: Store;
     storeData = {
       id: id,
       name: name,
+      defaultFloorplan: defaultFloorplan,
       creator: null
     };
     this.http.put(BACKEND_URL + id, storeData).subscribe(response => {

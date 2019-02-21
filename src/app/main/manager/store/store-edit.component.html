@@ -6,6 +6,16 @@
       <input matInput type="text" formControlName="name" placeholder="Store Name" />
       <mat-error *ngIf="form.get('name').invalid">Please enter a store name.</mat-error>
     </mat-form-field>
+    <mat-form-field>
+      {{ selectedFloorplan }}
+      <mat-select [(value)]="selectedFloorplan">
+        <ng-container *ngFor="let floorplan of floorplanList">
+          <mat-option (click)="setDefaultFloorplan(floorplan.name, floorplan.id)" *ngIf="userIsAuthenticated && userId === store.creator">
+            {{floorplan.name}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
     <div class="form-btn-group">
       <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>
       <button class="form-buttons" mat-raised-button color="accent" (click)="onDelete()">DELETE</button>

@@ -2,9 +2,18 @@
   <mat-expansion-panel-header>
     <h3>Store</h3>
   </mat-expansion-panel-header>
+  {{ selectedStore }}
+  <mat-select [(value)]="selectedStore">
+    <ng-container *ngFor="let store of storeList">
+      <!-- Pass store.defaultFloorplan-->
+      <mat-option (click)="loadDefaultFloorplan()" *ngIf="userIsAuthenticated && userId === store.creator">
+        {{store.name}}
+      </mat-option>
+    </ng-container>
+  </mat-select>
   <mat-form-field>
-    <h3>Floorplan:</h3> {{ selected }}
-    <mat-select [(value)]="selected">
+    <h3>Floorplan:</h3> {{ selectedFloorplan }}
+    <mat-select [(value)]="selectedFloorplan">
       <ng-container *ngFor="let floorplan of floorplanList">
         <mat-option (click)="loadCanvas(floorplan.id)" *ngIf="userIsAuthenticated && userId === floorplan.creator">
           {{floorplan.name}}

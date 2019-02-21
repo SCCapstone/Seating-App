@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Subscription } from "rxjs";
 
+import { FloorplansService } from "../../manager/fp-builder/floorplan.service";
+import { Floorplan } from '../../manager/fp-builder/floorplan.model';
 import { StoresService } from "./stores.service";
 import { Store } from "./store.model";
 import { AuthService } from "../../../auth/auth.service";
@@ -90,24 +92,54 @@ export class StoreComponent implements OnInit, OnDestroy {
 })
 export class StoreAddComponent implements OnInit, OnDestroy {
   enteredName = "";
+  enteredDefaultFloorplan = "";
   store: Store;
   isLoading = false;
   form: FormGroup;
+  userIsAuthenticated = false;
+  userId: string;
+
+  selectedFloorplan = "None";
+  selectedFloorplanID = "None";
+  totalFloorplans = 0;
+  floorplan: Floorplan;
+  floorplanList: Floorplan[] = [];
+
   private storeId: string;
+  private floorplanId: string;
+  private floorplansSub: Subscription;
   private authStatusSub: Subscription;
 
   constructor(
     public dialogRef: MatDialogRef<StoreAddComponent>,
     public storesService: StoresService,
+    public floorplansService: FloorplansService,
     public route: ActivatedRoute,
     public authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.authStatusSub = this.authService
+    this.isLoading = true;
+    this.floorplansService.getFloorplans();
+    this.userId = this.authService.getUserId();
+    this.floorplansSub = this.floorplansService
+      .getFloorplanUpdateListener()
+      .subscribe(
+        (floorplanData: {
+          floorplans: Floorplan[];
+          floorplanCount: number;
+        }) => {
+          this.isLoading = false;
+          this.totalFloorplans = floorplanData.floorplanCount;
+          this.floorplanList = floorplanData.floorplans;
+        }
+      );
+      this.userIsAuthenticated = this.authService.getIsAuth();
+      this.authStatusSub = this.authService
       .getAuthStatusListener()
-      .subscribe(authStatus => {
-        this.isLoading = false;
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
       });
     this.form = new FormGroup({
       name: new FormControl(null, {
@@ -117,13 +149,19 @@ export class StoreAddComponent implements OnInit, OnDestroy {
     this.storeId = null;
   }
 
+  setDefaultFloorplan(name: string, floorplanID: string) {
+    this.selectedFloorplan = name;
+    this.selectedFloorplanID = floorplanID;
+  }
+
   onSaveStore() {
     if (this.form.invalid) {
       return;
     }
     this.isLoading = true;
     this.storesService.addStore(
-      this.form.value.name
+      this.form.value.name,
+      this.selectedFloorplanID
     );
     this.isLoading = false;
     this.dialogRef.close();
@@ -147,26 +185,57 @@ export class StoreAddComponent implements OnInit, OnDestroy {
 export class StoreEditComponent implements OnInit, OnDestroy {
   storeToEdit = "none";
   enteredName = "";
+  enteredDefaultFloorplan = "";
   store: Store;
   isLoading = false;
   form: FormGroup;
+  userIsAuthenticated = false;
+  userId: string;
+
+  selectedFloorplan = "None";
+  selectedFloorplanID = "None";
+  totalFloorplans = 0;
+  floorplan: Floorplan;
+  floorplanList: Floorplan[] = [];
+
+  private floorplanId: string;
+  private floorplansSub: Subscription;
+
   private mode = "edit";
   private storeId: string;
   private authStatusSub: Subscription;
   constructor(
     public dialogRef: MatDialogRef<StoreEditComponent>,
     public storesService: StoresService,
+    public floorplansService: FloorplansService,
     public route: ActivatedRoute,
     public authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.storeToEdit = this.storesService.getStoreToEdit();
     console.log(this.storeToEdit);
-    this.authStatusSub = this.authService
+    this.userId = this.authService.getUserId();
+    this.floorplansService.getFloorplans();
+    this.floorplansSub = this.floorplansService
+      .getFloorplanUpdateListener()
+      .subscribe(
+        (floorplanData: {
+          floorplans: Floorplan[];
+          floorplanCount: number;
+        }) => {
+          this.isLoading = false;
+          this.totalFloorplans = floorplanData.floorplanCount;
+          this.floorplanList = floorplanData.floorplans;
+        }
+      );
+      this.userIsAuthenticated = this.authService.getIsAuth();
+      this.authStatusSub = this.authService
       .getAuthStatusListener()
-      .subscribe(authStatus => {
-        this.isLoading = false;
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
       });
     this.form = new FormGroup({
       name: new FormControl(null, {
@@ -182,12 +251,18 @@ export class StoreEditComponent implements OnInit, OnDestroy {
         this.store = {
           id: storeData._id,
           name: storeData.name,
+          defaultFloorplan: storeData.defaultFloorplan,
           creator: storeData.creator
         };
         this.form.setValue({
           name: this.store.name
         });
       });
+  }
+
+  setDefaultFloorplan(name: string, floorplanID: string) {
+    this.selectedFloorplan = name;
+    this.selectedFloorplanID = floorplanID;
   }
 
   onUpdateStore() {
@@ -198,7 +273,8 @@ export class StoreEditComponent implements OnInit, OnDestroy {
     this.isLoading = true;
       this.storesService.updateStore(
         this.storeId,
-        this.form.value.name
+        this.form.value.name,
+        this.selectedFloorplanID
     );
     this.isLoading = false;
     this.dialogRef.close();
