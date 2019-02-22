@@ -228,22 +228,21 @@ export class FpBuilderComponent implements OnInit {
   saveCanvas() {
     // const json_data = JSON.stringify(this.canvas.toJSON());
     const json_data = this.canvas.toJSON();
-    const fpName = prompt("Enter name for floorplan", "");
 
-    this.floorplansService.addFloorplan(fpName, json_data);
-
-    /**
     if (this.mode === "create") {
+      const fpName = prompt("Enter name for floorplan", "");
       this.floorplansService.addFloorplan(
+        fpName,
         json_data
       );
     } else {
+      console.log("Argument ID: " + this.floorplan.id);
       this.floorplansService.updateFloorplan(
-        this.floorplanId,
+        this.floorplan.id,
+        this.floorplan.name,
         json_data
       );
     }
-    */
 
     // This is where the json data will need to be put onto the server.
     // console.log(json_data);
@@ -268,6 +267,9 @@ export class FpBuilderComponent implements OnInit {
     });
     // Redraws the canvas.
     this.canvas.renderAll();
+
+    this.mode = "edit";
+    console.log("Edit mode entered");
   }
 
   deleteFloorplan(id: string) {

@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 
 import { environment } from "../../../../environments/environment";
 import { Floorplan } from "./floorplan.model";
+import { identifierModuleUrl } from "@angular/compiler";
 
 
 const BACKEND_URL = environment.apiUrl + "/floorplans/";
@@ -95,7 +96,12 @@ export class FloorplansService {
       json: json,
       creator: null
     };
+    console.log("BACKEND_URL: " + BACKEND_URL + " | id: " + id);
+    this.http.put(BACKEND_URL + id, floorplanData).subscribe(response => {
+      this.router.navigate(["/main/reservations"]);
+    });
   }
+
 
 
 
