@@ -55,7 +55,6 @@ export class SideStoreComponent implements OnInit {
 
   ngOnInit() { // on load component
     this.isLoading = true;
-    //floorplans
     this.floorplansService.getFloorplans();
     this.userId = this.authService.getUserId();
     this.floorplansSub = this.floorplansService
@@ -97,6 +96,13 @@ export class SideStoreComponent implements OnInit {
     this.canvas.setWidth(canvasSpec.clientWidth);
   }
 
+  loadStore(name: string, floorplanID: string) {
+    this.isLoading = true;
+    this.selectedStore = name;
+    this.loadCanvas(floorplanID);
+    this.isLoading = false;
+  }
+
   loadDefaultFloorplan(id: string) {
     console.log("Loading default floorplan with ID: " + id);
     this.storesService.getStore(id).subscribe(storeData => {
@@ -108,7 +114,6 @@ export class SideStoreComponent implements OnInit {
       };
       this.selectedStore = storeData.name;
     });
-
   }
 
   loadCanvas(id: string) {
