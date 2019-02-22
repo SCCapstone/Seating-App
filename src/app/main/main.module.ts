@@ -12,7 +12,7 @@ import { CanvasComponent } from "./dashboard/canvas/canvas.component";
 import { SideResosComponent } from "./dashboard/side-resos/side-resos.component";
 import { SideServersComponent } from "./dashboard/side-servers/side-servers.component";
 import { StoreComponent, StoreAddComponent, StoreEditComponent } from './manager/store/store.component';
-import { FpBuilderComponent } from './manager/fp-builder/fp-builder.component';
+import { FpBuilderComponent, TableAddComponent } from './manager/fp-builder/fp-builder.component';
 import { ServersComponent, ServersAddComponent, ServersEditComponent } from './manager/servers/servers.component';
 import { SideTableComponent } from './dashboard/side-table/side-table.component';
 import { SideStoreComponent } from './dashboard/side-store/side-store.component';
@@ -30,6 +30,7 @@ import { SideStoreComponent } from './dashboard/side-store/side-store.component'
     StoreEditComponent,
     StoreAddComponent,
     FpBuilderComponent,
+    TableAddComponent,
     ServersComponent,
     ServersAddComponent,
     ServersEditComponent,
@@ -43,7 +44,8 @@ import { SideStoreComponent } from './dashboard/side-store/side-store.component'
     ServersEditComponent,
     StoreComponent,
     StoreAddComponent,
-    StoreEditComponent
+    StoreEditComponent,
+    TableAddComponent
   ],
   bootstrap: [ServersComponent, StoreComponent]
 })

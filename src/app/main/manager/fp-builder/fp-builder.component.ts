@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import "fabric";
 import { $ } from "protractor";
 import { getNumberOfCurrencyDigits } from "@angular/common";
@@ -9,6 +9,9 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Floorplan } from './floorplan.model';
 import { ServersEditComponent } from '../servers/servers.component';
+
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { Form, FormGroup, Validators, FormControl } from '@angular/forms';
 
 declare let fabric;
 
@@ -40,7 +43,8 @@ export class FpBuilderComponent implements OnInit {
   constructor(
     public floorplansService: FloorplansService,
     public route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -299,5 +303,47 @@ export class FpBuilderComponent implements OnInit {
 
   }
   */
+ openAddTable(): void {
+   const dialogRef = this.dialog.open(TableAddComponent, {
+     width: "500px"
+   });
+
+   dialogRef.afterClosed().subscribe(result => {
+     console.log("The dialog was closed");
+   });
+ }
+}
+
+@Component({
+  selector: "app-fp-builder-add",
+  templateUrl: "./fp-builder-add.component.html",
+  styleUrls: ["./fp-builder.component.css"]
+})
+export class TableAddComponent implements OnInit, OnDestroy {
+  tableName = "";
+  tableCapacity = 0;
+  isLoading = false;
+  form: FormGroup;
+
+  constructor(
+    public dialogRef: MatDialogRef<TableAddComponent>,
+    public route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    this.form = new FormGroup({
+     name: new FormControl(null, {
+       validators: [Validators.required]
+     })
+    });
+  }
+
+  ngOnDestroy() {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }
 
