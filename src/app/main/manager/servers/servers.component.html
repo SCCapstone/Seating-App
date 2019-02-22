@@ -4,6 +4,9 @@
       <h3>Servers</h3>
     </div>
     <button class="add-button" mat-raised-button (click)="openAddServer()">Add Server</button>
+    <div class="server-header">
+      <h4>Server Name</h4><h4 style="padding-left:40%;">Store ID</h4>
+    </div>
     <mat-list *ngFor="let server of servers">
       <mat-list-item *ngIf="userIsAuthenticated && userId === server.creator">
         {{ server.name }} <div style="margin-left:auto;">{{ server.store }}</div>
