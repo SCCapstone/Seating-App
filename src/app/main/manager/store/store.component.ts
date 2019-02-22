@@ -10,7 +10,8 @@ import { StoresService } from "./stores.service";
 import { Store } from "./store.model";
 import { ServersService } from "../../manager/servers/servers.service";
 import { AuthService } from "../../../auth/auth.service";
-import { Server } from "../../manager/servers/server.model";
+import { TouchSequence } from "selenium-webdriver";
+import { stringify } from "@angular/core/src/render3/util";
 
 @Component({
   selector: "app-store",
@@ -218,6 +219,24 @@ export class StoreEditComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.storeToEdit = this.storesService.getStoreToEdit();
     console.log(this.storeToEdit);
+    this.storeId = this.storeToEdit;
+    this.isLoading = true;
+    this.storesService
+      .getStore(this.storeId)
+      .subscribe(storeData => {
+        this.isLoading = false;
+        this.store = {
+          id: storeData._id,
+          name: storeData.name,
+          defaultFloorplan: storeData.defaultFloorplan,
+          creator: storeData.creator
+        };
+        this.selectedFloorplanID = this.store.defaultFloorplan;
+        console.log("getStore: " + this.selectedFloorplanID);
+        this.form.setValue({
+          name: this.store.name
+        });
+      });
     this.userId = this.authService.getUserId();
     this.floorplansService.getFloorplans();
     this.floorplansSub = this.floorplansService
@@ -244,22 +263,6 @@ export class StoreEditComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       })
     });
-    this.storeId = this.storeToEdit;
-    this.isLoading = true;
-    this.storesService
-      .getStore(this.storeId)
-      .subscribe(storeData => {
-        this.isLoading = false;
-        this.store = {
-          id: storeData._id,
-          name: storeData.name,
-          defaultFloorplan: storeData.defaultFloorplan,
-          creator: storeData.creator
-        };
-        this.form.setValue({
-          name: this.store.name
-        });
-      });
   }
 
   setDefaultFloorplan(name: string, floorplanID: string) {

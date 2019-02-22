@@ -7,7 +7,7 @@
       <mat-error *ngIf="form.get('name').invalid">Please enter a server name.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      {{ selectedStore }}
+      Store: {{ selectedStore }}
       <mat-select [(value)]="selectedStore">
         <ng-container *ngFor="let store of storeList">
           <mat-option (click)="setServerStore(store.name, store.id)" *ngIf="userIsAuthenticated && userId === store.creator">
