@@ -63,11 +63,11 @@ export class StoresService {
     }>(BACKEND_URL + id);
   }
 
-  addStore(name: string, defaultFloorplan: string) {
+  addStore(name: string, FloorplanID: string) {
     const storeData: Store = {
       id: null,
       name: name,
-      defaultFloorplan: defaultFloorplan,
+      defaultFloorplan: FloorplanID,
       creator: null
     };
     this.http
@@ -77,12 +77,12 @@ export class StoresService {
       });
   }
 
-  updateStore(id: string, name: string, defaultFloorplan: string) {
+  updateStore(id: string, name: string, FloorplanID: string) {
     let storeData: Store;
     storeData = {
       id: id,
       name: name,
-      defaultFloorplan: defaultFloorplan,
+      defaultFloorplan: FloorplanID,
       creator: null
     };
     this.http.put(BACKEND_URL + id, storeData).subscribe(response => {

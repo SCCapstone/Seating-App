@@ -149,9 +149,9 @@ export class StoreAddComponent implements OnInit, OnDestroy {
     this.storeId = null;
   }
 
-  setDefaultFloorplan(name: string, floorplanID: string) {
+  setDefaultFloorplan(name: string, id: string) {
     this.selectedFloorplan = name;
-    this.selectedFloorplanID = floorplanID;
+    this.selectedFloorplanID = id;
   }
 
   onSaveStore() {

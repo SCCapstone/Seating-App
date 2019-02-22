@@ -6,7 +6,7 @@
     <button class="add-button" mat-raised-button (click)="openAddStore()">Add Store</button>
     <mat-list *ngFor="let store of stores">
       <mat-list-item *ngIf="userIsAuthenticated && userId === store.creator">
-        {{ store.name }} AND {{ store.defaultFloorplan }}
+        {{ store.name }} <div style="margin-left:auto;"> {{ store.defaultFloorplan }} </div>
         <button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditStore(store.id)">Edit Store</button>
       </mat-list-item>
     </mat-list>
