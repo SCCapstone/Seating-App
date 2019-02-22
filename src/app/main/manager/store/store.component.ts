@@ -8,7 +8,9 @@ import { FloorplansService } from "../../manager/fp-builder/floorplan.service";
 import { Floorplan } from '../../manager/fp-builder/floorplan.model';
 import { StoresService } from "./stores.service";
 import { Store } from "./store.model";
+import { ServersService } from "../../manager/servers/servers.service";
 import { AuthService } from "../../../auth/auth.service";
+import { Server } from "../../manager/servers/server.model";
 
 @Component({
   selector: "app-store",

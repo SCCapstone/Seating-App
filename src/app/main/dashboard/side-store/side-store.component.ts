@@ -6,8 +6,10 @@ import { AuthService } from 'src/app/auth/auth.service';
 
 import { FloorplansService } from "../../manager/fp-builder/floorplan.service";
 import { StoresService } from "../../manager/store/stores.service";
+import { ServersService } from "../../manager/servers/servers.service";
 import { Floorplan } from '../../manager/fp-builder/floorplan.model';
 import { Store } from '../../manager/store/store.model';
+import { Server } from "../../manager/servers/server.model";
 
 declare let fabric;
 
@@ -29,6 +31,7 @@ export class SideStoreComponent implements OnInit {
   private floorplanId: string;
   private floorplansSub: Subscription;
   private storesSub: Subscription; // subscriptions hold changes to objects
+  private serversSub: Subscription;
   private authStatusSub: Subscription;
 
   store: Store;
@@ -41,6 +44,12 @@ export class SideStoreComponent implements OnInit {
   currentPage = 1;
   // needed for DB function ^
 
+  servers: Server;
+  serverList: Server[] = [];
+  selectedServers: "None";
+  totalServers = 0;
+  serversPerPage = 10;
+
   totalFloorplans = 0;
   isLoading = false;
   userIsAuthenticated = false;
@@ -49,6 +58,7 @@ export class SideStoreComponent implements OnInit {
   constructor(
     public floorplansService: FloorplansService,
     public storesService: StoresService,
+    public serversService: ServersService,
     public route: ActivatedRoute,
     private authService: AuthService
   ) {}
@@ -69,7 +79,7 @@ export class SideStoreComponent implements OnInit {
           this.floorplanList = floorplanData.floorplans;
         }
       );
-    //stores
+    // Stores
     this.storesService.getStores(this.storesPerPage, this.currentPage);
     this.storesSub = this.storesService
       .getStoreUpdateListener()
@@ -81,6 +91,20 @@ export class SideStoreComponent implements OnInit {
           this.isLoading = false;
           this.totalStores = storeData.storeCount;
           this.storeList = storeData.stores;
+        }
+      );
+      // Servers
+    this.serversService.getServers(this.serversPerPage, this.currentPage);
+    this.serversSub = this.serversService
+    .getServerUpdateListener()
+      .subscribe(
+        (serverData: {
+          servers: Server[];
+          serverCount: number;
+        }) => {
+          this.isLoading = false;
+          this.totalServers = serverData.serverCount;
+          this.serverList = serverData.servers;
         }
       );
     this.userIsAuthenticated = this.authService.getIsAuth();
@@ -129,6 +153,16 @@ export class SideStoreComponent implements OnInit {
       };
       this.selectedFloorplan = floorplanData.name;
       this.canvas.loadFromJSON(this.floorplan.json);
+    });
+
+    this.serversService.getServer(id).subscribe(serverData => {
+      this.servers = {
+        id: serverData._id,
+        name: serverData.name,
+        store: this.servers.store,
+        creator: serverData.creator
+      };
+     // this.selectedServers = serverData.name;
     });
     // Redraws the canvas.
     this.canvas.renderAll();
