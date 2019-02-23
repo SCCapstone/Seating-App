@@ -91,7 +91,8 @@ export class CanvasComponent implements OnInit {
     this.textBox = new fabric.Textbox(tableNumber, {
       originX: "center",
       originY: "center",
-      fontSize: 64
+      fontSize: 64,
+      fontColor: "white"
     });
    // groups them together
     const group = new fabric.Group([this.circleTable, this.textBox ], {
