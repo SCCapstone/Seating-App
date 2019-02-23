@@ -118,6 +118,12 @@ export class SideStoreComponent implements OnInit {
     const canvasSpec  = document.getElementById("canvas-wrap");
     this.canvas.setHeight(canvasSpec.clientHeight - 50);
     this.canvas.setWidth(canvasSpec.clientWidth);
+
+    this.canvas.on("mouse:down", function(options) {
+      if (options.target) {
+        console.log("Table " + options.target._objects[0].name + " was clicked!");
+      }
+    });
   }
 
   loadStore(name: string, floorplanID: string) {
