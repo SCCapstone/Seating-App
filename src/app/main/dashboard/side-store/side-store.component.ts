@@ -121,7 +121,12 @@ export class SideStoreComponent implements OnInit {
 
     this.canvas.on("mouse:down", function(options) {
       if (options.target) {
-        console.log("Table " + options.target._objects[0].name + " was clicked!");
+        console.log("Guests seated before update: ", options.target._objects[0].guestsSeated);
+        const guests = prompt("How many people?", "");
+        options.target._objects[0].guestsSeated = guests;
+        console.log("Guests seated after update: ", options.target._objects[0].guestsSeated);
+        console.log(options.target._objects[0]);
+        // this.saveCanvas();
       }
     });
   }
@@ -131,6 +136,17 @@ export class SideStoreComponent implements OnInit {
     this.selectedStore = name;
     this.loadCanvas(floorplanID);
     this.isLoading = false;
+  }
+
+  saveCanvas() {
+    console.log("Hey you did it");
+/*     const json_data = this.canvas.toJSON();
+    console.log("Argument ID: " + this.floorplan.id);
+    this.floorplansService.updateFloorplan(
+      this.floorplan.id,
+      this.floorplan.name,
+      json_data
+    ); */
   }
 
   loadCanvas(id: string) {
@@ -147,6 +163,7 @@ export class SideStoreComponent implements OnInit {
       this.selectedFloorplan = floorplanData.name;
       this.canvas.loadFromJSON(this.floorplan.json);
     });
+
 
     // I am commenting this out for now so I can try to work on other elements of the code.
     /**

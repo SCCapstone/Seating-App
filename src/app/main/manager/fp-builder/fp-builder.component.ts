@@ -138,6 +138,11 @@ export class FpBuilderComponent implements OnInit {
     })(this.rectTable.toObject);
 
     this.rectTable.name = tableNumber;
+    this.rectTable.serverId = "";
+    this.rectTable.capacity = 0;
+    this.rectTable.guestsSeated = 0;
+    this.rectTable.timeSeated = "";
+    this.rectTable.notes = "";
 
 
     // creates textbox
