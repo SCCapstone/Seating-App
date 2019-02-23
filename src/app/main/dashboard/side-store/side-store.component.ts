@@ -127,19 +127,6 @@ export class SideStoreComponent implements OnInit {
     this.isLoading = false;
   }
 
-  loadDefaultFloorplan(id: string) {
-    console.log("Loading default floorplan with ID: " + id);
-    this.storesService.getStore(id).subscribe(storeData => {
-      this.store = {
-        id: storeData._id,
-        name: storeData.name,
-        defaultFloorplan: storeData.defaultFloorplan,
-        creator: storeData.creator
-      };
-      this.selectedStore = storeData.name;
-    });
-  }
-
   loadCanvas(id: string) {
     // Currently prompts user for name. **TODO
     console.log("Loading Floorplan with ID: " + id);
