@@ -42,63 +42,57 @@ export class CanvasComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.isLoading = true;
-    this.floorplansService.getFloorplans();
-    this.userId = this.authService.getUserId();
-    this.floorplansSub = this.floorplansService
-      .getFloorplanUpdateListener()
-      .subscribe(
-        (floorplanData: {
-          floorplans: Floorplan[];
-          floorplanCount: number;
-        }) => {
-          this.isLoading = false;
-          this.totalFloorplans = floorplanData.floorplanCount;
-          this.floorplanList = floorplanData.floorplans;
-        }
-      );
-    this.userIsAuthenticated = this.authService.getIsAuth();
-    this.authStatusSub = this.authService
-      .getAuthStatusListener()
-      .subscribe(isAuthenticated => {
-        this.userIsAuthenticated = isAuthenticated;
-        this.userId = this.authService.getUserId();
-      });
+    // this.isLoading = true;
+    // this.floorplansService.getFloorplans();
+    // this.userId = this.authService.getUserId();
+    // this.floorplansSub = this.floorplansService
+    //   .getFloorplanUpdateListener()
+    //   .subscribe(
+    //     (floorplanData: {
+    //       floorplans: Floorplan[];
+    //       floorplanCount: number;
+    //     }) => {
+    //       this.isLoading = false;
+    //       this.totalFloorplans = floorplanData.floorplanCount;
+    //       this.floorplanList = floorplanData.floorplans;
+    //     }
+    //   );
+    // this.userIsAuthenticated = this.authService.getIsAuth();
+    // this.authStatusSub = this.authService
+    //   .getAuthStatusListener()
+    //   .subscribe(isAuthenticated => {
+    //     this.userIsAuthenticated = isAuthenticated;
+    //     this.userId = this.authService.getUserId();
+    //   });
+    // this.canvas = new fabric.Canvas("canvas", {});
+    // const canvasSpec  = document.getElementById("canvas-wrap");
+    // this.canvas.setHeight(canvasSpec.clientHeight - 50);
+    // this.canvas.setWidth(canvasSpec.clientWidth);
 
-/*     this.authStatusSub = this.authService
-    .getAuthStatusListener()
-    .subscribe(authStatus => {
-      this.isLoading = false;
-    }); */
-    this.canvas = new fabric.Canvas("canvas", {});
-    const canvasSpec  = document.getElementById("canvas-wrap");
-    this.canvas.setHeight(canvasSpec.clientHeight - 50);
-    this.canvas.setWidth(canvasSpec.clientWidth);
+    // this.route.paramMap.subscribe((paramMap: ParamMap) => {
 
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
-
-      if (paramMap.has("floorplanId")) {
-        console.log("loading floorplan");
-        this.mode = "edit";
-        this.floorplanId = paramMap.get("floorplanId");
-        this.isLoading = true;
-        this.floorplansService
-          .getFloorplan(this.floorplanId)
-          .subscribe(floorplanData => {
-            this.isLoading = false;
-            this.floorplan = {
-              id: floorplanData._id,
-              name: floorplanData.name,
-              json: floorplanData.json,
-              creator: floorplanData.creator
-            };
-          });
-      } else {
-        console.log("Creating floorplan");
-        this.mode = "create";
-        this.floorplanId = null;
-      }
-    });
+    //   if (paramMap.has("floorplanId")) {
+    //     console.log("loading floorplan");
+    //     this.mode = "edit";
+    //     this.floorplanId = paramMap.get("floorplanId");
+    //     this.isLoading = true;
+    //     this.floorplansService
+    //       .getFloorplan(this.floorplanId)
+    //       .subscribe(floorplanData => {
+    //         this.isLoading = false;
+    //         this.floorplan = {
+    //           id: floorplanData._id,
+    //           name: floorplanData.name,
+    //           json: floorplanData.json,
+    //           creator: floorplanData.creator
+    //         };
+    //       });
+    //   } else {
+    //     console.log("Creating floorplan");
+    //     this.mode = "create";
+    //     this.floorplanId = null;
+    //   }
+    // });
   }
 
 /**
