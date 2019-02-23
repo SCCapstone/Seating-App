@@ -155,6 +155,8 @@ export class SideStoreComponent implements OnInit {
       this.canvas.loadFromJSON(this.floorplan.json);
     });
 
+    // I am commenting this out for now so I can try to work on other elements of the code.
+    /**
     this.serversService.getServer(id).subscribe(serverData => {
       this.servers = {
         id: serverData._id,
@@ -164,6 +166,8 @@ export class SideStoreComponent implements OnInit {
       };
      // this.selectedServers = serverData.name;
     });
+    */
+
     // Redraws the canvas.
     this.canvas.renderAll();
   }
