@@ -5,6 +5,8 @@ import { ServersService } from "../../manager/servers/servers.service";
 import { Server } from "../../manager/servers/server.model";
 import { AuthService } from "../../../auth/auth.service";
 
+import { DashboardService } from "../../dashboard/dashboard.service";
+
 @Component({
   selector: 'app-side-servers',
   templateUrl: './side-servers.component.html',
@@ -22,6 +24,7 @@ export class SideServersComponent implements OnInit {
   private serversSub: Subscription;
   private authStatusSub: Subscription;
   constructor(
+    public dashboardService: DashboardService,
     public serversService: ServersService,
     private authService: AuthService
   ) {}

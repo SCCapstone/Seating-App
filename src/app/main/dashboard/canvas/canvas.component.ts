@@ -18,10 +18,8 @@ declare let fabric;
 })
 export class CanvasComponent implements OnInit {
   private canvas;
-  private rectTable;
-  private circleTable;
-  private textBox;
 
+  selectedFloorplan = "None";
   floorplan: Floorplan;
   floorplanList: Floorplan[] = [];
   private mode = "create";
@@ -42,27 +40,57 @@ export class CanvasComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.canvas = new fabric.Canvas("canvas", {});
+    const canvasSpec  = document.getElementById("canvas-wrap");
+    this.canvas.setHeight(canvasSpec.clientHeight - 50);
+    this.canvas.setWidth(canvasSpec.clientWidth);
+
+    this.canvas.on("mouse:down", function(options) {
+      if (options.target) {
+
+/*         console.log("Guests seated before update: ", options.target._objects[0].guestsSeated);
+        const guests = prompt("How many people?", "");
+        options.target._objects[0].guestsSeated = guests;
+        console.log("Guests seated after update: ", options.target._objects[0].guestsSeated);
+        console.log(options.target._objects[0]); */
+
+        options.target.lockMovementX = true;
+        options.target.lockMovementY = true;
+        options.target.lockScalingX = true;
+        options.target.lockScalingY = true;
+        options.target.lockRotation = true;
+        options.target.hasControls = false;
+        // this.saveCanvas();
+      }
+    });
   }
 
-  // Lock object in place
-  toggleLockObject() {
-    if ((this.canvas.getActiveObject()).lockMovementX === false) {
-      (this.canvas.getActiveObject()).lockMovementX = true;
-      (this.canvas.getActiveObject()).lockMovementX = true;
-      (this.canvas.getActiveObject()).lockMovementY = true;
-      (this.canvas.getActiveObject()).lockScalingX = true;
-      (this.canvas.getActiveObject()).lockScalingY = true;
-      (this.canvas.getActiveObject()).lockUniScaling = true;
-      (this.canvas.getActiveObject()).lockRotation = true;
-    } else {
-      (this.canvas.getActiveObject()).lockMovementX = false;
-      (this.canvas.getActiveObject()).lockMovementX = false;
-      (this.canvas.getActiveObject()).lockMovementY = false;
-      (this.canvas.getActiveObject()).lockScalingX = false;
-      (this.canvas.getActiveObject()).lockScalingY = false;
-      (this.canvas.getActiveObject()).lockUniScaling = false;
-      (this.canvas.getActiveObject()).lockRotation = false;
-    }
+  loadCanvas(id: string) {
+    // Currently prompts user for name. **TODO
+    console.log("Loading Floorplan with ID: " + id);
+
+    this.floorplansService.getFloorplan(id).subscribe(floorplanData => {
+      this.floorplan = {
+        id: floorplanData._id,
+        name: floorplanData.name,
+        json: floorplanData.json,
+        creator: floorplanData.creator
+      };
+      this.selectedFloorplan = floorplanData.name;
+      this.canvas.loadFromJSON(this.floorplan.json);
+    });
+
+  }
+
+  updateCanvas() {
+    console.log("Hey you did it");
+/*     const json_data = this.canvas.toJSON();
+    console.log("Argument ID: " + this.floorplan.id);
+    this.dashboardService.updateFloorplan(
+      this.floorplan.id,
+      this.floorplan.name,
+      json_data
+    ); */
   }
 }
 

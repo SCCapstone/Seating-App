@@ -2,9 +2,11 @@
   <mat-expansion-panel-header>
     <h3>Servers</h3>
   </mat-expansion-panel-header>
-  <mat-list *ngFor="let server of servers">
-    <mat-list-item *ngIf="userIsAuthenticated && userId === server.creator">
-      {{ server.name }}
-    </mat-list-item>
-  </mat-list>
+  <div *ngFor="let server of servers">
+    <mat-list *ngIf="userIsAuthenticated && userId === server.creator && dashboardService.selectedStoreID === server.store">
+      <mat-list-item>
+        {{ server.name }}
+      </mat-list-item>
+    </mat-list>
+  </div>
 </mat-expansion-panel>

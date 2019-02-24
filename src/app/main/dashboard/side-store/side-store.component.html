@@ -6,7 +6,7 @@
     <h3>Select Store:</h3> {{ selectedStore }}
     <mat-select [(value)]="selectedStore">
       <ng-container *ngFor="let store of storeList">
-        <mat-option (click)="loadStore(store.name, store.defaultFloorplan)" *ngIf="userIsAuthenticated && userId === store.creator">
+        <mat-option (click)="loadStore(store.id, store.name, store.defaultFloorplan)" *ngIf="userIsAuthenticated && userId === store.creator">
           {{store.name}}
         </mat-option>
       </ng-container>

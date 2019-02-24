@@ -58,6 +58,7 @@ export class SideStoreComponent implements OnInit {
 
   constructor(
     public dashboardService: DashboardService,
+    public floorplansService: FloorplansService,
     public storesService: StoresService,
     public serversService: ServersService,
     public route: ActivatedRoute,
@@ -66,9 +67,9 @@ export class SideStoreComponent implements OnInit {
 
   ngOnInit() { // on load component
     this.isLoading = true;
-    this.dashboardService.getFloorplans();
+    this.floorplansService.getFloorplans();
     this.userId = this.authService.getUserId();
-    this.floorplansSub = this.dashboardService
+    this.floorplansSub = this.floorplansService
       .getFloorplanUpdateListener()
       .subscribe(
         (floorplanData: {
@@ -115,80 +116,14 @@ export class SideStoreComponent implements OnInit {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
-    this.canvas = new fabric.Canvas("canvas", {});
-    const canvasSpec  = document.getElementById("canvas-wrap");
-    this.canvas.setHeight(canvasSpec.clientHeight - 50);
-    this.canvas.setWidth(canvasSpec.clientWidth);
-
-
-    this.canvas.on("mouse:down", function(options) {
-      if (options.target) {
-
-/*         console.log("Guests seated before update: ", options.target._objects[0].guestsSeated);
-        const guests = prompt("How many people?", "");
-        options.target._objects[0].guestsSeated = guests;
-        console.log("Guests seated after update: ", options.target._objects[0].guestsSeated);
-        console.log(options.target._objects[0]); */
-
-        options.target.lockMovementX = true;
-        options.target.lockMovementY = true;
-        options.target.lockScalingX = true;
-        options.target.lockScalingY = true;
-        options.target.lockRotation = true;
-        options.target.hasControls = false;
-        // this.saveCanvas();
-      }
-    });
   }
 
-  loadStore(name: string, floorplanID: string) {
+  loadStore(storeID: string, name: string, floorplanID: string) {
     this.isLoading = true;
     this.selectedStore = name;
-    this.loadCanvas(floorplanID);
+    this.dashboardService.selectedStoreID = storeID;
+    this.dashboardService.dashLoadCanvas(floorplanID);
     this.isLoading = false;
   }
 
-  saveCanvas() {
-    console.log("Hey you did it");
-/*     const json_data = this.canvas.toJSON();
-    console.log("Argument ID: " + this.floorplan.id);
-    this.dashboardService.updateFloorplan(
-      this.floorplan.id,
-      this.floorplan.name,
-      json_data
-    ); */
-  }
-
-  loadCanvas(id: string) {
-    // Currently prompts user for name. **TODO
-    console.log("Loading Floorplan with ID: " + id);
-
-    this.dashboardService.getFloorplan(id).subscribe(floorplanData => {
-      this.floorplan = {
-        id: floorplanData._id,
-        name: floorplanData.name,
-        json: floorplanData.json,
-        creator: floorplanData.creator
-      };
-      this.selectedFloorplan = floorplanData.name;
-      this.canvas.loadFromJSON(this.floorplan.json);
-    });
-
-
-    // I am commenting this out for now so I can try to work on other elements of the code.
-    /**
-    this.serversService.getServer(id).subscribe(serverData => {
-      this.servers = {
-        id: serverData._id,
-        name: serverData.name,
-        store: this.servers.store,
-        creator: serverData.creator
-      };
-     // this.selectedServers = serverData.name;
-    });
-    */
-
-    // Redraws the canvas.
-    this.canvas.renderAll();
-  }
 }
