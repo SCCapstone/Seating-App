@@ -8,7 +8,7 @@ export class DashboardService {
 
   selectedStoreID = "None";
   selectedFloorplanName = "None";
-  selectedFloorplanID = "None";s
+  selectedFloorplanID = "None";
 
   constructor(
     private router: Router
