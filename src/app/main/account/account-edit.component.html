@@ -1,10 +1,10 @@
-<h1 mat-dialog-title>Edit Store</h1>
+<h1 mat-dialog-title>Edit Acct</h1>
 <mat-card>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
     <form [formGroup]="form" (submit)="onUpdateStore()" *ngIf="!isLoading">
       <mat-form-field>
-        <input matInput type="text" formControlName="name" placeholder="Store Name" />
-        <mat-error *ngIf="form.get('name').invalid">Please enter a store name.</mat-error>
+        <input matInput type="text" formControlName="name" placeholder="Name" />
+        <mat-error *ngIf="form.get('name').invalid">Please enter a name.</mat-error>
       </mat-form-field>
       <button style="margin-left:2rem;" mat-raised-button color="accent" type="submit">Update</button>
     </form>
