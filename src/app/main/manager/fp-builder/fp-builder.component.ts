@@ -110,7 +110,7 @@ export class FpBuilderComponent implements OnInit {
 /**
  * Creates a rectangle table object and places it in the center of the canvas.
  */
-  addRect() {
+addRect() {
     // prompt to get table number.
     const tableNumber = prompt("What is the table number?", "Please enter a table number.");
 
@@ -330,19 +330,91 @@ export class TableAddComponent implements OnInit, OnDestroy {
   isLoading = false;
   form: FormGroup;
 
+  // private rectTable;
+  // private textBox;
+  private tableID: string;;
+  private capacityNum: string;
+
   constructor(
     public dialogRef: MatDialogRef<TableAddComponent>,
     public route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+  //  this.isLoading = true;
     this.form = new FormGroup({
      name: new FormControl(null, {
        validators: [Validators.required]
+     }),
+     capacity: new FormControl(null, {
+       validators: [Validators.required]
      })
     });
-  }
 
+  }
+  /**addRect() {
+    // prompt to get table number.
+    const tableNumber = prompt("What is the table number?", "Please enter a table number.");
+
+    // creates rectangle object
+    this.rectTable = new fabric.Rect({
+      width: 100,
+      height: 100,
+      fill: "#7B638E",
+      originX: "center",
+      originY: "center",
+    });
+
+    // Adds subclasses for rectangles
+    this.rectTable.toObject = (function(toObject) {
+      return function() {
+        return fabric.util.object.extend(toObject.call(this), {
+          name: this.name,
+          serverId: this.serverId,
+          capacity: this.capacity,
+          guestsSeated: this.guestsSeated,
+          timeSeated: this.timeSeated,
+          notes: this.notes
+        });
+      };
+    })(this.rectTable.toObject);
+
+    // this.rectTable.name = tableNumber;
+
+
+    // creates textbox
+    this.textBox = new fabric.Textbox(this.rectTable.name, {
+      originX: "center",
+      originY: "center",
+      fontSize: 64,
+      fill: "white"
+    });
+
+    // groups them together
+    const group = new fabric.Group([this.rectTable, this.textBox ], {
+      top: 100,
+      left: 150
+    });
+    this.canvas.add(group);
+    this.canvas.centerObject(group);
+  }
+  **/
+
+  saveTable() {
+    console.log("blah");
+    if(this.form.invalid){
+      return;
+    }
+    // this.isLoading = true;
+    // this.storesService.addtable(
+        // this.form.value.name,
+        // this.form.value.capacity
+    // );
+    this.isLoading = false;
+    this.dialogRef.close();
+    this.form.reset();
+
+  }
   ngOnDestroy() {
   }
 
