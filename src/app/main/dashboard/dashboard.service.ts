@@ -7,12 +7,14 @@ import { Router } from "@angular/router";
 export class DashboardService {
 
   selectedStoreID = "None";
+  selectedFloorplanName = "None";
+  selectedFloorplanID = "None";s
 
   constructor(
     private router: Router
   ) {}
 
-  dashLoadCanvas (floorplanID: string) {
-    console.log("hi");
+  dashLoadCanvas () {
+    console.log("Dashboard: \n" + this.selectedStoreID, "\n", this.selectedFloorplanID, this.selectedFloorplanName);
   }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import "fabric";
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -12,7 +11,6 @@ import { Store } from '../../manager/store/store.model';
 import { Server } from "../../manager/servers/server.model";
 import { DashboardService } from '../dashboard.service';
 
-declare let fabric;
 
 @Component({
   selector: 'app-side-store',
@@ -20,10 +18,6 @@ declare let fabric;
   styleUrls: ['./side-store.component.css']
 })
 export class SideStoreComponent implements OnInit {
-  private canvas;
-  private rectTable;
-  private circleTable;
-  private textBox;
 
   floorplan: Floorplan;
   floorplanList: Floorplan[] = [];
@@ -130,9 +124,12 @@ export class SideStoreComponent implements OnInit {
         json: floorplanData.json,
         creator: floorplanData.creator
       };
+      //console.log(floorplanData.name);
     this.selectedFloorplan = floorplanData.name;
+    this.dashboardService.selectedFloorplanName = floorplanData.name;
+    this.dashboardService.selectedFloorplanID = floorplanData._id;
+    this.dashboardService.dashLoadCanvas();
     });
-    this.dashboardService.dashLoadCanvas(floorplanID);
     this.isLoading = false;
   }
 }

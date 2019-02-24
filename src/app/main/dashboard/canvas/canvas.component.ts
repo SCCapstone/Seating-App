@@ -9,6 +9,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Floorplan } from '../../manager/fp-builder/floorplan.model';
 
+import { DashboardService } from '../dashboard.service';
+
 declare let fabric;
 
 @Component({
@@ -19,7 +21,7 @@ declare let fabric;
 export class CanvasComponent implements OnInit {
   private canvas;
 
-  selectedFloorplan = "None";
+  selectedFloorplanID = "None";
   floorplan: Floorplan;
   floorplanList: Floorplan[] = [];
   private mode = "create";
@@ -34,6 +36,7 @@ export class CanvasComponent implements OnInit {
   userId: string;
 
   constructor(
+    public dashboardService: DashboardService,
     public floorplansService: FloorplansService,
     public route: ActivatedRoute,
     private authService: AuthService
@@ -44,6 +47,9 @@ export class CanvasComponent implements OnInit {
     const canvasSpec  = document.getElementById("canvas-wrap");
     this.canvas.setHeight(canvasSpec.clientHeight - 50);
     this.canvas.setWidth(canvasSpec.clientWidth);
+
+    this.selectedFloorplanID = this.dashboardService.selectedFloorplanID;
+    console.log(this.selectedFloorplanID);
 
     this.canvas.on("mouse:down", function(options) {
       if (options.target) {
@@ -76,10 +82,9 @@ export class CanvasComponent implements OnInit {
         json: floorplanData.json,
         creator: floorplanData.creator
       };
-      this.selectedFloorplan = floorplanData.name;
+      this.selectedFloorplanID = floorplanData._id;
       this.canvas.loadFromJSON(this.floorplan.json);
     });
-
   }
 
   updateCanvas() {
