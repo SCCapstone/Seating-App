@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import "fabric";
-import { $ } from "protractor";
 import { getNumberOfCurrencyDigits } from "@angular/common";
 import { Canvas } from "fabric/fabric-impl";
 import { FloorplansService } from "../../manager/fp-builder/floorplan.service";
@@ -35,6 +34,8 @@ export class CanvasComponent implements OnInit {
   userIsAuthenticated = false;
   userId: string;
 
+  changedFPID = "None";
+
   constructor(
     public dashboardService: DashboardService,
     public floorplansService: FloorplansService,
@@ -48,8 +49,10 @@ export class CanvasComponent implements OnInit {
     this.canvas.setHeight(canvasSpec.clientHeight - 50);
     this.canvas.setWidth(canvasSpec.clientWidth);
 
-    this.selectedFloorplanID = this.dashboardService.selectedFloorplanID;
-    console.log(this.selectedFloorplanID);
+    this.dashboardService.change.subscribe(changedFPID => {
+      this.changedFPID = changedFPID;
+      this.loadCanvas(this.changedFPID);
+     });
 
     this.canvas.on("mouse:down", function(options) {
       if (options.target) {
