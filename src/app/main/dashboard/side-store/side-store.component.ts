@@ -10,6 +10,7 @@ import { ServersService } from "../../manager/servers/servers.service";
 import { Floorplan } from '../../manager/fp-builder/floorplan.model';
 import { Store } from '../../manager/store/store.model';
 import { Server } from "../../manager/servers/server.model";
+import { DashboardService } from '../dashboard.service';
 
 declare let fabric;
 
@@ -56,7 +57,7 @@ export class SideStoreComponent implements OnInit {
   userId: string;
 
   constructor(
-    public floorplansService: FloorplansService,
+    public dashboardService: DashboardService,
     public storesService: StoresService,
     public serversService: ServersService,
     public route: ActivatedRoute,
@@ -65,9 +66,9 @@ export class SideStoreComponent implements OnInit {
 
   ngOnInit() { // on load component
     this.isLoading = true;
-    this.floorplansService.getFloorplans();
+    this.dashboardService.getFloorplans();
     this.userId = this.authService.getUserId();
-    this.floorplansSub = this.floorplansService
+    this.floorplansSub = this.dashboardService
       .getFloorplanUpdateListener()
       .subscribe(
         (floorplanData: {
@@ -151,7 +152,7 @@ export class SideStoreComponent implements OnInit {
     console.log("Hey you did it");
 /*     const json_data = this.canvas.toJSON();
     console.log("Argument ID: " + this.floorplan.id);
-    this.floorplansService.updateFloorplan(
+    this.dashboardService.updateFloorplan(
       this.floorplan.id,
       this.floorplan.name,
       json_data
@@ -162,7 +163,7 @@ export class SideStoreComponent implements OnInit {
     // Currently prompts user for name. **TODO
     console.log("Loading Floorplan with ID: " + id);
 
-    this.floorplansService.getFloorplan(id).subscribe(floorplanData => {
+    this.dashboardService.getFloorplan(id).subscribe(floorplanData => {
       this.floorplan = {
         id: floorplanData._id,
         name: floorplanData.name,
