@@ -119,13 +119,22 @@ export class SideStoreComponent implements OnInit {
     this.canvas.setHeight(canvasSpec.clientHeight - 50);
     this.canvas.setWidth(canvasSpec.clientWidth);
 
+
     this.canvas.on("mouse:down", function(options) {
       if (options.target) {
-        console.log("Guests seated before update: ", options.target._objects[0].guestsSeated);
+
+/*         console.log("Guests seated before update: ", options.target._objects[0].guestsSeated);
         const guests = prompt("How many people?", "");
         options.target._objects[0].guestsSeated = guests;
         console.log("Guests seated after update: ", options.target._objects[0].guestsSeated);
-        console.log(options.target._objects[0]);
+        console.log(options.target._objects[0]); */
+
+        options.target.lockMovementX = true;
+        options.target.lockMovementY = true;
+        options.target.lockScalingX = true;
+        options.target.lockScalingY = true;
+        options.target.lockRotation = true;
+        options.target.hasControls = false;
         // this.saveCanvas();
       }
     });
