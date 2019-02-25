@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../dashboard.service';
 
 @Component({
   selector: 'app-side-table',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideTableComponent implements OnInit {
 
-  constructor() { }
+  changedTable = null;
+
+  constructor(
+    public dashboardService: DashboardService
+  ) {}
 
   ngOnInit() {
+    this.dashboardService.tableChange.subscribe(changedTable => {
+      this.changedTable = changedTable;
+      this.getTableData(this.changedTable);
+     });
   }
-
+  getTableData(table: object) {
+    console.log("Final step - table data should be here: ", table);
+  }
 }
+
+
