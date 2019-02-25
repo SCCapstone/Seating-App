@@ -125,10 +125,29 @@ export class SideStoreComponent implements OnInit {
         creator: floorplanData.creator
       };
       //console.log(floorplanData.name);
-    this.selectedFloorplan = floorplanData.name;
-    this.dashboardService.selectedFloorplanName = floorplanData.name;
-    this.dashboardService.selectedFloorplanID = floorplanData._id;
-    this.dashboardService.dashLoadCanvas();
+      this.selectedFloorplan = floorplanData.name;
+      this.dashboardService.selectedFloorplanName = floorplanData.name;
+      this.dashboardService.selectedFloorplanID = floorplanData._id;
+      this.dashboardService.dashLoadCanvas();
+    });
+    this.isLoading = false;
+  }
+
+  loadCanvas(floorplanId: string) {
+    this.isLoading = true;
+
+    this.floorplansService.getFloorplan(floorplanId).subscribe(floorplanData => {
+      this.floorplan = {
+        id: floorplanData._id,
+        name: floorplanData.name,
+        json: floorplanData.json,
+        creator: floorplanData.creator
+      };
+      this.selectedFloorplan = floorplanData.name;
+      this.dashboardService.selectedFloorplanName = floorplanData.name;
+      this.dashboardService.selectedFloorplanID = floorplanData._id;
+      this.dashboardService.dashLoadCanvas();
+
     });
     this.isLoading = false;
   }

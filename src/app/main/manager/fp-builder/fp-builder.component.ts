@@ -188,6 +188,12 @@ addRect() {
     })(this.circleTable.toObject);
 
     this.circleTable.name = tableNumber;
+    this.circleTable.serverId = "";
+    this.circleTable.capacity = 0;
+    this.circleTable.guestsSeated = 0;
+    this.circleTable.timeSeated = "";
+    this.circleTable.notes = "";
+
     // creates textbox
     this.textBox = new fabric.Textbox(tableNumber, {
       originX: "center",

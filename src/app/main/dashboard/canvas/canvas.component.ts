@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, setTestabilityGetter } from '@angular/core';
 import "fabric";
 import { getNumberOfCurrencyDigits } from "@angular/common";
 import { Canvas } from "fabric/fabric-impl";
@@ -34,6 +34,7 @@ export class CanvasComponent implements OnInit {
   userIsAuthenticated = false;
   userId: string;
 
+  changedTable = null;
   changedFPID = "None";
 
   constructor(
@@ -54,14 +55,17 @@ export class CanvasComponent implements OnInit {
       this.loadCanvas(this.changedFPID);
      });
 
-    this.canvas.on("mouse:down", function(options) {
+    this.canvas.on("mouse:down", function(e) {
+      this.setTable(e, { name: "test" });
+    });
+/*     this.canvas.on("mouse:down", function(options) {
       if (options.target) {
 
-/*         console.log("Guests seated before update: ", options.target._objects[0].guestsSeated);
+        console.log("Guests seated before update: ", options.target._objects[0].guestsSeated);
         const guests = prompt("How many people?", "");
         options.target._objects[0].guestsSeated = guests;
         console.log("Guests seated after update: ", options.target._objects[0].guestsSeated);
-        console.log(options.target._objects[0]); */
+        console.log(options.target._objects[0]);
 
         options.target.lockMovementX = true;
         options.target.lockMovementY = true;
@@ -69,9 +73,22 @@ export class CanvasComponent implements OnInit {
         options.target.lockScalingY = true;
         options.target.lockRotation = true;
         options.target.hasControls = false;
-        // this.saveCanvas();
+
+        this.changedTable = options.target._objects[0];
+        //this.dashboardService.dashSetTable();
+        // this.saveCanvas()
       }
-    });
+      this.getTable();
+    }); */
+     // object:selected
+
+  }
+
+  setTable(event, data) {
+    console.log(data.name);
+  }
+  getTable() {
+    console.log("Table object: ", this.changedTable);
   }
 
   loadCanvas(id: string) {
