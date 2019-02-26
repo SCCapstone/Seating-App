@@ -53,43 +53,29 @@ export class CanvasComponent implements OnInit {
     this.dashboardService.change.subscribe(changedFPID => {
       this.changedFPID = changedFPID;
       this.loadCanvas(this.changedFPID);
-     });
-
-    this.canvas.on("mouse:down", function(e) {
-      this.setTable(e, { name: "test" });
     });
-/*     this.canvas.on("mouse:down", function(options) {
+
+    function selectedTable(options) {
+      console.log("You selected table: " + options.target._objects[0].name);
+      this.setTable();
+    }
+
+    this.canvas.on("mouse:down", (options) => {
       if (options.target) {
-
-        console.log("Guests seated before update: ", options.target._objects[0].guestsSeated);
-        const guests = prompt("How many people?", "");
-        options.target._objects[0].guestsSeated = guests;
-        console.log("Guests seated after update: ", options.target._objects[0].guestsSeated);
-        console.log(options.target._objects[0]);
-
         options.target.lockMovementX = true;
         options.target.lockMovementY = true;
         options.target.lockScalingX = true;
         options.target.lockScalingY = true;
         options.target.lockRotation = true;
         options.target.hasControls = false;
-
-        this.changedTable = options.target._objects[0];
-        //this.dashboardService.dashSetTable();
-        // this.saveCanvas()
+        this.setTable(options);
       }
-      this.getTable();
-    }); */
-     // object:selected
-
+    });
+  }
+  setTable(options) {
+    console.log("You just selected table " + options.target._objects[0].name + " IN ANOTHER FUNCTION!!!");
   }
 
-  setTable(event, data) {
-    console.log(data.name);
-  }
-  getTable() {
-    console.log("Table object: ", this.changedTable);
-  }
 
   loadCanvas(id: string) {
     // Currently prompts user for name. **TODO
