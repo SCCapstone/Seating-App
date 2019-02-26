@@ -16,6 +16,7 @@ import { FpBuilderComponent, TableAddComponent } from './manager/fp-builder/fp-b
 import { ServersComponent, ServersAddComponent, ServersEditComponent } from './manager/servers/servers.component';
 import { SideTableComponent } from './dashboard/side-table/side-table.component';
 import { SideStoreComponent } from './dashboard/side-store/side-store.component';
+import { SeatTableComponent } from "./dashboard/side-table/seat-table/seat-table.component";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SideStoreComponent } from './dashboard/side-store/side-store.component'
     ServersAddComponent,
     ServersEditComponent,
     SideTableComponent,
-    SideStoreComponent
+    SideStoreComponent,
+    SeatTableComponent
   ],
   imports: [CommonModule, AngularMaterialModule, FormsModule, MainRoutingModule, ReactiveFormsModule],
   entryComponents: [
@@ -45,7 +47,7 @@ import { SideStoreComponent } from './dashboard/side-store/side-store.component'
     StoreComponent,
     StoreAddComponent,
     StoreEditComponent,
-    TableAddComponent
+    SeatTableComponent
   ],
   bootstrap: [ServersComponent, StoreComponent]
 })

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+
 import { DashboardService } from '../dashboard.service';
+import { SeatTableComponent } from "../side-table/seat-table/seat-table.component";
 
 @Component({
   selector: 'app-side-table',
@@ -12,6 +15,7 @@ export class SideTableComponent implements OnInit {
   tableName = "";
 
   constructor(
+    public dialog: MatDialog,
     public dashboardService: DashboardService
   ) {}
 
@@ -21,6 +25,17 @@ export class SideTableComponent implements OnInit {
       this.getTableData(this.changedTable);
      });
   }
+
+  openSeatTable(): void {
+    const dialogRef = this.dialog.open(SeatTableComponent, {
+      width: "500px"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed");
+    });
+  }
+
   getTableData(table) {
     this.tableName = table.target._objects[0].name;
     console.log("Final step - table data should be here: ", table);
