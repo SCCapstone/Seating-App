@@ -7,11 +7,13 @@
     <div class="store-header">
       <h4>Store Name</h4><h4 style="padding-left:40%;">Default Floorplan ID</h4>
     </div>
-    <mat-list *ngFor="let store of stores">
-      <mat-list-item *ngIf="userIsAuthenticated && userId === store.creator">
-        {{ store.name }} <div style="margin-left:auto;"> {{ store.defaultFloorplan }} </div>
-        <button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditStore(store.id)">Edit Store</button>
-      </mat-list-item>
-    </mat-list>
+    <div *ngFor="let store of stores">
+      <mat-list *ngIf="userIsAuthenticated && userId === store.creator">
+        <mat-list-item>
+          {{ store.name }} <div style="margin-left:auto;"> {{ store.defaultFloorplan }} </div>
+          <button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditStore(store.id)">Edit Store</button>
+        </mat-list-item>
+      </mat-list>
+    </div>
   </mat-card>
 </div>
