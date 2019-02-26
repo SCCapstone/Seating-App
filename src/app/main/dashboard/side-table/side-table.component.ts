@@ -9,6 +9,7 @@ import { DashboardService } from '../dashboard.service';
 export class SideTableComponent implements OnInit {
 
   changedTable = null;
+  tableName = "";
 
   constructor(
     public dashboardService: DashboardService
@@ -20,7 +21,8 @@ export class SideTableComponent implements OnInit {
       this.getTableData(this.changedTable);
      });
   }
-  getTableData(table: object) {
+  getTableData(table) {
+    this.tableName = table.target._objects[0].name;
     console.log("Final step - table data should be here: ", table);
   }
 }

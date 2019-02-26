@@ -34,7 +34,6 @@ export class CanvasComponent implements OnInit {
   userIsAuthenticated = false;
   userId: string;
 
-  changedTable = null;
   changedFPID = "None";
 
   constructor(
@@ -55,11 +54,6 @@ export class CanvasComponent implements OnInit {
       this.loadCanvas(this.changedFPID);
     });
 
-    function selectedTable(options) {
-      console.log("You selected table: " + options.target._objects[0].name);
-      this.setTable();
-    }
-
     this.canvas.on("mouse:down", (options) => {
       if (options.target) {
         options.target.lockMovementX = true;
@@ -72,8 +66,11 @@ export class CanvasComponent implements OnInit {
       }
     });
   }
+
   setTable(options) {
     console.log("You just selected table " + options.target._objects[0].name + " IN ANOTHER FUNCTION!!!");
+    this.dashboardService.selectedTable = options;
+    this.dashboardService.dashSetTable();
   }
 
 

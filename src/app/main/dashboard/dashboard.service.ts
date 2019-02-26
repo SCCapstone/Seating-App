@@ -28,6 +28,7 @@ export class DashboardService {
   }
 
   dashSetTable() {
+    console.log("selectedTable: ", this.selectedTable.target._objects[0].name);
     this.changedTable = this.selectedTable;
     this.tableChange.emit(this.changedTable);
     console.log("Changing table from dashboard");
