@@ -47,7 +47,7 @@ export class CanvasComponent implements OnInit {
   ngOnInit() {
     this.canvas = new fabric.Canvas("canvas", {});
     const canvasSpec  = document.getElementById("canvas-wrap");
-    this.canvas.setHeight(canvasSpec.clientHeight - 50);
+    this.canvas.setHeight(canvasSpec.clientHeight);
     this.canvas.setWidth(canvasSpec.clientWidth);
 
     this.dashboardService.change.subscribe(changedFPID => {
