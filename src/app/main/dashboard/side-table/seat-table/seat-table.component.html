@@ -1,6 +1,25 @@
 <h1 mat-dialog-title>Seat Table</h1>
 <mat-card>
-
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onUpdateTable()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="numSeated" placeholder="How many guests will be sitting at this table?" />
+      <mat-error *ngIf="form.get('numSeated').invalid">Please enter the number of guests.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      Capacity {{ numSeated }}
+      <mat-select [(value)]="numSeated">
+        <ng-container *ngFor="let  of canvas">
+          <mat-option (click)="setDefaultSeating(numSeated, isSeated)">
+            {{ numSeated }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+    <div class="form-btn-group">
+      <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>
+    </div>
+  </form>
 </mat-card>
 <div mat-dialog-actions>
   <button style="margin-left: auto;" mat-button (click)="onNoClick()">Close</button>

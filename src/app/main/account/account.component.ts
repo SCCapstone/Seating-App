@@ -48,7 +48,7 @@ export class AccountComponent implements OnInit {
     this.authStatusSub.unsubscribe();
   }
 
- 
+
   openEditAccount(id: string): void {
     this.accountsService.setAccountToEdit(id);
     const dialogRef = this.dialog.open(AccountEditComponent, {

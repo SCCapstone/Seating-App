@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AngularMaterialModule } from "../angular-material.module";
 import { MainRoutingModule } from "./main-routing.module";
-import { AccountComponent } from "./account/account.component";
+import { AccountComponent, AccountEditComponent } from "./account/account.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ManagerComponent } from "./manager/manager.component";
 import { ReservationsComponent } from "./reservations/reservations.component";
@@ -21,6 +21,7 @@ import { SeatTableComponent } from "./dashboard/side-table/seat-table/seat-table
 @NgModule({
   declarations: [
     AccountComponent,
+    AccountEditComponent,
     DashboardComponent,
     ManagerComponent,
     ReservationsComponent,
@@ -47,7 +48,7 @@ import { SeatTableComponent } from "./dashboard/side-table/seat-table/seat-table
     StoreComponent,
     StoreAddComponent,
     StoreEditComponent,
-    SeatTableComponent
+    SeatTableComponent,
   ],
   bootstrap: [ServersComponent, StoreComponent]
 })
