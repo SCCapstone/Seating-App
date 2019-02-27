@@ -15,10 +15,8 @@ import { DashboardService } from '../../dashboard.service';
   styleUrls: ['./seat-table.component.css']
 })
 export class SeatTableComponent implements OnInit {
-  changedTable = null;
   tableName = "";
   numSeated = 0;
-  isSeated = false;
   isLoading = false;
   form: FormGroup;
 
@@ -29,13 +27,14 @@ export class SeatTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.isLoading = true;
+    this.isLoading = true;
     console.log("Initializing FormGroup");
     this.form = new FormGroup({
       numSeated: new FormControl(null, {
         validators: [Validators.required]
       })
     });
+    this.isLoading = false;
   }
 
   onNoClick(): void {
@@ -47,13 +46,4 @@ export class SeatTableComponent implements OnInit {
     this.dashboardService.dashSetTable();
     this.dialogRef.close();
   }
-/*   setDefaultSeating(isSat: boolean, capacity: number) {
-    this.numSeated = capacity;
-    this.isSeated = isSat;
-  } */
-  getTableData(table) {
-    this.tableName = table.target._objects[0].name;
-    console.log("Check for that table data");
-  }
-
 }

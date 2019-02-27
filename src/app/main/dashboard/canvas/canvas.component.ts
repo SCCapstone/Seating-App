@@ -56,7 +56,6 @@ export class CanvasComponent implements OnInit {
 
     this.canvas.on("mouse:down", (options) => {
       if (options.target) {
-        console.log("Table selected", options.target);
         options.target.lockMovementX = true;
         options.target.lockMovementY = true;
         options.target.lockScalingX = true;
@@ -69,7 +68,7 @@ export class CanvasComponent implements OnInit {
   }
 
   setTable(options) {
-    console.log("You just selected table " + options.target._objects[0].name + " IN ANOTHER FUNCTION!!!");
+    console.log("Table " + options.target._objects[0].name + " selected.");
     this.dashboardService.selectedTable = options;
     this.dashboardService.dashSetTable();
   }
