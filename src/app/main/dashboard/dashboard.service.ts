@@ -11,6 +11,8 @@ export class DashboardService {
   selectedFloorplanID = "None";
   selectedTable = null;
 
+  numSeated = null;
+
   changedFPID = "None";
   changedTable = null;
 
@@ -32,5 +34,9 @@ export class DashboardService {
     this.changedTable = this.selectedTable;
     this.tableChange.emit(this.changedTable);
     console.log("Changing table from dashboard");
+  }
+
+  setTableSeated(numSeated: string) {
+    this.numSeated = numSeated;
   }
 }

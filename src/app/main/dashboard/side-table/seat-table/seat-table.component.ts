@@ -43,7 +43,7 @@ export class SeatTableComponent implements OnInit {
   }
   onUpdateTable() {
     console.log("Updating table");
-    this.dashboardService.selectedTable._objects[0] = this.form.value.name;
+    this.dashboardService.setTableSeated = this.form.value.numSeated;
   }
   setDefaultSeating(isSat: boolean, capacity: number) {
     this.numSeated = capacity;
