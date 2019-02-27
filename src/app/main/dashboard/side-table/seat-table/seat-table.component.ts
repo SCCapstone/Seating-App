@@ -43,12 +43,14 @@ export class SeatTableComponent implements OnInit {
   }
   onUpdateTable() {
     console.log("Updating table");
-    this.dashboardService.setTableSeated = this.form.value.numSeated;
+    this.dashboardService.selectedTable.target._objects[0].guestsSeated = this.form.value.numSeated;
+    this.dashboardService.dashSetTable();
+    this.dialogRef.close();
   }
-  setDefaultSeating(isSat: boolean, capacity: number) {
+/*   setDefaultSeating(isSat: boolean, capacity: number) {
     this.numSeated = capacity;
     this.isSeated = isSat;
-  }
+  } */
   getTableData(table) {
     this.tableName = table.target._objects[0].name;
     console.log("Check for that table data");

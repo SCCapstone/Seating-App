@@ -56,6 +56,7 @@ export class CanvasComponent implements OnInit {
 
     this.canvas.on("mouse:down", (options) => {
       if (options.target) {
+        console.log("Table selected", options.target);
         options.target.lockMovementX = true;
         options.target.lockMovementY = true;
         options.target.lockScalingX = true;
