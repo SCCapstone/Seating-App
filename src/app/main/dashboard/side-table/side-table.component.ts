@@ -13,6 +13,7 @@ export class SideTableComponent implements OnInit {
 
   changedTable = null;
   tableName = "";
+  guestsSeated = 0;
 
   constructor(
     public dialog: MatDialog,
@@ -38,7 +39,8 @@ export class SideTableComponent implements OnInit {
 
   getTableData(table) {
     this.tableName = table.target._objects[0].name;
-    console.log("Final step - table data should be here: ", table);
+    this.guestsSeated = table.target._objects[0].guestsSeated;
+    // console.log("Final step - table data should be here: ", table);
   }
 }
 

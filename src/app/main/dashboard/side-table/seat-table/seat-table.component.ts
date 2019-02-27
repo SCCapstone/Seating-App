@@ -30,11 +30,11 @@ export class SeatTableComponent implements OnInit {
 
   ngOnInit() {
     // this.isLoading = true;
-    this.dashboardService.tableChange.subscribe(changedTable => {
-      console.log("HEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-      this.changedTable = changedTable;
-      this.getTableData(this.changedTable);
-      console.log("ISSS THIISSS EVEEEN WORKING???");
+    console.log("Initializing FormGroup");
+    this.form = new FormGroup({
+      numSeated: new FormControl(null, {
+        validators: [Validators.required]
+      })
     });
   }
 
@@ -42,7 +42,8 @@ export class SeatTableComponent implements OnInit {
     this.dialogRef.close();
   }
   onUpdateTable() {
-
+    console.log("Updating table");
+    this.dashboardService.selectedTable._objects[0] = this.form.value.name;
   }
   setDefaultSeating(isSat: boolean, capacity: number) {
     this.numSeated = capacity;
