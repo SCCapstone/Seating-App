@@ -1,11 +1,11 @@
-<h1 mat-dialog-title>Edit Acct</h1>
+<h1 mat-dialog-title>Edit Account</h1>
 <mat-card>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <form [formGroup]="form" (submit)="onUpdateStore()" *ngIf="!isLoading">
+    <form [formGroup]="form" (submit)="onUpdateAccount()" *ngIf="!isLoading">
       <mat-form-field>
-        <input matInput type="text" formControlName="name" placeholder="Name" />
-        <mat-error *ngIf="form.get('name').invalid">Please enter a name.</mat-error>
-      </mat-form-field>
+          <input matInput type="text" formControlName="email" placeholder="Email Address" />
+          <mat-error *ngIf="form.get('email').invalid">Please enter an email address.</mat-error>
+        </mat-form-field>
       <button style="margin-left:2rem;" mat-raised-button color="accent" type="submit">Update</button>
     </form>
   </mat-card>
