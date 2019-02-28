@@ -28,7 +28,7 @@ export class SideTableComponent implements OnInit {
      });
   }
 
-  openSeatTable(){
+  openSeatTable() {
     // Checks to see if a table has been selected
     if (this.dashboardService.selectedTable !== null) {
       const dialogRef = this.dialog.open(SeatTableComponent, {
@@ -43,6 +43,13 @@ export class SideTableComponent implements OnInit {
     }
 
 
+  }
+
+  clearTable() {
+    if (this.dashboardService.selectedTable !== null) {
+      this.numSeated = 0;
+      this.dashboardService.dashUpdateTable("0");
+    }
   }
 
   getTableData(table) {
