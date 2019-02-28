@@ -28,14 +28,21 @@ export class SideTableComponent implements OnInit {
      });
   }
 
-  openSeatTable(): void {
-    const dialogRef = this.dialog.open(SeatTableComponent, {
-      width: "500px"
-    });
+  openSeatTable(){
+    // Checks to see if a table has been selected
+    if (this.dashboardService.selectedTable !== null) {
+      const dialogRef = this.dialog.open(SeatTableComponent, {
+        width: "500px"
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("The dialog was closed");
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("The dialog was closed");
+      });
+    } else {
+      console.log("No table selectd");
+    }
+
+
   }
 
   getTableData(table) {
