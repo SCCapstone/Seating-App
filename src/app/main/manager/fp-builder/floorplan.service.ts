@@ -98,7 +98,7 @@ export class FloorplansService {
     };
     console.log("BACKEND_URL: " + BACKEND_URL + " | id: " + id);
     this.http.put(BACKEND_URL + id, floorplanData).subscribe(response => {
-      this.router.navigate(["/main/reservations"]);
+      // this.router.navigate(["/main/reservations"]);
     });
   }
 

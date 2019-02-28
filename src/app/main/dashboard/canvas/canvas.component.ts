@@ -44,17 +44,17 @@ export class CanvasComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.canvas = new fabric.Canvas("canvas", {});
+    this.dashboardService.canvas = new fabric.Canvas("canvas", {});
     const canvasSpec  = document.getElementById("canvas-wrap");
-    this.canvas.setHeight(canvasSpec.clientHeight);
-    this.canvas.setWidth(canvasSpec.clientWidth);
+    this.dashboardService.canvas.setHeight(canvasSpec.clientHeight);
+    this.dashboardService.canvas.setWidth(canvasSpec.clientWidth);
 
     this.dashboardService.change.subscribe(changedFPID => {
       this.changedFPID = changedFPID;
       this.loadCanvas(this.changedFPID);
     });
 
-    this.canvas.on("mouse:down", (options) => {
+    this.dashboardService.canvas.on("mouse:down", (options) => {
       if (options.target) {
         options.target.lockMovementX = true;
         options.target.lockMovementY = true;
@@ -85,14 +85,14 @@ export class CanvasComponent implements OnInit {
         json: floorplanData.json,
         creator: floorplanData.creator
       };
-      this.selectedFloorplanID = floorplanData._id;
-      this.canvas.loadFromJSON(this.floorplan.json);
+      // this.selectedFloorplanID = floorplanData._id;
+      this.dashboardService.canvas.loadFromJSON(this.floorplan.json);
     });
   }
 
   updateCanvas() {
     console.log("Hey you did it");
-/*     const json_data = this.canvas.toJSON();
+/*     const json_data = this.dashboardService.canvas.toJSON();
     console.log("Argument ID: " + this.floorplan.id);
     this.dashboardService.updateFloorplan(
       this.floorplan.id,

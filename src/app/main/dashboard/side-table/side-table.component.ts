@@ -21,6 +21,7 @@ export class SideTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Listener for when the selected table is changed
     this.dashboardService.tableChange.subscribe(changedTable => {
       this.changedTable = changedTable;
       this.getTableData(this.changedTable);
@@ -38,9 +39,10 @@ export class SideTableComponent implements OnInit {
   }
 
   getTableData(table) {
+
+    // Change the data in the HTML form
     this.tableName = table.target._objects[0].name;
     this.numSeated = table.target._objects[0].guestsSeated;
-    // console.log("Final step - table data should be here: ", table);
   }
 }
 
