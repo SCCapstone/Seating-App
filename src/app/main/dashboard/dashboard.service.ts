@@ -30,6 +30,8 @@ export class DashboardService {
 
   dashLoadCanvas () {
     this.changedFPID = this.selectedFloorplanID;
+    this.selectedTable = null;
+    this.tableChange.emit(null);
     this.change.emit(this.changedFPID);
   }
 

@@ -53,10 +53,14 @@ export class SideTableComponent implements OnInit {
   }
 
   getTableData(table) {
-
-    // Change the data in the HTML form
-    this.tableName = table.target._objects[0].name;
-    this.numSeated = table.target._objects[0].guestsSeated;
+    if(table !== null) {
+      // Change the data in the HTML form
+      this.tableName = table.target._objects[0].name;
+      this.numSeated = table.target._objects[0].guestsSeated;
+    } else {
+      this.tableName = "";
+      this.numSeated = 0;
+    }
   }
 }
 
