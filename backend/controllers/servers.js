@@ -64,14 +64,14 @@ exports.getServers = (req, res, next) => {
     })
     .then(count => {
       res.status(200).json({
-        message: "Reservations fetched successfully!",
+        message: "Servers fetched successfully!",
         servers: fetchedServers,
         maxServers: count
       });
     })
     .catch(error => {
       res.status(500).json({
-        message: "Fetching reservations failed!"
+        message: "Fetching servers failed!"
       });
     });
 };
