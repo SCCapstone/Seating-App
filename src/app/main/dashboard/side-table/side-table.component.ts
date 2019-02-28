@@ -21,26 +21,42 @@ export class SideTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Listener for when the selected table is changed
     this.dashboardService.tableChange.subscribe(changedTable => {
       this.changedTable = changedTable;
       this.getTableData(this.changedTable);
      });
   }
 
-  openSeatTable(): void {
-    const dialogRef = this.dialog.open(SeatTableComponent, {
-      width: "500px"
-    });
+  openSeatTable() {
+    // Checks to see if a table has been selected
+    if (this.dashboardService.selectedTable !== null) {
+      const dialogRef = this.dialog.open(SeatTableComponent, {
+        width: "500px"
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("The dialog was closed");
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("The dialog was closed");
+      });
+    } else {
+      console.log("No table selectd");
+    }
+
+
+  }
+
+  clearTable() {
+    if (this.dashboardService.selectedTable !== null) {
+      this.numSeated = 0;
+      this.dashboardService.dashUpdateTable("0");
+    }
   }
 
   getTableData(table) {
+
+    // Change the data in the HTML form
     this.tableName = table.target._objects[0].name;
     this.numSeated = table.target._objects[0].guestsSeated;
-    // console.log("Final step - table data should be here: ", table);
   }
 }
 
