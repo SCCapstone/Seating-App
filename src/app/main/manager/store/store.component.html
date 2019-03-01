@@ -1,17 +1,28 @@
-<div class="store-bar">
+<div class="store-bar" style="margin-bottom: 15px">
   <mat-card>
     <div class="header">
       <h3>Stores</h3>
     </div>
-    <button class="add-button" mat-raised-button (click)="openAddStore()">Add Store</button>
+    <button class="add-button" mat-raised-button (click)="openAddStore()">
+      Add Store
+    </button>
     <div class="store-header">
-      <h4>Store Name</h4><h4 style="padding-left:40%;">Default Floorplan ID</h4>
+      <h4>Store Name</h4>
+      <h4 style="padding-left:40%;">Default Floorplan ID</h4>
     </div>
     <div *ngFor="let store of stores">
       <mat-list *ngIf="userIsAuthenticated && userId === store.creator">
         <mat-list-item>
-          {{ store.name }} <div style="margin-left:auto;"> {{ store.defaultFloorplan }} </div>
-          <button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditStore(store.id)">Edit Store</button>
+          {{ store.name }}
+          <div style="margin-left:auto;">{{ store.defaultFloorplan }}</div>
+          <button
+            class="edit-button"
+            mat-raised-button
+            style="margin-left:auto"
+            (click)="openEditStore(store.id)"
+          >
+            Edit Store
+          </button>
         </mat-list-item>
       </mat-list>
     </div>
