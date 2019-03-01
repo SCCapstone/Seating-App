@@ -28,6 +28,10 @@ export class SideTableComponent implements OnInit {
      });
   }
 
+  /**
+   * This function opens the seat table dialog box for assigning a number of
+   * guests to a table, but only if a table has been selected.
+   */
   openSeatTable() {
     // Checks to see if a table has been selected
     if (this.dashboardService.selectedTable !== null) {

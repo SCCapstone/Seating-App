@@ -116,26 +116,14 @@ export class SideStoreComponent implements OnInit {
     this.isLoading = true;
     this.selectedStore = name;
     this.dashboardService.selectedStoreID = storeID;
-
-    this.floorplansService.getFloorplan(floorplanID).subscribe(floorplanData => {
-      this.floorplan = {
-        id: floorplanData._id,
-        name: floorplanData.name,
-        json: floorplanData.json,
-        creator: floorplanData.creator
-      };
-      //console.log(floorplanData.name);
-      this.selectedFloorplan = floorplanData.name;
-      this.dashboardService.selectedFloorplanName = floorplanData.name;
-      this.dashboardService.selectedFloorplanID = floorplanData._id;
-      this.dashboardService.selectedFloorplanJSON = floorplanData.json;
-      this.dashboardService.dashLoadCanvas();
-    });
+    this.loadCanvas(floorplanID);
     this.isLoading = false;
   }
 
   loadCanvas(floorplanId: string) {
     this.isLoading = true;
+
+    this.dashboardService.selectedTable = null;
 
     this.floorplansService.getFloorplan(floorplanId).subscribe(floorplanData => {
       this.floorplan = {
@@ -147,6 +135,7 @@ export class SideStoreComponent implements OnInit {
       this.selectedFloorplan = floorplanData.name;
       this.dashboardService.selectedFloorplanName = floorplanData.name;
       this.dashboardService.selectedFloorplanID = floorplanData._id;
+      this.dashboardService.selectedFloorplanJSON = floorplanData.json;
       this.dashboardService.dashLoadCanvas();
 
     });
