@@ -32,7 +32,7 @@ export class SideStoreComponent implements OnInit {
   store: Store;
   storeList: Store[] = [];
   defaultFloorplan: string;
-  // selectedStore = "None"; //store name
+  selectedStore = "None"; //store name
   // selectedStoreID = "None"; //hold store Id
   totalStores = 0;
   storesPerPage = 10;
@@ -114,9 +114,8 @@ export class SideStoreComponent implements OnInit {
 
   loadStore(storeID: string, name: string, floorplanID: string) {
     this.isLoading = true;
-    // this.selectedStore = name;
+    this.selectedStore = name;
     this.dashboardService.dashSetStore(storeID);
-    // this.dashboardService.selectedStoreID = storeID;
     this.loadCanvas(floorplanID);
     this.isLoading = false;
   }
@@ -125,7 +124,6 @@ export class SideStoreComponent implements OnInit {
     this.isLoading = true;
 
     this.dashboardService.dashSetTable(null);
-    // this.dashboardService.selectedTable = null;
 
     this.floorplansService.getFloorplan(floorplanId).subscribe(floorplanData => {
       this.floorplan = {
