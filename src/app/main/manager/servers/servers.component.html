@@ -1,16 +1,27 @@
-<div class="server-bar">
+<div class="server-bar" style="margin-bottom: 15px">
   <mat-card>
     <div class="header">
       <h3>Servers</h3>
     </div>
-    <button class="add-button" mat-raised-button (click)="openAddServer()">Add Server</button>
+    <button class="add-button" mat-raised-button (click)="openAddServer()">
+      Add Server
+    </button>
     <div class="server-header">
-      <h4>Server Name</h4><h4 style="padding-left:40%;">Store ID</h4>
+      <h4>Server Name</h4>
+      <h4 style="padding-left:40%;">Store ID</h4>
     </div>
     <mat-list *ngFor="let server of servers">
       <mat-list-item *ngIf="userIsAuthenticated && userId === server.creator">
-        {{ server.name }} <div style="margin-left:auto;">{{ server.store }}</div>
-        <button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditServer(server.id)">Edit Server</button>
+        {{ server.name }}
+        <div style="margin-left:auto;">{{ server.store }}</div>
+        <button
+          class="edit-button"
+          mat-raised-button
+          style="margin-left:auto"
+          (click)="openEditServer(server.id)"
+        >
+          Edit Server
+        </button>
       </mat-list-item>
     </mat-list>
   </mat-card>

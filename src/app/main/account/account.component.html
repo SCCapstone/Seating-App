@@ -1,17 +1,14 @@
-<mat-card> <mat-card-title>Account</mat-card-title> </mat-card>
+<mat-card> <mat-card-title>Account (Not yet functional)</mat-card-title> </mat-card>
 <div class="container">
 <div class="profile-bar">
     <mat-card>
-      <button mat-raised-button color="">Profile</button>
-      <mat-list>
-        <mat-list-item
-          >Phone Number<button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditAccount(account.id)">Edit Phone</button></mat-list-item
-        >
-        <mat-list-item
-          >Email<button mat-raised-button class="account-button">
+       <!--POST BETA-- <button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditAccount()">Edit Profile</button>
+       --><button mat-raised-button color="">Edit Profile</button>
+       <mat-list>
+          <mat-list-item>Email<!--<button mat-raised-button class="account-button">
             Edit
-          </button></mat-list-item
-        >
+          </button> - {{ Account.email }} --></mat-list-item>
+          <mat-list-item>Password </mat-list-item>
       </mat-list>
     </mat-card>
   </div>
@@ -34,3 +31,4 @@
     </mat-card>
   </div>
 </div>
+

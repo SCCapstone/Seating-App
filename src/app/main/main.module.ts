@@ -42,6 +42,8 @@ import { SeatTableComponent } from "./dashboard/side-table/seat-table/seat-table
   ],
   imports: [CommonModule, AngularMaterialModule, FormsModule, MainRoutingModule, ReactiveFormsModule],
   entryComponents: [
+    AccountEditComponent,
+    AccountComponent,
     ServersComponent,
     ServersAddComponent,
     ServersEditComponent,

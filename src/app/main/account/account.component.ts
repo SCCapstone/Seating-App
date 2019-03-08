@@ -5,7 +5,7 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/auth/auth.service";
 
-import { AccountsService } from "./accounts.service";
+//import { AccountsService } from "./accounts.service";
 
 
 @Component({
@@ -16,24 +16,24 @@ import { AccountsService } from "./accounts.service";
 export class AccountComponent implements OnInit {
 
   isLoading = false;
-  currentPage = 1;
-  accountsPerPage = 10;
+  email = null;
+  phone = 0;
   userIsAuthenticated = false;
   userId: string;
   private authStatusSub: Subscription;
   constructor(
     public dialog: MatDialog,
-    public accountsService: AccountsService,
+    //public accountsService: AccountsService,
     private authService: AuthService
   ) { }
 
   ngOnInit() {
     this.isLoading = true;
-    this.accountsService.getAccounts(
-      this.accountsPerPage,
-      this.currentPage
-    );
-    this.currentPage;
+   /* this.authService.getAccounts(
+      this.email,
+      this.userId
+    ); */
+   // this.email;
     this.userId = this.authService.getUserId();
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
@@ -50,7 +50,7 @@ export class AccountComponent implements OnInit {
 
 
   openEditAccount(id: string): void {
-    this.accountsService.setAccountToEdit(id);
+   // this.authService.setAccountToEdit(id);
     const dialogRef = this.dialog.open(AccountEditComponent, {
       width: '500px',
     });
@@ -59,6 +59,7 @@ export class AccountComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
 
 }
 
@@ -69,44 +70,45 @@ export class AccountComponent implements OnInit {
 })
 export class AccountEditComponent implements OnInit, OnDestroy {
   accountToEdit = "none";
-  enteredName = "";
+  //enteredPhone = 0;
+  enteredEmail = "";
+  account: Account;
   isLoading = false;
   form: FormGroup;
   private mode = "edit";
-  private accountId: string;
   private authStatusSub: Subscription;
-  private rpDisplayName: string;
+ // private rpDisplayName: string;
 
-  currentPage = 1;
+  email = null;
+  phone = 0;
 
   userIsAuthenticated = false;
   userId: string;
 
   constructor(
     public dialogRef: MatDialogRef<AccountEditComponent>,
-    public accountsService: AccountsService,
-    public accountservice: AccountsService,
+    public accountsService: AuthService,
     public route: ActivatedRoute,
     public authService: AuthService
   ) {}
 
   ngOnInit() {
-    /*
-    this.serverToEdit = this.serversService.getServerToEdit();
-    console.log(this.serverToEdit);
-    this.storesService.getStores(this.storesPerPage, this.currentPage);
+    this.accountToEdit = this.authService.getAccountToEdit();
+    console.log(this.accountToEdit);
+    this.authService.getAccounts(this.email, this.userId);
     this.userId = this.authService.getUserId();
-    this.storesSub = this.storesService
-      .getStoreUpdateListener()
+    this.authStatusSub = this.authService
+      .getAccountUpdateListener()
       .subscribe(
-        (storeData: {
-          stores: Store[];
-          storeCount: number;
+        (accountData: {
+          accounts: Account[];
+          accountCount: number;
         }) => {
           this.isLoading = false;
+          this.email = accountData.accountCount;
         }
       );
-      */
+      
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
@@ -118,34 +120,53 @@ export class AccountEditComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       })
     });
-  }
+    this.email = this.accountToEdit;
+    this.isLoading = true;
 
-  onUpdateAccount() {
+    /*
+    this.authService.getAccount(this.email)
+    .subscribe(accountData => {
+      this.isLoading = false;
+      this.account = {
+        email: accountData.email,
+        id: accountData._id
+      };
+      this.form.setValue({
+        email: this.account.email
+      });
+    });
+
+    */
+  }
+// WILL NEED TO FIX AFTER BETA:
+
+
+  /* onUpdateAccount() {
     if (this.form.invalid) {
       return;
     }
-    this.accountId = this.accountToEdit;
+    this.userId = this.accountToEdit;
     this.isLoading = true;
-    this.rpDisplayName = "";
-      this.accountsService.updateAccount(
-        this.accountId,
-        this.rpDisplayName,
-        this.form.value.name
-    );
+    //this.rpDisplayName = "";
+      this.authService.updateAccount(
+        this.email,
+        this.userId
+    ); 
     this.isLoading = false;
     this.dialogRef.close();
     this.form.reset();
   }
+  */
 
-  onDelete() {
+  /*onDelete() {
     this.isLoading = true;
-    this.accountsService.deleteAccount(this.accountToEdit).subscribe(
+      this.accountsService.deleteAccount(this.accountToEdit).subscribe(
       () => {
         this.isLoading = false;
         this.dialogRef.close();
       }
-    );
-  }
+      ) 
+  } */
 
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();

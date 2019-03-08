@@ -80,7 +80,7 @@ export class FloorplansService {
         floorplanData
       )
       .subscribe(responseData => {
-        this.router.navigate(["/main/dashboard"]);
+        // this.router.navigate(["/main/dashboard"]);
       });
   }
 

@@ -123,6 +123,8 @@ export class SideStoreComponent implements OnInit {
   loadCanvas(floorplanId: string) {
     this.isLoading = true;
 
+    this.dashboardService.selectedTable = null;
+
     this.floorplansService.getFloorplan(floorplanId).subscribe(floorplanData => {
       this.floorplan = {
         id: floorplanData._id,
