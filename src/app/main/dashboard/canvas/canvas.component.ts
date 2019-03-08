@@ -34,8 +34,6 @@ export class CanvasComponent implements OnInit {
   userIsAuthenticated = false;
   userId: string;
 
-  changedFPID = "None";
-
   constructor(
     public dashboardService: DashboardService,
     public floorplansService: FloorplansService,
@@ -49,9 +47,8 @@ export class CanvasComponent implements OnInit {
     this.dashboardService.canvas.setHeight(canvasSpec.clientHeight);
     this.dashboardService.canvas.setWidth(canvasSpec.clientWidth);
 
-    this.dashboardService.change.subscribe(changedFPID => {
-      this.changedFPID = changedFPID;
-      this.loadCanvas(this.changedFPID);
+    this.dashboardService.fpChange.subscribe(changedFPID => {
+      this.loadCanvas(changedFPID);
     });
 
     this.dashboardService.canvas.on("mouse:down", (options) => {
@@ -69,8 +66,8 @@ export class CanvasComponent implements OnInit {
 
   setTable(options) {
     console.log("Table " + options.target._objects[0].name + " selected.");
-    this.dashboardService.selectedTable = options;
-    this.dashboardService.dashSetTable();
+    // this.dashboardService.selectedTable = options;
+    this.dashboardService.dashSetTable(options);
   }
 
 

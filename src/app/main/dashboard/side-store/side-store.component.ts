@@ -32,8 +32,8 @@ export class SideStoreComponent implements OnInit {
   store: Store;
   storeList: Store[] = [];
   defaultFloorplan: string;
-  selectedStore = "None"; //store name
-  selectedStoreID = "None"; //hold store Id
+  // selectedStore = "None"; //store name
+  // selectedStoreID = "None"; //hold store Id
   totalStores = 0;
   storesPerPage = 10;
   currentPage = 1;
@@ -114,8 +114,9 @@ export class SideStoreComponent implements OnInit {
 
   loadStore(storeID: string, name: string, floorplanID: string) {
     this.isLoading = true;
-    this.selectedStore = name;
-    this.dashboardService.selectedStoreID = storeID;
+    // this.selectedStore = name;
+    this.dashboardService.dashSetStore(storeID);
+    // this.dashboardService.selectedStoreID = storeID;
     this.loadCanvas(floorplanID);
     this.isLoading = false;
   }
@@ -123,7 +124,8 @@ export class SideStoreComponent implements OnInit {
   loadCanvas(floorplanId: string) {
     this.isLoading = true;
 
-    this.dashboardService.selectedTable = null;
+    this.dashboardService.dashSetTable(null);
+    // this.dashboardService.selectedTable = null;
 
     this.floorplansService.getFloorplan(floorplanId).subscribe(floorplanData => {
       this.floorplan = {
@@ -133,10 +135,12 @@ export class SideStoreComponent implements OnInit {
         creator: floorplanData.creator
       };
       this.selectedFloorplan = floorplanData.name;
-      this.dashboardService.selectedFloorplanName = floorplanData.name;
-      this.dashboardService.selectedFloorplanID = floorplanData._id;
-      this.dashboardService.selectedFloorplanJSON = floorplanData.json;
-      this.dashboardService.dashLoadCanvas();
+
+      this.dashboardService.dashLoadCanvas(
+        floorplanData._id,
+        floorplanData.name,
+        floorplanData.json
+      );
 
     });
     this.isLoading = false;

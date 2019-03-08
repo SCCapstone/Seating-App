@@ -11,7 +11,6 @@ import { SeatTableComponent } from "../side-table/seat-table/seat-table.componen
 })
 export class SideTableComponent implements OnInit {
 
-  changedTable = null;
   tableName = "";
   numSeated = 0;
 
@@ -23,8 +22,7 @@ export class SideTableComponent implements OnInit {
   ngOnInit() {
     // Listener for when the selected table is changed
     this.dashboardService.tableChange.subscribe(changedTable => {
-      this.changedTable = changedTable;
-      this.getTableData(this.changedTable);
+       this.getTableData(changedTable);
      });
   }
 
@@ -34,7 +32,7 @@ export class SideTableComponent implements OnInit {
    */
   openSeatTable() {
     // Checks to see if a table has been selected
-    if (this.dashboardService.selectedTable !== null) {
+    if (this.dashboardService.dashGetTable() !== null) {
       const dialogRef = this.dialog.open(SeatTableComponent, {
         width: "500px"
       });
@@ -50,14 +48,14 @@ export class SideTableComponent implements OnInit {
   }
 
   clearTable() {
-    if (this.dashboardService.selectedTable !== null) {
+    if (this.dashboardService.dashGetTable() !== null) {
       this.numSeated = 0;
       this.dashboardService.dashUpdateTable("0");
     }
   }
 
   getTableData(table) {
-    if(table !== null) {
+    if (table !== null) {
       // Change the data in the HTML form
       this.tableName = table.target._objects[0].name;
       this.numSeated = table.target._objects[0].guestsSeated;

@@ -7,20 +7,17 @@ import { FloorplansService } from "../manager/fp-builder/floorplan.service";
 @Injectable({ providedIn: "root" })
 export class DashboardService {
 
-  // floorplansService: FloorplansService;
-
   canvas;
 
-  selectedStoreID = "None";
-  selectedFloorplanName = "None";
-  selectedFloorplanID = "None";
-  selectedFloorplanJSON = null;
-  selectedTable = null;
+  // Not currently used, but might be needed later
+  private selectedStoreID = "None";
 
-  changedFPID = "None";
-  changedTable = null;
+  private selectedFloorplanID = "None";
+  private selectedFloorplanName = "None";
+  private selectedFloorplanJSON = null;
+  private selectedTable = null;
 
-  @Output() change: EventEmitter<string> = new EventEmitter();
+  @Output() fpChange: EventEmitter<string> = new EventEmitter();
   @Output() tableChange: EventEmitter<object> = new EventEmitter();
 
   constructor(
@@ -28,17 +25,14 @@ export class DashboardService {
     public floorplansService: FloorplansService
   ) {}
 
-  dashLoadCanvas () {
-    this.changedFPID = this.selectedFloorplanID;
+  dashLoadCanvas (id, name, json) {
+    this.selectedFloorplanID = id;
+    this.selectedFloorplanName = name;
+    this.selectedFloorplanJSON = json;
+
     this.selectedTable = null;
     this.tableChange.emit(null);
-    this.change.emit(this.changedFPID);
-  }
-
-  dashSetTable() {
-    this.changedTable = this.selectedTable;
-    this.tableChange.emit(this.changedTable);
-
+    this.fpChange.emit(this.selectedFloorplanID);
   }
 
   dashUpdateTable(numSeated: string) {
@@ -66,5 +60,39 @@ export class DashboardService {
       this.selectedFloorplanName,
       this.selectedFloorplanJSON
       );
+  }
+
+  /**
+   * Setter for store.
+   * @param storeID id value to be passed in as store ID.
+   */
+  dashSetStore(storeID) {
+    this.selectedStoreID = storeID;
+  }
+
+  /**
+   * Setter for table. This function updates the table object as well as emits
+   * a change.
+   * @param table table object that has been selected.
+   */
+  dashSetTable(table) {
+    this.selectedTable = table;
+    this.tableChange.emit(this.selectedTable);
+  }
+
+  /**
+   * Gets selected table object.
+   * @returns the currently selected table.
+   */
+  dashGetTable() {
+    return this.selectedTable;
+  }
+
+  /**
+   * Same functionality as dashSetTable, except this does not update the
+   * selected table. Simply calls the emitter for refreshing data.
+   */
+  dashRefreshTable() {
+    this.tableChange.emit(this.selectedTable);
   }
 }

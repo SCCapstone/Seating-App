@@ -43,7 +43,7 @@ export class SeatTableComponent implements OnInit {
   onUpdateTable() {
     console.log("Updating table");
     this.dashboardService.dashUpdateTable(this.form.value.numSeated);
-    this.dashboardService.dashSetTable();
+    this.dashboardService.dashRefreshTable();
     this.dialogRef.close();
   }
 }
