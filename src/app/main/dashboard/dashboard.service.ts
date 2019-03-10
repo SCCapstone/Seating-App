@@ -25,6 +25,12 @@ export class DashboardService {
     public floorplansService: FloorplansService
   ) {}
 
+  /**
+   * Loads a canvas to the dashboard.
+   * @param id the floorplan ID that is being loaded
+   * @param name the name of the floorplan that is being loaded
+   * @param json the JSON data that is being loaded.
+   */
   dashLoadCanvas (id, name, json) {
     this.selectedFloorplanID = id;
     this.selectedFloorplanName = name;
@@ -35,18 +41,19 @@ export class DashboardService {
     this.fpChange.emit(this.selectedFloorplanID);
   }
 
-  dashUpdateTable(numSeated: number) {
-    this.selectedTable.target._objects[0].guestsSeated = numSeated;
-    if (numSeated !== 0) {
-      console.log("its not 0");
+  /**
+   * Updates the currently selected table.
+   * @param guestsSeated the new number of guests sitting at the table.
+   */
+  dashUpdateTable(guestsSeated: number, notes: string) {
+    this.selectedTable.target._objects[0].guestsSeated = guestsSeated;
+    this.selectedTable.target._objects[0].notes = notes;
+    if (guestsSeated !== 0) {
       this.selectedTable.target._objects[0].setColor("#4c86d1");
-      this.canvas.renderAll();
     } else {
-      console.log("it is 0!");
       this.selectedTable.target._objects[0].setColor("#7B638E");
-      this.canvas.renderAll();
     }
-    // console.log(this.selectedFloorplanJSON);
+    this.canvas.renderAll();
     this.selectedFloorplanJSON = this.canvas.toJSON([
       "guestsSeated",
       "name",
@@ -54,7 +61,7 @@ export class DashboardService {
       "serverId",
       "timeSeated"
     ]);
-    // console.log(this.selectedFloorplanJSON);
+
     this.floorplansService.updateFloorplan(
       this.selectedFloorplanID,
       this.selectedFloorplanName,

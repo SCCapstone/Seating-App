@@ -12,7 +12,8 @@ import { SeatTableComponent } from "../side-table/seat-table/seat-table.componen
 export class SideTableComponent implements OnInit {
 
   tableName = "";
-  numSeated = 0;
+  guestsSeated = 0;
+  notes = "";
 
   constructor(
     public dialog: MatDialog,
@@ -47,21 +48,32 @@ export class SideTableComponent implements OnInit {
 
   }
 
+  /**
+   * clears out the temporary data from the selected table.
+   * (Guests seated, notes, etc).
+   */
   clearTable() {
     if (this.dashboardService.dashGetTable() !== null) {
-      this.numSeated = 0;
-      this.dashboardService.dashUpdateTable(0);
+      this.guestsSeated = 0;
+      this.notes = "";
+      this.dashboardService.dashUpdateTable(0, "");
     }
   }
 
+  /**
+   * Gets the table properties from a table object.
+   * @param table the selected table.
+   */
   getTableData(table) {
     if (table !== null) {
       // Change the data in the HTML form
       this.tableName = table.target._objects[0].name;
-      this.numSeated = table.target._objects[0].guestsSeated;
+      this.guestsSeated = table.target._objects[0].guestsSeated;
+      this.notes = table.target._objects[0].notes;
     } else {
       this.tableName = "";
-      this.numSeated = 0;
+      this.guestsSeated = 0;
+      this.notes = "";
     }
   }
 }

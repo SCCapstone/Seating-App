@@ -2,10 +2,16 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onUpdateTable()" *ngIf="!isLoading">
-    <mat-form-field>
-      <input matInput type="text" formControlName="numSeated" placeholder="Guests Seated" />
-      <mat-error *ngIf="form.get('numSeated').invalid">Please enter the number of guests.</mat-error>
-    </mat-form-field>
+    <div class="table-form">
+      <mat-form-field>
+        <input matInput type="number" formControlName="guestsSeated" placeholder="Guests Seated" />
+        <mat-error *ngIf="form.get('guestsSeated').invalid">Please enter the number of guests.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" formControlName="notes" placeholder="Notes" />
+        <mat-error *ngIf="form.get('notes').invalid">Please enter valid notes.</mat-error>
+      </mat-form-field>
+    </div>
     <div class="form-btn-group">
       <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>
     </div>

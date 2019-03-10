@@ -16,7 +16,7 @@ import { DashboardService } from '../../dashboard.service';
 })
 export class SeatTableComponent implements OnInit {
   tableName = "";
-  numSeated = 0;
+  guestsSeated = 0;
   isLoading = false;
   form: FormGroup;
 
@@ -30,8 +30,10 @@ export class SeatTableComponent implements OnInit {
     this.isLoading = true;
     console.log("Initializing FormGroup");
     this.form = new FormGroup({
-      numSeated: new FormControl(null, {
+      guestsSeated: new FormControl(null, {
         validators: [Validators.required]
+      }),
+      notes: new FormControl(null, {
       })
     });
     this.isLoading = false;
@@ -42,7 +44,7 @@ export class SeatTableComponent implements OnInit {
   }
   onUpdateTable() {
     console.log("Updating table");
-    this.dashboardService.dashUpdateTable(this.form.value.numSeated);
+    this.dashboardService.dashUpdateTable(this.form.value.guestsSeated, this.form.value.notes);
     this.dashboardService.dashRefreshTable();
     this.dialogRef.close();
   }
