@@ -272,26 +272,9 @@ addRect() {
       .subscribe(() => {
         console.log("Deleted!");
       });
-      this.canvas.renderAll();
-    }
-
-
-  /*
-  // makes a textbox
-  addTextBox() {
-    this.textBox = new fabric.Textbox("Add Party Info", {
-      width: 100,
-      height: 100,
-      fontSize: 16,
-      textBackgroundColor: "purple",
-      cornerStyle: "circle",
-      textAlign: "center"
-    });
-    this.canvas.add(this.textBox);
-    this.canvas.centerObject(this.textBox);
-
+    this.canvas.renderAll();
   }
-  */
+
  openAddTable(): void {
    const dialogRef = this.dialog.open(TableAddComponent, {
      width: "500px"
@@ -385,8 +368,7 @@ export class TableAddComponent implements OnInit, OnDestroy {
   **/
 
   saveTable() {
-    console.log("blah");
-    if(this.form.invalid){
+    if (this.form.invalid) {
       return;
     }
     // this.isLoading = true;
@@ -399,6 +381,7 @@ export class TableAddComponent implements OnInit, OnDestroy {
     this.form.reset();
 
   }
+
   ngOnDestroy() {
   }
 

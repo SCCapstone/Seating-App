@@ -50,7 +50,7 @@ export class SideTableComponent implements OnInit {
   clearTable() {
     if (this.dashboardService.dashGetTable() !== null) {
       this.numSeated = 0;
-      this.dashboardService.dashUpdateTable("0");
+      this.dashboardService.dashUpdateTable(0);
     }
   }
 

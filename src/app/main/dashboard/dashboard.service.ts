@@ -35,9 +35,9 @@ export class DashboardService {
     this.fpChange.emit(this.selectedFloorplanID);
   }
 
-  dashUpdateTable(numSeated: string) {
+  dashUpdateTable(numSeated: number) {
     this.selectedTable.target._objects[0].guestsSeated = numSeated;
-    if (numSeated !== "0") {
+    if (numSeated !== 0) {
       console.log("its not 0");
       this.selectedTable.target._objects[0].setColor("#4c86d1");
       this.canvas.renderAll();
