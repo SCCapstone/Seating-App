@@ -14,11 +14,15 @@ import { DashboardService } from "../../dashboard/dashboard.service";
 })
 export class SideServersComponent implements OnInit {
   editServerID = "none";
-  servers: Server[] = [];
+  // servers: Server[] = [];
   isLoading = false;
+
+  // This should be changed, seeing as we have not implemented pagenation
+  // for servers yet.
   totalServers = 0;
-  serversPerPage = 10;
+  serversPerPage = 50;
   currentPage = 1;
+
   userIsAuthenticated = false;
   userId: string;
   private serversSub: Subscription;
@@ -43,7 +47,7 @@ export class SideServersComponent implements OnInit {
           servers: Server[];
         }) => {
           this.isLoading = false;
-          this.servers = serverData.servers;
+          this.dashboardService.servers = serverData.servers;
         }
       );
     this.userIsAuthenticated = this.authService.getIsAuth();

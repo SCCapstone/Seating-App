@@ -5,7 +5,7 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Subscription } from "rxjs";
 
 import { FloorplansService } from "../../manager/fp-builder/floorplan.service";
-import { Floorplan } from '../../manager/fp-builder/floorplan.model';
+import { Floorplan } from "../../manager/fp-builder/floorplan.model";
 import { StoresService } from "./stores.service";
 import { Store } from "./store.model";
 import { ServersService } from "../../manager/servers/servers.service";
@@ -23,7 +23,7 @@ export class StoreComponent implements OnInit, OnDestroy {
   stores: Store[] = [];
   isLoading = false;
   totalStores = 0;
-  storesPerPage = 10;
+  storesPerPage = 50;
   currentPage = 1;
   userIsAuthenticated = false;
   userId: string;

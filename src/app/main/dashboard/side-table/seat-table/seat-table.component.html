@@ -11,6 +11,16 @@
         <input matInput type="text" formControlName="notes" placeholder="Notes" />
         <mat-error *ngIf="form.get('notes').invalid">Please enter valid notes.</mat-error>
       </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="server" placeholder="Server">
+          <ng-container *ngFor="let server of this.dashboardService.servers">
+            <mat-option *ngIf="dashboardService.userIsAuthenticated && dashboardService.selectedStoreID === server.store" [value]=server.name>
+              {{server.name}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-error *ngIf="form.get('server').invalid">Please select a server.</mat-error>
+      </mat-form-field>
     </div>
     <div class="form-btn-group">
       <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>

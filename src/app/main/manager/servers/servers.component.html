@@ -10,8 +10,9 @@
       <h4>Server Name</h4>
       <h4 style="padding-left:40%;">Store ID</h4>
     </div>
-    <mat-list *ngFor="let server of servers">
-      <mat-list-item *ngIf="userIsAuthenticated && userId === server.creator">
+    <div *ngFor="let server of servers">
+    <mat-list *ngIf="userIsAuthenticated && userId === server.creator">
+      <mat-list-item>
         {{ server.name }}
         <div style="margin-left:auto;">{{ server.store }}</div>
         <button
@@ -24,5 +25,6 @@
         </button>
       </mat-list-item>
     </mat-list>
+  </div>
   </mat-card>
 </div>

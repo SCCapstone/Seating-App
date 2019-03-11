@@ -14,6 +14,7 @@ export class SideTableComponent implements OnInit {
   tableName = "";
   guestsSeated = 0;
   notes = "";
+  tableServer = "";
 
   constructor(
     public dialog: MatDialog,
@@ -50,13 +51,13 @@ export class SideTableComponent implements OnInit {
 
   /**
    * clears out the temporary data from the selected table.
-   * (Guests seated, notes, etc).
+   * (Guests seated, notes, etc). Currently leaves the assigned server.
    */
   clearTable() {
     if (this.dashboardService.dashGetTable() !== null) {
       this.guestsSeated = 0;
       this.notes = "";
-      this.dashboardService.dashUpdateTable(0, "");
+      this.dashboardService.dashUpdateTable(0, "", this.tableServer);
     }
   }
 
@@ -70,10 +71,12 @@ export class SideTableComponent implements OnInit {
       this.tableName = table.target._objects[0].name;
       this.guestsSeated = table.target._objects[0].guestsSeated;
       this.notes = table.target._objects[0].notes;
+      this.tableServer = table.target._objects[0].serverId;
     } else {
       this.tableName = "";
       this.guestsSeated = 0;
       this.notes = "";
+      this.tableServer = "";
     }
   }
 }

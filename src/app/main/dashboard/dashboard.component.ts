@@ -1,4 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
+import { DashboardService } from "./dashboard.service";
+import { ServersService } from "../manager/servers/servers.service";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-dashboard",
@@ -7,9 +11,36 @@ import { Component, OnInit } from "@angular/core";
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  isLoading = false;
+
+  totalServers = 0;
+  serversPerPage = 50;
+  currentPage = 1;
+
+  private serversSub: Subscription;
+  private authStatusSub: Subscription;
+
+  constructor(
+    public dashboardService: DashboardService,
+    public serversService: ServersService,
+    private authService: AuthService
+  ) {}
+
 
   ngOnInit() {
-  }
+    this.isLoading = true;
+    this.serversService.getServers(
+      this.serversPerPage,
+      this.currentPage
+    );
+    this.dashboardService.userId = this.authService.getUserId();
 
+    this.dashboardService.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.dashboardService.userIsAuthenticated = isAuthenticated;
+        this.dashboardService.userId = this.authService.getUserId();
+      });
+  }
 }

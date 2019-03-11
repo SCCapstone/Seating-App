@@ -21,7 +21,7 @@ export class ServersComponent implements OnInit, OnDestroy {
   servers: Server[] = [];
   isLoading = false;
   totalServers = 0;
-  serversPerPage = 10;
+  serversPerPage = 50;
   currentPage = 1;
   userIsAuthenticated = false;
   userId: string;

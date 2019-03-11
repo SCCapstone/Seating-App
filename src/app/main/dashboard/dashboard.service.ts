@@ -3,6 +3,7 @@ import { Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { FloorplansService } from "../manager/fp-builder/floorplan.service";
+import { Server } from "../manager/servers/server.model";
 
 @Injectable({ providedIn: "root" })
 export class DashboardService {
@@ -10,12 +11,16 @@ export class DashboardService {
   canvas;
 
   // Not currently used, but might be needed later
-  private selectedStoreID = "None";
+  selectedStoreID = "None";
 
   private selectedFloorplanID = "None";
   private selectedFloorplanName = "None";
   private selectedFloorplanJSON = null;
   private selectedTable = null;
+
+  userIsAuthenticated = false;
+  userId: string;
+  servers: Server[] = [];
 
   @Output() fpChange: EventEmitter<string> = new EventEmitter();
   @Output() tableChange: EventEmitter<object> = new EventEmitter();
@@ -45,9 +50,10 @@ export class DashboardService {
    * Updates the currently selected table.
    * @param guestsSeated the new number of guests sitting at the table.
    */
-  dashUpdateTable(guestsSeated: number, notes: string) {
+  dashUpdateTable(guestsSeated: number, notes: string, server: string) {
     this.selectedTable.target._objects[0].guestsSeated = guestsSeated;
     this.selectedTable.target._objects[0].notes = notes;
+    this.selectedTable.target._objects[0].serverId = server;
     if (guestsSeated !== 0) {
       this.selectedTable.target._objects[0].setColor("#4c86d1");
     } else {

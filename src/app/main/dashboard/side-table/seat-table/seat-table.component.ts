@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { FloorplansService } from 'src/app/main/manager/fp-builder/floorplan.service';
 import { StoresService } from 'src/app/main/manager/store/stores.service';
 import { DashboardService } from '../../dashboard.service';
+import { Server } from "../../../manager/servers/server.model";
 
 @Component({
   selector: 'app-seat-table',
@@ -34,9 +35,14 @@ export class SeatTableComponent implements OnInit {
         validators: [Validators.required]
       }),
       notes: new FormControl(null, {
+      }),
+      server: new FormControl(null, {
+        validators: [Validators.required]
       })
     });
     this.isLoading = false;
+
+
   }
 
   onNoClick(): void {
@@ -44,7 +50,7 @@ export class SeatTableComponent implements OnInit {
   }
   onUpdateTable() {
     console.log("Updating table");
-    this.dashboardService.dashUpdateTable(this.form.value.guestsSeated, this.form.value.notes);
+    this.dashboardService.dashUpdateTable(this.form.value.guestsSeated, this.form.value.notes, this.form.value.server);
     this.dashboardService.dashRefreshTable();
     this.dialogRef.close();
   }
