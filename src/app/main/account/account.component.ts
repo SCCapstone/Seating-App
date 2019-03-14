@@ -123,7 +123,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     this.email = this.accountToEdit;
     this.isLoading = true;
 
-    /*
+    
     this.authService.getAccount(this.email)
     .subscribe(accountData => {
       this.isLoading = false;
@@ -136,29 +136,29 @@ export class AccountEditComponent implements OnInit, OnDestroy {
       });
     });
 
-    */
+    
   }
 // WILL NEED TO FIX AFTER BETA:
 
 
-  /* onUpdateAccount() {
+   onUpdateAccount() {
     if (this.form.invalid) {
       return;
     }
     this.userId = this.accountToEdit;
     this.isLoading = true;
     //this.rpDisplayName = "";
-      this.authService.updateAccount(
+      /* this.authService.updateAccount(
         this.email,
         this.userId
-    ); 
+    ); */
     this.isLoading = false;
     this.dialogRef.close();
     this.form.reset();
   }
-  */
+  
 
-  /*onDelete() {
+  onDelete() {
     this.isLoading = true;
       this.accountsService.deleteAccount(this.accountToEdit).subscribe(
       () => {
@@ -166,7 +166,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
         this.dialogRef.close();
       }
       ) 
-  } */
+  } 
 
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();

@@ -187,7 +187,7 @@ export class AuthService {
 
   //WILL NEED TO FIX AFTER BETA:
 
- /* public updateAccount(email: string, id: string) {
+  /*public updateAccount(email: string, id: string) {
     let accountData: Account;
     accountData = {
       email: email,
@@ -196,8 +196,8 @@ export class AuthService {
     this.http.put(BACKEND_URL + id, accountData).subscribe(response => {
       this.router.navigate(["/main/account"]);
     });
-  }
-  */
+  } */
+  
 
   public deleteAccount(accountId: string) {
     return this.http.delete(BACKEND_URL + accountId);
