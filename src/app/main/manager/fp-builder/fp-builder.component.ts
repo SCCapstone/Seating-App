@@ -1,23 +1,24 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import "fabric";
 import { getNumberOfCurrencyDigits } from "@angular/common";
 import { Canvas } from "fabric/fabric-impl";
 import { FloorplansService } from "./floorplan.service";
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
-import { Floorplan } from './floorplan.model';
-import { ServersEditComponent } from '../servers/servers.component';
+import { ActivatedRoute, ParamMap } from "@angular/router";
+import { AuthService } from "src/app/auth/auth.service";
+import { Floorplan } from "./floorplan.model";
+import { ServersEditComponent } from "../servers/servers.component";
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { Form, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Form, FormGroup, Validators, FormControl } from "@angular/forms";
+import { exists } from "fs";
 
 declare let fabric;
 
 @Component({
-  selector: 'app-fp-builder',
-  templateUrl: './fp-builder.component.html',
-  styleUrls: ['./fp-builder.component.css']
+  selector: "app-fp-builder",
+  templateUrl: "./fp-builder.component.html",
+  styleUrls: ["./fp-builder.component.css"]
 })
 export class FpBuilderComponent implements OnInit {
   private canvas;
@@ -110,9 +111,12 @@ export class FpBuilderComponent implements OnInit {
  * Creates a rectangle table object and places it in the center of the canvas.
  */
 addRect() {
-    // prompt to get table number.
-    const tableNumber = prompt("What is the table number?", "Please enter a table number.");
 
+  const maxTableNumber = 4;
+  // prompt to get table number.
+  const tableNumber = prompt("What is the table number?", "Please enter a table number.");
+  // remove overlapping word issue by checking input length
+  if (tableNumber.length <= maxTableNumber) {
     // creates rectangle object
     this.rectTable = new fabric.Rect({
       width: 100,
@@ -159,22 +163,24 @@ addRect() {
     });
     this.canvas.add(group);
     this.canvas.centerObject(group);
-  }
+  } else {
 
-  // Add a circle object to the canvas
-  addCircle() {
-    // prompt to get party size
-    const tableNumber = prompt("What is the table number?", "Please enter a table number.");
-    // creates circle
-    this.circleTable = new fabric.Circle({
-      radius: 75,
+    const newTableNumber = prompt("Table number cannot exceed 4 characters.", "Please enter a table number.");
+    if (newTableNumber.length > maxTableNumber) {
+      return;
+    } else {
+
+      // creates rectangle object
+     this.rectTable = new fabric.Rect({
+      width: 100,
+      height: 100,
       fill: "#7B638E",
       originX: "center",
       originY: "center",
     });
 
-    // Adds subclassing for circles
-    this.circleTable.toObject = (function(toObject) {
+    // Adds subclasses for rectangles
+    this.rectTable.toObject = (function(toObject) {
       return function() {
         return fabric.util.object.extend(toObject.call(this), {
           name: this.name,
@@ -185,29 +191,137 @@ addRect() {
           notes: this.notes
         });
       };
-    })(this.circleTable.toObject);
+    })(this.rectTable.toObject);
 
-    this.circleTable.name = tableNumber;
-    this.circleTable.serverId = "";
-    this.circleTable.capacity = 0;
-    this.circleTable.guestsSeated = 0;
-    this.circleTable.timeSeated = "";
-    this.circleTable.notes = "";
+    this.rectTable.name = newTableNumber;
+    this.rectTable.serverId = "";
+    this.rectTable.capacity = 0;
+    this.rectTable.guestsSeated = 0;
+    this.rectTable.timeSeated = "";
+    this.rectTable.notes = "";
+
 
     // creates textbox
-    this.textBox = new fabric.Textbox(tableNumber, {
+    this.textBox = new fabric.Textbox(newTableNumber, {
       originX: "center",
       originY: "center",
       fontSize: 64,
       fill: "white"
     });
-   // groups them together
-    const group = new fabric.Group([this.circleTable, this.textBox ], {
+
+    // groups them together
+    const group = new fabric.Group([this.rectTable, this.textBox ], {
       top: 100,
       left: 150
     });
     this.canvas.add(group);
     this.canvas.centerObject(group);
+    }
+
+    }
+
+  }
+
+  // Add a circle object to the canvas
+  addCircle() {
+    const maxTableNumber = 4;
+    // prompt to get party size
+    const tableNumber = prompt("What is the table number?", "Please enter a table number.");
+    // creates circle
+    if (tableNumber.length <= maxTableNumber) {
+      this.circleTable = new fabric.Circle({
+        radius: 75,
+        fill: "#7B638E",
+        originX: "center",
+        originY: "center",
+      });
+
+      // Adds subclassing for circles
+      this.circleTable.toObject = (function(toObject) {
+        return function() {
+          return fabric.util.object.extend(toObject.call(this), {
+            name: this.name,
+            serverId: this.serverId,
+            capacity: this.capacity,
+            guestsSeated: this.guestsSeated,
+            timeSeated: this.timeSeated,
+            notes: this.notes
+          });
+        };
+      })(this.circleTable.toObject);
+
+      this.circleTable.name = tableNumber;
+      this.circleTable.serverId = "";
+      this.circleTable.capacity = 0;
+      this.circleTable.guestsSeated = 0;
+      this.circleTable.timeSeated = "";
+      this.circleTable.notes = "";
+
+      // creates textbox
+      this.textBox = new fabric.Textbox(tableNumber, {
+        originX: "center",
+        originY: "center",
+        fontSize: 64,
+        fill: "white"
+      });
+     // groups them together
+      const group = new fabric.Group([this.circleTable, this.textBox ], {
+        top: 100,
+        left: 150
+      });
+      this.canvas.add(group);
+      this.canvas.centerObject(group);
+    } else {
+      const newTableNumber = prompt("Table number cannot exceed 4 characters.", "Please enter a table number.");
+      if (newTableNumber.length > maxTableNumber) {
+        return;
+      } else {
+
+        this.circleTable = new fabric.Circle({
+          radius: 75,
+          fill: "#7B638E",
+          originX: "center",
+          originY: "center",
+        });
+
+        // Adds subclassing for circles
+        this.circleTable.toObject = (function(toObject) {
+          return function() {
+            return fabric.util.object.extend(toObject.call(this), {
+              name: this.name,
+              serverId: this.serverId,
+              capacity: this.capacity,
+              guestsSeated: this.guestsSeated,
+              timeSeated: this.timeSeated,
+              notes: this.notes
+            });
+          };
+        })(this.circleTable.toObject);
+
+        this.circleTable.name = newTableNumber;
+        this.circleTable.serverId = "";
+        this.circleTable.capacity = 0;
+        this.circleTable.guestsSeated = 0;
+        this.circleTable.timeSeated = "";
+        this.circleTable.notes = "";
+
+        // creates textbox
+        this.textBox = new fabric.Textbox(newTableNumber, {
+          originX: "center",
+          originY: "center",
+          fontSize: 64,
+          fill: "white"
+        });
+       // groups them together
+        const group = new fabric.Group([this.circleTable, this.textBox ], {
+          top: 100,
+          left: 150
+        });
+        this.canvas.add(group);
+        this.canvas.centerObject(group);
+      }
+    }
+
   }
 
   // Delete the selected object
