@@ -134,6 +134,7 @@ addRect() {
               name: this.name,
               serverId: this.serverId,
               capacity: this.capacity,
+              partyName: this.partyName,
               guestsSeated: this.guestsSeated,
               timeSeated: this.timeSeated,
               notes: this.notes
@@ -144,6 +145,7 @@ addRect() {
         this.rectTable.name = tableName;
         this.rectTable.serverId = "";
         this.rectTable.capacity = 0;
+        this.rectTable.partyName = "";
         this.rectTable.guestsSeated = 0;
         this.rectTable.timeSeated = "";
         this.rectTable.notes = "";
@@ -189,6 +191,7 @@ addRect() {
             name: this.name,
             serverId: this.serverId,
             capacity: this.capacity,
+            partyName: this.partyName,
             guestsSeated: this.guestsSeated,
             timeSeated: this.timeSeated,
             notes: this.notes
@@ -199,6 +202,7 @@ addRect() {
       this.circleTable.name = tableName;
       this.circleTable.serverId = "";
       this.circleTable.capacity = 0;
+      this.circleTable.partyName = "";
       this.circleTable.guestsSeated = 0;
       this.circleTable.timeSeated = "";
       this.circleTable.notes = "";

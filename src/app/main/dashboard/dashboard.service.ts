@@ -65,7 +65,8 @@ export class DashboardService {
       "name",
       "notes",
       "serverId",
-      "timeSeated"
+      "timeSeated",
+      "partyName"
     ]);
 
     this.floorplansService.updateFloorplan(
