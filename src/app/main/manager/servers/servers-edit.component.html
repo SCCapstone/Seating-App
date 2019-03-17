@@ -16,6 +16,10 @@
           </ng-container>
         </mat-select>
       </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" formControlName="color" placeholder="Server Color ID" />
+        <mat-error *ngIf="form.get('color').invalid">Please enter a server color ID.</mat-error>
+      </mat-form-field>
     <div class="form-btn-group">
       <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>
       <button class="form-buttons" mat-raised-button color="accent" (click)="onDelete()">DELETE</button>

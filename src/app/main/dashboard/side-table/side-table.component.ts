@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 import { DashboardService } from '../dashboard.service';
 import { SeatTableComponent } from "../side-table/seat-table/seat-table.component";
+import { Server } from '../../manager/servers/server.model';
 
 @Component({
   selector: 'app-side-table',
@@ -11,10 +12,11 @@ import { SeatTableComponent } from "../side-table/seat-table/seat-table.componen
 })
 export class SideTableComponent implements OnInit {
 
-  tableName = "";
-  guestsSeated = 0;
-  notes = "";
-  tableServer = "";
+  private tableName = "";
+  private guestsSeated = 0;
+  private notes = "";
+  private tableServer: Server;
+  private serverName = "";
 
   constructor(
     public dialog: MatDialog,
@@ -72,11 +74,13 @@ export class SideTableComponent implements OnInit {
       this.guestsSeated = table.target._objects[0].guestsSeated;
       this.notes = table.target._objects[0].notes;
       this.tableServer = table.target._objects[0].serverId;
+      this.serverName = this.tableServer.name;
     } else {
       this.tableName = "";
       this.guestsSeated = 0;
       this.notes = "";
-      this.tableServer = "";
+      this.tableServer = null;
+      this.serverName = "";
     }
   }
 }
