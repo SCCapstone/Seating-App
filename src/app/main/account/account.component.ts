@@ -50,7 +50,7 @@ export class AccountComponent implements OnInit {
 
 
   openEditAccount(id: string): void {
-   // this.authService.setAccountToEdit(id);
+    this.authService.setAccountToEdit(id);
     const dialogRef = this.dialog.open(AccountEditComponent, {
       width: '500px',
     });
@@ -123,7 +123,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     this.email = this.accountToEdit;
     this.isLoading = true;
 
-    
+    /*
     this.authService.getAccount(this.email)
     .subscribe(accountData => {
       this.isLoading = false;
@@ -134,7 +134,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
       this.form.setValue({
         email: this.account.email
       });
-    });
+    }); */
 
     
   }

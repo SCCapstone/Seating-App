@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Edit Account</h1>
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner> 
-   <form [formGroup]="form" *ngIf="!isLoading">
+   <form [formGroup]="form" (submit)="onUpdateAccount()" *ngIf="!isLoading">
       <mat-form-field>
           <input matInput type="text" formControlName="email" placeholder="Email Address" />
           <mat-error *ngIf="form.get('email').invalid">Please enter an email address.</mat-error>
