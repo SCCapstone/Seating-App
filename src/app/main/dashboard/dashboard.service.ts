@@ -50,7 +50,7 @@ export class DashboardService {
    * Updates the currently selected table.
    * @param guestsSeated the new number of guests sitting at the table.
    */
-  dashUpdateTable(guestsSeated: number, notes: string, server: string) {
+  dashUpdateTable(guestsSeated: number, notes: string, server: Server) {
     this.selectedTable.target._objects[0].guestsSeated = guestsSeated;
     this.selectedTable.target._objects[0].notes = notes;
     this.selectedTable.target._objects[0].serverId = server;
@@ -59,13 +59,19 @@ export class DashboardService {
     } else {
       this.selectedTable.target._objects[0].setColor("#7B638E");
     }
+
+    this.selectedTable.target._objects[0].set({
+      stroke: server.color,
+      strokeWidth: 5
+    });
     this.canvas.renderAll();
     this.selectedFloorplanJSON = this.canvas.toJSON([
       "guestsSeated",
       "name",
       "notes",
       "serverId",
-      "timeSeated"
+      "timeSeated",
+      "partyName"
     ]);
 
     this.floorplansService.updateFloorplan(

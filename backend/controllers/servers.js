@@ -3,6 +3,7 @@ const Server = require("../models/server");
 exports.createServer = (req, res, next) => {
   const server = new Server({
     name: req.body.name,
+    color: req.body.color,
     store: req.body.store,
     creator: req.userData.userId
   });
@@ -28,6 +29,7 @@ exports.updateServer = (req, res, next) => {
   const server = new Server({
     _id: req.body.id,
     name: req.body.name,
+    color: req.body.color,
     store: req.body.store,
     creator: req.userData.userId
   });

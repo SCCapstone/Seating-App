@@ -147,6 +147,9 @@ export class ServersAddComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required]
+      }),
+      color: new FormControl(null, {
+        validators: [Validators.required]
       })
     });
     this.serverId = null;
@@ -160,6 +163,7 @@ export class ServersAddComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.serversService.addServer(
       this.form.value.name,
+      this.form.value.color,
       this.selectedStoreID
     );
     this.isLoading = false;
@@ -245,6 +249,9 @@ export class ServersEditComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required]
+      }),
+      color: new FormControl(null, {
+        validators: [Validators.required]
       })
     });
     this.serverId = this.serverToEdit;
@@ -256,6 +263,7 @@ export class ServersEditComponent implements OnInit, OnDestroy {
         this.server = {
           id: serverData._id,
           name: serverData.name,
+          color: serverData.color,
           store: serverData.store,
           creator: serverData.creator
         };
@@ -274,6 +282,7 @@ export class ServersEditComponent implements OnInit, OnDestroy {
       this.serversService.updateServer(
         this.serverId,
         this.form.value.name,
+        this.form.value.color,
         this.selectedStoreID
     );
     this.isLoading = false;

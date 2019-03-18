@@ -32,6 +32,7 @@ export class ServersService {
             servers: serverData.servers.map(server => {
               return {
                 name: server.name,
+                color: server.color,
                 store: server.store,
                 id: server._id,
                 creator: server.creator
@@ -58,16 +59,18 @@ export class ServersService {
     return this.http.get<{
       _id: string;
       name: string;
+      color: string;
       store: string;
       creator: string;
     }>(BACKEND_URL + id);
   }
 
-  addServer(name: string, store: string) {
+  addServer(name: string, color: string, store: string) {
     console.log("STORE: " + store);
     const serverData: Server = {
       id: null,
       name: name,
+      color: color,
       store: store,
       creator: null
     };
@@ -78,11 +81,12 @@ export class ServersService {
       });
   }
 
-  updateServer(id: string, name: string, store: string) {
+  updateServer(id: string, name: string, color: string, store: string) {
     let serverData: Server;
     serverData = {
       id: id,
       name: name,
+      color: color,
       store: store,
       creator: null
     };

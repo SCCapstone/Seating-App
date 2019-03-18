@@ -15,7 +15,7 @@ export class SideResosComponent implements OnInit, OnDestroy {
   reservations: Reservation[] = [];
   isLoading = false;
   totalReservations = 0;
-  reservationsPerPage = 10;
+  reservationsPerPage = 50;
   currentPage = 1;
   pageSizeOptions = [10, 25, 50, 100];
   userIsAuthenticated = false;
