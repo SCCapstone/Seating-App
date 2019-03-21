@@ -193,10 +193,6 @@ export class AuthService {
 
   }
 
-
-
-  //WILL NEED TO FIX AFTER BETA:
-
   public updateAccount(email: string, id: string) {
     let accountData: Account;
     accountData = {

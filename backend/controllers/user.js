@@ -61,16 +61,52 @@ exports.userLogin = (req, res, next) => {
 };
 
 exports.getUser = (req, res, next) => {
+  let fetchedUser;
   // chek auth req.userdata.userid 
-  //find user with that userid
-  //then if that user exists, return that user data
-  //catch error return failure
-}
+  //find user with that userid:
+  User.findOne({ email: req.userData.userId })
+    .then(user => { //then if that user exists, return that user data
+      if(!user) {
+        return res.status(401).json({
+          message: "Invalid user for this account"
+        });
+      }
+      fetchedUser = user;
+      return userId; //or return user? 
+    })
+    .catch(err => {//catch error return failure
+      return res.status(401).json({
+        message: "Something went wrong..."
+      });
+    }); 
+};
 
-exports.updateUser = (req, res, next) =>{
+exports.updateUser = (req, res, next) => {
   // check auth req.userdata.userid
-  //find user to update
-  //then update user data
-  //then return user data
-  //catch error return fail
+  const user = new User({
+    _id: req.userData.id,
+    email: req.userData.email,
+    password: req.userData.password
+  });
+  User.updateOne( //find user to update
+    { _id: req.userData.id , email: req.userData.email},
+    user
+  )
+    .then(result => { //then update user data
+      if (result.n > 0) {  //then return user data
+        res.status(200).json({ message: "Update successful" });
+      } else {
+        res.status(401).json({ message: "Not authorized" });
+      }
+    })
+    .catch(error => {//catch error return fail
+      res.status(500).json({
+        message: "Couldn't update user"
+      });
+    });
+  
+  
+  
+ 
+  
 }
