@@ -59,3 +59,18 @@ exports.userLogin = (req, res, next) => {
       });
     });
 };
+
+exports.getUser = (req, res, next) => {
+  // chek auth req.userdata.userid 
+  //find user with that userid
+  //then if that user exists, return that user data
+  //catch error return failure
+}
+
+exports.updateUser = (req, res, next) =>{
+  // check auth req.userdata.userid
+  //find user to update
+  //then update user data
+  //then return user data
+  //catch error return fail
+}
