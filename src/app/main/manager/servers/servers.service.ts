@@ -74,11 +74,8 @@ export class ServersService {
       store: store,
       creator: null
     };
-    this.http
-      .post<{ message: string; store: Server }>(BACKEND_URL, serverData)
-      .subscribe(responseData => {
-        this.router.navigate(["/main/manager"]);
-      });
+    return this.http
+      .post<{ message: string; store: Server }>(BACKEND_URL, serverData);
   }
 
   updateServer(id: string, name: string, color: string, store: string) {
@@ -90,9 +87,7 @@ export class ServersService {
       store: store,
       creator: null
     };
-    this.http.put(BACKEND_URL + id, serverData).subscribe(response => {
-      this.router.navigate(["/main/manager"]);
-    });
+    return this.http.put(BACKEND_URL + id, serverData);
   }
 
   deleteServer(serverId: string) {

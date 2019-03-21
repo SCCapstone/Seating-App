@@ -102,6 +102,8 @@ export class StoreAddComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
 
+  storesPerPage = 50;
+  currentPage = 1;
   selectedFloorplan = "None";
   selectedFloorplanID = "None";
   totalFloorplans = 0;
@@ -165,10 +167,17 @@ export class StoreAddComponent implements OnInit, OnDestroy {
     this.storesService.addStore(
       this.form.value.name,
       this.selectedFloorplanID
+    ).subscribe(
+      () => {
+        this.storesService.getStores(
+          this.storesPerPage,
+          this.currentPage
+        );
+      }
     );
     this.isLoading = false;
-    this.dialogRef.close();
     this.form.reset();
+    this.dialogRef.close();
   }
 
   ngOnDestroy() {
@@ -197,6 +206,8 @@ export class StoreEditComponent implements OnInit, OnDestroy {
 
   selectedFloorplan = "None";
   selectedFloorplanID = "None";
+  storesPerPage = 50;
+  currentPage = 1;
   totalFloorplans = 0;
   floorplan: Floorplan;
   floorplanList: Floorplan[] = [];
@@ -280,18 +291,29 @@ export class StoreEditComponent implements OnInit, OnDestroy {
         this.storeId,
         this.form.value.name,
         this.selectedFloorplanID
+    ).subscribe(
+      () => {
+        this.storesService.getStores(
+          this.storesPerPage,
+          this.currentPage
+        );
+      }
     );
     this.isLoading = false;
-    this.dialogRef.close();
     this.form.reset();
+    this.dialogRef.close();
   }
 
   onDelete() {
     this.isLoading = true;
     this.storesService.deleteStore(this.storeToEdit).subscribe(
       () => {
-        this.isLoading = false;
+        this.storesService.getStores(
+          this.storesPerPage,
+          this.currentPage
+        );
         this.dialogRef.close();
+        this.isLoading = false;
       }
     );
   }

@@ -109,6 +109,7 @@ export class ServersAddComponent implements OnInit, OnDestroy {
   selectedStoreID = "None";
   totalStores = 0;
   storesPerPage = 10;
+  serversPerPage = 50;
   currentPage = 1;
 
   userIsAuthenticated = false;
@@ -165,10 +166,17 @@ export class ServersAddComponent implements OnInit, OnDestroy {
       this.form.value.name,
       this.form.value.color,
       this.selectedStoreID
+    ).subscribe(
+      () => {
+        this.serversService.getServers(
+          this.serversPerPage,
+          this.currentPage
+        );
+      }
     );
     this.isLoading = false;
-    this.dialogRef.close();
     this.form.reset();
+    this.dialogRef.close();
   }
 
   setServerStore(name: string, storeID: string) {
@@ -210,6 +218,7 @@ export class ServersEditComponent implements OnInit, OnDestroy {
   selectedStoreID = "None";
   totalStores = 0;
   storesPerPage = 10;
+  serversPerPage = 50;
   currentPage = 1;
 
   userIsAuthenticated = false;
@@ -284,6 +293,13 @@ export class ServersEditComponent implements OnInit, OnDestroy {
         this.form.value.name,
         this.form.value.color,
         this.selectedStoreID
+    ).subscribe(
+      () => {
+        this.serversService.getServers(
+          this.serversPerPage,
+          this.currentPage
+        );
+      }
     );
     this.isLoading = false;
     this.dialogRef.close();
@@ -299,6 +315,10 @@ export class ServersEditComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.serversService.deleteServer(this.serverToEdit).subscribe(
       () => {
+        this.serversService.getServers(
+          this.serversPerPage,
+          this.currentPage
+        );
         this.isLoading = false;
         this.dialogRef.close();
       }
