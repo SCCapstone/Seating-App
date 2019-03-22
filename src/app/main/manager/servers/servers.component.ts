@@ -11,6 +11,14 @@ import { AuthService } from "../../../auth/auth.service";
 import { StoresService } from "../store/stores.service";
 import { Store } from "../store/store.model";
 
+/**
+ * Color data type for server colors. Includes a name and a hex code.
+ */
+export interface Color {
+  name: string;
+  hex: string;
+}
+
 @Component({
   selector: 'app-servers',
   templateUrl: './servers.component.html',
@@ -115,6 +123,15 @@ export class ServersAddComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
 
+  colors: Color[] = [
+    {name: "Red", hex: "#FF0000"},
+    {name: "Blue", hex: "#0000FF"},
+    {name: "Green", hex: "#00FF00"},
+    {name: "Purple", hex: "#FF00FF"},
+    {name: "Cyan", hex: "#00FFFF"},
+    {name: "Yellow", hex: "#FFFF00"}
+  ];
+
   constructor(
     public dialogRef: MatDialogRef<ServersAddComponent>,
     public serversService: ServersService,
@@ -160,6 +177,7 @@ export class ServersAddComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
+    console.log(this.form.value.color);
     console.log(this.selectedStoreID + ",  ," + this.selectedStore);
     this.isLoading = true;
     this.serversService.addServer(
@@ -224,6 +242,16 @@ export class ServersEditComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
 
+  // Color variable used for picking server color
+  colors: Color[] = [
+    {name: "Red", hex: "#FF0000"},
+    {name: "Blue", hex: "#0000FF"},
+    {name: "Green", hex: "#00FF00"},
+    {name: "Purple", hex: "#FF00FF"},
+    {name: "Cyan", hex: "#00FFFF"},
+    {name: "Yellow", hex: "#FFFF00"}
+  ];
+
   constructor(
     public dialogRef: MatDialogRef<ServersEditComponent>,
     public serversService: ServersService,
@@ -277,7 +305,8 @@ export class ServersEditComponent implements OnInit, OnDestroy {
           creator: serverData.creator
         };
         this.form.setValue({
-          name: this.server.name
+          name: this.server.name,
+          color: this.server.color
         });
       });
   }
@@ -286,6 +315,7 @@ export class ServersEditComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
+    console.log(this.form.value.color);
     this.serverId = this.serverToEdit;
     this.isLoading = true;
       this.serversService.updateServer(
