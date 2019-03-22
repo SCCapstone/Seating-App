@@ -21,6 +21,21 @@ main {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10%;
-  width: 20%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  width: 25%;
+  min-width: 200px;
+}
+
+.about {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+.login-reg {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 400px;
 }

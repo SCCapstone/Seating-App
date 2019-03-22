@@ -1,28 +1,21 @@
 <main>
   <img src="../../../assets/images/logo-nobg-color.png" class="logo" />
-
-  <mat-grid-list cols="2" rowHeight="2:2" gutterSize="20px">
-    <mat-grid-tile>
-      <mat-card>
-        <h3 style="color: #461e64b4">About Us</h3>
-        <p>
-          The Seating-App was founded by a group of University of South Carolina students
-          who wanted to provide a useful tool for restaurant owners in Columbia, SC. We
-          realized that many of these owners could benefit from a web application that
-          efficiently sat customers at tables, tracked reservations, and provided real time
-          statistics in order to make business decisions. We hope you enjoy your experience
-          and thank you for using The Seating App!
-        </p>
-        <mat-card-subtitle style="text-align:right"
-        >-The Seating App Development Team</mat-card-subtitle
-        >
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-tab-group mat-align-tabs="center">
-        <mat-tab label="Login"><app-login></app-login></mat-tab>
-        <mat-tab label="Register"><app-signup></app-signup></mat-tab>
-      </mat-tab-group>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <mat-card class="about">
+    <h3 style="color: #461e64b4">About Us</h3>
+    <p>
+      The Seating-App was founded by a group of University of South Carolina students
+      who wanted to provide a useful tool for restaurant owners in Columbia, SC. We
+      realized that many of these owners could benefit from a web application that
+      efficiently sat customers at tables, tracked reservations, and provided real time
+      statistics in order to make business decisions. We hope you enjoy your experience
+      and thank you for using The Seating App!
+    </p>
+    <mat-card-subtitle style="text-align:right"
+    >-The Seating App Development Team</mat-card-subtitle
+    >
+  </mat-card>
+  <mat-tab-group class="login-reg" mat-align-tabs="center">
+    <mat-tab label="Login"><app-login></app-login></mat-tab>
+    <mat-tab label="Register"><app-signup></app-signup></mat-tab>
+  </mat-tab-group>
 </main>
