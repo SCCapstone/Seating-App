@@ -7,15 +7,15 @@
       <mat-error *ngIf="form.get('name').invalid">Please enter a server name.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      Store: {{ selectedStore }}
-      <mat-select [(value)]="selectedStore">
-        <ng-container *ngFor="let store of storeList">
-          <mat-option (click)="setServerStore(store.name, store.id)" *ngIf="userIsAuthenticated && userId === store.creator">
-            {{store.name}}
-          </mat-option>
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
+        <mat-label>Store</mat-label>
+        <mat-select formControlName="store">
+          <ng-container *ngFor="let st of storeList">
+            <mat-option placeholder="Store" *ngIf="userIsAuthenticated && userId === st.creator" [value]="st.id">
+              {{st.name}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
     <mat-form-field>
       <mat-label>Server Color</mat-label>
         <mat-select formControlName="color">

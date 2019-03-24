@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Subscription } from "rxjs";
 import { ServersService } from "../../manager/servers/servers.service";
@@ -8,9 +8,9 @@ import { AuthService } from "../../../auth/auth.service";
 import { DashboardService } from "../../dashboard/dashboard.service";
 
 @Component({
-  selector: 'app-side-servers',
-  templateUrl: './side-servers.component.html',
-  styleUrls: ['./side-servers.component.css']
+  selector: "app-side-servers",
+  templateUrl: "./side-servers.component.html",
+  styleUrls: ["./side-servers.component.css"]
 })
 export class SideServersComponent implements OnInit {
   editServerID = "none";
