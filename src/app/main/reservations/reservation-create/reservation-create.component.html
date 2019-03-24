@@ -4,6 +4,20 @@ Uses form control built in-->
 <mat-card style="margin-top:15px;">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onSaveReservation()" *ngIf="!isLoading">
+      <mat-form-field>
+          <mat-select
+          formControlName="store"
+          placeholder="Select a Store"
+          >
+            <ng-container *ngFor="let store of storeList">
+              <mat-option (click)="loadStore(store.id, store.name)" *ngIf="userIsAuthenticated && userId === store.creator" [value]="selectedStoreID">
+                {{store.name}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-error *ngIf="form.get('store').invalid"
+          >Please choose a store.</mat-error>
+        </mat-form-field>
     <mat-form-field>
       <input matInput type="text" formControlName="name" placeholder="Name" />
       <mat-error *ngIf="form.get('name').invalid"

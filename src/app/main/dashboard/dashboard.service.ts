@@ -4,6 +4,7 @@ import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { FloorplansService } from "../manager/fp-builder/floorplan.service";
 import { Server } from "../manager/servers/server.model";
+// import { Reservation } from "../../manager/reservations/reservation.model";
 
 @Injectable({ providedIn: "root" })
 export class DashboardService {
@@ -21,6 +22,7 @@ export class DashboardService {
   userIsAuthenticated = false;
   userId: string;
   servers: Server[] = [];
+ // reservations: Reservation[] = [];
 
   @Output() fpChange: EventEmitter<string> = new EventEmitter();
   @Output() tableChange: EventEmitter<object> = new EventEmitter();

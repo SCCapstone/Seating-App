@@ -3,9 +3,9 @@
      <h3>Reservations</h3>
     </mat-expansion-panel-header>
     <mat-card class="reservation-header">
-      <div class="list-box-time">Time</div>
-      <div class="list-box">Name</div>
-      <div class="list-box">Size</div>
+       <div class="list-box-time">Time</div>
+       <div class="list-box">Name</div>
+       <div class="list-box">Size</div>
     </mat-card>
     <mat-accordion multi="true" *ngIf="reservations.length > 0 && !isLoading">
       <mat-expansion-panel *ngFor="let reservation of reservations">

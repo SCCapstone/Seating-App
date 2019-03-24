@@ -7,4 +7,5 @@ export interface Reservation {
   date: string;
   notes: string;
   creator: string;
+  store: string;
 }

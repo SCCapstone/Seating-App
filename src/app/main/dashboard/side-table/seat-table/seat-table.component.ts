@@ -9,27 +9,40 @@ import { FloorplansService } from 'src/app/main/manager/fp-builder/floorplan.ser
 import { StoresService } from 'src/app/main/manager/store/stores.service';
 import { DashboardService } from '../../dashboard.service';
 import { Server } from "../../../manager/servers/server.model";
+// import { Reservation } from "/src/app/main/reservations/reservation.model";
+import { ReservationsService } from "src/app/main/reservations/reservations.service";
 
 @Component({
   selector: 'app-seat-table',
   templateUrl: './seat-table.component.html',
-  styleUrls: ['./seat-table.component.css']
+  styleUrls: ['./seat-table.component.css'],
+  providers: [ReservationsService]
 })
 export class SeatTableComponent implements OnInit {
   tableName = "";
   guestsSeated = 0;
   isLoading = false;
   form: FormGroup;
+  reservationsPerPage = 50;
+  currentPage = 1;
+  private reservationsSub: Subscription;
+  private authStatusSub: Subscription;
 
   constructor(
     public dialogRef: MatDialogRef<SeatTableComponent>,
     public dashboardService: DashboardService,
-    public route: ActivatedRoute
+    public reservationsService: ReservationsService,
+    public route: ActivatedRoute,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     this.isLoading = true;
     console.log("Initializing FormGroup");
+    this.reservationsService.getReservations(
+      this.reservationsPerPage,
+      this.currentPage
+    );
     this.form = new FormGroup({
       guestsSeated: new FormControl(null, {
         validators: [Validators.required]
@@ -37,6 +50,9 @@ export class SeatTableComponent implements OnInit {
       notes: new FormControl(null, {
       }),
       server: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      reservations: new FormControl(null, {
         validators: [Validators.required]
       })
     });
@@ -50,7 +66,11 @@ export class SeatTableComponent implements OnInit {
   }
   onUpdateTable() {
     console.log("Updating table");
-    this.dashboardService.dashUpdateTable(this.form.value.guestsSeated, this.form.value.notes, this.form.value.server);
+    this.dashboardService.dashUpdateTable(
+    this.form.value.guestsSeated,
+    this.form.value.notes,
+    this.form.value.server);
+
     this.dashboardService.dashRefreshTable();
     this.dialogRef.close();
   }

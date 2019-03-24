@@ -8,7 +8,8 @@ exports.createReservation = (req, res, next) => {
     time: req.body.time,
     date: req.body.date,
     notes: req.body.notes,
-    creator: req.userData.userId
+    creator: req.userData.userId,
+    store: req.body.store
   });
   reservation
     .save()

@@ -32,7 +32,7 @@ export class SideStoreComponent implements OnInit {
   store: Store;
   storeList: Store[] = [];
   defaultFloorplan: string;
-  selectedStore = "None"; //store name
+  selectedStore = "None"; // store name
   // selectedStoreID = "None"; //hold store Id
   totalStores = 0;
   storesPerPage = 10;
@@ -63,6 +63,7 @@ export class SideStoreComponent implements OnInit {
     this.isLoading = true;
     this.floorplansService.getFloorplans();
     this.userId = this.authService.getUserId();
+    // Floorplans
     this.floorplansSub = this.floorplansService
       .getFloorplanUpdateListener()
       .subscribe(
