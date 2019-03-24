@@ -16,12 +16,7 @@ export class SideServersComponent implements OnInit {
   editServerID = "none";
   // servers: Server[] = [];
   isLoading = false;
-
-  // This should be changed, seeing as we have not implemented pagenation
-  // for servers yet.
   totalServers = 0;
-  serversPerPage = 50;
-  currentPage = 1;
 
   userIsAuthenticated = false;
   userId: string;
@@ -35,10 +30,7 @@ export class SideServersComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.serversService.getServers(
-      this.serversPerPage,
-      this.currentPage
-    );
+    this.serversService.getServers();
     this.userId = this.authService.getUserId();
     this.serversSub = this.serversService
       .getServerUpdateListener()

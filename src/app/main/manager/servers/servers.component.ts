@@ -29,8 +29,6 @@ export class ServersComponent implements OnInit, OnDestroy {
   servers: Server[] = [];
   isLoading = false;
   totalServers = 0;
-  serversPerPage = 50;
-  currentPage = 1;
   userIsAuthenticated = false;
   userId: string;
   private serversSub: Subscription;
@@ -44,10 +42,7 @@ export class ServersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.serversService.getServers(
-      this.serversPerPage,
-      this.currentPage
-    );
+    this.serversService.getServers();
     this.userId = this.authService.getUserId();
     this.serversSub = this.serversService
       .getServerUpdateListener()
@@ -116,9 +111,6 @@ export class ServersAddComponent implements OnInit, OnDestroy {
   selectedStore = "None";
   selectedStoreID = "None";
   totalStores = 0;
-  storesPerPage = 10;
-  serversPerPage = 50;
-  currentPage = 1;
 
   userIsAuthenticated = false;
   userId: string;
@@ -142,7 +134,7 @@ export class ServersAddComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.storesService.getStores(this.storesPerPage, this.currentPage);
+    this.storesService.getStores();
     this.userId = this.authService.getUserId();
     this.storesSub = this.storesService
       .getStoreUpdateListener()
@@ -177,8 +169,8 @@ export class ServersAddComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.value.color);
-    console.log(this.selectedStoreID + ",  ," + this.selectedStore);
+    console.log("Server color: " + this.form.value.color);
+    console.log("Server store: " + this.selectedStoreID + ",  " + this.selectedStore);
     this.isLoading = true;
     this.serversService.addServer(
       this.form.value.name,
@@ -186,10 +178,7 @@ export class ServersAddComponent implements OnInit, OnDestroy {
       this.selectedStoreID
     ).subscribe(
       () => {
-        this.serversService.getServers(
-          this.serversPerPage,
-          this.currentPage
-        );
+        this.serversService.getServers();
       }
     );
     this.isLoading = false;
@@ -235,8 +224,6 @@ export class ServersEditComponent implements OnInit, OnDestroy {
   selectedStore = "None";
   selectedStoreID = "None";
   totalStores = 0;
-  storesPerPage = 10;
-  serversPerPage = 50;
   currentPage = 1;
 
   userIsAuthenticated = false;
@@ -263,7 +250,7 @@ export class ServersEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.serverToEdit = this.serversService.getServerToEdit();
     console.log(this.serverToEdit);
-    this.storesService.getStores(this.storesPerPage, this.currentPage);
+    this.storesService.getStores();
     this.userId = this.authService.getUserId();
     this.storesSub = this.storesService
       .getStoreUpdateListener()
@@ -325,10 +312,7 @@ export class ServersEditComponent implements OnInit, OnDestroy {
         this.selectedStoreID
     ).subscribe(
       () => {
-        this.serversService.getServers(
-          this.serversPerPage,
-          this.currentPage
-        );
+        this.serversService.getServers();
       }
     );
     this.isLoading = false;
@@ -345,10 +329,7 @@ export class ServersEditComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.serversService.deleteServer(this.serverToEdit).subscribe(
       () => {
-        this.serversService.getServers(
-          this.serversPerPage,
-          this.currentPage
-        );
+        this.serversService.getServers();
         this.isLoading = false;
         this.dialogRef.close();
       }

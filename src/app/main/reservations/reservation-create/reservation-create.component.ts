@@ -46,8 +46,6 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
   selectedStore = "";
   selectedStoreID = "";
   totalStores = 0;
-  storesPerPage = 10;
-  currentPage = 1;
 
   times: Time[] = [
     { value: "4:30 pm", viewValue: "4:30 pm" },
@@ -80,7 +78,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
       });
       */
     // Populate storeList
-    this.storesService.getStores(this.storesPerPage, this.currentPage);
+    this.storesService.getStores();
     this.storesSub = this.storesService.getStoreUpdateListener().subscribe(
       (storeData: {
         stores: Store[];

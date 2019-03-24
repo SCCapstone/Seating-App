@@ -20,11 +20,10 @@ export class StoresService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getStores(storesPerPage: number, currentPage: number) {
-    const queryParams = `?pagesize=${storesPerPage}&page=${currentPage}`;
+  getStores() {
     this.http
       .get<{ message: string; stores: any; maxStores: number }>(
-        BACKEND_URL + queryParams
+        BACKEND_URL
       )
       .pipe(
         map(storeData => {

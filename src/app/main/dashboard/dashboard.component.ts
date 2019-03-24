@@ -14,8 +14,6 @@ export class DashboardComponent implements OnInit {
   isLoading = false;
 
   totalServers = 0;
-  serversPerPage = 50;
-  currentPage = 1;
 
   private serversSub: Subscription;
   private authStatusSub: Subscription;
@@ -29,10 +27,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.serversService.getServers(
-      this.serversPerPage,
-      this.currentPage
-    );
+    this.serversService.getServers();
     this.dashboardService.userId = this.authService.getUserId();
 
     this.dashboardService.userIsAuthenticated = this.authService.getIsAuth();

@@ -20,11 +20,10 @@ export class ServersService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getServers(serversPerPage: number, currentPage: number) {
-    const queryParams = `?pagesize=${serversPerPage}&page=${currentPage}`;
+  getServers() {
     this.http
       .get<{ message: string; servers: any; maxServers: number }>(
-        BACKEND_URL + queryParams
+        BACKEND_URL
       )
       .pipe(
         map(serverData => {
@@ -66,7 +65,6 @@ export class ServersService {
   }
 
   addServer(name: string, color: string, store: string) {
-    console.log("STORE: " + store);
     const serverData: Server = {
       id: null,
       name: name,

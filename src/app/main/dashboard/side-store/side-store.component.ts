@@ -35,15 +35,12 @@ export class SideStoreComponent implements OnInit {
   selectedStore = "None"; // store name
   // selectedStoreID = "None"; //hold store Id
   totalStores = 0;
-  storesPerPage = 10;
-  currentPage = 1;
-  // needed for DB function ^
+
 
   servers: Server;
   serverList: Server[] = [];
   selectedServers: "None";
   totalServers = 0;
-  serversPerPage = 10;
 
   totalFloorplans = 0;
   isLoading = false;
@@ -77,7 +74,7 @@ export class SideStoreComponent implements OnInit {
         }
       );
     // Stores
-    this.storesService.getStores(this.storesPerPage, this.currentPage);
+    this.storesService.getStores();
     this.storesSub = this.storesService
       .getStoreUpdateListener()
       .subscribe(
@@ -91,7 +88,7 @@ export class SideStoreComponent implements OnInit {
         }
       );
       // Servers
-    this.serversService.getServers(this.serversPerPage, this.currentPage);
+    this.serversService.getServers();
     this.serversSub = this.serversService
     .getServerUpdateListener()
       .subscribe(

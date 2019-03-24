@@ -23,8 +23,6 @@ export class StoreComponent implements OnInit, OnDestroy {
   stores: Store[] = [];
   isLoading = false;
   totalStores = 0;
-  storesPerPage = 50;
-  currentPage = 1;
   userIsAuthenticated = false;
   userId: string;
   private storesSub: Subscription;
@@ -38,10 +36,7 @@ export class StoreComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.storesService.getStores(
-      this.storesPerPage,
-      this.currentPage
-    );
+    this.storesService.getStores();
     this.userId = this.authService.getUserId();
     this.storesSub = this.storesService
       .getStoreUpdateListener()
@@ -102,8 +97,6 @@ export class StoreAddComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
 
-  storesPerPage = 50;
-  currentPage = 1;
   selectedFloorplan = "None";
   selectedFloorplanID = "None";
   totalFloorplans = 0;
@@ -169,10 +162,7 @@ export class StoreAddComponent implements OnInit, OnDestroy {
       this.selectedFloorplanID
     ).subscribe(
       () => {
-        this.storesService.getStores(
-          this.storesPerPage,
-          this.currentPage
-        );
+        this.storesService.getStores();
       }
     );
     this.isLoading = false;
@@ -206,8 +196,6 @@ export class StoreEditComponent implements OnInit, OnDestroy {
 
   selectedFloorplan = "None";
   selectedFloorplanID = "None";
-  storesPerPage = 50;
-  currentPage = 1;
   totalFloorplans = 0;
   floorplan: Floorplan;
   floorplanList: Floorplan[] = [];
@@ -293,10 +281,7 @@ export class StoreEditComponent implements OnInit, OnDestroy {
         this.selectedFloorplanID
     ).subscribe(
       () => {
-        this.storesService.getStores(
-          this.storesPerPage,
-          this.currentPage
-        );
+        this.storesService.getStores();
       }
     );
     this.isLoading = false;
@@ -308,10 +293,7 @@ export class StoreEditComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.storesService.deleteStore(this.storeToEdit).subscribe(
       () => {
-        this.storesService.getStores(
-          this.storesPerPage,
-          this.currentPage
-        );
+        this.storesService.getStores();
         this.dialogRef.close();
         this.isLoading = false;
       }
