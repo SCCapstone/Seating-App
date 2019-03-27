@@ -128,14 +128,16 @@ export class SideStoreComponent implements OnInit {
         id: floorplanData._id,
         name: floorplanData.name,
         json: floorplanData.json,
-        creator: floorplanData.creator
+        creator: floorplanData.creator,
+        storeId: floorplanData.storeId
       };
       this.selectedFloorplan = floorplanData.name;
 
       this.dashboardService.dashLoadCanvas(
         floorplanData._id,
         floorplanData.name,
-        floorplanData.json
+        floorplanData.json,
+        floorplanData.storeId
       );
 
     });

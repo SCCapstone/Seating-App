@@ -33,6 +33,7 @@ export class FpBuilderComponent implements OnInit {
   private floorplansSub: Subscription;
   private authStatusSub: Subscription;
 
+
   totalFloorplans = 0;
 
   isLoading = false;
@@ -95,7 +96,8 @@ export class FpBuilderComponent implements OnInit {
               id: floorplanData._id,
               name: floorplanData.name,
               json: floorplanData.json,
-              creator: floorplanData.creator
+              creator: floorplanData.creator,
+              storeId: floorplanData.storeId
             };
           });
       } else {
@@ -248,7 +250,8 @@ addRect() {
       this.floorplansService.updateFloorplan(
         this.floorplan.id,
         this.floorplan.name,
-        json_data
+        json_data,
+        this.floorplan.storeId
       );
     }
 
@@ -268,7 +271,8 @@ addRect() {
         id: floorplanData._id,
         name: floorplanData.name,
         json: floorplanData.json,
-        creator: floorplanData.creator
+        creator: floorplanData.creator,
+        storeId: floorplanData.storeId
       };
       this.selected = floorplanData.name;
       this.canvas.loadFromJSON(this.floorplan.json);

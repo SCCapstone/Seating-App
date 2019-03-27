@@ -10,7 +10,8 @@ exports.createFloorplan = (req, res, next) => {
   const floorplan = new Floorplan({
     name: req.body.name,
     json: req.body.json,
-    creator: req.userData.userId
+    creator: req.userData.userId,
+    storeId: req.body.storeId
   });
   floorplan
     .save()
@@ -35,7 +36,8 @@ exports.updateFloorplan = (req, res, next) => {
     _id: req.body.id,
     name: req.body.name,
     json: req.body.json,
-    creator: req.userData.userId
+    creator: req.userData.userId,
+    storeId: req.body.storeId
   });
   Floorplan.updateOne(
     // Does name need to go here?
