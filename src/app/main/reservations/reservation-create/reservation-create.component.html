@@ -5,13 +5,14 @@ Uses form control built in-->
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onSaveReservation()" *ngIf="!isLoading">
       <mat-form-field>
+        <mat-label>Store</mat-label>
           <mat-select
           formControlName="store"
           placeholder="Select a Store"
           >
-            <ng-container *ngFor="let store of storeList">
-              <mat-option (click)="loadStore(store.id, store.name)" *ngIf="userIsAuthenticated && userId === store.creator" [value]="selectedStoreID">
-                {{store.name}}
+            <ng-container *ngFor="let st of storeList">
+              <mat-option *ngIf="userIsAuthenticated && userId === st.creator" [value]="st.id">
+                {{st.name}}
               </mat-option>
             </ng-container>
           </mat-select>

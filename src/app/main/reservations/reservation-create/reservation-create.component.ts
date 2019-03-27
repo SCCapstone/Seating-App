@@ -159,15 +159,6 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadStore(storeID: string, name: string) {
-    console.log("Load Store is called");
-    this.isLoading = true;
-    this.selectedStore = name;
-    this.selectedStoreID = storeID;
-    console.log("Store ID: " + storeID);
-    this.isLoading = false;
-  }
-
   onSaveReservation() {
     if (this.form.invalid) {
       console.log("Cannot Save Store Invalid");
@@ -182,10 +173,10 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.form.value.time,
         this.form.value.date,
         this.form.value.notes,
-        this.form.value.store,
-       // this.selectedStoreID
+        this.form.value.store
       );
     } else {
+      console.log("Updating reservation. New store name: " + this.form.value.store);
       this.reservationsService.updateReservation(
         this.reservationId,
         this.form.value.name,
