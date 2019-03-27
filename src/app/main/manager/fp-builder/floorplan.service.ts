@@ -67,7 +67,8 @@ export class FloorplansService {
 
   addFloorplan(
     name: string,
-    json: JSON
+    json: JSON,
+    storeId: string
   ) {
 
     const floorplanData: Floorplan = {
@@ -75,7 +76,7 @@ export class FloorplansService {
       name: name,
       json: json,
       creator: null,
-      storeId: null
+      storeId: storeId
     };
     this.http
       .post<{message: string; floorplan: Floorplan }>(

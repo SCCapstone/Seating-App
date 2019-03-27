@@ -11,6 +11,9 @@ import { ServersEditComponent } from "../servers/servers.component";
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Form, FormGroup, Validators, FormControl } from "@angular/forms";
+import { Store } from "../store/store.model";
+import { StoresService } from "../store/stores.service";
+
 
 declare let fabric;
 
@@ -32,7 +35,14 @@ export class FpBuilderComponent implements OnInit {
   private floorplanId: string;
   private floorplansSub: Subscription;
   private authStatusSub: Subscription;
+  private storesSub: Subscription;
 
+  store: Store;
+  storeList: Store[] = [];
+  defaultFloorplan: string;
+  totalStores = 0;
+
+  form: FormGroup;
 
   totalFloorplans = 0;
 
@@ -44,7 +54,8 @@ export class FpBuilderComponent implements OnInit {
     public floorplansService: FloorplansService,
     public route: ActivatedRoute,
     private authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public storesService: StoresService
   ) {}
 
   ngOnInit() {
@@ -63,6 +74,28 @@ export class FpBuilderComponent implements OnInit {
           this.floorplanList = floorplanData.floorplans;
         }
       );
+
+    this.form = new FormGroup({
+        store: new FormControl(null, {
+          validators: [Validators.required]
+     })
+    });
+
+    // Brett bringing a list of stores
+    this.storesService.getStores();
+    this.storesSub = this.storesService
+        .getStoreUpdateListener()
+        .subscribe(
+          (storeData: {
+            stores: Store[];
+            storeCount: number;
+          }) => {
+            this.isLoading = false;
+            this.totalStores = storeData.storeCount;
+            this.storeList = storeData.stores;
+          }
+        );
+
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
@@ -237,13 +270,16 @@ addRect() {
   */
   saveCanvas() {
     // const json_data = JSON.stringify(this.canvas.toJSON());
+    console.log("Saving Canvas!");
     const json_data = this.canvas.toJSON();
 
     if (this.mode === "create") {
       const fpName = prompt("Enter name for floorplan", "");
+      console.log("Store: " + this.form.value.store);
       this.floorplansService.addFloorplan(
         fpName,
-        json_data
+        json_data,
+        this.form.value.store
       );
     } else {
       console.log("Argument ID: " + this.floorplan.id);
@@ -251,7 +287,7 @@ addRect() {
         this.floorplan.id,
         this.floorplan.name,
         json_data,
-        this.floorplan.storeId
+        this.form.value.store
       );
     }
 
@@ -276,8 +312,10 @@ addRect() {
       };
       this.selected = floorplanData.name;
       this.canvas.loadFromJSON(this.floorplan.json);
+      console.log("This floorplan belongs to store ID: " + this.floorplan.storeId);
     });
     // Redraws the canvas.
+
     this.canvas.renderAll();
 
     this.mode = "edit";

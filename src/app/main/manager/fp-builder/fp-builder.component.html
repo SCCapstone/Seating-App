@@ -13,6 +13,26 @@
       </ng-container>
     </mat-select>
   </mat-form-field>
+<form [formGroup]="form" (submit)="saveCanvas()" *ngIf="!isLoading">
+ <mat-form-field>
+   <mat-label>Store</mat-label>
+    <mat-select formControlName="store">
+
+      <ng-container *ngFor="let st of storeList">
+        <mat-option  *ngIf="userIsAuthenticated && userId === st.creator" [value]="st.id">
+          {{st.name}}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+  <button mat-rasied-button class="table-button" type="submit">
+      Save Floorplan
+    </button>
+</form>
+
+
+
+
 
   <div class="table-button-group">
     <button mat-rasied-button class="table-button" (click)="addRect()">
@@ -36,7 +56,7 @@
     <button mat-rasied-button class="delete-button" (click)="deleteFloorplan(floorplan.id)">
       Delete Floorplan
     </button>
-    <button mat-rasied-button class="table-button" (click)="saveCanvas()">
+    <button mat-rasied-button class="table-button" type="submit">
       Save Floorplan
     </button>
   </div>
