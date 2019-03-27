@@ -49,8 +49,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
 
-  openEditAccount(id: string): void {
-    this.authService.setAccountToEdit(id);
+  openEditAccount(email: string): void {
+    this.authService.setAccountToEdit(email);
     const dialogRef = this.dialog.open(AccountEditComponent, {
       width: '500px',
     });
@@ -129,7 +129,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     
-    this.authService.getAccount(this.usersId)
+    this.authService.getAccount(this.usersId) //Change to getYourAccount?
     .subscribe(accountData => {
       this.isLoading = false;
       this.account = {
@@ -143,8 +143,6 @@ export class AccountEditComponent implements OnInit, OnDestroy {
 
     
   }
-// WILL NEED TO FIX AFTER BETA:
-
 
    onUpdateAccount() {
     if (this.form.invalid) {
@@ -152,7 +150,6 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     }
     this.usersId = this.accountToEdit;
     this.isLoading = true;
-    //this.rpDisplayName = "";
        this.authService.updateAccount(
         this.email,
         this.usersId

@@ -21,7 +21,6 @@ export class AuthService {
   private accounts: Account[] = [];
   private accountsUpdated = new Subject<{
     accounts: Account[];
-    accountCount: number; //needed?
   }>(); 
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -199,9 +198,9 @@ export class AuthService {
       email: email,
       id: id
     };
-    this.http.put(BACKEND_URL + id, accountData).subscribe(response => {
+   /* this.http.put(BACKEND_URL + id, accountData).subscribe(response => {
       this.router.navigate(["/main/account"]);
-    });
+    }); */
   } 
   
 
@@ -209,8 +208,8 @@ export class AuthService {
     return this.http.delete(BACKEND_URL + accountId);
   }
 
-  public setAccountToEdit(id: string) {
-    this.accountToUpdate = id;
+  public setAccountToEdit(email: string) {
+    this.accountToUpdate = email;
   }
   public getAccountToEdit() {
     return this.accountToUpdate;

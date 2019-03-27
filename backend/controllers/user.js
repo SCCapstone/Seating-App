@@ -62,7 +62,12 @@ exports.userLogin = (req, res, next) => {
 
 exports.getUser = (req, res, next) => {
   let fetchedUser;
-  // chek auth req.userdata.userid 
+  
+  const user = new User({ // chek user auth
+    _id: req.userData.userId,
+    email: req.userData.email,
+    password: req.userData.password
+  });
   //find user with that userid:
   User.findOne({ email: req.userData.userId })
     .then(user => { //then if that user exists, return that user data
