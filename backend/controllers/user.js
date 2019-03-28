@@ -62,23 +62,24 @@ exports.userLogin = (req, res, next) => {
 
 exports.getUser = (req, res, next) => {
   let fetchedUser;
-  // chek auth req.userdata.userid 
+  // chek auth req.userdata.userid
   //find user with that userid:
-  User.findOne({ email: req.userData.userId })
+  User.findById(req.params.id)
     .then(user => { //then if that user exists, return that user data
       if(!user) {
         return res.status(401).json({
           message: "Invalid user for this account"
         });
+      } else {
+        fetchedUser = user;
+        res.status(200).json(fetchedUser); //or return user?
       }
-      fetchedUser = user;
-      return userId; //or return user? 
     })
     .catch(err => {//catch error return failure
-      return res.status(401).json({
+      return res.status(500).json({
         message: "Something went wrong..."
       });
-    }); 
+    });
 };
 
 exports.updateUser = (req, res, next) => {
@@ -104,9 +105,9 @@ exports.updateUser = (req, res, next) => {
         message: "Couldn't update user"
       });
     });
-  
-  
-  
- 
-  
+
+
+
+
+
 }

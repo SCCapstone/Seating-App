@@ -10,7 +10,7 @@ router.post("/signup", UserController.createUser);
 
 router.post("/login", UserController.userLogin);
 
-router.get("", checkAuth, UserController.getUser);
+router.get("/:id", checkAuth, UserController.getUser);
 
 router.put("", checkAuth, UserController.updateUser);
 
