@@ -18,6 +18,7 @@ export class DashboardService {
   private selectedFloorplanName = "None";
   private selectedFloorplanJSON = null;
   private selectedTable = null;
+  private selectedFloorplanStoreID = "None";
 
   userIsAuthenticated = false;
   userId: string;
@@ -38,10 +39,11 @@ export class DashboardService {
    * @param name the name of the floorplan that is being loaded
    * @param json the JSON data that is being loaded.
    */
-  dashLoadCanvas (id, name, json) {
+  dashLoadCanvas (id, name, json, storeId) {
     this.selectedFloorplanID = id;
     this.selectedFloorplanName = name;
     this.selectedFloorplanJSON = json;
+    this.selectedFloorplanStoreID = storeId;
 
     this.selectedTable = null;
     this.tableChange.emit(null);
@@ -79,7 +81,8 @@ export class DashboardService {
     this.floorplansService.updateFloorplan(
       this.selectedFloorplanID,
       this.selectedFloorplanName,
-      this.selectedFloorplanJSON
+      this.selectedFloorplanJSON,
+      this.selectedFloorplanStoreID
       );
   }
 

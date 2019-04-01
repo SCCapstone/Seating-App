@@ -3,11 +3,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Subscription } from "rxjs";
+
 import { AuthService } from "src/app/auth/auth.service";
-import { Account } from "./account.model";
-
-//import { AccountsService } from "./accounts.service";
-
+import { tokenKey } from "@angular/core/src/view";
 
 @Component({
   selector: "app-account",
@@ -16,32 +14,37 @@ import { Account } from "./account.model";
 })
 export class AccountComponent implements OnInit, OnDestroy {
 
+  account = {
+    userId: "",
+    email: ""
+  };
   editAccountID = "none";
-  //edit userID = "none";
   isLoading = false;
-  email = null;
-  phone = 0;
   userIsAuthenticated = false;
   userId: string;
   private authStatusSub: Subscription;
   constructor(
     public dialog: MatDialog,
-    //public accountsService: AccountsService,
     private authService: AuthService
   ) { }
 
   ngOnInit() {
    this.isLoading = true;
-   this.authService.getYourAccount(); 
-   // this.email;
     this.userId = this.authService.getUserId();
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
-      .getAuthStatusListener() //getAccountUpdateListener?
+      .getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+      this.authService.getUserEmail(this.userId)
+      .subscribe(
+        (userData => {
+          this.account.email = userData.email;
+          this.account.userId = userData.userId;
+        })
+      );
   }
 
   ngOnDestroy() {
@@ -96,7 +99,6 @@ export class AccountEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.accountToEdit = this.authService.getAccountToEdit();
     console.log(this.accountToEdit);
-    this.authService.getYourAccount();
     this.usersId = this.authService.getUserId();
     this.authStatusSub = this.authService
       .getAccountUpdateListener()
@@ -109,7 +111,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
           this.email = accountData.accountCount;
         }
       );
-      
+
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
@@ -127,21 +129,6 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     this.usersId = this.accountToEdit;
    // this.email = this.accountToEdit;
     this.isLoading = true;
-
-    
-    this.authService.getAccount(this.usersId) //Change to getYourAccount?
-    .subscribe(accountData => {
-      this.isLoading = false;
-      this.account = {
-        email: accountData.email,
-        id: accountData._id
-      };
-      this.form.setValue({
-        email: this.account.email
-      });
-    }); 
-
-    
   }
 
    onUpdateAccount() {
@@ -153,12 +140,12 @@ export class AccountEditComponent implements OnInit, OnDestroy {
        this.authService.updateAccount(
         this.email,
         this.usersId
-    ); 
+    );
     this.isLoading = false;
     this.dialogRef.close();
     this.form.reset();
   }
-  
+
 
   onDelete() {
     this.isLoading = true;
@@ -167,8 +154,8 @@ export class AccountEditComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.dialogRef.close();
       }
-      ) 
-  } 
+      )
+  }
 
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();

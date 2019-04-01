@@ -80,7 +80,8 @@ export class CanvasComponent implements OnInit {
         id: floorplanData._id,
         name: floorplanData.name,
         json: floorplanData.json,
-        creator: floorplanData.creator
+        creator: floorplanData.creator,
+        storeId: floorplanData.storeId
       };
       // this.selectedFloorplanID = floorplanData._id;
       this.dashboardService.canvas.loadFromJSON(this.floorplan.json);

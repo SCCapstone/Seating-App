@@ -3,6 +3,7 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onUpdateTable()" *ngIf="!isLoading">
     <div class="table-form">
+      <!--
         <mat-form-field>
             <mat-select formControlName="reservations" placeholder="Reservations">
               <ng-container *ngFor="let reservation of this.reservationsService.reservations">
@@ -14,6 +15,7 @@
             </mat-select>
             <mat-error *ngIf="form.get('reservation').invalid">Please select a reservation.</mat-error>
           </mat-form-field>
+        -->
       <mat-form-field>
         <input matInput type="number" formControlName="guestsSeated" placeholder="Guests Seated" />
         <mat-error *ngIf="form.get('guestsSeated').invalid">Please enter the number of guests.</mat-error>

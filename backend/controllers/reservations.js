@@ -38,7 +38,8 @@ exports.updateReservation = (req, res, next) => {
     time: req.body.time,
     date: req.body.date,
     notes: req.body.notes,
-    creator: req.userData.userId
+    creator: req.userData.userId,
+    store: req.body.store
   });
   Reservation.updateOne(
     { _id: req.params.id, creator: req.userData.userId },

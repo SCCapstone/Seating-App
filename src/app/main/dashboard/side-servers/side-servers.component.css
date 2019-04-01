@@ -10,3 +10,12 @@ mat-list {
 mat-card {
   margin-bottom: 20px;
 }
+
+.color-box {
+  width: 25px;
+  height: 25px;
+  margin: 15px;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+}

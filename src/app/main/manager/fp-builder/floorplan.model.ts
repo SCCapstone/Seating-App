@@ -3,4 +3,5 @@ export interface Floorplan {
   name: string;
   json: JSON;
   creator: string;
+  storeId: string;
 }

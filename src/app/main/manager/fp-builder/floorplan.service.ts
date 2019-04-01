@@ -55,24 +55,28 @@ export class FloorplansService {
 
   getFloorplan(id: string) {
  // getFloorplan(id: string) {
+ // Brett here; added storeId for multiple floorplans per store
     return this.http.get<{
       _id: string;
       name: string;
       json: JSON;
       creator: string;
+      storeId: string;
     }>(BACKEND_URL + id);
   }
 
   addFloorplan(
     name: string,
-    json: JSON
+    json: JSON,
+    storeId: string
   ) {
 
     const floorplanData: Floorplan = {
       id: null,
       name: name,
       json: json,
-      creator: null
+      creator: null,
+      storeId: storeId
     };
     this.http
       .post<{message: string; floorplan: Floorplan }>(
@@ -87,14 +91,16 @@ export class FloorplansService {
   updateFloorplan(
     id: string,
     name: string,
-    json: JSON
+    json: JSON,
+    storeId: string
   ) {
     let floorplanData: Floorplan;
     floorplanData = {
       id: id,
       name: name,
       json: json,
-      creator: null
+      creator: null,
+      storeId: storeId
     };
     console.log("BACKEND_URL: " + BACKEND_URL + " | id: " + id);
     this.http.put(BACKEND_URL + id, floorplanData).subscribe(response => {
