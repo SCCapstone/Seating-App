@@ -8,13 +8,11 @@
     </button>
     <div class="store-header">
       <h4>Store Name</h4>
-      <h4 style="padding-left:40%;">Default Floorplan ID</h4>
     </div>
     <div *ngFor="let store of stores">
       <mat-list *ngIf="userIsAuthenticated && userId === store.creator">
         <mat-list-item>
           {{ store.name }}
-          <div style="margin-left:auto;">{{ store.defaultFloorplan }}</div>
           <button
             class="edit-button"
             mat-raised-button

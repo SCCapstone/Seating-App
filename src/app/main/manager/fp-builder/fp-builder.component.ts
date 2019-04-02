@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import "fabric";
-import { getNumberOfCurrencyDigits } from "@angular/common";
-import { Canvas } from "fabric/fabric-impl";
 import { FloorplansService } from "./floorplan.service";
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { AuthService } from "src/app/auth/auth.service";
 import { Floorplan } from "./floorplan.model";
-import { ServersEditComponent } from "../servers/servers.component";
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Form, FormGroup, Validators, FormControl } from "@angular/forms";
@@ -51,10 +48,10 @@ export class FpBuilderComponent implements OnInit {
   userId: string;
 
   constructor(
+    public dialogRef: MatDialogRef<FpBuilderComponent>,
     public floorplansService: FloorplansService,
     public route: ActivatedRoute,
     private authService: AuthService,
-    public dialog: MatDialog,
     public storesService: StoresService
   ) {}
 
@@ -332,15 +329,15 @@ addRect() {
     this.canvas.renderAll();
   }
 
- openAddTable(): void {
-   const dialogRef = this.dialog.open(TableAddComponent, {
-     width: "500px"
-   });
+//  openAddTable(): void {
+//    const dialogRef = this.dialog.open(TableAddComponent, {
+//      width: "500px"
+//    });
 
-   dialogRef.afterClosed().subscribe(result => {
-     console.log("The dialog was closed");
-   });
- }
+//    dialogRef.afterClosed().subscribe(result => {
+//      console.log("The dialog was closed");
+//    });
+//  }
 }
 
 @Component({

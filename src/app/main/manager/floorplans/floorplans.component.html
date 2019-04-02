@@ -1,0 +1,29 @@
+<div class="store-bar" style="margin-bottom: 15px">
+    <mat-card>
+      <div class="header">
+        <h3>Floorplans</h3>
+      </div>
+      <button class="add-button" mat-raised-button (click)="openCreateFloorplan()">
+        Create Floorplan
+      </button>
+      <div class="floorplan-header">
+        <h4>Floorplan Name</h4>
+        <h4 style="padding-left:30vw;">Default Store</h4>
+      </div>
+      <div *ngFor="">
+        <mat-list *ngIf="">
+          <mat-list-item>
+
+            <div style="margin-left:auto;"></div>
+            <button
+              class="edit-button"
+              mat-raised-button
+              style="margin-left:auto"
+            >
+              Edit Floorplan
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-card>
+  </div>

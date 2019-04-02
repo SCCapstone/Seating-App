@@ -13,6 +13,7 @@ import { AngularMaterialModule } from "./angular-material.module";
 import { MainComponent } from "./main/main.component";
 import { SidenavComponent } from "./main/sidenav/sidenav.component";
 import { ReservationsModule } from "./main/reservations/reservations.module";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { ReservationsModule } from "./main/reservations/reservations.module";
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: [] },
   ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorComponent],

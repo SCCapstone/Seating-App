@@ -1,0 +1,64 @@
+mat-card {
+  padding-top: 10px;
+}
+
+mat-list {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border-radius: 0.2rem;
+  background-color: #e7e7e7;
+}
+
+mat-form-field {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+form{
+  display: grid !important;
+}
+.form-btn-group {
+  display: flex !important;
+}
+.form-buttons {
+  padding: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.add-button {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  background-color: #461e64b4;
+  color: #ffffff;
+}
+
+.edit-button {
+  background-color: #4c86d1;
+  color: #ffffff;
+  line-height: 30px;
+}
+
+.floorplan-header {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border-radius: 0.2rem;
+  background-color: #e7e7e7;
+  display: flex;
+}
+
+h4 {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}

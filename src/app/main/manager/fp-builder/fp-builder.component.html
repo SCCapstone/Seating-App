@@ -1,8 +1,5 @@
-<mat-expansion-panel [expanded]="true" style="margin-bottom: 15px">
-  <mat-expansion-panel-header>
-    <h3>Floorplan Builder</h3>
-  </mat-expansion-panel-header>
-
+<div class=" mat-card fp-builder">
+  <h3>Floorplan Builder</h3>
   <mat-form-field>
     <h3>Select floorplan:</h3> {{ selected }}
     <mat-select [(value)]="selected">
@@ -13,27 +10,21 @@
       </ng-container>
     </mat-select>
   </mat-form-field>
-<form [formGroup]="form" (submit)="saveCanvas()" *ngIf="!isLoading">
- <mat-form-field>
-   <mat-label>Store</mat-label>
-    <mat-select formControlName="store">
-
-      <ng-container *ngFor="let st of storeList">
-        <mat-option  *ngIf="userIsAuthenticated && userId === st.creator" [value]="st.id">
-          {{st.name}}
-        </mat-option>
-      </ng-container>
-    </mat-select>
-  </mat-form-field>
-  <button mat-rasied-button class="table-button" type="submit">
-      Save Floorplan
-    </button>
-</form>
-
-
-
-
-
+  <form [formGroup]="form" (submit)="saveCanvas()" *ngIf="!isLoading">
+    <mat-form-field>
+      <mat-label>Store</mat-label>
+        <mat-select formControlName="store">
+          <ng-container *ngFor="let st of storeList">
+            <mat-option  *ngIf="userIsAuthenticated && userId === st.creator" [value]="st.id">
+              {{st.name}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    <button mat-rasied-button class="table-button" type="submit">
+        Save Floorplan
+      </button>
+  </form>
   <div class="table-button-group">
     <button mat-rasied-button class="table-button" (click)="addRect()">
       Add Rectangle Table
@@ -60,4 +51,4 @@
       Save Floorplan
     </button>
   </div>
-</mat-expansion-panel>
+</div>

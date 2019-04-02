@@ -17,6 +17,7 @@ import { ServersComponent, ServersAddComponent, ServersEditComponent } from './m
 import { SideTableComponent } from './dashboard/side-table/side-table.component';
 import { SideStoreComponent } from './dashboard/side-store/side-store.component';
 import { SeatTableComponent } from "./dashboard/side-table/seat-table/seat-table.component";
+import { FloorplansComponent } from './manager/floorplans/floorplans.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SeatTableComponent } from "./dashboard/side-table/seat-table/seat-table
     ServersEditComponent,
     SideTableComponent,
     SideStoreComponent,
-    SeatTableComponent
+    SeatTableComponent,
+    FloorplansComponent
   ],
   imports: [CommonModule, AngularMaterialModule, FormsModule, MainRoutingModule, ReactiveFormsModule],
   entryComponents: [
@@ -51,7 +53,9 @@ import { SeatTableComponent } from "./dashboard/side-table/seat-table/seat-table
     StoreAddComponent,
     StoreEditComponent,
     SeatTableComponent,
+    FloorplansComponent,
+    FpBuilderComponent
   ],
-  bootstrap: [ServersComponent, StoreComponent]
+  bootstrap: [ServersComponent, StoreComponent, FloorplansComponent]
 })
 export class MainModule {}
