@@ -33,11 +33,16 @@ export class ServersComponent implements OnInit, OnDestroy {
   userId: string;
   private serversSub: Subscription;
   private authStatusSub: Subscription;
+  private storesSub: Subscription;
+  selectedStoreID: string;
+  selectedStoreName = "Select a Store";
+  storeList: Store[] = [];
 
   constructor(
     public dialog: MatDialog,
     public serversService: ServersService,
-    private authService: AuthService
+    private authService: AuthService,
+    private storesService: StoresService
   ) {}
 
   ngOnInit() {
@@ -50,6 +55,13 @@ export class ServersComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.servers = serverData.servers;
       });
+    this.storesSub = this.storesService
+      .getStoreUpdateListener()
+      .subscribe((storeData: { stores: Store[]; storeCount: number }) => {
+        this.isLoading = false;
+        // this.totalStores = storeData.storeCount;
+        this.storeList = storeData.stores;
+      });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
@@ -57,6 +69,15 @@ export class ServersComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+  }
+
+  /**
+   * This function sets the selected store class variable
+   * @param store store to be selected
+   */
+  selectStore(storeID: string, storeName: string) {
+    this.selectedStoreID = storeID;
+    this.selectedStoreName = storeName;
   }
 
   ngOnDestroy() {

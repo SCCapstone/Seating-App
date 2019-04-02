@@ -6,12 +6,21 @@
     <button class="add-button" mat-raised-button (click)="openAddServer()">
       Add Server
     </button>
+    <div></div>
+    <mat-label>{{ selectedStoreName }}</mat-label>
+    <!--[(value)]="selectedStoreName"--><mat-select>
+      <ng-container *ngFor="let st of storeList">
+        <mat-option (click)="selectStore(st.id, st.name)" *ngIf="userIsAuthenticated && userId === st.creator">
+          {{st.name}}
+        </mat-option>
+      </ng-container>
+    </mat-select>
     <div class="server-header">
       <h4>Server Name</h4>
       <h4 style="padding-left:40%;">Store ID</h4>
     </div>
     <div *ngFor="let server of servers">
-    <mat-list *ngIf="userIsAuthenticated && userId === server.creator">
+    <mat-list *ngIf="userIsAuthenticated && userId === server.creator && server.store === selectedStoreID">
       <mat-list-item>
         {{ server.name }}
         <div style="margin-left:auto;">{{ server.store }}</div>
