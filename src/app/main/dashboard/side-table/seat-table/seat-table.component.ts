@@ -37,6 +37,7 @@ export class SeatTableComponent implements OnInit {
 
   selectedRes = "";
   selectedResID = "";
+  selectedStoreID = "none";
 
   constructor(
     public dialogRef: MatDialogRef<SeatTableComponent>,
@@ -87,19 +88,19 @@ export class SeatTableComponent implements OnInit {
         validators: [Validators.required]
       }),
       reservations: new FormControl(null, {
-       // validators: [Validators.required]
       })
     });
     this.isLoading = false;
+    console.log("Selected Store ID: " + this.selectedStoreID);
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   onUpdateTable() {
     console.log("Updating table");
     this.dashboardService.dashUpdateTable(
-    this.form.value.reservation,
     this.form.value.guestsSeated,
     this.form.value.notes,
     this.form.value.server);

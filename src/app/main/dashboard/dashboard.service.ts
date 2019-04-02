@@ -55,11 +55,10 @@ export class DashboardService {
    * Updates the currently selected table.
    * @param guestsSeated the new number of guests sitting at the table.
    */
-  dashUpdateTable(guestsSeated: number, notes: string, server: Server, reservation: Reservation) {
+  dashUpdateTable(guestsSeated: number, notes: string, server: Server) {
     this.selectedTable.target._objects[0].guestsSeated = guestsSeated;
     this.selectedTable.target._objects[0].notes = notes;
     this.selectedTable.target._objects[0].serverId = server;
-    this.selectedTable.target._objects[0].reservation = reservation;
     if (guestsSeated !== 0) {
       this.selectedTable.target._objects[0].setColor("#4c86d1");
     } else {
