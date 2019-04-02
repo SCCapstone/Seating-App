@@ -17,10 +17,10 @@ export class AuthService {
   private userId: string;
   private authStatusListener = new Subject<boolean>();
   accountToUpdate = "none";
+  private account: AuthData[] = [];
   private accounts: Account[] = [];
   private accountsUpdated = new Subject<{
-    accounts: Account[];
-    accountCount: number; //needed?
+    accounts: AuthData[];
   }>();
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -158,9 +158,13 @@ export class AuthService {
     return this.accountsUpdated.asObservable();
   }
 
-  public updateAccount(email: string, id: string) {
-    let accountData: Account;
-    this.http.put(BACKEND_URL + id, accountData).subscribe(response => {
+  public updateAccount(email: string, password: string) {
+    let accountData: AuthData;
+    accountData = {
+      email: email,
+      password: password
+    }; 
+    this.http.put(BACKEND_URL + email, accountData).subscribe(response => {
       this.router.navigate(["/main/account"]);
     });
   }

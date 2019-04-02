@@ -6,6 +6,7 @@ import { Subscription } from "rxjs";
 
 import { AuthService } from "src/app/auth/auth.service";
 import { tokenKey } from "@angular/core/src/view";
+import { AuthData } from "src/app/auth/auth-data.model";
 
 @Component({
   selector: "app-account",
@@ -38,6 +39,7 @@ export class AccountComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+      
       this.authService.getUserEmail(this.userId)
       .subscribe(
         (userData => {
@@ -52,8 +54,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
 
-  openEditAccount(id: string): void {
-    this.authService.setAccountToEdit(id);
+  openEditAccount(email: string): void {
+    this.authService.setAccountToEdit(email);
     const dialogRef = this.dialog.open(AccountEditComponent, {
       width: '500px',
     });
@@ -73,7 +75,6 @@ export class AccountComponent implements OnInit, OnDestroy {
 })
 export class AccountEditComponent implements OnInit, OnDestroy {
   accountToEdit = "none";
-  //enteredPhone = 0;
   enteredEmail = "";
   account: Account;
   isLoading = false;
@@ -81,13 +82,12 @@ export class AccountEditComponent implements OnInit, OnDestroy {
   private mode = "edit";
   private usersId: string;
   private authStatusSub: Subscription;
- // private rpDisplayName: string;
 
   email = null;
- // phone = 0;
+  password = null;
 
   userIsAuthenticated = false;
-  //userId: string;
+  userId: string;
 
   constructor(
     public dialogRef: MatDialogRef<AccountEditComponent>,
@@ -98,19 +98,13 @@ export class AccountEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.accountToEdit = this.authService.getAccountToEdit();
-    console.log(this.accountToEdit);
-    this.usersId = this.authService.getUserId();
+    console.log("Editing: " + this.accountToEdit);
+    this.userId = this.authService.getUserId();
     this.authStatusSub = this.authService
       .getAccountUpdateListener()
-      .subscribe(
-        (accountData: {
-          accounts: Account[];
-          accountCount: number;
-        }) => {
+      .subscribe((accountData: { accounts: AuthData[] }) => {
           this.isLoading = false;
-          this.email = accountData.accountCount;
-        }
-      );
+        }); 
 
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
@@ -126,24 +120,19 @@ export class AccountEditComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       })
     });
-    this.usersId = this.accountToEdit;
-   // this.email = this.accountToEdit;
-    this.isLoading = true;
+    this.userId = this.accountToEdit;
   }
-// WILL NEED TO FIX AFTER BETA:
-
 
    onUpdateAccount() {
     if (this.form.invalid) {
       return;
     }
-    this.usersId = this.accountToEdit;
+    this.userId = this.accountToEdit;
     this.isLoading = true;
-    //this.rpDisplayName = "";
        this.authService.updateAccount(
         this.email,
-        this.usersId
-    );
+        this.password
+    )
     this.isLoading = false;
     this.dialogRef.close();
     this.form.reset();

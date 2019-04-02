@@ -1,19 +1,15 @@
 <h1 mat-dialog-title>Edit Account</h1>
 <mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner> 
+ <mat-spinner *ngIf="isLoading"></mat-spinner>
    <form [formGroup]="form" (submit)="onUpdateAccount()" *ngIf="!isLoading">
       <mat-form-field>
           <input matInput type="text" formControlName="email" placeholder="Email Address" />
           <mat-error *ngIf="form.get('email').invalid">Please enter an email address.</mat-error>
         </mat-form-field>
-      <button style="margin-left:2rem;" mat-raised-button color="accent" type="submit">Update</button>
+        <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>
+        <button class="form-buttons" mat-raised-button color="accent" (click)="onDelete()">DELETE</button>
     </form> 
 </mat-card>
-<button mat-button color="warn">
-  DELETE
-</button>
 <div mat-dialog-actions>
-  <button style="margin-left: auto;" mat-button (click)="onNoClick()">
-    Close
-  </button>
+  <button style="margin-left: auto;" mat-button (click)="onNoClick()">Close</button>
 </div>
