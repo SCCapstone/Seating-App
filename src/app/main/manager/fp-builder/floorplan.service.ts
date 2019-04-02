@@ -33,7 +33,8 @@ export class FloorplansService {
                 name: floorplan.name,
                 json: floorplan.json,
                 id: floorplan._id,
-                creator: floorplan.creator
+                creator: floorplan.creator,
+                storeId: floorplan.storeId
               };
             })
 

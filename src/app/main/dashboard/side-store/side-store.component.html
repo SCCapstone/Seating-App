@@ -14,9 +14,9 @@
   </mat-form-field>
   <mat-form-field>
     <h3>Floorplan:</h3> {{ selectedFloorplan }}
-    <mat-select [(value)]="selectedFloorplan" [disabled]="true">
+    <mat-select [(value)]="selectedFloorplan">
       <ng-container *ngFor="let floorplan of floorplanList">
-        <mat-option (click)="loadCanvas(floorplan.id)" *ngIf="userIsAuthenticated && userId === floorplan.creator">
+        <mat-option (click)="loadCanvas(floorplan.id)" *ngIf="userIsAuthenticated && userId === floorplan.creator && floorplan.storeId === selectedStoreID">
           {{floorplan.name}}
         </mat-option>
       </ng-container>
