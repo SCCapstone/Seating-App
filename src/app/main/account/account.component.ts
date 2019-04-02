@@ -104,7 +104,6 @@ export class AccountEditComponent implements OnInit, OnDestroy {
       .getAccountUpdateListener()
       .subscribe((accountData: { accounts: AuthData[] }) => {
           this.isLoading = false;
-         // this.email = accountData.accountCount;
         }); 
 
     this.userIsAuthenticated = this.authService.getIsAuth();
