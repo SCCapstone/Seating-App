@@ -70,13 +70,6 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     this.userId = this.authService.getUserId();
-    /**
-    this.authStatusSub = this.authService
-      .getAuthStatusListener()
-      .subscribe(authStatus => {
-        this.isLoading = false;
-      });
-      */
     // Populate storeList
     this.storesService.getStores();
     this.storesSub = this.storesService.getStoreUpdateListener().subscribe(
@@ -152,7 +145,9 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.reservationId = null;
       }
       this.userIsAuthenticated = this.authService.getIsAuth();
-      this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });

@@ -9,7 +9,7 @@ import { FloorplansService } from 'src/app/main/manager/fp-builder/floorplan.ser
 import { StoresService } from 'src/app/main/manager/store/stores.service';
 import { DashboardService } from '../../dashboard.service';
 import { Server } from "../../../manager/servers/server.model";
-// import { Reservation } from "/src/app/main/reservations/reservation.model";
+import { Reservation } from "../../../reservations/reservation.model";
 import { ReservationsService } from "src/app/main/reservations/reservations.service";
 
 @Component({
@@ -23,10 +23,20 @@ export class SeatTableComponent implements OnInit {
   guestsSeated = 0;
   isLoading = false;
   form: FormGroup;
+
+  userIsAuthenticated = false;
+  userId: string;
+
+  reservation: Reservation;
+  resList: Reservation[] = [];
+  totalReservations = 0;
   reservationsPerPage = 50;
   currentPage = 1;
   private reservationsSub: Subscription;
   private authStatusSub: Subscription;
+
+  selectedRes = "";
+  selectedResID = "";
 
   constructor(
     public dialogRef: MatDialogRef<SeatTableComponent>,
@@ -38,11 +48,35 @@ export class SeatTableComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    console.log("Initializing FormGroup");
+    // Populate resList
     this.reservationsService.getReservations(
       this.reservationsPerPage,
       this.currentPage
     );
+    this.userId = this.authService.getUserId();
+    this.reservationsSub = this.reservationsService
+    .getReservationUpdateListener()
+    .subscribe(
+      (reservationData: {
+        reservations: Reservation[];
+        reservationCount: number;
+        value: "selectedResID";
+        viewValue: "selectedRes";
+      }) => {
+        this.isLoading = false;
+        this.totalReservations = reservationData.reservationCount;
+        this.resList = reservationData.reservations;
+      }
+    );
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+    .getAuthStatusListener()
+    .subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+      this.userId = this.authService.getUserId();
+    });
+
+    console.log("Initializing FormGroup");
     this.form = new FormGroup({
       guestsSeated: new FormControl(null, {
         validators: [Validators.required]
@@ -53,12 +87,10 @@ export class SeatTableComponent implements OnInit {
         validators: [Validators.required]
       }),
       reservations: new FormControl(null, {
-        validators: [Validators.required]
+       // validators: [Validators.required]
       })
     });
     this.isLoading = false;
-
-
   }
 
   onNoClick(): void {
@@ -67,6 +99,7 @@ export class SeatTableComponent implements OnInit {
   onUpdateTable() {
     console.log("Updating table");
     this.dashboardService.dashUpdateTable(
+    this.form.value.reservation,
     this.form.value.guestsSeated,
     this.form.value.notes,
     this.form.value.server);

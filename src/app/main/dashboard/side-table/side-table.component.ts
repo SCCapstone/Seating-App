@@ -59,7 +59,7 @@ export class SideTableComponent implements OnInit {
     if (this.dashboardService.dashGetTable() !== null) {
       this.guestsSeated = 0;
       this.notes = "";
-      this.dashboardService.dashUpdateTable(0, "", this.tableServer);
+      this.dashboardService.dashUpdateTable(0, "", this.tableServer, null);
     }
   }
 
