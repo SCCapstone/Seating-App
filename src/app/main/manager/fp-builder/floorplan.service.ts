@@ -18,6 +18,8 @@ export class FloorplansService {
     floorplans: Floorplan[];
   }>();
 
+  private floorplanToEdit;
+
   constructor(private http: HttpClient, private router: Router) {}
 
   getFloorplans() {
@@ -109,10 +111,22 @@ export class FloorplansService {
     });
   }
 
-
-
-
   deleteFloorplans(floorplanId: string) {
     return this.http.delete(BACKEND_URL + floorplanId);
+  }
+
+  /**
+   * Sets the floorplan that is to be edited.
+   * @param fp the floorplan that is to be edited
+   */
+  setFloorplanToEdit(fp: string) {
+    this.floorplanToEdit = fp;
+  }
+
+  /**
+   * Returns the floorplan that is to be edited.
+   */
+  getFloorplanToEdit() {
+    return this.floorplanToEdit;
   }
 }

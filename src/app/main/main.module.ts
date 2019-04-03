@@ -12,7 +12,8 @@ import { CanvasComponent } from "./dashboard/canvas/canvas.component";
 import { SideResosComponent } from "./dashboard/side-resos/side-resos.component";
 import { SideServersComponent } from "./dashboard/side-servers/side-servers.component";
 import { StoreComponent, StoreAddComponent, StoreEditComponent } from './manager/store/store.component';
-import { FpBuilderComponent, TableAddComponent } from './manager/fp-builder/fp-builder.component';
+import { FpBuilderCreateComponent } from './manager/fp-builder/fp-builder-create/fp-builder-create.component';
+import { FpBuilderEditComponent } from "./manager/fp-builder/fp-builder-edit/fp-builder-edit.component";
 import { ServersComponent, ServersAddComponent, ServersEditComponent } from './manager/servers/servers.component';
 import { SideTableComponent } from './dashboard/side-table/side-table.component';
 import { SideStoreComponent } from './dashboard/side-store/side-store.component';
@@ -32,8 +33,8 @@ import { FloorplansComponent } from './manager/floorplans/floorplans.component';
     StoreComponent,
     StoreEditComponent,
     StoreAddComponent,
-    FpBuilderComponent,
-    TableAddComponent,
+    FpBuilderCreateComponent,
+    FpBuilderEditComponent,
     ServersComponent,
     ServersAddComponent,
     ServersEditComponent,
@@ -54,7 +55,8 @@ import { FloorplansComponent } from './manager/floorplans/floorplans.component';
     StoreEditComponent,
     SeatTableComponent,
     FloorplansComponent,
-    FpBuilderComponent
+    FpBuilderCreateComponent,
+    FpBuilderEditComponent
   ],
   bootstrap: [ServersComponent, StoreComponent, FloorplansComponent]
 })

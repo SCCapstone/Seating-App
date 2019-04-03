@@ -10,15 +10,16 @@
         <h4>Floorplan Name</h4>
         <h4 style="padding-left:30vw;">Default Store</h4>
       </div>
-      <div *ngFor="">
-        <mat-list *ngIf="">
+      <div *ngFor="let fp of floorplanList">
+        <mat-list *ngIf="userIsAuthenticated && userId === fp.creator">
           <mat-list-item>
-
+            {{ fp.name }}
             <div style="margin-left:auto;"></div>
             <button
               class="edit-button"
               mat-raised-button
               style="margin-left:auto"
+              (click)="openEditFloorplan(fp.id)"
             >
               Edit Floorplan
             </button>
