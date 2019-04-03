@@ -1,15 +1,5 @@
 <div class=" mat-card fp-builder">
   <h3>Floorplan Builder</h3>
-  <!--<mat-form-field>
-    <h3>Select floorplan:</h3> {{ selected }}
-    <mat-select [(value)]="selected">
-      <ng-container *ngFor="let floorplan of floorplanList">
-        <mat-option (click)="loadCanvas(floorplan.id)" *ngIf="userIsAuthenticated && userId === floorplan.creator">
-          {{floorplan.name}}
-        </mat-option>
-      </ng-container>
-    </mat-select>
-  </mat-form-field>-->
   <form [formGroup]="form" (submit)="saveCanvas()" *ngIf="!isLoading">
     <mat-form-field>
       <mat-label>Store</mat-label>

@@ -15,9 +15,9 @@ import { StoresService } from "../../store/stores.service";
 declare let fabric;
 
 @Component({
-  selector: "app-fp-builder",
-  templateUrl: "./fp-builder.component.html",
-  styleUrls: ["./fp-builder.component.css"]
+  selector: "app-fp-builder-create",
+  templateUrl: "./fp-builder-create.component.html",
+  styleUrls: ["./fp-builder-create.component.css"]
 })
 export class FpBuilderCreateComponent implements OnInit {
   private canvas;
@@ -263,69 +263,18 @@ addRect() {
   }
 
   /**
-   * Saves what is currently on the canvas to JSON data, and outputs onto console
+   * Saves the canvas to the database
   */
   saveCanvas() {
-    // const json_data = JSON.stringify(this.canvas.toJSON());
     console.log("Saving Canvas!");
     const json_data = this.canvas.toJSON();
 
-    if (this.mode === "create") {
-      const fpName = prompt("Enter name for floorplan", "");
-      console.log("Store: " + this.form.value.store);
-      this.floorplansService.addFloorplan(
-        fpName,
-        json_data,
-        this.form.value.store
-      );
-    } else {
-      console.log("Argument ID: " + this.floorplan.id);
-      this.floorplansService.updateFloorplan(
-        this.floorplan.id,
-        this.floorplan.name,
-        json_data,
-        this.form.value.store
-      );
-    }
-
-    // This is where the json data will need to be put onto the server.
-    // console.log(json_data);
-  }
-
-  /**
-   * Prompts the user for JSON data, and then places it on the canvas.
-   */
-  loadCanvas(id: string) {
-    // Currently prompts user for name. **TODO
-    console.log("Loading Floorplan with ID: " + id);
-
-    this.floorplansService.getFloorplan(id).subscribe(floorplanData => {
-      this.floorplan = {
-        id: floorplanData._id,
-        name: floorplanData.name,
-        json: floorplanData.json,
-        creator: floorplanData.creator,
-        storeId: floorplanData.storeId
-      };
-      this.selected = floorplanData.name;
-      this.canvas.loadFromJSON(this.floorplan.json);
-      console.log("This floorplan belongs to store ID: " + this.floorplan.storeId);
-    });
-    // Redraws the canvas.
-
-    this.canvas.renderAll();
-
-    this.mode = "edit";
-    console.log("Edit mode entered");
-  }
-
-  deleteFloorplan(id: string) {
-    // Currently prompts user for name. **TODO
-    console.log("Deleting Floorplan with ID: " + id);
-    this.floorplansService.deleteFloorplans(id)
-      .subscribe(() => {
-        console.log("Deleted!");
-      });
-    this.canvas.renderAll();
+    const fpName = prompt("Enter name for floorplan", "");
+    console.log("Store: " + this.form.value.store);
+    this.floorplansService.addFloorplan(
+      fpName,
+      json_data,
+      this.form.value.store
+    );
   }
 }

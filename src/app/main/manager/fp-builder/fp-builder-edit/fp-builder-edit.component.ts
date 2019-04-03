@@ -258,10 +258,9 @@ addRect() {
   }
 
   /**
-   * Saves what is currently on the canvas to JSON data, and outputs onto console
+   * Saves the canvas to the database
   */
   saveCanvas() {
-    // const json_data = JSON.stringify(this.canvas.toJSON());
     console.log("Saving Canvas!");
     const json_data = this.canvas.toJSON();
     console.log("Argument ID: " + this.floorplan.id);
@@ -271,33 +270,6 @@ addRect() {
         json_data,
         this.form.value.store
       );
-  }
-
-  /**
-   * Prompts the user for JSON data, and then places it on the canvas.
-   */
-  loadCanvas(id: string) {
-    // Currently prompts user for name. **TODO
-    console.log("Loading Floorplan with ID: " + id);
-
-    this.floorplansService.getFloorplan(id).subscribe(floorplanData => {
-      this.floorplan = {
-        id: floorplanData._id,
-        name: floorplanData.name,
-        json: floorplanData.json,
-        creator: floorplanData.creator,
-        storeId: floorplanData.storeId
-      };
-      this.selected = floorplanData.name;
-      this.canvas.loadFromJSON(this.floorplan.json);
-      console.log("This floorplan belongs to store ID: " + this.floorplan.storeId);
-    });
-    // Redraws the canvas.
-
-    this.canvas.renderAll();
-
-    this.mode = "edit";
-    console.log("Edit mode entered");
   }
 
   deleteFloorplan(id: string) {
