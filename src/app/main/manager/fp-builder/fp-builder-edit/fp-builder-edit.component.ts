@@ -264,12 +264,18 @@ addRect() {
     console.log("Saving Canvas!");
     const json_data = this.canvas.toJSON();
     console.log("Argument ID: " + this.floorplan.id);
-      this.floorplansService.updateFloorplan(
+      this.floorplansService
+      .updateFloorplan(
         this.floorplan.id,
         this.floorplan.name,
         json_data,
         this.form.value.store
-      );
+      )
+      .subscribe(() => {
+        this.floorplansService.getFloorplans();
+      });
+
+      this.dialogRef.close();
   }
 
   deleteFloorplan(id: string) {

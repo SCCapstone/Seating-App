@@ -271,10 +271,15 @@ addRect() {
 
     const fpName = prompt("Enter name for floorplan", "");
     console.log("Store: " + this.form.value.store);
-    this.floorplansService.addFloorplan(
-      fpName,
-      json_data,
-      this.form.value.store
-    );
+    this.floorplansService
+      .addFloorplan(
+        fpName,
+        json_data,
+        this.form.value.store
+      )
+      .subscribe(() => {
+        this.floorplansService.getFloorplans();
+      });
+    this.dialogRef.close();
   }
 }
