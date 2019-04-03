@@ -6,6 +6,7 @@ import { map } from "rxjs/operators";
 import { environment } from "../../environments/environment";
 import { AuthData } from "./auth-data.model";
 import { EmailValidator } from "@angular/forms";
+import { stringify } from "@angular/core/src/render3/util";
 
 const BACKEND_URL = environment.apiUrl + "/user/";
 
@@ -18,7 +19,7 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   accountToUpdate = "none";
   private account: AuthData[] = [];
-  private accounts: Account[] = [];
+  private accounts: AuthData[] = [];
   private accountsUpdated = new Subject<{
     accounts: AuthData[];
   }>();
@@ -153,28 +154,68 @@ export class AuthService {
   }
   /** End Eddie Add */
 
+  getAccounts() {
+    this.http.get<{ message: string; accounts: any }>(
+        BACKEND_URL ).pipe(map(accountData => {
+          return {
+            accounts: accountData.accounts.map(account => {
+              return {
+                email: account.email,
+                password: account.password
+              };
+            }),
+          };
+        })
+        );/*.subscribe(transformedAccountData => {
+        this.accounts = transformedAccountData.accounts;
+        this.accountsUpdated.next({
+          accounts: [...this.accounts]
+        }); 
+      });   */
+  }
+
+
 
   public getAccountUpdateListener() {
     return this.accountsUpdated.asObservable();
   }
 
-  public updateAccount(email: string, password: string) {
-    let accountData: AuthData;
-    accountData = {
-      email: email,
-      password: password
+ updateAccount(email: string) {
+    let accountData = {
+      email: email
     }; 
-    this.http.put(BACKEND_URL + email, accountData).subscribe(response => {
-      this.router.navigate(["/main/account"]);
+
+    return this.http.put<{ token: string; expiresIn: number; userId: string }>(BACKEND_URL, accountData).toPromise().then(response => {
+      console.log(response);
+      const token = response.token;
+      this.token = token;
+      if (token) {
+        const expiresInDuration = response.expiresIn;
+        this.setAuthTimer(expiresInDuration);
+        this.isAuthenticated = true;
+        this.userId = response.userId;
+        this.authStatusListener.next(true);
+        const now = new Date();
+        const expirationDate = new Date(
+          now.getTime() + expiresInDuration * 1000
+        );
+        console.log(expirationDate);
+        this.saveAuthData(token, expirationDate, this.userId);
+        this.router.navigate(["/main/account"]);
+      }
+    },
+    error => {
+      //this.authStatusListener.next(false);
     });
+
   }
 
   public deleteAccount(accountId: string) {
     return this.http.delete(BACKEND_URL + accountId);
   }
 
-  public setAccountToEdit(id: string) {
-    this.accountToUpdate = id;
+  public setAccountToEdit(email: string) {
+    this.accountToUpdate = email;
   }
   public getAccountToEdit() {
     return this.accountToUpdate;

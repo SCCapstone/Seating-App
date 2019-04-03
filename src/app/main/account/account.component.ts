@@ -20,6 +20,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     email: ""
   };
   editAccountID = "none";
+  accounts: AuthData[] = [];
   isLoading = false;
   userIsAuthenticated = false;
   userId: string;
@@ -31,7 +32,13 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
    this.isLoading = true;
+   this.authService.getAccounts(); //fix
     this.userId = this.authService.getUserId();
+    this.authStatusSub = this.authService.getAccountUpdateListener()
+    .subscribe((accountData: { accounts: AuthData[] }) => {
+        this.isLoading = false;
+        this.accounts = accountData.accounts;
+      });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
@@ -64,8 +71,6 @@ export class AccountComponent implements OnInit, OnDestroy {
       console.log('The dialog was closed');
     });
   }
-
-
 }
 
 @Component({
@@ -76,7 +81,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 export class AccountEditComponent implements OnInit, OnDestroy {
   accountToEdit = "none";
   enteredEmail = "";
-  account: Account;
+  account: AuthData;
   isLoading = false;
   form: FormGroup;
   private mode = "edit";
@@ -100,10 +105,12 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     this.accountToEdit = this.authService.getAccountToEdit();
     console.log("Editing: " + this.accountToEdit);
     this.userId = this.authService.getUserId();
+    console.log(this.userId);
     this.authStatusSub = this.authService
       .getAccountUpdateListener()
       .subscribe((accountData: { accounts: AuthData[] }) => {
           this.isLoading = false;
+          this.email = accountData.accounts;
         }); 
 
     this.userIsAuthenticated = this.authService.getIsAuth();
@@ -113,29 +120,43 @@ export class AccountEditComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       });
     this.form = new FormGroup({
-      name: new FormControl(null, {
-        validators: [Validators.required]
-      }),
       email: new FormControl(null, {
         validators: [Validators.required]
       })
     });
-    this.userId = this.accountToEdit;
+    //this.userId = this.accountToEdit;
+    console.log(this.userId);
+
+
+    this.isLoading = true;
+    this.authService.getUserEmail(this.userId).subscribe(accountData => { //THIS BLOCK IS BROKEN
+      this.isLoading = false;
+      //this.account = accountData;
+      console.log(this.account);
+      this.form.setValue({
+        email: accountData.email
+      });
+    }); 
   }
 
    onUpdateAccount() {
     if (this.form.invalid) {
       return;
     }
+    console.log(this.form.value.email);
     this.userId = this.accountToEdit;
     this.isLoading = true;
+    var thisPromise = this;
        this.authService.updateAccount(
-        this.email,
-        this.password
-    )
-    this.isLoading = false;
-    this.dialogRef.close();
-    this.form.reset();
+        this.form.value.email
+    ).then(() => { console.log("log success") 
+      console.log("Updated account " + this.form.value.email);
+      this.isLoading = false;
+      this.dialogRef.close();
+      this.form.reset();
+      thisPromise.account = this.form.value.email;
+      //TODO: REFRESH PAGE AT END
+    });
   }
 
 
@@ -145,8 +166,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
       () => {
         this.isLoading = false;
         this.dialogRef.close();
-      }
-      )
+      });
   }
 
   ngOnDestroy() {

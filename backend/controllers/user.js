@@ -85,18 +85,38 @@ exports.getUser = (req, res, next) => {
 exports.updateUser = (req, res, next) => {
   // check auth req.userdata.userid
   const user = new User({
-    _id: req.userData.id,
-    email: req.userData.email,
-    password: req.userData.password
+    _id: req.userData.userId,
+    email: req.body.email
   });
   User.updateOne( //find user to update
-    { _id: req.userData.id , email: req.userData.email},
+    { _id: req.userData.userId , email: req.userData.email},
     user
   )
     .then(result => { //then update user data
-      if (result.n > 0) {  //then return user data
-        res.status(200).json({ message: "Update successful" });
-      } else {
+      if (result.n > 0) {  //then return user data        
+        User.findOne({ email: req.body.email })
+        .then(user => {
+          if (!user) {
+            return res.status(401).json({
+              message: "Unable to update user."
+            });
+          }
+          fetchedUser = user;
+          const token = jwt.sign(
+            { email: fetchedUser.email, userId: fetchedUser._id },
+            process.env.JWT_KEY,
+            { expiresIn: "1h" }
+          );
+          res.status(200).json({
+            token: token,
+            expiresIn: 3600,
+            userId: fetchedUser._id
+          });
+        }).catch(err => {
+          return res.status(401).json({
+            message: "Invalid authentication credentials!"
+          });
+        });      } else {
         res.status(401).json({ message: "Not authorized" });
       }
     })
@@ -105,9 +125,4 @@ exports.updateUser = (req, res, next) => {
         message: "Couldn't update user"
       });
     });
-
-
-
-
-
 }

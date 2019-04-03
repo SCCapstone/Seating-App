@@ -6,8 +6,10 @@
           <input matInput type="text" formControlName="email" placeholder="Email Address" />
           <mat-error *ngIf="form.get('email').invalid">Please enter an email address.</mat-error>
         </mat-form-field>
-        <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>
-        <button class="form-buttons" mat-raised-button color="accent" (click)="onDelete()">DELETE</button>
+        <div class="form-btn-group">
+          <button class="form-buttons" mat-raised-button color="accent" type="submit">Update </button>
+          <button class="form-buttons" mat-raised-button color="accent" (click)="onDelete()">DELETE</button>
+        </div>
     </form> 
 </mat-card>
 <div mat-dialog-actions>
