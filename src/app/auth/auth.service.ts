@@ -154,7 +154,7 @@ export class AuthService {
   }
   /** End Eddie Add */
 
-  getAccounts() {
+  getAccounts() { //gets the accounts to use for changing of the email. 
     this.http.get<{ message: string; accounts: any }>(
         BACKEND_URL ).pipe(map(accountData => {
           return {
@@ -166,12 +166,7 @@ export class AuthService {
             }),
           };
         })
-        );/*.subscribe(transformedAccountData => {
-        this.accounts = transformedAccountData.accounts;
-        this.accountsUpdated.next({
-          accounts: [...this.accounts]
-        }); 
-      });   */
+        );
   }
 
 
@@ -180,7 +175,7 @@ export class AuthService {
     return this.accountsUpdated.asObservable();
   }
 
- updateAccount(email: string) {
+ updateAccount(email: string) { //only update email and not password
     let accountData = {
       email: email
     }; 
@@ -204,7 +199,7 @@ export class AuthService {
         this.router.navigate(["/main/account"]);
       }
     },
-    error => {
+    error => { //not sure what to put in error block
       //this.authStatusListener.next(false);
     });
 

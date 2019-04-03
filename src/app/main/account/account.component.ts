@@ -32,7 +32,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
    this.isLoading = true;
-   this.authService.getAccounts(); //fix
+   this.authService.getAccounts(); //gets the account to use on the page 
     this.userId = this.authService.getUserId();
     this.authStatusSub = this.authService.getAccountUpdateListener()
     .subscribe((accountData: { accounts: AuthData[] }) => {
@@ -42,7 +42,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
-      .subscribe(isAuthenticated => {
+      .subscribe(isAuthenticated => { //subscribes if the token for authentication changes when email changes
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
@@ -108,12 +108,12 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     console.log(this.userId);
     this.authStatusSub = this.authService
       .getAccountUpdateListener()
-      .subscribe((accountData: { accounts: AuthData[] }) => {
+      .subscribe((accountData: { accounts: AuthData[] }) => { //subscribes to the changes in auth data's email
           this.isLoading = false;
           this.email = accountData.accounts;
         }); 
 
-    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.userIsAuthenticated = this.authService.getIsAuth(); //ensure the correct user is logged in
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe(authStatus => {
@@ -124,16 +124,14 @@ export class AccountEditComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       })
     });
-    //this.userId = this.accountToEdit;
     console.log(this.userId);
 
 
     this.isLoading = true;
-    this.authService.getUserEmail(this.userId).subscribe(accountData => { //THIS BLOCK IS BROKEN
+    this.authService.getUserEmail(this.userId).subscribe(accountData => { //subscribes to changes in user email
       this.isLoading = false;
-      //this.account = accountData;
       console.log(this.account);
-      this.form.setValue({
+      this.form.setValue({ //sets default value to the user's current email
         email: accountData.email
       });
     }); 
@@ -143,10 +141,10 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.value.email);
+    console.log(this.form.value.email); //grabs email entered from the user
     this.userId = this.accountToEdit;
     this.isLoading = true;
-    var thisPromise = this;
+    var thisPromise = this; //promises cant read this for some reason so I have to set it as thisPromise to use
        this.authService.updateAccount(
         this.form.value.email
     ).then(() => { console.log("log success") 
@@ -155,15 +153,16 @@ export class AccountEditComponent implements OnInit, OnDestroy {
       this.dialogRef.close();
       this.form.reset();
       thisPromise.account = this.form.value.email;
-      //TODO: REFRESH PAGE AT END
+      window.location.reload(); //reloads page after changing email
     });
+    
   }
 
 
   onDelete() {
     this.isLoading = true;
-      this.accountsService.deleteAccount(this.accountToEdit).subscribe(
-      () => {
+      this.authService.deleteAccount(this.accountToEdit).subscribe(() => {
+        //this.authService.getAccounts(); //maybe
         this.isLoading = false;
         this.dialogRef.close();
       });
