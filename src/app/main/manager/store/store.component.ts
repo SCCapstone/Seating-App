@@ -97,10 +97,7 @@ export class StoreAddComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
 
-  selectedFloorplan = "None";
-  selectedFloorplanID = "None";
   totalFloorplans = 0;
-  floorplan: Floorplan;
   floorplanList: Floorplan[] = [];
 
   private storeId: string;
@@ -147,11 +144,10 @@ export class StoreAddComponent implements OnInit, OnDestroy {
     this.storeId = null;
   }
 
-  setDefaultFloorplan(name: string, id: string) {
-    this.selectedFloorplan = name;
-    this.selectedFloorplanID = id;
-  }
-
+  /**
+   * Saves a new store to the database. Sets the floorplan value to null,
+   * since stores should be created before floorplans.
+   */
   onSaveStore() {
     if (this.form.invalid) {
       return;
@@ -159,7 +155,7 @@ export class StoreAddComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.storesService.addStore(
       this.form.value.name,
-      this.selectedFloorplanID
+      null
     ).subscribe(
       () => {
         this.storesService.getStores();
@@ -194,10 +190,7 @@ export class StoreEditComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
 
-  selectedFloorplan = "None";
-  selectedFloorplanID = "None";
   totalFloorplans = 0;
-  floorplan: Floorplan;
   floorplanList: Floorplan[] = [];
 
   private floorplanId: string;
@@ -230,10 +223,11 @@ export class StoreEditComponent implements OnInit, OnDestroy {
           defaultFloorplan: storeData.defaultFloorplan,
           creator: storeData.creator
         };
-        this.selectedFloorplanID = this.store.defaultFloorplan;
-        console.log("getStore: " + this.selectedFloorplanID);
+
+        console.log("setting default floorplan in form to: " + this.store.defaultFloorplan);
         this.form.setValue({
-          name: this.store.name
+          name: this.store.name,
+          defaultFloorplan: this.store.defaultFloorplan
         });
       });
     this.userId = this.authService.getUserId();
@@ -260,13 +254,11 @@ export class StoreEditComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required]
+      }),
+      defaultFloorplan: new FormControl(null, {
+        validators: [Validators.required]
       })
     });
-  }
-
-  setDefaultFloorplan(name: string, floorplanID: string) {
-    this.selectedFloorplan = name;
-    this.selectedFloorplanID = floorplanID;
   }
 
   onUpdateStore() {
@@ -278,7 +270,7 @@ export class StoreEditComponent implements OnInit, OnDestroy {
       this.storesService.updateStore(
         this.storeId,
         this.form.value.name,
-        this.selectedFloorplanID
+        this.form.value.defaultFloorplan
     ).subscribe(
       () => {
         this.storesService.getStores();
