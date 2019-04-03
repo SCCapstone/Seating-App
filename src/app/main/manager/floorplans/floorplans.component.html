@@ -19,7 +19,6 @@
       </mat-form-field>
       <div class="floorplan-header">
         <h4>Floorplan Name</h4>
-        <h4 style="padding-left:30vw;">Default Store</h4>
       </div>
       <div *ngFor="let fp of floorplanList">
         <mat-list *ngIf="userIsAuthenticated && userId === fp.creator && fp.storeId === selectedStoreID">
