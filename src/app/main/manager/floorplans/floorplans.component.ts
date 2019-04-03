@@ -7,6 +7,8 @@ import { FloorplansService } from '../fp-builder/floorplan.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Floorplan } from '../fp-builder/floorplan.model';
 import { Subscription } from 'rxjs';
+import { StoresService } from "../store/stores.service";
+import { Store } from "../store/store.model";
 
 
 @Component({
@@ -23,10 +25,16 @@ export class FloorplansComponent implements OnInit {
   private floorplansSub: Subscription;
   private authStatusSub: Subscription;
 
+  selectedStoreID: string;
+  selectedStoreName = "Select a Store";
+  storeList: Store[] = [];
+  private storesSub: Subscription;
+
   constructor(
     public dialog: MatDialog,
     public floorplansService: FloorplansService,
-    private authService: AuthService
+    private authService: AuthService,
+    private storesService: StoresService
   ) {}
 
   ngOnInit() {
@@ -49,6 +57,22 @@ export class FloorplansComponent implements OnInit {
           this.userIsAuthenticated = isAuthenticated;
           this.userId = this.authService.getUserId();
         });
+      this.storesSub = this.storesService
+      .getStoreUpdateListener()
+      .subscribe((storeData: { stores: Store[]; storeCount: number }) => {
+        this.isLoading = false;
+        this.storeList = storeData.stores;
+      });
+
+  }
+
+  /**
+   * This function sets the selected store class variable
+   * @param store store to be selected
+   */
+  selectStore(storeID: string, storeName: string) {
+    this.selectedStoreID = storeID;
+    this.selectedStoreName = storeName;
   }
 
   openCreateFloorplan(): void {

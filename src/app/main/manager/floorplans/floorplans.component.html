@@ -6,12 +6,23 @@
       <button class="add-button" mat-raised-button (click)="openCreateFloorplan()">
         Create Floorplan
       </button>
+      <div></div>
+      <mat-form-field>
+        <mat-label>{{ selectedStoreName }}</mat-label>
+      <!--[(value)]="selectedStoreName"--><mat-select>
+          <ng-container *ngFor="let st of storeList">
+            <mat-option (click)="selectStore(st.id, st.name)" *ngIf="userIsAuthenticated && userId === st.creator">
+              {{st.name}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
       <div class="floorplan-header">
         <h4>Floorplan Name</h4>
         <h4 style="padding-left:30vw;">Default Store</h4>
       </div>
       <div *ngFor="let fp of floorplanList">
-        <mat-list *ngIf="userIsAuthenticated && userId === fp.creator">
+        <mat-list *ngIf="userIsAuthenticated && userId === fp.creator && fp.storeId === selectedStoreID">
           <mat-list-item>
             {{ fp.name }}
             <div style="margin-left:auto;"></div>

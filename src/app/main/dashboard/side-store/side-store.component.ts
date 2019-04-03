@@ -71,7 +71,6 @@ export class SideStoreComponent implements OnInit {
           this.isLoading = false;
           this.totalFloorplans = floorplanData.floorplanCount;
           this.floorplanList = floorplanData.floorplans;
-          console.log(this.floorplanList);
         }
       );
     // Stores
