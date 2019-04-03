@@ -37,7 +37,7 @@ export class SeatTableComponent implements OnInit {
 
   selectedRes = "";
   selectedResID = "";
-  selectedStoreID = "none";
+  selectedStoreID = this.dashboardService.selectedStoreID;
 
   constructor(
     public dialogRef: MatDialogRef<SeatTableComponent>,
@@ -91,7 +91,7 @@ export class SeatTableComponent implements OnInit {
       })
     });
     this.isLoading = false;
-    console.log("Selected Store ID: " + this.selectedStoreID);
+    console.log("Selected Store ID: " + this.dashboardService.selectedStoreID);
   }
 
   onNoClick(): void {

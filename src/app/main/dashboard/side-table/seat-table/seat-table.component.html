@@ -9,7 +9,8 @@
             formControlName="reservations"
             placeholder="Select a Reservation">
               <ng-container *ngFor="let res of resList">
-                <mat-option *ngIf="userIsAuthenticated && userId === res.creator"
+                <mat-option *ngIf="userIsAuthenticated && userId === res.creator &&
+                res.store === selectedStoreID "
                 [value]="res">
                   {{res.name}}
                 </mat-option>
