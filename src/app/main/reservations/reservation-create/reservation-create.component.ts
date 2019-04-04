@@ -23,7 +23,7 @@ export interface Time {
 
 export class ReservationCreateComponent implements OnInit, OnDestroy {
   enteredName = "";
-  enteredSize = "";
+  enteredSize = 0;
   enteredPhone = "";
   enteredNotes = "";
   enteredTime = "";

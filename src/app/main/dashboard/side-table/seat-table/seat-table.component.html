@@ -1,23 +1,20 @@
 <h1 mat-dialog-title>Seat Table</h1>
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <mat-form-field>
+      <mat-label>Reservations</mat-label>
+      <mat-select placeholder="Select a Reservation">
+        <ng-container *ngFor="let res of resList">
+          <mat-option (click)="loadRes(res.size, res.notes)" *ngIf="userIsAuthenticated && userId === res.creator &&
+          res.store === selectedStoreID "
+          [value]="res">
+            {{res.name}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
   <form [formGroup]="form" (submit)="onUpdateTable()" *ngIf="!isLoading">
     <div class="table-form">
-        <mat-form-field>
-            <mat-label>Reservations</mat-label>
-            <mat-select
-            formControlName="reservations"
-            placeholder="Select a Reservation">
-              <ng-container *ngFor="let res of resList">
-                <mat-option *ngIf="userIsAuthenticated && userId === res.creator &&
-                res.store === selectedStoreID "
-                [value]="res">
-                  {{res.name}}
-                </mat-option>
-              </ng-container>
-            </mat-select>
-            <mat-error *ngIf="form.get('reservations').invalid">Please select a reservation.</mat-error>
-          </mat-form-field>
       <mat-form-field>
         <input matInput type="number" formControlName="guestsSeated" placeholder="Guests Seated" />
         <mat-error *ngIf="form.get('guestsSeated').invalid">Please enter the number of guests.</mat-error>

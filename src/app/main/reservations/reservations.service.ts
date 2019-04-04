@@ -22,6 +22,7 @@ export class ReservationsService {
 
   userIsAuthenticated = false;
   selectedStoreID = "None";
+  selectedResID = "None";
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -68,7 +69,7 @@ export class ReservationsService {
     return this.http.get<{
       _id: string;
       name: string;
-      size: string;
+      size: number;
       phone: string;
       time: string;
       date: string;
@@ -80,13 +81,12 @@ export class ReservationsService {
 
   addReservation(
     name: string,
-    size: string,
+    size: number,
     phone: string,
     time: string,
     date: string,
     notes: string,
     store: string,
-  //  storeId: string
   ) {
     /**const reservationData = new FormData();
     reservationData.append("name", name);
@@ -119,7 +119,7 @@ export class ReservationsService {
   updateReservation(
     id: string,
     name: string,
-    size: string,
+    size: number,
     phone: string,
     time: string,
     date: string,
@@ -127,17 +127,7 @@ export class ReservationsService {
     store: string
   ) {
     let reservationData: Reservation | FormData;
-    if (typeof notes === "object") {
-      reservationData = new FormData();
-      reservationData.append("id", id);
-      reservationData.append("name", name);
-      reservationData.append("size", size);
-      reservationData.append("phone", phone);
-      reservationData.append("time", time);
-      reservationData.append("date", date);
-      reservationData.append("notes", notes);
-      reservationData.append("store", store);
-    } else {
+    if (0 === 0) {
       reservationData = {
         id: id,
         name: name,
@@ -153,6 +143,10 @@ export class ReservationsService {
     this.http.put(BACKEND_URL + id, reservationData).subscribe(response => {
       this.router.navigate(["/main/reservations"]);
     });
+  }
+
+  setResID(resID) {
+    this.selectedResID = resID;
   }
 
   deleteReservation(reservationId: string) {

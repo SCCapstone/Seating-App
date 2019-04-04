@@ -36,7 +36,7 @@ export class SeatTableComponent implements OnInit {
   private authStatusSub: Subscription;
 
   selectedRes = "";
-  selectedResID = "";
+  selectedResID = "none";
   selectedStoreID = this.dashboardService.selectedStoreID;
 
   constructor(
@@ -86,8 +86,6 @@ export class SeatTableComponent implements OnInit {
       }),
       server: new FormControl(null, {
         validators: [Validators.required]
-      }),
-      reservations: new FormControl(null, {
       })
     });
     this.isLoading = false;
@@ -107,5 +105,10 @@ export class SeatTableComponent implements OnInit {
 
     this.dashboardService.dashRefreshTable();
     this.dialogRef.close();
+  }
+
+  loadRes(size, notes) {
+   console.log("implementRes called");
+   this.form.setValue({guestsSeated: size, notes: notes, server: this.form.value.server});
   }
 }

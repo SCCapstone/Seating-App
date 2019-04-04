@@ -1,7 +1,7 @@
 export interface Reservation {
   id: string;
   name: string;
-  size: string;
+  size: number;
   phone: string;
   time: string;
   date: string;

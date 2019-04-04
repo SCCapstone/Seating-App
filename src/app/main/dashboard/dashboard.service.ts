@@ -12,7 +12,6 @@ export class DashboardService {
 
   canvas;
 
-  // Not currently used, but might be needed later
   selectedStoreID = "None";
 
   private selectedFloorplanID = "None";
