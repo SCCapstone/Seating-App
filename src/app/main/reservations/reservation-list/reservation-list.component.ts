@@ -6,6 +6,10 @@ import { Reservation } from "../reservation.model";
 import { ReservationsService } from "../reservations.service";
 import { AuthService } from "../../../auth/auth.service";
 
+import { StoresService } from "../../manager/store/stores.service";
+import { Store } from "../../manager/store/store.model";
+import { WelcomeService } from "../../welcome/welcome.service";
+
 @Component({
   selector: "app-reservation-list",
   templateUrl: "./reservation-list.component.html",
@@ -23,9 +27,16 @@ export class ReservationListComponent implements OnInit, OnDestroy {
   private reservationsSub: Subscription;
   private authStatusSub: Subscription;
 
+  selectedStoreID: string;
+  selectedStoreName = "Select a Store";
+  storeList: Store[] = [];
+  private storesSub: Subscription;
+
   constructor(
     public reservationsService: ReservationsService,
-    private authService: AuthService
+    public welcomeService: WelcomeService,
+    public authService: AuthService,
+    private storesService: StoresService
   ) {}
 
   ngOnInit() {
@@ -34,7 +45,9 @@ export class ReservationListComponent implements OnInit, OnDestroy {
       this.reservationsPerPage,
       this.currentPage
     );
+    this.storesService.getStores();
     this.userId = this.authService.getUserId();
+    console.log("User Id: " + this.userId);
     this.reservationsSub = this.reservationsService
       .getReservationUpdateListener()
       .subscribe(
@@ -47,6 +60,12 @@ export class ReservationListComponent implements OnInit, OnDestroy {
           this.reservations = reservationData.reservations;
         }
       );
+    this.storesSub = this.storesService
+      .getStoreUpdateListener()
+      .subscribe((storeData: { stores: Store[]; storeCount: number}) => {
+        this.isLoading = false;
+        this.storeList = storeData.stores;
+      });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
@@ -54,6 +73,20 @@ export class ReservationListComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+    if (this.welcomeService.selectedStoreID != null) {
+      this.selectedStoreID = this.welcomeService.selectedStoreID;
+      this.selectedStoreName = this.welcomeService.selectedStoreName;
+    }
+  }
+
+   /**
+   * This function sets the selected store class variable
+   * @param store store to be selected
+   */
+  selectStore(storeID: string, storeName: string) {
+
+    this.selectedStoreID = storeID;
+    this.selectedStoreName = storeName;
   }
 
   onChangedPage(pageData: PageEvent) {
