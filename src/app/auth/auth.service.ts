@@ -5,8 +5,7 @@ import { Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "../../environments/environment";
 import { AuthData } from "./auth-data.model";
-import { EmailValidator } from "@angular/forms";
-import { stringify } from "@angular/core/src/render3/util";
+import { WelcomeService } from "../main/welcome/welcome.service";
 
 const BACKEND_URL = environment.apiUrl + "/user/";
 
@@ -24,7 +23,11 @@ export class AuthService {
     accounts: AuthData[];
   }>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private welcomeService: WelcomeService,
+    ) {}
 
   getToken() {
     return this.token;
@@ -77,6 +80,7 @@ export class AuthService {
             );
             console.log(expirationDate);
             this.saveAuthData(token, expirationDate, this.userId);
+            this.welcomeService.justLogin = true;
             this.router.navigate(["/main/dashboard"]);
           }
         },
@@ -154,7 +158,7 @@ export class AuthService {
   }
   /** End Eddie Add */
 
-  getAccounts() { //gets the accounts to use for changing of the email. 
+  getAccounts() { //gets the accounts to use for changing of the email.
     this.http.get<{ message: string; accounts: any }>(
         BACKEND_URL ).pipe(map(accountData => {
           return {
@@ -178,7 +182,7 @@ export class AuthService {
  updateAccount(email: string) { //only update email and not password
     let accountData = {
       email: email
-    }; 
+    };
 
     return this.http.put<{ token: string; expiresIn: number; userId: string }>(BACKEND_URL, accountData).toPromise().then(response => {
       console.log(response);

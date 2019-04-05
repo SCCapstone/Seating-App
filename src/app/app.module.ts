@@ -14,6 +14,7 @@ import { MainComponent } from "./main/main.component";
 import { SidenavComponent } from "./main/sidenav/sidenav.component";
 import { ReservationsModule } from "./main/reservations/reservations.module";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { WelcomeComponent } from "./main/welcome/welcome.component";
 
 @NgModule({
   declarations: [

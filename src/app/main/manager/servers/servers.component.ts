@@ -10,6 +10,7 @@ import { AuthService } from "../../../auth/auth.service";
 
 import { StoresService } from "../store/stores.service";
 import { Store } from "../store/store.model";
+import { WelcomeService } from "../../welcome/welcome.service";
 
 /**
  * Color data type for server colors. Includes a name and a hex code.
@@ -42,7 +43,8 @@ export class ServersComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public serversService: ServersService,
     private authService: AuthService,
-    private storesService: StoresService
+    private storesService: StoresService,
+    public welcomeService: WelcomeService
   ) {}
 
   ngOnInit() {
@@ -69,6 +71,10 @@ export class ServersComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+      if (this.welcomeService.selectedStoreID != null) {
+        this.selectedStoreID = this.welcomeService.selectedStoreID;
+        this.selectedStoreName = this.welcomeService.selectedStoreName;
+      }
   }
 
   /**

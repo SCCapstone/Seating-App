@@ -19,6 +19,7 @@ import { SideTableComponent } from './dashboard/side-table/side-table.component'
 import { SideStoreComponent } from './dashboard/side-store/side-store.component';
 import { SeatTableComponent } from "./dashboard/side-table/seat-table/seat-table.component";
 import { FloorplansComponent } from './manager/floorplans/floorplans.component';
+import { WelcomeComponent } from "./welcome/welcome.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FloorplansComponent } from './manager/floorplans/floorplans.component';
     SideTableComponent,
     SideStoreComponent,
     SeatTableComponent,
-    FloorplansComponent
+    FloorplansComponent,
+    WelcomeComponent
   ],
   imports: [CommonModule, AngularMaterialModule, FormsModule, MainRoutingModule, ReactiveFormsModule],
   entryComponents: [
@@ -56,8 +58,9 @@ import { FloorplansComponent } from './manager/floorplans/floorplans.component';
     SeatTableComponent,
     FloorplansComponent,
     FpBuilderCreateComponent,
-    FpBuilderEditComponent
+    FpBuilderEditComponent,
+    WelcomeComponent
   ],
-  bootstrap: [ServersComponent, StoreComponent, FloorplansComponent]
+  bootstrap: [ServersComponent, StoreComponent, FloorplansComponent, DashboardComponent]
 })
 export class MainModule {}

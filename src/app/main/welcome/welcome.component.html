@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Select Active Store</h1>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label>Stores</mat-label>
+      <mat-select formControlName="defaultStore">
+        <ng-container *ngFor="let store of storeList">
+          <mat-option placeholder="Store" (click)="loadDefaultStore(store.name, store.id, store.defaultFloorplan)" *ngIf="userIsAuthenticated && userId === store.creator" [value]="store">
+            {{store.name}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-card>
+<div mat-dialog-actions>
+  <button style="margin-left: auto;" mat-button (click)="onNoClick()">Close</button>
+</div>

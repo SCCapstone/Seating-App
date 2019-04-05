@@ -3,7 +3,7 @@
     <h3>Servers</h3>
   </mat-expansion-panel-header>
   <div *ngFor="let server of dashboardService.servers">
-    <mat-list *ngIf="userIsAuthenticated && userId === server.creator && dashboardService.selectedStoreID === server.store">
+    <mat-list *ngIf="userIsAuthenticated && userId === server.creator && welcomeService.selectedStoreID === server.store">
       <mat-list-item>
         <div class="color-box" [ngStyle]="{background : server.color}"></div> {{ server.name }}
       </mat-list-item>

@@ -7,8 +7,10 @@ import { FloorplansService } from '../fp-builder/floorplan.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Floorplan } from '../fp-builder/floorplan.model';
 import { Subscription } from 'rxjs';
+
 import { StoresService } from "../store/stores.service";
 import { Store } from "../store/store.model";
+import { WelcomeService } from '../../welcome/welcome.service';
 
 
 @Component({
@@ -33,6 +35,7 @@ export class FloorplansComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public floorplansService: FloorplansService,
+    public welcomeService: WelcomeService,
     private authService: AuthService,
     private storesService: StoresService
   ) {}
@@ -63,7 +66,10 @@ export class FloorplansComponent implements OnInit {
         this.isLoading = false;
         this.storeList = storeData.stores;
       });
-
+      if (this.welcomeService.selectedStoreID != null) {
+        this.selectedStoreID = this.welcomeService.selectedStoreID;
+        this.selectedStoreName = this.welcomeService.selectedStoreName;
+      }
   }
 
   /**

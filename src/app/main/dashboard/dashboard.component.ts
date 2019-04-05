@@ -1,8 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+
 import { DashboardService } from "./dashboard.service";
 import { ServersService } from "../manager/servers/servers.service";
 import { AuthService } from "src/app/auth/auth.service";
+import { WelcomeComponent } from "../welcome/welcome.component";
+import { WelcomeService } from "../welcome/welcome.service";
 
 @Component({
   selector: "app-dashboard",
@@ -19,7 +23,9 @@ export class DashboardComponent implements OnInit {
   private authStatusSub: Subscription;
 
   constructor(
+    public dialog: MatDialog,
     public dashboardService: DashboardService,
+    public welcomeService: WelcomeService,
     public serversService: ServersService,
     private authService: AuthService
   ) {}
@@ -37,5 +43,21 @@ export class DashboardComponent implements OnInit {
         this.dashboardService.userIsAuthenticated = isAuthenticated;
         this.dashboardService.userId = this.authService.getUserId();
       });
+      setTimeout(() => {
+        if (this.welcomeService.getJustLogin() === true) {
+          this.openWelcome();
+        } else {
+          this.welcomeService.loadDashboard();
+        }
+      });
+  }
+  openWelcome(): void {
+    const dialogRef = this.dialog.open(WelcomeComponent, {
+      width: "400px"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed");
+    });
   }
 }
