@@ -5,8 +5,9 @@
 }
 
 .canvas-wrap {
-  width: 70%;
+  width: 80vw;
   height: 100%;
+  position: fixed;
 }
 
 .table-button-group {
