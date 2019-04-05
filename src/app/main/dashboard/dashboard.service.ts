@@ -83,7 +83,10 @@ export class DashboardService {
       this.selectedFloorplanName,
       this.selectedFloorplanJSON,
       this.selectedFloorplanStoreID
-      );
+      )
+      .subscribe(() => {
+        this.floorplansService.getFloorplans();
+      });
   }
 
   /**
