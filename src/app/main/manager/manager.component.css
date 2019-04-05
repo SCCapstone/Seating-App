@@ -20,3 +20,12 @@ mat-card {
   padding-left: 20px;
   padding-right: 20px;
 }
+
+/* .block {
+  display: inline-block;
+  width: 30%;
+  min-width: 300px;
+  padding-left: 20px;
+  padding-right: 20px;
+  vertical-align: top;
+} */
