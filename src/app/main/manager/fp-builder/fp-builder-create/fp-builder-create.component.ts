@@ -280,6 +280,23 @@ addRect() {
       .subscribe(() => {
         this.floorplansService.getFloorplans();
       });
+      // the code below was created to set a default floorplan upon creation of a floorplan
+      /* let tempStore;
+       this.storesService
+      .getStore(this.form.value.store)
+      .subscribe(storeData => {
+        tempStore = {
+          id: storeData._id,
+          name: storeData.name,
+          creator: storeData.creator,
+          defaultFloorplan: storeData.defaultFloorplan
+        };
+      });
+    if (tempStore.defaultFloorplan === null) {
+      this.storesService.updateStore(tempStore.id, tempStore.name, tempStore.floorplanId);
+    }
+    */
+
     this.dialogRef.close();
   }
 }

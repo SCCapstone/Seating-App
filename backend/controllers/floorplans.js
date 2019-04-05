@@ -91,7 +91,7 @@ exports.getFloorplan = (req, res, next) => {
     })
     .catch(error => {
       res.status(500).json({
-        message: "Fetching floorplan failed!"
+        message: "Couldn't get floorplan. Please make sure this store has a default floorplan."
       });
     });
 };
