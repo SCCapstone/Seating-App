@@ -1,10 +1,8 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
 <div class="container">
-  <mat-card>
-    <div class="header">
-      <h3>Store</h3>
-    </div>
+  <mat-card class="header">
+    <h3 class="store-select">Store:</h3>
     <mat-form-field>
       <mat-label>{{ selectedStoreName }}</mat-label>
       <mat-select>

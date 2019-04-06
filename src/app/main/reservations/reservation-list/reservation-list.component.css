@@ -36,3 +36,16 @@ mat-spinner {
   padding-left: 20px;
   padding-right: 20px;
 }
+
+.header {
+  margin-bottom: 15px;
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  align-items: center;
+}
+
+.store-select {
+  margin-bottom: 0;
+  margin-right: 15px;
+}
