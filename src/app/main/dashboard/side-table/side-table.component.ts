@@ -12,11 +12,11 @@ import { Server } from '../../manager/servers/server.model';
 })
 export class SideTableComponent implements OnInit {
 
-  private tableName = "";
-  private guestsSeated = 0;
-  private notes = "";
+  tableName = "";
+  guestsSeated = 0;
+  notes = "";
   private tableServer: Server;
-  private serverName = "";
+  serverName = "";
 
   constructor(
     public dialog: MatDialog,

@@ -2,7 +2,7 @@
 <div class="container">
 <div class="profile-bar">
     <mat-card>
-        <button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditAccount(email)">Edit Profile</button>
+        <button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditAccount(account.email)">Edit Profile</button>
        <mat-list>
           <mat-list-item>Email:  {{ account.email }} </mat-list-item>
           <mat-list-item>Password: ****** </mat-list-item> <!--The stars are just placeholder. PW is not changable-->

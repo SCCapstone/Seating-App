@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "http://seatingapp.us-east-1.elasticbeanstalk.com/api"
+  apiUrl: "http://seating-app.us-east-1.elasticbeanstalk.com/api"
 };
