@@ -10,6 +10,19 @@ mat-card {
   margin-bottom: 25px;
 }
 
+.edit-button {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  background-color: #461e64b4;
+  color: #ffffff;
+}
+
+h4 {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
 .container {
   padding-left: 20px;
   padding-right: 20px;

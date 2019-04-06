@@ -7,7 +7,7 @@ import { environment } from "../../environments/environment";
 import { AuthData } from "./auth-data.model";
 import { WelcomeService } from "../main/welcome/welcome.service";
 
-const BACKEND_URL = environment.apiUrl + "/user";
+const BACKEND_URL = environment.apiUrl + "/user/";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
