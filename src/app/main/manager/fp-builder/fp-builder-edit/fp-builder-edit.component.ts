@@ -284,7 +284,9 @@ addRect() {
     this.floorplansService.deleteFloorplans(id)
       .subscribe(() => {
         console.log("Deleted!");
+        this.floorplansService.getFloorplans();
       });
+    this.dialogRef.close();
     this.canvas.renderAll();
   }
 
