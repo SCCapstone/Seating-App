@@ -10,7 +10,7 @@
     <mat-accordion multi="true" *ngIf="reservations.length > 0 && !isLoading">
       <mat-expansion-panel *ngFor="let reservation of reservations">
         <mat-expansion-panel-header
-          *ngIf="userIsAuthenticated && userId === reservation.creator"
+          *ngIf="userIsAuthenticated && userId === reservation.creator && welcomeService.selectedStoreID === reservation.store"
         >
           <div class="list-box-time">{{ reservation.time }}</div>
           <div class="list-box">{{ reservation.name }}</div>

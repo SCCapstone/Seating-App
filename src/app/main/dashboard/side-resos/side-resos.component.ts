@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import { Reservation } from "../../reservations/reservation.model";
 import { ReservationsService } from "../../reservations/reservations.service";
 import { AuthService } from "../../../auth/auth.service";
+import { WelcomeService } from "../../welcome/welcome.service";
 
 @Component({
   selector: "app-side-resos",
@@ -25,6 +26,7 @@ export class SideResosComponent implements OnInit, OnDestroy {
 
   constructor(
     public reservationsService: ReservationsService,
+    public welcomeService: WelcomeService,
     private authService: AuthService
   ) {}
 
