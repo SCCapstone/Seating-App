@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
         this.dashboardService.userId = this.authService.getUserId();
       });
       setTimeout(() => {
-        if (this.welcomeService.getJustLogin() === true) {
+        if (this.welcomeService.defaultStoreCheck() === true) {
           this.openWelcome();
         } else {
           this.welcomeService.loadDashboard();

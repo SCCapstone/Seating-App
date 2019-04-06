@@ -4,6 +4,7 @@ import { AccountComponent } from "./account/account.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ManagerComponent } from "./manager/manager.component";
 import { ReservationsComponent } from "./reservations/reservations.component";
+import { HelpComponent } from "./help/help.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "dashboard", pathMatch: "full" },
@@ -14,7 +15,8 @@ const routes: Routes = [
     loadChildren: "./reservations/reservations.module#ReservationsModule"
   },
   { path: "manager", component: ManagerComponent },
-  { path: "account", component: AccountComponent }
+  { path: "account", component: AccountComponent },
+  { path: "help", component: HelpComponent }
 ];
 
 @NgModule({

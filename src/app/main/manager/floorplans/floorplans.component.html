@@ -11,7 +11,7 @@
         <mat-label>{{ selectedStoreName }}</mat-label>
       <!--[(value)]="selectedStoreName"--><mat-select>
           <ng-container *ngFor="let st of storeList">
-            <mat-option (click)="selectStore(st.id, st.name)" *ngIf="userIsAuthenticated && userId === st.creator">
+            <mat-option (click)="selectStore(st.id, st.name, st.defaultFloorplan)" *ngIf="userIsAuthenticated && userId === st.creator">
               {{st.name}}
             </mat-option>
           </ng-container>
@@ -23,6 +23,7 @@
       <div *ngFor="let fp of floorplanList">
         <mat-list *ngIf="userIsAuthenticated && userId === fp.creator && fp.storeId === selectedStoreID">
           <mat-list-item>
+            <mat-radio-button [checked]="fp.id === selectedStoreFP" (click)="setDefaultFP(fp.id)"></mat-radio-button>
             {{ fp.name }}
             <div style="margin-left:auto;"></div>
             <button

@@ -15,7 +15,11 @@ export class SideTableComponent implements OnInit {
   tableName = "";
   guestsSeated = 0;
   notes = "";
+<<<<<<< HEAD
   private tableServer: Server;
+=======
+  tableServer: Server;
+>>>>>>> dbb122dba9b2891b4a19e54557a4d4ddf2dbbe17
   serverName = "";
 
   constructor(

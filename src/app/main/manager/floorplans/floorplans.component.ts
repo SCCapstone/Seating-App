@@ -29,6 +29,7 @@ export class FloorplansComponent implements OnInit {
 
   selectedStoreID: string;
   selectedStoreName = "Select a Store";
+  selectedStoreFP: string;
   storeList: Store[] = [];
   private storesSub: Subscription;
 
@@ -69,6 +70,7 @@ export class FloorplansComponent implements OnInit {
       if (this.welcomeService.selectedStoreID != null) {
         this.selectedStoreID = this.welcomeService.selectedStoreID;
         this.selectedStoreName = this.welcomeService.selectedStoreName;
+        this.selectedStoreFP = this.welcomeService.selectedFloorplanID;
       }
   }
 
@@ -76,9 +78,28 @@ export class FloorplansComponent implements OnInit {
    * This function sets the selected store class variable
    * @param store store to be selected
    */
-  selectStore(storeID: string, storeName: string) {
+  selectStore(storeID: string, storeName: string, storeFP: string) {
     this.selectedStoreID = storeID;
     this.selectedStoreName = storeName;
+    this.selectedStoreFP = storeFP;
+  }
+
+  setDefaultFP(fpId: string) {
+    console.log("Setting default fp for store name: " + this.selectedStoreName
+                + "\nto fp: " + fpId);
+    this.storesService
+    .updateStore(
+      this.selectedStoreID,
+      this.selectedStoreName,
+      fpId
+    )
+    .subscribe(() => {
+      this.storesService.getStores();
+    });
+
+    if (this.selectedStoreID === this.welcomeService.selectedStoreID) {
+      this.welcomeService.selectedFloorplanID = fpId;
+    }
   }
 
   openCreateFloorplan(): void {

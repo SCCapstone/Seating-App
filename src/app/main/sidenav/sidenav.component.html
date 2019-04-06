@@ -31,6 +31,18 @@
     </button>
   </li>
   <div class="space"></div>
+
+  <li *ngIf="userIsAuthenticated">
+      <button
+        class="nav-button"
+        mat-raised-button
+        routerLink="/main/help"
+        routerLinkActive="active-nav"
+      >
+        Help
+      </button>
+    </li>
+
   <li *ngIf="userIsAuthenticated">
     <button
       class="nav-button"

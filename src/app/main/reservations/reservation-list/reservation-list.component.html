@@ -1,6 +1,21 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
 <div class="container">
+  <mat-card>
+    <div class="header">
+      <h3>Store</h3>
+    </div>
+    <mat-form-field>
+      <mat-label>{{ selectedStoreName }}</mat-label>
+      <mat-select>
+        <ng-container *ngFor="let store of storeList">
+          <mat-option (click)="selectStore(store.id, store.name)" *ngIf="userIsAuthenticated && userId === store.creator">
+            {{store.name}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </mat-card>
   <mat-card class="reservation-header">
     <div class="list-box-time">Time</div>
     <div class="list-box-date">Day</div>
@@ -10,33 +25,33 @@
   </mat-card>
 
   <mat-accordion multi="true" *ngIf="reservations.length > 0 && !isLoading">
-    <mat-expansion-panel *ngFor="let reservation of reservations">
+    <mat-expansion-panel *ngFor="let res of reservations">
       <mat-expansion-panel-header
-        *ngIf="userIsAuthenticated && userId === reservation.creator"
+        *ngIf="userIsAuthenticated && userId === res.creator && res.store === selectedStoreID"
       >
-        <div class="list-box-time">{{ reservation.time }}</div>
-        <div class="list-box-date">{{ reservation.date.substring(0, 10) }}</div>
-        <div class="list-box">{{ reservation.name }}</div>
-        <div class="list-box">{{ reservation.size }}</div>
-        <div class="list-box">{{ reservation.store }}</div>
+        <div class="list-box-time">{{ res.time }}</div>
+        <div class="list-box-date">{{ res.date.substring(0, 10) }}</div>
+        <div class="list-box">{{ res.name }}</div>
+        <div class="list-box">{{ res.size }}</div>
+        <div class="list-box">{{ res.store }}</div>
 
       </mat-expansion-panel-header>
-      <p>Time / Date: {{ reservation.time }} / {{ reservation.date.substring(0, 10) }}</p>
-      <p>Name: {{ reservation.name }}</p>
-      <p>Size: {{ reservation.size }}</p>
-      <p>Phone Number: {{ reservation.phone }}</p>
-      <p>Notes: {{ reservation.notes }}</p>
-      <p>Store: {{ reservation.store }}</p>
+      <p>Time / Date: {{ res.time }} / {{ res.date.substring(0, 10) }}</p>
+      <p>Name: {{ res.name }}</p>
+      <p>Size: {{ res.size }}</p>
+      <p>Phone Number: {{ res.phone }}</p>
+      <p>Notes: {{ res.notes }}</p>
+      <p>Store: {{ res.store }}</p>
       <mat-action-row
-        *ngIf="userIsAuthenticated && userId === reservation.creator"
+        *ngIf="userIsAuthenticated && userId === res.creator"
       >
         <a
           mat-button
           color="primary"
-          [routerLink]="['/main/reservations/edit', reservation.id]"
+          [routerLink]="['/main/reservations/edit', res.id]"
           >EDIT</a
         >
-        <button mat-button color="warn" (click)="onDelete(reservation.id)">
+        <button mat-button color="warn" (click)="onDelete(res.id)">
           DELETE
         </button>
       </mat-action-row>

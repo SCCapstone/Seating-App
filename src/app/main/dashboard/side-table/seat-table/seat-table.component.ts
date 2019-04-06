@@ -98,7 +98,7 @@ export class SeatTableComponent implements OnInit {
 
   onUpdateTable() {
     console.log("Updating table");
-    if (this.form.value.guestsSeated <= 0 || this.form.value.server === null) {
+    if (this.form.value.guestsSeated < 0 || this.form.value.server === null) {
       console.log("Guests Seated or Server contains invalid value");
     } else {
     this.dashboardService.dashUpdateTable(
