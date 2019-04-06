@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogClose } from "@angular/material";
 
 import { FloorplansService } from "../../manager/fp-builder/floorplan.service";
 import { StoresService } from "../../manager/store/stores.service";
@@ -10,6 +11,8 @@ import { Floorplan } from '../../manager/fp-builder/floorplan.model';
 import { Store } from '../../manager/store/store.model';
 import { Server } from "../../manager/servers/server.model";
 import { DashboardService } from '../dashboard.service';
+import { WelcomeComponent } from "../../welcome/welcome.component";
+
 
 
 @Component({
@@ -48,6 +51,7 @@ export class SideStoreComponent implements OnInit {
   userId: string;
 
   constructor(
+    public dialog: MatDialog,
     public dashboardService: DashboardService,
     public floorplansService: FloorplansService,
     public storesService: StoresService,
@@ -143,5 +147,15 @@ export class SideStoreComponent implements OnInit {
 
     });
     this.isLoading = false;
+  }
+
+  openWelcomeModal(): void {
+    const dialogRef = this.dialog.open(WelcomeComponent, {
+      width: "400px"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed");
+    });
   }
 }

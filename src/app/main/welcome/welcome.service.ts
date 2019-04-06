@@ -62,4 +62,9 @@ export class WelcomeService {
     getJustLogin() {
       return this.justLogin;
     }
+
+    // Getter for checking if default store has been set
+    defaultStoreCheck() {
+      return (this.selectedStoreID === null);
+    }
 }
