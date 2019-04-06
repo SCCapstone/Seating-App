@@ -30,6 +30,17 @@
       Manager
     </button>
   </li>
+
+  <li *ngIf="userIsAuthenticated">
+    <button
+      class="nav-button"
+      mat-raised-button
+      (click)="openWelcomeModal()"
+    >
+      Change Store
+    </button>
+  </li>
+
   <div class="space"></div>
 
   <li *ngIf="userIsAuthenticated">

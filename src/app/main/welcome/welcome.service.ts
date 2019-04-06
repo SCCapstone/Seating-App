@@ -67,4 +67,12 @@ export class WelcomeService {
     defaultStoreCheck() {
       return (this.selectedStoreID === null);
     }
+
+    /**
+     * Returns the name of the currently selected store.
+     * Used for side-store panel.
+     */
+    getStoreName() {
+      return this.selectedStoreName;
+    }
 }

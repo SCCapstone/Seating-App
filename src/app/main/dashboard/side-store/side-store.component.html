@@ -1,6 +1,6 @@
-<mat-expansion-panel>
+<mat-expansion-panel [expanded]="true">
   <mat-expansion-panel-header>
-    <h3>Store</h3>
+    <h3>Selected Store:</h3>
   </mat-expansion-panel-header>
-  <button class="open-modal-button" mat-raised-button (click)="openWelcomeModal()">Change Selected Store</button>
+  {{ this.welcomeService.getStoreName() }}
 </mat-expansion-panel>

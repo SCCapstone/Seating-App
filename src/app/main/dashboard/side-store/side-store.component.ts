@@ -12,6 +12,7 @@ import { Store } from '../../manager/store/store.model';
 import { Server } from "../../manager/servers/server.model";
 import { DashboardService } from '../dashboard.service';
 import { WelcomeComponent } from "../../welcome/welcome.component";
+import { WelcomeService } from '../../welcome/welcome.service';
 
 
 
@@ -57,7 +58,8 @@ export class SideStoreComponent implements OnInit {
     public storesService: StoresService,
     public serversService: ServersService,
     public route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    public welcomeService: WelcomeService
   ) {}
 
   ngOnInit() { // on load component

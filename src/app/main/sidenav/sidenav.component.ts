@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 
+import { MatDialog } from "@angular/material";
+import { WelcomeComponent } from "../welcome/welcome.component";
+
 import { AuthService } from "../../auth/auth.service";
 @Component({
   selector: "app-sidenav",
@@ -12,7 +15,9 @@ export class SidenavComponent implements OnInit, OnDestroy {
   private authListenerSubs: Subscription;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog,
+
     ) {}
 
   ngOnInit() {
@@ -30,5 +35,15 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
+  }
+
+  openWelcomeModal() {
+    const dialogRef = this.dialog.open(WelcomeComponent, {
+      width: "400px"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed");
+    });
   }
 }

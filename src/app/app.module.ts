@@ -3,6 +3,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./header/header.component";
 import { AppRoutingModule } from "./app-routing.module";
@@ -22,7 +24,8 @@ import { WelcomeComponent } from "./main/welcome/welcome.component";
     HeaderComponent,
     ErrorComponent,
     MainComponent,
-    SidenavComponent
+    SidenavComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,9 @@ import { WelcomeComponent } from "./main/welcome/welcome.component";
     BrowserAnimationsModule,
     HttpClientModule,
     AngularMaterialModule,
-    ReservationsModule
+    ReservationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -39,7 +44,8 @@ import { WelcomeComponent } from "./main/welcome/welcome.component";
     { provide: MAT_DIALOG_DATA, useValue: [] },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent],
+  entryComponents: [ErrorComponent,
+  WelcomeComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}
