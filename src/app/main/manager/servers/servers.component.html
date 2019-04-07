@@ -23,6 +23,7 @@
     <div *ngFor="let server of servers">
     <mat-list *ngIf="userIsAuthenticated && userId === server.creator && server.store === selectedStoreID">
       <mat-list-item>
+        <div class="color-box" [ngStyle]="{background : server.color}"></div>
         {{ server.name }}
         <button
           class="edit-button"
