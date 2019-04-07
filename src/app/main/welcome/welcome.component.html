@@ -1,19 +1,28 @@
 <h1 mat-dialog-title>Select Active Store</h1>
-<mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form [formGroup]="form">
-    <mat-form-field>
-      <mat-label>Stores</mat-label>
-      <mat-select formControlName="defaultStore">
-        <ng-container *ngFor="let store of storeList">
-          <mat-option placeholder="Store" (click)="loadDefaultStore(store.name, store.id, store.defaultFloorplan)" *ngIf="userIsAuthenticated && userId === store.creator" [value]="store">
-            {{store.name}}
-          </mat-option>
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
-  </form>
-</mat-card>
+<div class="hasStores">
+  <mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="form">
+      <mat-form-field>
+        <mat-label>Stores</mat-label>
+        <mat-select formControlName="defaultStore">
+          <ng-container *ngFor="let store of storeList">
+            <mat-option placeholder="Store" (click)="loadDefaultStore(store.name, store.id, store.defaultFloorplan)" *ngIf="userIsAuthenticated && userId === store.creator" [value]="store">
+              {{store.name}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </mat-card>
+</div>
+<div class="noStores" hidden>
+  <mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <h4>You haven't made a store yet, please go to manager.</h4>
+    <button style="margin-left: auto;" mat-raised-button color="accent" routerLink="/main/manager">Manager</button>
+  </mat-card>
+</div>
 <div mat-dialog-actions>
   <button style="margin-left: auto;" mat-button (click)="onNoClick()">Close</button>
 </div>
