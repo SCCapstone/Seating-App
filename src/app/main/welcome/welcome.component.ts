@@ -24,6 +24,7 @@ export class WelcomeComponent implements OnInit {
   store: Store;
   storeList: Store[] = [];
   totalStores = 0;
+  hasStore: boolean;
 
   private storesSub: Subscription;
   private authStatusSub: Subscription;
@@ -37,7 +38,14 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    // Populate resList
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+    .getAuthStatusListener()
+    .subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+      this.userId = this.authService.getUserId();
+    });
+
     this.storesService.getStores();
     this.userId = this.authService.getUserId();
     this.storesSub = this.storesService
@@ -48,8 +56,9 @@ export class WelcomeComponent implements OnInit {
         storeCount: number;
       }) => {
         this.isLoading = false;
-          this.totalStores = storeData.storeCount;
-          this.storeList = storeData.stores;
+        this.totalStores = storeData.storeCount;
+        this.storeList = storeData.stores;
+        this.hasStore = this.userHasStore();
       }
     );
     this.form = new FormGroup({
@@ -57,13 +66,22 @@ export class WelcomeComponent implements OnInit {
         validators: [Validators.required]
       })
     });
-    this.userIsAuthenticated = this.authService.getIsAuth();
-    this.authStatusSub = this.authService
-    .getAuthStatusListener()
-    .subscribe(isAuthenticated => {
-      this.userIsAuthenticated = isAuthenticated;
-      this.userId = this.authService.getUserId();
-    });
+
+
+  }
+
+  /**
+   * Returns the number of stores from backend that are owned by a specific user.
+   * @param userId the id of the user that stores are being counted for
+   */
+  userHasStore() {
+    console.log(this.storeList);
+    for (let i = 0; i < this.storeList.length; ++i) {
+      if (this.storeList[i].creator === this.userId) {
+        return true;
+      }
+    }
+    return false;
   }
 
   onNoClick(): void {

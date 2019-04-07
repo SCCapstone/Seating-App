@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Select Active Store</h1>
-<div class="hasStores">
+<div *ngIf="hasStore" class="hasStores">
   <mat-card>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
     <form [formGroup]="form">
@@ -16,11 +16,11 @@
     </form>
   </mat-card>
 </div>
-<div class="noStores" hidden>
+<div *ngIf="!hasStore" class="noStores">
   <mat-card>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <h4>You haven't made a store yet, please go to manager.</h4>
-    <button style="margin-left: auto;" mat-raised-button color="accent" routerLink="/main/manager">Manager</button>
+    <h4>User account does not have any stores. Please create a store on Manager page.</h4>
+    <button style="margin-left: auto;" mat-raised-button color="accent" routerLink="/main/manager" (click)="onNoClick()">Manager</button>
   </mat-card>
 </div>
 <div mat-dialog-actions>
