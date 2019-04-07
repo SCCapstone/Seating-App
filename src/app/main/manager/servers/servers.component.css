@@ -62,3 +62,12 @@ h4 {
   margin-top: 10px !important;
   margin-bottom: 10px !important;
 }
+
+.color-box {
+  width: 25px;
+  height: 25px;
+  margin: 15px;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+}
