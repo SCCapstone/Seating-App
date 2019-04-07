@@ -75,7 +75,6 @@ export class WelcomeComponent implements OnInit {
    * @param userId the id of the user that stores are being counted for
    */
   userHasStore() {
-    console.log(this.storeList);
     for (let i = 0; i < this.storeList.length; ++i) {
       if (this.storeList[i].creator === this.userId) {
         return true;
