@@ -7,7 +7,7 @@ import { environment } from "../../environments/environment";
 import { AuthData } from "./auth-data.model";
 import { WelcomeService } from "../main/welcome/welcome.service";
 
-const BACKEND_URL = environment.apiUrl + "/user/";
+const BACKEND_URL = environment.apiUrl + "/user";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -154,7 +154,7 @@ export class AuthService {
     return this.http.get<{
       userId: string,
       email: string
-    }>(BACKEND_URL + userId);
+    }>(BACKEND_URL + "/" + userId); //slash needed due to no end slash in backend url
   }
   /** End Eddie Add */
 
@@ -210,7 +210,7 @@ export class AuthService {
   }
 
   public deleteAccount(accountId: string) {
-    return this.http.delete(BACKEND_URL + accountId);
+    return this.http.delete(BACKEND_URL + "/" + accountId);
   }
 
   public setAccountToEdit(email: string) {
