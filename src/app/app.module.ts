@@ -17,12 +17,14 @@ import { SidenavComponent } from "./main/sidenav/sidenav.component";
 import { ReservationsModule } from "./main/reservations/reservations.module";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { WelcomeComponent } from "./main/welcome/welcome.component";
+import { SuccessComponent } from "./success/success.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ErrorComponent,
+    SuccessComponent,
     MainComponent,
     SidenavComponent,
     WelcomeComponent
@@ -44,8 +46,11 @@ import { WelcomeComponent } from "./main/welcome/welcome.component";
     { provide: MAT_DIALOG_DATA, useValue: [] },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent,
-  WelcomeComponent],
+  entryComponents: [
+    ErrorComponent,
+    WelcomeComponent,
+    SuccessComponent
+  ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}

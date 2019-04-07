@@ -6,6 +6,8 @@ import { map } from "rxjs/operators";
 import { environment } from "../../environments/environment";
 import { AuthData } from "./auth-data.model";
 import { WelcomeService } from "../main/welcome/welcome.service";
+import { MatDialog } from "@angular/material";
+import { SuccessComponent } from "../success/success.component";
 
 const BACKEND_URL = environment.apiUrl + "/user";
 
@@ -24,6 +26,7 @@ export class AuthService {
   }>();
 
   constructor(
+    public dialog: MatDialog,
     private http: HttpClient,
     private router: Router,
     private welcomeService: WelcomeService,
@@ -49,6 +52,7 @@ export class AuthService {
     const authData: AuthData = { email: email, password: password };
     this.http.post(BACKEND_URL + "/signup", authData).subscribe(
       () => {
+        this.dialog.open(SuccessComponent, { data: { message: "User has been succesfully created!" } });
         this.router.navigate(["/"]);
       },
       error => {
