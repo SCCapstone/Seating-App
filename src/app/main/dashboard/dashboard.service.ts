@@ -1,10 +1,11 @@
 import { Injectable, Output, EventEmitter } from "@angular/core";
-import { Subject } from "rxjs";
+import { Subject, Observable, forkJoin, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { FloorplansService } from "../manager/fp-builder/floorplan.service";
 import { Server } from "../manager/servers/server.model";
 import { Reservation } from "../reservations/reservation.model";
+import { ServersService } from "../manager/servers/servers.service";
 // import { Reservation } from "../../manager/reservations/reservation.model";
 
 @Injectable({ providedIn: "root" })
@@ -30,7 +31,8 @@ export class DashboardService {
 
   constructor(
     private router: Router,
-    public floorplansService: FloorplansService
+    public floorplansService: FloorplansService,
+    private serversService: ServersService
   ) {}
 
   /**
@@ -47,6 +49,7 @@ export class DashboardService {
 
     this.selectedTable = null;
     this.tableChange.emit(null);
+    // console.log("EMITTING NEW FLOORPLAN");
     this.fpChange.emit(this.selectedFloorplanID);
   }
 
@@ -121,5 +124,53 @@ export class DashboardService {
    */
   dashRefreshTable() {
     this.tableChange.emit(this.selectedTable);
+  }
+
+  dashUpdateTables() {
+    const tables = this.canvas.getObjects();
+    tables.forEach(table => {
+      // console.log("Editing Table: " + table._objects[0].name);
+      // console.log(table._objects[0]);
+      const server = table._objects[0].serverId.id;
+      if (server !== null) {
+        // console.log(this.servers);
+        this.servers.forEach(tempServer => {
+          if (tempServer.id === table._objects[0].serverId.id) {
+            table._objects[0].serverId.color = tempServer.color;
+            table._objects[0].set({
+              stroke: tempServer.color,
+              strokeWidth: 5
+            });
+          }
+        });
+        this.canvas.renderAll();
+        }
+      });
+      this.dashSaveCanvas();
+
+  }
+
+  dashSaveCanvas() {
+    this.selectedFloorplanJSON = this.canvas.toJSON([
+      "guestsSeated",
+      "name",
+      "notes",
+      "serverId",
+      "timeSeated",
+      "partyName"
+    ]);
+
+    // console.log(this.selectedFloorplanName);
+    // console.log(this.selectedFloorplanJSON);
+    this.floorplansService.updateFloorplan(
+      this.selectedFloorplanID,
+      this.selectedFloorplanName,
+      this.selectedFloorplanJSON,
+      this.selectedFloorplanStoreID
+      )
+      .subscribe(() => {
+        this.floorplansService.getFloorplans();
+      });
+    // console.log("THIS IS THE END OF THE FUNCTION");
   }
 }
