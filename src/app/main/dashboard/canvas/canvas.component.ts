@@ -27,6 +27,7 @@ export class CanvasComponent implements OnInit, OnDestroy {
   private floorplanId: string;
   private floorplansSub: Subscription;
   private authStatusSub: Subscription;
+  private updateSub: Subscription;
 
   totalFloorplans = 0;
 
@@ -47,8 +48,7 @@ export class CanvasComponent implements OnInit, OnDestroy {
     this.dashboardService.canvas.setHeight(canvasSpec.clientHeight);
     this.dashboardService.canvas.setWidth(canvasSpec.clientWidth);
 
-    this.dashboardService.fpChange.subscribe(changedFPID => {
-      // console.log("Received the emitter");
+    this.updateSub = this.dashboardService.fpChange.subscribe(changedFPID => {
       this.loadCanvas(changedFPID);
     });
 
@@ -102,7 +102,7 @@ export class CanvasComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    /* this.dashboardService.fpChange.unsubscribe(); */
+    this.updateSub.unsubscribe();
   }
 }
 
