@@ -6,6 +6,8 @@ import { map } from "rxjs/operators";
 import { environment } from "../../environments/environment";
 import { AuthData } from "./auth-data.model";
 import { WelcomeService } from "../main/welcome/welcome.service";
+import { MatDialog } from "@angular/material";
+import { SuccessComponent } from "../success/success.component";
 
 const BACKEND_URL = environment.apiUrl + "/user";
 
@@ -24,6 +26,7 @@ export class AuthService {
   }>();
 
   constructor(
+    public dialog: MatDialog,
     private http: HttpClient,
     private router: Router,
     private welcomeService: WelcomeService,
@@ -49,6 +52,7 @@ export class AuthService {
     const authData: AuthData = { email: email, password: password };
     this.http.post(BACKEND_URL + "/signup", authData).subscribe(
       () => {
+        this.dialog.open(SuccessComponent, { data: { message: "User has been succesfully created!" } });
         this.router.navigate(["/"]);
       },
       error => {
@@ -57,7 +61,7 @@ export class AuthService {
     );
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string) { 
     const authData: AuthData = { email: email, password: password };
     this.http
       .post<{ token: string; expiresIn: number; userId: string }>(
@@ -70,7 +74,7 @@ export class AuthService {
           this.token = token;
           if (token) {
             const expiresInDuration = response.expiresIn;
-            this.setAuthTimer(expiresInDuration);
+            this.setAuthTimer(expiresInDuration); //logs user out after certain time
             this.isAuthenticated = true;
             this.userId = response.userId;
             this.authStatusListener.next(true);
@@ -90,7 +94,7 @@ export class AuthService {
       );
   }
 
-  autoAuthUser() {
+  autoAuthUser() { //for when user is logged in, occasionally sets timer and checks auth
     const authInformation = this.getAuthData();
     if (!authInformation) {
       return;
@@ -114,9 +118,10 @@ export class AuthService {
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.router.navigate(["/"]);
+    console.log("Log out successful");
   }
 
-  private setAuthTimer(duration: number) {
+  private setAuthTimer(duration: number) { //sets inactivity timer until user has to log out
     console.log("Setting timer: " + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
@@ -135,7 +140,7 @@ export class AuthService {
     localStorage.removeItem("userId");
   }
 
-  private getAuthData() {
+  private getAuthData() { //gets new timer for the user token 
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
     const userId = localStorage.getItem("userId");
@@ -173,8 +178,6 @@ export class AuthService {
         );
   }
 
-
-
   public getAccountUpdateListener() {
     return this.accountsUpdated.asObservable();
   }
@@ -183,7 +186,7 @@ export class AuthService {
     let accountData = {
       email: email
     };
-
+    //ensures that new token and expiration are set for the userId for new email:
     return this.http.put<{ token: string; expiresIn: number; userId: string }>(BACKEND_URL, accountData).toPromise().then(response => {
       console.log(response);
       const token = response.token;

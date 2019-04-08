@@ -7,6 +7,7 @@ import { Subscription } from "rxjs";
 import { AuthService } from "src/app/auth/auth.service";
 import { tokenKey } from "@angular/core/src/view";
 import { AuthData } from "src/app/auth/auth-data.model";
+import { SuccessComponent } from "../../success/success.component";
 
 @Component({
   selector: "app-account",
@@ -39,7 +40,7 @@ export class AccountComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.accounts = accountData.accounts;
       });
-    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.userIsAuthenticated = this.authService.getIsAuth(); //verifies if user is authenticated
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe(isAuthenticated => { //subscribes if the token for authentication changes when email changes
@@ -95,6 +96,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
   userId: string;
 
   constructor(
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<AccountEditComponent>,
     public accountsService: AuthService,
     public route: ActivatedRoute,
@@ -124,13 +126,10 @@ export class AccountEditComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       })
     });
-    console.log(this.userId);
-
 
     this.isLoading = true;
     this.authService.getUserEmail(this.userId).subscribe(accountData => { //subscribes to changes in user email
       this.isLoading = false;
-      console.log(this.account);
       this.form.setValue({ //sets default value to the user's current email
         email: accountData.email
       });
@@ -144,20 +143,19 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     console.log(this.form.value.email); //grabs email entered from the user
     this.userId = this.accountToEdit;
     this.isLoading = true;
-    var thisPromise = this; //promises cant read this for some reason so I have to set it as thisPromise to use
+    var thisPromise = this; //promises cant read ".this" for some reason so I have to set it as thisPromise to use
        this.authService.updateAccount(
-        this.form.value.email
-    ).then(() => { console.log("log success") 
+        this.form.value.email).then(() => { console.log("log success") 
       console.log("Updated account " + this.form.value.email);
       this.isLoading = false;
       this.dialogRef.close();
       this.form.reset();
       thisPromise.account = this.form.value.email;
       window.location.reload(); //reloads page after changing email
-    });
-    
-  }
+      this.dialog.open(SuccessComponent, { data: { message: "Email has been successfully updated!" } });
 
+    });  
+  }
 
   onDelete() {
     this.isLoading = true;

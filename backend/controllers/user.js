@@ -12,13 +12,13 @@ exports.createUser = (req, res, next) => {
     user
       .save()
       .then(result => {
-        return res.status(500).json({
+        return res.status(201).json({
           message: "User created!"
         });
       })
       .catch(err => {
         return res.status(500).json({
-          message: "Invalid authentication credentials!"
+          message: "Email has already been used, or form is not filled out correctly!"
         });
       });
   });
@@ -93,7 +93,7 @@ exports.updateUser = (req, res, next) => {
     user
   )
     .then(result => { //then update user data
-      if (result.n > 0) {  //then return user data        
+      if (result.n > 0) {  //then return user data
         User.findOne({ email: req.body.email })
         .then(user => {
           if (!user) {
