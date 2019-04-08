@@ -1,4 +1,4 @@
-import { Component, OnInit, setTestabilityGetter } from '@angular/core';
+import { Component, OnInit, setTestabilityGetter, OnDestroy } from '@angular/core';
 import "fabric";
 import { getNumberOfCurrencyDigits } from "@angular/common";
 import { Canvas } from "fabric/fabric-impl";
@@ -17,7 +17,7 @@ declare let fabric;
   templateUrl: "./canvas.component.html",
   styleUrls: ["./canvas.component.css"]
 })
-export class CanvasComponent implements OnInit {
+export class CanvasComponent implements OnInit, OnDestroy {
   private canvas;
 
   selectedFloorplanID = "None";
@@ -48,6 +48,7 @@ export class CanvasComponent implements OnInit {
     this.dashboardService.canvas.setWidth(canvasSpec.clientWidth);
 
     this.dashboardService.fpChange.subscribe(changedFPID => {
+      // console.log("Received the emitter");
       this.loadCanvas(changedFPID);
     });
 
@@ -85,11 +86,12 @@ export class CanvasComponent implements OnInit {
       };
       // this.selectedFloorplanID = floorplanData._id;
       this.dashboardService.canvas.loadFromJSON(this.floorplan.json);
+      this.dashboardService.dashUpdateTables();
     });
   }
 
   updateCanvas() {
-    console.log("Hey you did it");
+    console.log("you did it");
 /*     const json_data = this.dashboardService.canvas.toJSON();
     console.log("Argument ID: " + this.floorplan.id);
     this.dashboardService.updateFloorplan(
@@ -97,6 +99,10 @@ export class CanvasComponent implements OnInit {
       this.floorplan.name,
       json_data
     ); */
+  }
+
+  ngOnDestroy() {
+    /* this.dashboardService.fpChange.unsubscribe(); */
   }
 }
 
