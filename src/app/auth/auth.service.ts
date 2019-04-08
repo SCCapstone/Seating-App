@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   createUser(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password };
+    const authData: AuthData = { email: email, password: password }; //authdata is accounts interface essentially
     this.http.post(BACKEND_URL + "/signup", authData).subscribe(
       () => {
         this.dialog.open(SuccessComponent, { data: { message: "User has been succesfully created!" } });
@@ -206,9 +206,10 @@ export class AuthService {
         this.router.navigate(["/main/account"]);
       }
     },
-    error => { //not sure what to put in error block
+    error => { //not sure what to put in error block 
       //this.authStatusListener.next(false);
-    });
+      //console.log("Something went wrong");
+    }); 
 
   }
 
