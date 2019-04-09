@@ -5,7 +5,7 @@ Uses form control built in-->
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onSaveReservation()" *ngIf="!isLoading">
       <mat-form-field>
-        <mat-label>Store</mat-label>
+        <mat-label>{{ selectedStoreName }}</mat-label>
           <mat-select
           formControlName="store"
           placeholder="Select a Store"

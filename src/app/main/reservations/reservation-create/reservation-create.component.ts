@@ -9,6 +9,7 @@ import { ReservationsService } from "../reservations.service";
 import { Reservation } from "../reservation.model";
 import { AuthService } from "../../../auth/auth.service";
 import { DashboardService } from "../../dashboard/dashboard.service";
+import { WelcomeService } from "../../welcome/welcome.service";
 
 export interface Time {
   value: string;
@@ -44,8 +45,9 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
   storeList: Store[] = [];
   defaultFloorplan: string;
   selectedStore = "";
-  selectedStoreID = "";
+  selectedStoreID: string;
   totalStores = 0;
+  selectedStoreName = "Select a Store";
 
   times: Time[] = [
     { value: "4:30 pm", viewValue: "4:30 pm" },
@@ -62,6 +64,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
     public dashboardService: DashboardService,
     public reservationsService: ReservationsService,
     public storesService: StoresService,
+    public welcomeService: WelcomeService,
     public route: ActivatedRoute,
     private authService: AuthService
   ) {}
@@ -151,6 +154,19 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
+      if (this.welcomeService.selectedStoreID != null) {
+        this.selectedStoreID = this.welcomeService.selectedStoreID;
+        this.selectedStoreName = this.welcomeService.selectedStoreName;
+        this.form.setValue({
+          name: this.form.value.name,
+          size: this.form.value.notes,
+          phone: this.form.value.phone,
+          time: this.form.value.time,
+          date: this.form.value.date,
+          notes: this.form.value.notes,
+          store: this.selectedStoreID
+        });
+      }
     });
   }
 
