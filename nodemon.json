@@ -1,6 +1,7 @@
 {
   "env": {
-    "MONGO_ATLAS_PW": "h9RBvDNJYZIEjYq2",
+
+    "MONGO_ATLAS_PW": "1llhfy52mo31vnMB",
     "JWT_KEY": "capstone_seating_app_hash_key_addition_string_S5426YTGEWRT34342SEWREW23JGF568464X68C4Z6XC684FD6AS8FGW6GE"
   }
 }
