@@ -49,7 +49,6 @@ export class DashboardService {
 
     this.selectedTable = null;
     this.tableChange.emit(null);
-    // console.log("EMITTING NEW FLOORPLAN");
     this.fpChange.emit(this.selectedFloorplanID);
   }
 

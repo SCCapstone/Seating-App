@@ -2,13 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Floorplan } from 'src/app/main/manager/fp-builder/floorplan.model';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
-import { FloorplansService } from 'src/app/main/manager/fp-builder/floorplan.service';
-import { StoresService } from 'src/app/main/manager/store/stores.service';
 import { DashboardService } from '../../dashboard.service';
-import { Server } from "../../../manager/servers/server.model";
 import { Reservation } from "../../../reservations/reservation.model";
 import { ReservationsService } from "src/app/main/reservations/reservations.service";
 
