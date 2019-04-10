@@ -61,7 +61,7 @@ export class AuthService {
     );
   }
 
-  login(email: string, password: string) { 
+  login(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http
       .post<{ token: string; expiresIn: number; userId: string }>(
@@ -117,6 +117,7 @@ export class AuthService {
     this.userId = null;
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
+    this.welcomeService.clear();
     this.router.navigate(["/"]);
     console.log("Log out successful");
   }
@@ -140,7 +141,7 @@ export class AuthService {
     localStorage.removeItem("userId");
   }
 
-  private getAuthData() { //gets new timer for the user token 
+  private getAuthData() { //gets new timer for the user token
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
     const userId = localStorage.getItem("userId");
@@ -206,10 +207,10 @@ export class AuthService {
         this.router.navigate(["/main/account"]);
       }
     },
-    error => { //not sure what to put in error block 
+    error => { //not sure what to put in error block
       //this.authStatusListener.next(false);
       //console.log("Something went wrong");
-    }); 
+    });
 
   }
 

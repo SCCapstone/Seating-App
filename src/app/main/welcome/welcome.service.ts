@@ -75,4 +75,10 @@ export class WelcomeService {
     getStoreName() {
       return this.selectedStoreName;
     }
+
+    clear() {
+      this.selectedStoreName = null;
+      this.selectedStoreID = null;
+      this.selectedFloorplanID = null;
+    }
 }
