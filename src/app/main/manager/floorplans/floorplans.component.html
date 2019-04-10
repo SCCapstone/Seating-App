@@ -23,6 +23,7 @@
       <div *ngFor="let fp of floorplanList">
         <mat-list *ngIf="userIsAuthenticated && userId === fp.creator && fp.storeId === selectedStoreID">
           <mat-list-item>
+            <h5>Default</h5>
             <mat-radio-button [checked]="fp.id === selectedStoreFP" (click)="setDefaultFP(fp.id)"></mat-radio-button>
             {{ fp.name }}
             <div style="margin-left:auto;"></div>

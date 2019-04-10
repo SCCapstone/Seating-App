@@ -289,6 +289,9 @@ addRect() {
     this.dialogRef.close();
     this.canvas.renderAll();
   }
+  onCancel(): void {
+    this.dialogRef.close();
+  }
 
 }
 

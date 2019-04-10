@@ -13,8 +13,11 @@
       </mat-form-field>
     <button mat-rasied-button class="table-button" type="submit">
         Save Floorplan
-      </button>
+    </button>
   </form>
+  <button mat-rasied-button class="table-button" (click)="onCancel()">
+      Cancel
+  </button>
   <button mat-rasied-button class="delete-button" (click)="deleteFloorplan(floorplan.id)">
       Delete Floorplan
   </button>
@@ -29,7 +32,6 @@
       Delete Selected Table
     </button>
   </div>
-
   <div class="table-view">
     <div class="canvas-wrap" id="canvas-wrap">
       <canvas id="canvas" class="canvas" style="border: 1px solid rgb(54, 54, 54);"></canvas>

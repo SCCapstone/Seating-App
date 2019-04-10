@@ -299,4 +299,7 @@ addRect() {
 
     this.dialogRef.close();
   }
+  onCancel(): void {
+    this.dialogRef.close();
+  }
 }
