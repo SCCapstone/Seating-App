@@ -16,7 +16,7 @@
   <form [formGroup]="form" (submit)="onUpdateTable()" *ngIf="!isLoading">
     <div class="table-form">
       <mat-form-field>
-        <input matInput type="number" formControlName="guestsSeated" placeholder="Guests Seated" />
+        <input matInput type="number" min="0" formControlName="guestsSeated" placeholder="Guests Seated" />
         <mat-error *ngIf="form.get('guestsSeated').invalid">Please enter the number of guests.</mat-error>
       </mat-form-field>
       <mat-form-field>

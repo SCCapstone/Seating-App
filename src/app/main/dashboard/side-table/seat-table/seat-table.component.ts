@@ -8,6 +8,9 @@ import { DashboardService } from '../../dashboard.service';
 import { Reservation } from "../../../reservations/reservation.model";
 import { ReservationsService } from "src/app/main/reservations/reservations.service";
 
+import { ErrorComponent } from 'src/app/error/error.component';
+
+
 @Component({
   selector: 'app-seat-table',
   templateUrl: './seat-table.component.html',
@@ -39,6 +42,7 @@ export class SeatTableComponent implements OnInit {
     public dialogRef: MatDialogRef<SeatTableComponent>,
     public dashboardService: DashboardService,
     public reservationsService: ReservationsService,
+    public dialog: MatDialog,
     public route: ActivatedRoute,
     private authService: AuthService
   ) { }
@@ -96,6 +100,8 @@ export class SeatTableComponent implements OnInit {
     console.log("Updating table");
     if (this.form.value.guestsSeated < 0 || this.form.value.server === null) {
       console.log("Guests Seated or Server contains invalid value");
+      this.dialog.open(ErrorComponent, { data: { message: "Invalid number of guests" } });
+
     } else {
     this.dashboardService.dashUpdateTable(
     this.form.value.guestsSeated,
