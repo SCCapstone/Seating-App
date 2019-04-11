@@ -10,6 +10,8 @@ import { Reservation } from "../reservation.model";
 import { AuthService } from "../../../auth/auth.service";
 import { DashboardService } from "../../dashboard/dashboard.service";
 import { WelcomeService } from "../../welcome/welcome.service";
+import { ErrorComponent } from "src/app/error/error.component";
+import { MatDialog } from "@angular/material";
 
 export interface Time {
   value: string;
@@ -65,6 +67,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
     public reservationsService: ReservationsService,
     public storesService: StoresService,
     public welcomeService: WelcomeService,
+    public dialog: MatDialog,
     public route: ActivatedRoute,
     private authService: AuthService
   ) {}
@@ -117,9 +120,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.mode = "edit";
         this.reservationId = paramMap.get("reservationId");
         this.isLoading = true;
-        this.reservationsService
-          .getReservation(this.reservationId)
-          .subscribe(reservationData => {
+        this.reservationsService.getReservation(this.reservationId).subscribe(reservationData => {
             this.isLoading = false;
             this.reservation = {
               id: reservationData._id,
@@ -172,9 +173,14 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
 
   onSaveReservation() {
     if (this.form.invalid) {
-      console.log("Cannot Save Store Invalid");
+      console.log("Cannot Save. Invalid field");
       return;
     }
+    if (this.form.value.size < 0 || this.form.value.phone.length < 10 ) {
+      console.log("Invalid number of guests or Invalid Phone");
+      this.dialog.open(ErrorComponent, { data: { message: "Invalid number of guests or phone" } });
+    }
+    else{
     this.isLoading = true;
     if (this.mode === "create") {
       this.reservationsService.addReservation(
@@ -199,7 +205,9 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.form.value.store
       );
     }
+    
     this.form.reset();
+  }
   }
 
   setReservationStore(name: string, storeID: string) {

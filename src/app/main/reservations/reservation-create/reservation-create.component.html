@@ -28,7 +28,7 @@ Uses form control built in-->
     <mat-form-field>
       <input
         matInput
-        type="number"
+        type="number" min="0"
         formControlName="size"
         placeholder="Reservation Size"
       />
@@ -39,7 +39,7 @@ Uses form control built in-->
     <mat-form-field>
       <input
         matInput
-        type="number"
+        type="number" minlength="10"
         formControlName="phone"
         placeholder="Phone Number"
       />
