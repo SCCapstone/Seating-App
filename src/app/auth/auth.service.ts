@@ -50,8 +50,7 @@ export class AuthService {
 
   createUser(email: string, password: string) {
     const authData: AuthData = { email: email, password: password }; //authdata is accounts interface essentially
-    this.http.post(BACKEND_URL + "/signup", authData).subscribe(
-      () => {
+    this.http.post(BACKEND_URL + "/signup", authData).subscribe(() => {
         this.dialog.open(SuccessComponent, { data: { message: "User has been succesfully created!" } });
         this.router.navigate(["/"]);
       },
@@ -66,10 +65,7 @@ export class AuthService {
     this.http
       .post<{ token: string; expiresIn: number; userId: string }>(
         BACKEND_URL + "/login",
-        authData
-      )
-      .subscribe(
-        response => {
+        authData).subscribe(response => {
           const token = response.token;
           this.token = token;
           if (token) {
@@ -209,7 +205,7 @@ export class AuthService {
     },
     error => { //not sure what to put in error block
       //this.authStatusListener.next(false);
-      //console.log("Something went wrong");
+      console.log("Something went wrong");
     });
 
   }

@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { DashboardService } from '../dashboard.service';
 import { SeatTableComponent } from "../side-table/seat-table/seat-table.component";
 import { Server } from '../../manager/servers/server.model';
+import { ErrorComponent } from 'src/app/error/error.component';
 
 @Component({
   selector: 'app-side-table',
@@ -34,8 +35,8 @@ export class SideTableComponent implements OnInit {
    * This function opens the seat table dialog box for assigning a number of
    * guests to a table, but only if a table has been selected.
    */
-  openSeatTable() {
-    // Checks to see if a table has been selected
+
+  openSeatTable() {// Checks to see if a table has been selected
     if (this.dashboardService.dashGetTable() !== null) {
       const dialogRef = this.dialog.open(SeatTableComponent, {
         width: "500px"
@@ -45,7 +46,9 @@ export class SideTableComponent implements OnInit {
         console.log("The dialog was closed");
       });
     } else {
-      console.log("No table selectd");
+      console.log("No table selected");
+      this.dialog.open(ErrorComponent, { data: { message: "No table selected" } });
+
     }
 
 
@@ -60,6 +63,11 @@ export class SideTableComponent implements OnInit {
       this.guestsSeated = 0;
       this.notes = "";
       this.dashboardService.dashUpdateTable(0, "", this.tableServer);
+    }
+    else {
+      console.log("No table selected");
+      this.dialog.open(ErrorComponent, { data: { message: "No table selected" } });
+
     }
   }
 
