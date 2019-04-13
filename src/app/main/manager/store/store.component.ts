@@ -256,7 +256,6 @@ export class StoreEditComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       }),
       defaultFloorplan: new FormControl(null, {
-        validators: [Validators.required]
       })
     });
   }

@@ -162,6 +162,7 @@ export class DashboardService {
       console.log("guests seated: " + table._objects[0].guestsSeated);
     });
     this.canvas.renderAll();
+    this.dashSaveCanvas();
   }
 
   dashSaveCanvas() {
