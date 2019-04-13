@@ -126,12 +126,11 @@ export class DashboardService {
   }
 
   dashUpdateTables() {
+    console.log("dashUpdateTables called");
     const tables = this.canvas.getObjects();
     tables.forEach(table => {
-      // console.log("Editing Table: " + table._objects[0].name);
-      // console.log(table._objects[0]);
-      const server = table._objects[0].serverId.id;
-      if (server !== null) {
+      const server = table._objects[0].serverId;
+      if (server !== null && server.id !== null) {
         // console.log(this.servers);
         this.servers.forEach(tempServer => {
           if (tempServer.id === table._objects[0].serverId.id) {
@@ -147,6 +146,22 @@ export class DashboardService {
       });
       this.dashSaveCanvas();
 
+  }
+
+  dashClearTables() {
+    const tables = this.canvas.getObjects();
+    tables.forEach(table => {
+      table._objects[0].set({
+        guestsSeated: 0,
+        notes: "",
+        serverId: "",
+        partyName: "",
+        strokeWidth: 0
+      });
+      table._objects[0].setColor("#7B638E");
+      console.log("guests seated: " + table._objects[0].guestsSeated);
+    });
+    this.canvas.renderAll();
   }
 
   dashSaveCanvas() {

@@ -63,14 +63,16 @@ export class SideTableComponent implements OnInit {
       this.guestsSeated = 0;
       this.notes = "";
       this.dashboardService.dashUpdateTable(0, "", this.tableServer);
-    }
-    else {
+    } else {
       console.log("No table selected");
       this.dialog.open(ErrorComponent, { data: { message: "No table selected" } });
 
     }
   }
 
+  clearFloorplan() {
+    this.dashboardService.dashClearTables();
+  }
   /**
    * Gets the table properties from a table object.
    * @param table the selected table.
