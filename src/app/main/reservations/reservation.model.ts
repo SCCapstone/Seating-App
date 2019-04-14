@@ -8,4 +8,5 @@ export interface Reservation {
   notes: string;
   creator: string;
   store: string;
+  status: string;
 }

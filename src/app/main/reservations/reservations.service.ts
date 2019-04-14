@@ -45,7 +45,8 @@ export class ReservationsService {
                 notes: reservation.notes,
                 id: reservation._id,
                 creator: reservation.creator,
-                store: reservation.store
+                store: reservation.store,
+                status: reservation.status
               };
             }),
             maxReservations: reservationData.maxReservations
@@ -76,6 +77,7 @@ export class ReservationsService {
       notes: string;
       creator: string;
       store: string;
+      status: string;
     }>(BACKEND_URL + id);
   }
 
@@ -104,7 +106,8 @@ export class ReservationsService {
       date: date,
       notes: notes,
       creator: null,
-      store: store
+      store: store,
+      status: "new"
     };
     this.http
       .post<{ message: string; reservation: Reservation; store: Reservation }>(
@@ -124,7 +127,8 @@ export class ReservationsService {
     time: string,
     date: string,
     notes: string,
-    store: string
+    store: string,
+    status: string
   ) {
     let reservationData: Reservation | FormData;
     if (0 === 0) {
@@ -137,7 +141,8 @@ export class ReservationsService {
         date: date,
         notes: notes,
         creator: null,
-        store: store
+        store: store,
+        status: status
       };
     }
     this.http.put(BACKEND_URL + id, reservationData).subscribe(response => {

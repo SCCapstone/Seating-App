@@ -9,7 +9,8 @@ exports.createReservation = (req, res, next) => {
     date: req.body.date,
     notes: req.body.notes,
     creator: req.userData.userId,
-    store: req.body.store
+    store: req.body.store,
+    status: req.body.status
   });
   reservation
     .save()
@@ -39,7 +40,8 @@ exports.updateReservation = (req, res, next) => {
     date: req.body.date,
     notes: req.body.notes,
     creator: req.userData.userId,
-    store: req.body.store
+    store: req.body.store,
+    status: req.body.status
   });
   Reservation.updateOne(
     { _id: req.params.id, creator: req.userData.userId },

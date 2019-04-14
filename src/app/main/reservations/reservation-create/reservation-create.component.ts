@@ -131,7 +131,8 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
               date: reservationData.date,
               notes: reservationData.notes,
               creator: reservationData.creator,
-              store: reservationData.store
+              store: reservationData.store,
+              status: reservationData.status
             };
             this.form.setValue({
               name: this.reservation.name,
@@ -179,8 +180,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
     if (this.form.value.size < 0 || this.form.value.phone.length < 10 ) {
       console.log("Invalid number of guests or Invalid Phone");
       this.dialog.open(ErrorComponent, { data: { message: "Invalid number of guests or phone" } });
-    }
-    else{
+    } else {
     this.isLoading = true;
     if (this.mode === "create") {
       this.reservationsService.addReservation(
@@ -202,10 +202,11 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.form.value.time,
         this.form.value.date,
         this.form.value.notes,
-        this.form.value.store
+        this.form.value.store,
+        "new"
       );
     }
-    
+
     this.form.reset();
   }
   }
