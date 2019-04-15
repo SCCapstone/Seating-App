@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 
 import { environment } from "../../../../environments/environment";
 import { Server } from "./server.model";
+import { forEach } from "@angular/router/src/utils/collection";
 
 const BACKEND_URL = environment.apiUrl + "/servers/";
 
@@ -97,5 +98,20 @@ export class ServersService {
   }
   getServerToEdit() {
     return this.serverToUpdate;
+  }
+
+  // Deletes all servers associated with store upon deletion
+  deleteStoreServers(storeId: string) {
+    console.log("Deleting Servers...");
+    this.servers.forEach(server => {
+      if (server.store === storeId) {
+        console.log("Deleted: " + server.name);
+        this.deleteServer(server.id).subscribe(
+          () => {
+            this.getServers();
+          }
+        );
+      }
+    });
   }
 }

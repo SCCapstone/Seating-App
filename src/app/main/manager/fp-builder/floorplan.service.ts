@@ -123,4 +123,19 @@ export class FloorplansService {
   getFloorplanToEdit() {
     return this.floorplanToEdit;
   }
+
+  // Deletes all floorplans associated with store upon deletion
+  deleteStoreFloorplans(storeId: string) {
+    console.log("Deleting Servers...");
+    this.floorplans.forEach(floorplan => {
+      if (floorplan.storeId === storeId) {
+        console.log("Deleted: " + floorplan.name);
+        this.deleteFloorplans(floorplan.id).subscribe(
+          () => {
+            this.getFloorplans();
+          }
+        );
+      }
+    });
+  }
 }

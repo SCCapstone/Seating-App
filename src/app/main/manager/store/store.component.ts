@@ -203,6 +203,7 @@ export class StoreEditComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<StoreEditComponent>,
     public storesService: StoresService,
     public floorplansService: FloorplansService,
+    public serversService: ServersService,
     public route: ActivatedRoute,
     public authService: AuthService
   ) {}
@@ -282,6 +283,8 @@ export class StoreEditComponent implements OnInit, OnDestroy {
 
   onDelete() {
     this.isLoading = true;
+    this.serversService.deleteStoreServers(this.storeToEdit);
+    this.floorplansService.deleteStoreFloorplans(this.storeToEdit);
     this.storesService.deleteStore(this.storeToEdit).subscribe(
       () => {
         this.storesService.getStores();
