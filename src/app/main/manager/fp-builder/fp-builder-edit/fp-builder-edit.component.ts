@@ -164,7 +164,8 @@ addRect() {
               partyName: this.partyName,
               guestsSeated: this.guestsSeated,
               timeSeated: this.timeSeated,
-              notes: this.notes
+              notes: this.notes,
+              resId: this.resId
             });
           };
         })(this.rectTable.toObject);
@@ -176,6 +177,7 @@ addRect() {
         this.rectTable.guestsSeated = 0;
         this.rectTable.timeSeated = "";
         this.rectTable.notes = "";
+        this.rectTable.resId = "";
 
         // creates textbox
         this.textBox = new fabric.Textbox(tableName, {
@@ -221,7 +223,8 @@ addRect() {
             partyName: this.partyName,
             guestsSeated: this.guestsSeated,
             timeSeated: this.timeSeated,
-            notes: this.notes
+            notes: this.notes,
+            resId: this.resId
           });
         };
       })(this.circleTable.toObject);
@@ -233,6 +236,7 @@ addRect() {
       this.circleTable.guestsSeated = 0;
       this.circleTable.timeSeated = "";
       this.circleTable.notes = "";
+      this.circleTable.resId = "";
 
       // creates textbox
       this.textBox = new fabric.Textbox(tableName, {

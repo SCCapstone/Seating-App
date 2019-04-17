@@ -125,15 +125,21 @@ export class SeatTableComponent implements OnInit {
     this.dashboardService.dashUpdateTable(
     this.form.value.guestsSeated,
     this.form.value.notes,
-    this.form.value.server);
+    this.form.value.server,
+    this.selectedResID);
 
     this.dashboardService.dashRefreshTable();
     this.dialogRef.close();
     }
+    // If reservation is selected, calls setResStatus and changes status to seated
+    if (this.selectedResID != null) {
+      this.reservationsService.setResStatus(this.selectedResID);
+    }
   }
 
-  loadRes(size, notes) {
+  loadRes(size, notes, resId) {
    console.log("implementRes called");
+   this.selectedResID = resId;
    this.form.setValue({guestsSeated: size, notes: notes, server: this.form.value.server});
   }
 

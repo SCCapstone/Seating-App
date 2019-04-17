@@ -18,6 +18,7 @@ export class SideTableComponent implements OnInit {
   notes = "";
   tableServer: Server;
   serverName = "";
+  resId = "";
 
   constructor(
     public dialog: MatDialog,
@@ -91,6 +92,7 @@ export class SideTableComponent implements OnInit {
       this.notes = "";
       this.tableServer = null;
       this.serverName = "";
+      this.resId = "";
     }
   }
 }

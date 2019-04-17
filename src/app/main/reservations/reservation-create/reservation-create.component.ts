@@ -108,7 +108,6 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       }),
       notes: new FormControl(null, {
-        validators: [Validators.required]
       }),
       store: new FormControl(null, {
         validators: [Validators.required]
@@ -203,7 +202,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.form.value.date,
         this.form.value.notes,
         this.form.value.store,
-        "new"
+        "New"
       );
     }
 

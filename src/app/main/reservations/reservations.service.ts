@@ -7,7 +7,6 @@ import { Router } from "@angular/router";
 import { environment } from "../../../environments/environment";
 import { Reservation } from "./reservation.model";
 import { NONE_TYPE } from "@angular/compiler/src/output/output_ast";
-// import { store } from "@angular/core/src/render3/instructions";
 import { Store } from "../manager/store/store.model";
 
 const BACKEND_URL = environment.apiUrl + "/reservations/";
@@ -107,7 +106,7 @@ export class ReservationsService {
       notes: notes,
       creator: null,
       store: store,
-      status: "new"
+      status: "New"
     };
     this.http
       .post<{ message: string; reservation: Reservation; store: Reservation }>(
@@ -146,7 +145,7 @@ export class ReservationsService {
       };
     }
     this.http.put(BACKEND_URL + id, reservationData).subscribe(response => {
-      this.router.navigate(["/main/reservations"]);
+     // this.router.navigate(["/main/reservations"]);
     });
   }
 
@@ -156,5 +155,25 @@ export class ReservationsService {
 
   deleteReservation(reservationId: string) {
     return this.http.delete(BACKEND_URL + reservationId);
+  }
+
+  // Sets the reservation status to "Seated"
+  setResStatus(reservationId: string) {
+    this.reservations.forEach(reservation => {
+      if (reservation.id === reservationId) {
+        reservation.status = "Seated";
+        console.log("Reservation status: " + reservation.status);
+        this.updateReservation(
+           reservation.id,
+           reservation.name,
+           reservation.size,
+           reservation.phone,
+           reservation.time,
+           reservation.date,
+           reservation.notes,
+           reservation.store,
+           reservation.status);
+      }
+    });
   }
 }
