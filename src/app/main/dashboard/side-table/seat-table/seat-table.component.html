@@ -24,9 +24,9 @@
         <mat-error *ngIf="form.get('notes').invalid">Please enter valid notes.</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <mat-select formControlName="server" placeholder="Server">
+        <mat-select formControlName="server" placeholder="Server" [compareWith]="serverComparisonFunction">
           <ng-container *ngFor="let server of this.dashboardService.servers">
-            <mat-option *ngIf="dashboardService.userIsAuthenticated && dashboardService.selectedStoreID === server.store" [value]=server>
+            <mat-option *ngIf="dashboardService.userIsAuthenticated && dashboardService.selectedStoreID === server.store" [value]="server">
               {{server.name}}
             </mat-option>
           </ng-container>

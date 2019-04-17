@@ -133,4 +133,11 @@ export class SeatTableComponent implements OnInit {
    console.log("implementRes called");
    this.form.setValue({guestsSeated: size, notes: notes, server: this.form.value.server});
   }
+
+  /**
+   * Comparison for setting server value
+   */
+  public serverComparisonFunction = function( option, value): boolean {
+    return option.id === value.id;
+  };
 }
