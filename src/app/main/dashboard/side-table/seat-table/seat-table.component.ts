@@ -113,6 +113,9 @@ export class SeatTableComponent implements OnInit {
   }
 
   onUpdateTable() {
+    if (this.form.invalid) {
+      return;
+    }
     console.log("Updating table");
     if (this.form.value.guestsSeated < 0 || this.form.value.server === null) {
       console.log("Guests Seated or Server contains invalid value");
