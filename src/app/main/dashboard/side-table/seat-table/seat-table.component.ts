@@ -9,6 +9,7 @@ import { Reservation } from "../../../reservations/reservation.model";
 import { ReservationsService } from "src/app/main/reservations/reservations.service";
 
 import { ErrorComponent } from 'src/app/error/error.component';
+import { Server } from "src/app/main/manager/servers/server.model";
 
 
 @Component({
@@ -90,6 +91,21 @@ export class SeatTableComponent implements OnInit {
     });
     this.isLoading = false;
     console.log("Selected Store ID: " + this.dashboardService.selectedStoreID);
+
+    // Autofilling the server drop down on table selection
+    // Currently only works after table has been set after a refresh
+    // NOT FINISHED YET
+
+    let tempServer: Server = null;
+    tempServer = this.dashboardService.dashGetTable().target._objects[0].serverId;
+    console.log(tempServer);
+      this.form.setValue({
+        guestsSeated: this.form.value.guestsSeated,
+        notes: this.form.value.notes,
+        server: tempServer
+      });
+      console.log(this.guestsSeated);
+
   }
 
   onNoClick(): void {
