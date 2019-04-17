@@ -9,6 +9,7 @@ import { Reservation } from "../../../reservations/reservation.model";
 import { ReservationsService } from "src/app/main/reservations/reservations.service";
 
 import { ErrorComponent } from 'src/app/error/error.component';
+import { Server } from 'src/app/main/manager/servers/server.model';
 
 
 @Component({
@@ -88,7 +89,20 @@ export class SeatTableComponent implements OnInit {
         validators: [Validators.required]
       })
     });
+
+    let tempTable = null;
+    let tempServer: Server = null;
+    tempTable = this.dashboardService.dashGetTable();
+    tempServer = tempTable.target._objects[0].serverId;
+    console.log(tempServer);
     this.isLoading = false;
+    this.form.setValue({
+      guestsSeated: this.form.value.guestsSeated,
+      notes: this.form.value.notes,
+      server: tempServer
+    }); 
+
+    
     console.log("Selected Store ID: " + this.dashboardService.selectedStoreID);
   }
 
