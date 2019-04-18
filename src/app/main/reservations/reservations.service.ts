@@ -89,12 +89,7 @@ export class ReservationsService {
     notes: string,
     store: string,
   ) {
-    /**const reservationData = new FormData();
-    reservationData.append("name", name);
-    reservationData.append("size", size);
-    reservationData.append("phone", phone);
-    reservationData.append("notes", notes);
-    */
+
    console.log("STORE: " + store);
     const reservationData: Reservation = {
       id: null,
@@ -144,9 +139,8 @@ export class ReservationsService {
         status: status
       };
     }
-    this.http.put(BACKEND_URL + id, reservationData).subscribe(response => {
-     // this.router.navigate(["/main/reservations"]);
-    });
+    return this.http.put(BACKEND_URL + id, reservationData);
+
   }
 
   setResID(resID) {
@@ -155,25 +149,5 @@ export class ReservationsService {
 
   deleteReservation(reservationId: string) {
     return this.http.delete(BACKEND_URL + reservationId);
-  }
-
-  // Sets the reservation status to "Seated"
-  setResStatus(reservationId: string) {
-    this.reservations.forEach(reservation => {
-      if (reservation.id === reservationId) {
-        reservation.status = "Seated";
-        console.log("Reservation status: " + reservation.status);
-        this.updateReservation(
-           reservation.id,
-           reservation.name,
-           reservation.size,
-           reservation.phone,
-           reservation.time,
-           reservation.date,
-           reservation.notes,
-           reservation.store,
-           reservation.status);
-      }
-    });
   }
 }

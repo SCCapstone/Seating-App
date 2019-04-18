@@ -11,7 +11,8 @@
       <mat-expansion-panel *ngFor="let reservation of reservations">
         <mat-expansion-panel-header
           *ngIf="userIsAuthenticated && userId === reservation.creator &&
-          welcomeService.selectedStoreID === reservation.store"
+          welcomeService.selectedStoreID === reservation.store &&
+          reservation.status === 'New'"
         >
           <div class="list-box-time">{{ reservation.time }}</div>
           <div class="list-box">{{ reservation.name }}</div>

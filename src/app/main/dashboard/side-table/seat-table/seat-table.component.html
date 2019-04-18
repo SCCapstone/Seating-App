@@ -5,8 +5,10 @@
       <mat-label>Reservations</mat-label>
       <mat-select placeholder="Select a Reservation">
         <ng-container *ngFor="let res of resList">
-          <mat-option (click)="loadRes(res.size, res.notes, res.id)" *ngIf="userIsAuthenticated && userId === res.creator &&
-          res.store === selectedStoreID "
+          <mat-option (click)="loadRes(res.size, res.notes, res.id)" *ngIf="userIsAuthenticated &&
+           userId === res.creator &&
+           res.store === selectedStoreID &&
+           res.status === 'New'"
           [value]="res">
             {{res.name}}
           </mat-option>

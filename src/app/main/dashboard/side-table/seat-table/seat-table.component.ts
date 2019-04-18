@@ -36,7 +36,7 @@ export class SeatTableComponent implements OnInit {
   private authStatusSub: Subscription;
 
   selectedRes = "";
-  selectedResID = "none";
+  selectedResID = "";
   selectedStoreID = this.dashboardService.selectedStoreID;
 
   constructor(
@@ -131,11 +131,43 @@ export class SeatTableComponent implements OnInit {
     this.dashboardService.dashRefreshTable();
     this.dialogRef.close();
     }
-    // If reservation is selected, calls setResStatus and changes status to seated
-    if (this.selectedResID != null) {
-      this.reservationsService.setResStatus(this.selectedResID);
+    // If reservation is selected, changes status to seated
+    if (this.selectedResID !== "") {
+
+      // Getting the whole reservation object
+      let tempRes: Reservation;
+      this.reservationsService.getReservation(this.selectedResID)
+        .subscribe(reservationData => {
+          tempRes = {
+            creator: reservationData.creator,
+            date: reservationData.date,
+            id: reservationData._id,
+            name: reservationData.name,
+            notes: reservationData.notes,
+            phone: reservationData.phone,
+            size: reservationData.size,
+            status: reservationData.status,
+            store: reservationData.store,
+            time: reservationData.time
+          };
+
+          this.reservationsService.updateReservation(
+            tempRes.id,
+            tempRes.name,
+            tempRes.size,
+            tempRes.phone,
+            tempRes.time,
+            tempRes.date,
+            tempRes.notes,
+            tempRes.store,
+            "Seated"
+          )
+          .subscribe(() => {
+            this.reservationsService.getReservations(500, 1);
+          });
+        });
+      }
     }
-  }
 
   loadRes(size, notes, resId) {
    console.log("implementRes called");
