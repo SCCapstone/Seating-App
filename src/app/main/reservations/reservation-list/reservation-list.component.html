@@ -13,6 +13,11 @@
         </ng-container>
       </mat-select>
     </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [value]="selectedDate" (dateChange)="filterDate($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
   </mat-card>
   <mat-card class="reservation-header">
     <div class="list-box-time">Time</div>
@@ -24,7 +29,7 @@
   <mat-accordion multi="true" *ngIf="reservations.length > 0 && !isLoading">
     <mat-expansion-panel *ngFor="let res of reservations">
       <mat-expansion-panel-header
-        *ngIf="userIsAuthenticated && userId === res.creator && res.store === selectedStoreID"
+        *ngIf="userIsAuthenticated && userId === res.creator && res.store === selectedStoreID && res.date === selectedDate.toLocaleDateString()"
       >
         <div class="list-box-time">{{ res.time }}</div>
         <div class="list-box-date">{{ res.date.substring(0, 10) }}</div>

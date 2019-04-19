@@ -16,9 +16,6 @@ export class SideResosComponent implements OnInit, OnDestroy {
   reservations: Reservation[] = [];
   isLoading = false;
   totalReservations = 0;
-  reservationsPerPage = 50;
-  currentPage = 1;
-  pageSizeOptions = [10, 25, 50, 100];
   userIsAuthenticated = false;
   userId: string;
   private reservationsSub: Subscription;
@@ -32,10 +29,7 @@ export class SideResosComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.reservationsService.getReservations(
-      this.reservationsPerPage,
-      this.currentPage
-    );
+    this.reservationsService.getReservations();
     this.userId = this.authService.getUserId();
     this.reservationsSub = this.reservationsService
       .getReservationUpdateListener()
@@ -58,24 +52,11 @@ export class SideResosComponent implements OnInit, OnDestroy {
       });
   }
 
-  onChangedPage(pageData: PageEvent) {
-    this.isLoading = true;
-    this.currentPage = pageData.pageIndex + 1;
-    this.reservationsPerPage = pageData.pageSize;
-    this.reservationsService.getReservations(
-      this.reservationsPerPage,
-      this.currentPage
-    );
-  }
-
   onDelete(reservationId: string) {
     this.isLoading = true;
     this.reservationsService.deleteReservation(reservationId).subscribe(
       () => {
-        this.reservationsService.getReservations(
-          this.reservationsPerPage,
-          this.currentPage
-        );
+        this.reservationsService.getReservations();
       },
       () => {
         this.isLoading = false;

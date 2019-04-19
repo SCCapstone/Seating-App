@@ -26,11 +26,10 @@ export class ReservationsService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getReservations(reservationsPerPage: number, currentPage: number) {
-    const queryParams = `?pagesize=${reservationsPerPage}&page=${currentPage}`;
+  getReservations() {
     this.http
       .get<{ message: string; reservations: any; maxReservations: number }>(
-        BACKEND_URL + queryParams
+        BACKEND_URL
       )
       .pipe(
         map(reservationData => {
@@ -90,13 +89,8 @@ export class ReservationsService {
     notes: string,
     store: string,
   ) {
-    /**const reservationData = new FormData();
-    reservationData.append("name", name);
-    reservationData.append("size", size);
-    reservationData.append("phone", phone);
-    reservationData.append("notes", notes);
-    */
-   console.log("STORE: " + store);
+
+    console.log("STORE: " + store);
     const reservationData: Reservation = {
       id: null,
       name: name,

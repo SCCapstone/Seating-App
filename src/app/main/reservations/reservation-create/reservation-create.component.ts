@@ -170,6 +170,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         });
       }
     });
+
   }
 
   onSaveReservation() {
@@ -188,7 +189,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.form.value.size,
         this.form.value.phone,
         this.form.value.time,
-        this.form.value.date,
+        this.form.value.date.toLocaleDateString(),
         this.form.value.notes,
         this.form.value.store
       );
@@ -200,7 +201,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.form.value.size,
         this.form.value.phone,
         this.form.value.time,
-        this.form.value.date,
+        this.form.value.date.toLocaleDateString(),
         this.form.value.notes,
         this.form.value.store,
         "new"

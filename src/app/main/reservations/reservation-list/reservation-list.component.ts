@@ -19,9 +19,6 @@ export class ReservationListComponent implements OnInit, OnDestroy {
   reservations: Reservation[] = [];
   isLoading = false;
   totalReservations = 0;
-  reservationsPerPage = 50;
-  currentPage = 1;
-  pageSizeOptions = [10, 25, 50, 100];
   userIsAuthenticated = false;
   userId: string;
   private reservationsSub: Subscription;
@@ -32,6 +29,8 @@ export class ReservationListComponent implements OnInit, OnDestroy {
   storeList: Store[] = [];
   private storesSub: Subscription;
 
+  selectedDate: Date = new Date();
+
   constructor(
     public reservationsService: ReservationsService,
     public welcomeService: WelcomeService,
@@ -41,10 +40,7 @@ export class ReservationListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.reservationsService.getReservations(
-      this.reservationsPerPage,
-      this.currentPage
-    );
+    this.reservationsService.getReservations();
     this.storesService.getStores();
     this.userId = this.authService.getUserId();
     console.log("User Id: " + this.userId);
@@ -89,24 +85,11 @@ export class ReservationListComponent implements OnInit, OnDestroy {
     this.selectedStoreName = storeName;
   }
 
-  onChangedPage(pageData: PageEvent) {
-    this.isLoading = true;
-    this.currentPage = pageData.pageIndex + 1;
-    this.reservationsPerPage = pageData.pageSize;
-    this.reservationsService.getReservations(
-      this.reservationsPerPage,
-      this.currentPage
-    );
-  }
-
   onDelete(reservationId: string) {
     this.isLoading = true;
     this.reservationsService.deleteReservation(reservationId).subscribe(
       () => {
-        this.reservationsService.getReservations(
-          this.reservationsPerPage,
-          this.currentPage
-        );
+        this.reservationsService.getReservations();
       },
       () => {
         this.isLoading = false;
@@ -117,5 +100,14 @@ export class ReservationListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.reservationsSub.unsubscribe();
     this.authStatusSub.unsubscribe();
+  }
+
+  /**
+   * Changes the selected date for filtering.
+   * @param event The event that contains the new selected date.
+   */
+  filterDate(event: any): void {
+    console.log(event.target.value);
+    this.selectedDate = event.target.value;
   }
 }

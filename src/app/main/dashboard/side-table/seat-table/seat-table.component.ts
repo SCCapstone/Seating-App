@@ -30,8 +30,6 @@ export class SeatTableComponent implements OnInit {
   reservation: Reservation;
   resList: Reservation[] = [];
   totalReservations = 0;
-  reservationsPerPage = 50;
-  currentPage = 1;
   private reservationsSub: Subscription;
   private authStatusSub: Subscription;
 
@@ -51,10 +49,7 @@ export class SeatTableComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     // Populate resList
-    this.reservationsService.getReservations(
-      this.reservationsPerPage,
-      this.currentPage
-    );
+    this.reservationsService.getReservations();
     this.userId = this.authService.getUserId();
     this.reservationsSub = this.reservationsService
     .getReservationUpdateListener()
