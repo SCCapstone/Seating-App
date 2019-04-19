@@ -8,7 +8,8 @@
           <mat-option (click)="loadRes(res.size, res.notes, res.id)" *ngIf="userIsAuthenticated &&
            userId === res.creator &&
            res.store === selectedStoreID &&
-           res.status === 'New'"
+           res.status === 'New' &&
+           res.date === dashboardService.currentDate"
           [value]="res">
             {{res.name}}
           </mat-option>

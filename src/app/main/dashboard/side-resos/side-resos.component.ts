@@ -21,6 +21,8 @@ export class SideResosComponent implements OnInit, OnDestroy {
   private reservationsSub: Subscription;
   private authStatusSub: Subscription;
 
+  currentDate = new Date().toLocaleDateString();
+
   constructor(
     public reservationsService: ReservationsService,
     public welcomeService: WelcomeService,

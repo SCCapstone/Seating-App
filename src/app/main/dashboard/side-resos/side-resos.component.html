@@ -12,7 +12,8 @@
         <mat-expansion-panel-header
           *ngIf="userIsAuthenticated && userId === reservation.creator &&
           welcomeService.selectedStoreID === reservation.store &&
-          reservation.status === 'New'"
+          reservation.status === 'New' &&
+          reservation.date === currentDate"
         >
           <div class="list-box-time">{{ reservation.time }}</div>
           <div class="list-box">{{ reservation.name }}</div>

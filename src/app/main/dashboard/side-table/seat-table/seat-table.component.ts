@@ -27,6 +27,8 @@ export class SeatTableComponent implements OnInit {
   userIsAuthenticated = false;
   userId: string;
 
+  currentDate = new Date().toLocaleDateString();
+
   reservation: Reservation;
   resList: Reservation[] = [];
   totalReservations = 0;
