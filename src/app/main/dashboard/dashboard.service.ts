@@ -56,10 +56,11 @@ export class DashboardService {
    * Updates the currently selected table.
    * @param guestsSeated the new number of guests sitting at the table.
    */
-  dashUpdateTable(guestsSeated: number, notes: string, server: Server) {
+  dashUpdateTable(guestsSeated: number, notes: string, server: Server, resId: string) {
     this.selectedTable.target._objects[0].guestsSeated = guestsSeated;
     this.selectedTable.target._objects[0].notes = notes;
     this.selectedTable.target._objects[0].serverId = server;
+    this.selectedTable.target._objects[0].resId = resId;
     if (guestsSeated !== 0) {
       this.selectedTable.target._objects[0].setColor("#4c86d1");
     } else {
@@ -77,7 +78,8 @@ export class DashboardService {
       "notes",
       "serverId",
       "timeSeated",
-      "partyName"
+      "partyName",
+      "resId"
     ]);
 
     this.floorplansService.updateFloorplan(
@@ -156,7 +158,8 @@ export class DashboardService {
         notes: "",
         serverId: "",
         partyName: "",
-        strokeWidth: 0
+        strokeWidth: 0,
+        resId: ""
       });
       table._objects[0].setColor("#7B638E");
       console.log("guests seated: " + table._objects[0].guestsSeated);
@@ -172,7 +175,8 @@ export class DashboardService {
       "notes",
       "serverId",
       "timeSeated",
-      "partyName"
+      "partyName",
+      "resId"
     ]);
 
     // console.log(this.selectedFloorplanName);

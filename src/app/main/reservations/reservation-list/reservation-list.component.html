@@ -24,6 +24,7 @@
     <div class="list-box-date">Day</div>
     <div class="list-box">Name</div>
     <div class="list-box">Size</div>
+    <div class="list-box">Status</div>
   </mat-card>
 
   <mat-accordion multi="true" *ngIf="reservations.length > 0 && !isLoading">
@@ -35,6 +36,7 @@
         <div class="list-box-date">{{ res.date.substring(0, 10) }}</div>
         <div class="list-box">{{ res.name }}</div>
         <div class="list-box">{{ res.size }}</div>
+        <div class="list-box">{{ res.status }}</div>
 
       </mat-expansion-panel-header>
       <p>Time / Date: {{ res.time }} / {{ res.date.substring(0, 10) }}</p>

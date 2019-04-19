@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 import { Store } from "../../manager/store/store.model";
@@ -69,7 +69,8 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
     public welcomeService: WelcomeService,
     public dialog: MatDialog,
     public route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   // Form control when initialized; validation length and authentication.
@@ -108,7 +109,6 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       }),
       notes: new FormControl(null, {
-        validators: [Validators.required]
       }),
       store: new FormControl(null, {
         validators: [Validators.required]
@@ -204,8 +204,12 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.form.value.date.toLocaleDateString(),
         this.form.value.notes,
         this.form.value.store,
-        "new"
-      );
+        "New"
+      ).subscribe(() => {
+        this.reservationsService.getReservations();
+        this.isLoading = false;
+        this.router.navigate(["/main/reservations"]);
+      });
     }
 
     this.form.reset();

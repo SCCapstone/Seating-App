@@ -5,6 +5,7 @@ import { DashboardService } from '../dashboard.service';
 import { SeatTableComponent } from "../side-table/seat-table/seat-table.component";
 import { Server } from '../../manager/servers/server.model';
 import { ErrorComponent } from 'src/app/error/error.component';
+import { ReservationsService } from "../../reservations/reservations.service";
 
 @Component({
   selector: 'app-side-table',
@@ -18,10 +19,12 @@ export class SideTableComponent implements OnInit {
   notes = "";
   tableServer: Server;
   serverName = "";
+  resId = "";
 
   constructor(
     public dialog: MatDialog,
-    public dashboardService: DashboardService
+    public dashboardService: DashboardService,
+    public reservationsService: ReservationsService
   ) {}
 
   ngOnInit() {
@@ -62,7 +65,14 @@ export class SideTableComponent implements OnInit {
     if (this.dashboardService.dashGetTable() !== null) {
       this.guestsSeated = 0;
       this.notes = "";
-      this.dashboardService.dashUpdateTable(0, "", this.tableServer);
+      // Checks if table has a reservation attatched and deletes if so
+      if (this.resId !== "") {
+        this.reservationsService.deleteReservation(this.resId)
+          .subscribe(() => {
+            this.reservationsService.getReservations();
+          });
+      }
+      this.dashboardService.dashUpdateTable(0, "", this.tableServer, "");
     } else {
       console.log("No table selected");
       this.dialog.open(ErrorComponent, { data: { message: "No table selected" } });
@@ -85,12 +95,14 @@ export class SideTableComponent implements OnInit {
       this.notes = table.target._objects[0].notes;
       this.tableServer = table.target._objects[0].serverId;
       this.serverName = this.tableServer.name;
+      this.resId = table.target._objects[0].resId;
     } else {
       this.tableName = "";
       this.guestsSeated = 0;
       this.notes = "";
       this.tableServer = null;
       this.serverName = "";
+      this.resId = "";
     }
   }
 }
