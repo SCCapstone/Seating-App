@@ -89,5 +89,6 @@ export class WelcomeComponent implements OnInit {
 
   loadDefaultStore(storeName: string, storeID: string, floorplanID: string) {
     this.welcomeService.loadDefaultStore(storeName, storeID, floorplanID);
+    
   }
 }
