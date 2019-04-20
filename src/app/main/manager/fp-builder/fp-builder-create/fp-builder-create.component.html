@@ -2,8 +2,8 @@
   <h3>Floorplan Builder</h3>
   <form [formGroup]="form" (submit)="saveCanvas()" *ngIf="!isLoading">
     <mat-form-field>
-      <mat-label>Store</mat-label>
-        <mat-select formControlName="store">
+        <mat-label>{{ selectedStoreName }}</mat-label>
+        <mat-select formControlName="store" placeholder="Select a Store">
           <ng-container *ngFor="let st of storeList">
             <mat-option  *ngIf="userIsAuthenticated && userId === st.creator" [value]="st.id">
               {{st.name}}
@@ -18,7 +18,6 @@
   <button mat-rasied-button class="table-button" (click)="onCancel()">
       Cancel
   </button>
-  <!-- (click)="deleteFloorplan(floorplan.id)"  -->
     <div class="table-button-group">
     <button mat-rasied-button class="table-button" (click)="addRect()">
       Add Rectangle Table
@@ -30,17 +29,8 @@
       Delete Selected Table
     </button>
   </div>
-
   <div class="table-view">
     <div class="canvas-wrap" id="canvas-wrap">
       <canvas id="canvas" class="canvas" style="border: 1px solid rgb(54, 54, 54);"></canvas>
     </div>
   </div>
-<!--
-  <div class="table-button-group">
-    <button mat-rasied-button class="table-button" type="submit">
-      Save Floorplan
-    </button>
-  </div>
-</div>
--->

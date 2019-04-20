@@ -10,6 +10,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Form, FormGroup, Validators, FormControl } from "@angular/forms";
 import { Store } from "../../store/store.model";
 import { StoresService } from "../../store/stores.service";
+import { WelcomeService } from "../../../welcome/welcome.service";
 
 
 declare let fabric;
@@ -36,6 +37,8 @@ export class FpBuilderCreateComponent implements OnInit {
 
   store: Store;
   storeList: Store[] = [];
+  selectedStoreID: string;
+  selectedStoreName = "Select a Store";
   defaultFloorplan: string;
   totalStores = 0;
 
@@ -52,7 +55,8 @@ export class FpBuilderCreateComponent implements OnInit {
     public floorplansService: FloorplansService,
     public route: ActivatedRoute,
     private authService: AuthService,
-    public storesService: StoresService
+    public storesService: StoresService,
+    public welcomeService: WelcomeService
   ) {}
 
   ngOnInit() {
@@ -77,6 +81,14 @@ export class FpBuilderCreateComponent implements OnInit {
           validators: [Validators.required]
      })
     });
+    // Sets selected store
+    if (this.welcomeService.selectedStoreID != null) {
+      this.selectedStoreID = this.welcomeService.selectedStoreID;
+      this.selectedStoreName = this.welcomeService.selectedStoreName;
+      this.form.setValue({
+        store: this.selectedStoreID
+      });
+    }
 
     // Brett bringing a list of stores
     this.storesService.getStores();
@@ -101,11 +113,6 @@ export class FpBuilderCreateComponent implements OnInit {
         this.userId = this.authService.getUserId();
       });
 
-/*     this.authStatusSub = this.authService
-    .getAuthStatusListener()
-    .subscribe(authStatus => {
-      this.isLoading = false;
-    }); */
     this.canvas = new fabric.Canvas("canvas", {});
     const canvasSpec  = document.getElementById("canvas-wrap");
     this.canvas.setHeight(canvasSpec.clientHeight - 50);

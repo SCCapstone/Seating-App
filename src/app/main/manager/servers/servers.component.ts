@@ -129,6 +129,8 @@ export class ServersAddComponent implements OnInit, OnDestroy {
   store: Store;
   storeList: Store[] = [];
   totalStores = 0;
+  selectedStoreID: string;
+  selectedStoreName = "Select a Store";
 
   userIsAuthenticated = false;
   userId: string;
@@ -147,7 +149,8 @@ export class ServersAddComponent implements OnInit, OnDestroy {
     public serversService: ServersService,
     public storesService: StoresService,
     public route: ActivatedRoute,
-    public authService: AuthService
+    public authService: AuthService,
+    public welcomeService: WelcomeService
   ) {}
 
   ngOnInit() {
@@ -179,6 +182,16 @@ export class ServersAddComponent implements OnInit, OnDestroy {
       })
     });
     this.serverId = null;
+    // Sets selected store
+    if (this.welcomeService.selectedStoreID != null) {
+      this.selectedStoreID = this.welcomeService.selectedStoreID;
+      this.selectedStoreName = this.welcomeService.selectedStoreName;
+      this.form.setValue({
+        name: this.form.value.name,
+        color: this.form.value.color,
+        store: this.selectedStoreID
+      });
+    }
   }
 
   onSaveServer() {
@@ -233,8 +246,6 @@ export class ServersEditComponent implements OnInit, OnDestroy {
 
   store: Store;
   storeList: Store[] = [];
-  // selectedStore = "None";
-  // selectedStoreID = "None";
   totalStores = 0;
   currentPage = 1;
 
