@@ -126,7 +126,7 @@ export class FloorplansService {
 
   // Deletes all floorplans associated with store upon deletion
   deleteStoreFloorplans(storeId: string) {
-    console.log("Deleting Servers...");
+    console.log("Deleting Floorplans...");
     this.floorplans.forEach(floorplan => {
       if (floorplan.storeId === storeId) {
         console.log("Deleted: " + floorplan.name);
