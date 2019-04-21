@@ -12,7 +12,7 @@ import { MAT_DIALOG_DATA } from "@angular/material";
 export class ErrorComponent {
   // data: { message: string };
   // private errorSub: Subscription;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string }) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string, link: string }) {}
   // constructor(private errorService: ErrorService) {}
 
   // ngOnInit() {
@@ -28,4 +28,5 @@ export class ErrorComponent {
   // ngOnDestroy() {
   //   this.errorSub.unsubscribe();
   // }
+
 }

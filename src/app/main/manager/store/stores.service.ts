@@ -1,11 +1,14 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Subject } from "rxjs";
+import { Subject, Subscribable, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 import { environment } from "../../../../environments/environment";
 import { Store } from "./store.model";
+import { WelcomeService } from "../../welcome/welcome.service";
+import { Floorplan } from "../fp-builder/floorplan.model";
+import { FloorplansService } from "../fp-builder/floorplan.service";
 
 const BACKEND_URL = environment.apiUrl + "/stores/";
 
@@ -18,7 +21,12 @@ export class StoresService {
     storeCount: number;
   }>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private welcomeService: WelcomeService,
+    private floorplansService: FloorplansService
+    ) {}
 
   getStores() {
     this.http
@@ -74,6 +82,7 @@ export class StoresService {
   }
 
   updateStore(id: string, name: string, FloorplanID: string) {
+
     let storeData: Store;
     storeData = {
       id: id,
@@ -81,6 +90,47 @@ export class StoresService {
       defaultFloorplan: FloorplanID,
       creator: null
     };
+
+    /*
+
+    // Checking if the floorplan that the store is being updated to is null
+    // If this is the case, find the next floorplan that belongs to that store,
+    // and set that to default.
+    if (FloorplanID === null) {
+
+      console.log("Store needs new floorplan");
+      let floorplans: Floorplan[];
+      let floorplansSub: Subscription;
+
+      floorplansSub = this.floorplansService
+      .getFloorplanUpdateListener()
+      .subscribe(
+        (floorplanData: {
+          floorplans: Floorplan[];
+        }) => {
+          floorplans = floorplanData.floorplans;
+          for (let i = 0; i <= floorplans.length; ++i) {
+            if (floorplans[i].storeId === id) {
+              storeData.defaultFloorplan = floorplans[i].id;
+              break;
+            }
+          }
+          if (this.welcomeService.selectedStoreID === id) {
+            console.log("Loading store in welcome component");
+            this.welcomeService.loadDefaultStore(name, id, storeData.defaultFloorplan);
+          }
+        }
+      );
+  }*/
+
+    if (this.welcomeService.selectedStoreID === id && FloorplanID !== null) {
+      console.log("Updating current store.");
+      this.welcomeService.loadDefaultStore(name, id, FloorplanID);
+    } else if (FloorplanID === null) {
+      console.log("Default floorplan deleted. Clearing dashboard");
+      this.welcomeService.clear();
+    }
+
     return this.http.put(BACKEND_URL + id, storeData);
   }
 

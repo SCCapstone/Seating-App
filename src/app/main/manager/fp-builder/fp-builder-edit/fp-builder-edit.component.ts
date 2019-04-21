@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import "fabric";
 import { FloorplansService } from "../floorplan.service";
 import { Subscription } from "rxjs";
+import { map } from "rxjs/operators";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { AuthService } from "src/app/auth/auth.service";
 import { Floorplan } from "../floorplan.model";
@@ -291,6 +292,22 @@ addRect() {
   deleteFloorplan(id: string) {
     // Currently prompts user for name. **TODO
     console.log("Deleting Floorplan with ID: " + id);
+
+        this.floorplansService.getFloorplan(id)
+        .subscribe(fpData => {
+          this.storesService.getStore(fpData.storeId)
+            .subscribe(storeData => {
+              if (storeData.defaultFloorplan === id) {
+                console.log("You just deleted the store's default floorplan!");
+                this.storesService.updateStore(storeData._id, storeData.name, null)
+                  .subscribe(() => {
+                    this.storesService.getStores();
+                  });
+              }
+            });
+        });
+
+
     this.floorplansService.deleteFloorplans(id)
       .subscribe(() => {
         console.log("Deleted!");

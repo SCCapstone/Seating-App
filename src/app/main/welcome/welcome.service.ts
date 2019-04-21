@@ -5,6 +5,7 @@ import { DashboardService } from '../dashboard/dashboard.service';
 import { FloorplansService } from '../manager/fp-builder/floorplan.service';
 import { Floorplan } from '../manager/fp-builder/floorplan.model';
 
+import { MatDialog } from '@angular/material';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +24,8 @@ export class WelcomeService {
 
   constructor(
     private dashboardService: DashboardService,
-    private floorplansService: FloorplansService
+    private floorplansService: FloorplansService,
+    public dialog: MatDialog
   ) {}
 
     /** Eddie's Loading a Default Store Method */

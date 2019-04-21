@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { StoresService } from 'src/app/main/manager/store/stores.service';
 import { Store } from '../manager/store/store.model';
 import { WelcomeService } from './welcome.service';
+import { ErrorComponent } from 'src/app/error/error.component';
+
 
 @Component({
   selector: 'app-welcome',
@@ -33,7 +35,8 @@ export class WelcomeComponent implements OnInit {
     public dialogRef: MatDialogRef<WelcomeComponent>,
     public welcomeService: WelcomeService,
     public storesService: StoresService,
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -88,7 +91,14 @@ export class WelcomeComponent implements OnInit {
   }
 
   loadDefaultStore(storeName: string, storeID: string, floorplanID: string) {
-    this.welcomeService.loadDefaultStore(storeName, storeID, floorplanID);
-    
+    if (floorplanID !== null) {
+      this.welcomeService.loadDefaultStore(storeName, storeID, floorplanID);
+      this.onNoClick();
+    } else {
+      this.dialog.open(ErrorComponent, { data: {
+        message: "Store does not have a default floorplan. Please set a default floorplan in manager page.",
+        link: "manager" } });
+      this.onNoClick();
+    }
   }
 }

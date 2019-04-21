@@ -288,9 +288,26 @@ addRect() {
         json_data,
         this.form.value.store
       )
-      .subscribe(() => {
+       .subscribe((data) => {
+        console.log("New Floorplan ID: ");
+        console.log(data.floorplan);
+
+        this.storesService.getStore(this.form.value.store)
+          .subscribe(storeData => {
+            if (storeData.defaultFloorplan === null) {
+              this.storesService.updateStore(storeData._id, storeData.name, data.floorplan.id)
+              .subscribe(() => {
+                this.storesService.getStores();
+              });
+            }
+          this.floorplansSub.unsubscribe();
+          });
+
         this.floorplansService.getFloorplans();
       });
+
+
+
       // the code below was created to set a default floorplan upon creation of a floorplan
       /* let tempStore;
        this.storesService

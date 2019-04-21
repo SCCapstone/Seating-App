@@ -96,10 +96,6 @@ export class FloorplansComponent implements OnInit {
     .subscribe(() => {
       this.storesService.getStores();
     });
-
-    if (this.selectedStoreID === this.welcomeService.selectedStoreID) {
-      this.welcomeService.selectedFloorplanID = fpId;
-    }
   }
 
   openCreateFloorplan(): void {

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
-import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material";
 import { WelcomeComponent } from "../welcome/welcome.component";
 
@@ -16,7 +15,6 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
     public dialog: MatDialog,
 
     ) {}
@@ -45,7 +43,6 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("The dialog was closed");
-      this.router.navigate(['/main/dashboard']); //goes to main page so values can load on manager and res pages
     });
   }
 }
