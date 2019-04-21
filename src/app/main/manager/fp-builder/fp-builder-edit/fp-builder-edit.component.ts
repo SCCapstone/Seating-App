@@ -135,6 +135,7 @@ export class FpBuilderEditComponent implements OnInit {
           creator: floorplanData.creator,
           storeId: floorplanData.storeId
         };
+        console.log(this.floorplan.json);
         this.canvas.loadFromJSON(this.floorplan.json);
       });
       this.canvas.renderAll();
@@ -273,7 +274,15 @@ addRect() {
   */
   saveCanvas() {
     console.log("Saving Canvas!");
-    const json_data = this.canvas.toJSON();
+    const json_data = this.canvas.toJSON([
+      "guestsSeated",
+      "name",
+      "notes",
+      "serverId",
+      "timeSeated",
+      "partyName",
+      "resId"
+    ]);
     console.log("Argument ID: " + this.floorplan.id);
       this.floorplansService
       .updateFloorplan(
