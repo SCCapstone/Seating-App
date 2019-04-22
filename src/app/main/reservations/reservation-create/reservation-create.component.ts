@@ -100,7 +100,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       }),
       phone: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(10)]
+        validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
       }),
       time: new FormControl(null, {
         validators: [Validators.required]
@@ -150,8 +150,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.reservationId = null;
       }
       this.userIsAuthenticated = this.authService.getIsAuth();
-      this.authStatusSub = this.authService
-      .getAuthStatusListener()
+      this.authStatusSub = this.authService.getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
@@ -178,10 +177,20 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
       console.log("Cannot Save. Invalid field");
       return;
     }
-    if (this.form.value.size < 0 || this.form.value.phone.length < 10 ) {
-      console.log("Invalid number of guests or Invalid Phone");
+    if (this.form.value.size < 0 ) {
+      console.log("Invalid number of guests");
       this.dialog.open(ErrorComponent, { data: { message: "Invalid number of guests or phone" } });
-    } else {
+    } 
+
+    if (this.form.value.phone.length < 10 ){
+      console.log("Invalid phone number");
+      this.dialog.open(ErrorComponent, { data: { message: "Invalid phone" } });
+    }
+    if (this.form.value.phone.length > 10) {
+      console.log("Invalid phone number");
+      this.dialog.open(ErrorComponent, { data: { message: "Invalid phone" } });
+    }
+    else {
     this.isLoading = true;
     if (this.mode === "create") {
       this.reservationsService.addReservation(

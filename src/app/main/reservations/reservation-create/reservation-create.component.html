@@ -39,13 +39,11 @@ Uses form control built in-->
     <mat-form-field>
       <input
         matInput
-        type="number" minlength="10"
+        type="number" pattern=".{10,10}"
         formControlName="phone"
         placeholder="Phone Number"
       />
-      <mat-error *ngIf="form.get('phone').invalid"
-        >Please enter a phone number without hyphens.</mat-error
-      > <!--No hypens since must be number. Will add check for char length-->
+      <mat-error *ngIf="form.get('phone').invalid">Please enter a phone number without hyphens.</mat-error> 
     </mat-form-field>
     <div class="time-date">
       <mat-form-field>
