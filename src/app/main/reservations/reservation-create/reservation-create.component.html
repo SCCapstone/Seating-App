@@ -28,7 +28,7 @@ Uses form control built in-->
     <mat-form-field>
       <input
         matInput
-        type="number" min="0"
+        type="number" min='0' onkeypress='return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57'
         formControlName="size"
         placeholder="Reservation Size"
       />
