@@ -108,7 +108,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
       date: new FormControl(null, {
         validators: [Validators.required]
       }),
-      notes: new FormControl(null, {
+      notes: new FormControl(null, { //notes arent required
       }),
       store: new FormControl(null, {
         validators: [Validators.required]
@@ -173,6 +173,9 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
   }
 
   onSaveReservation() {
+    var start = new Date();
+    start.setHours(0,0,0,0);
+
     if (this.form.invalid) {
       console.log("Cannot Save. Invalid field");
       return;
@@ -190,6 +193,10 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
       console.log("Invalid phone number");
       this.dialog.open(ErrorComponent, { data: { message: "Invalid phone" } });
     }
+    if (this.form.value.date < start ){
+      console.log("Date cannot be in the past");
+    }
+
     else {
     this.isLoading = true;
     if (this.mode === "create") {
@@ -220,9 +227,10 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.router.navigate(["/main/reservations"]);
       });
     }
-
     this.form.reset();
   }
+
+  
   }
 
   setReservationStore(name: string, storeID: string) {
