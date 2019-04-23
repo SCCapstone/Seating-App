@@ -100,5 +100,6 @@ export class WelcomeComponent implements OnInit {
         link: "manager" } });
       this.onNoClick();
     }
+    this.storesService.getStores();
   }
 }

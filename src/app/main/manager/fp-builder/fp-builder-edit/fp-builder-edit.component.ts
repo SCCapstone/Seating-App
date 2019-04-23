@@ -39,9 +39,6 @@ export class FpBuilderEditComponent implements OnInit {
 
   store: Store;
   storeList: Store[] = [];
-  selectedStoreID: string;
-  selectedStoreName = "Select a Store";
-  defaultFloorplan: string;
   totalStores = 0;
 
   form: FormGroup;
@@ -83,14 +80,7 @@ export class FpBuilderEditComponent implements OnInit {
           validators: [Validators.required]
      })
     });
-    // Sets selected store
-    if (this.welcomeService.selectedStoreID != null) {
-      this.selectedStoreID = this.welcomeService.selectedStoreID;
-      this.selectedStoreName = this.welcomeService.selectedStoreName;
-      this.form.setValue({
-        store: this.selectedStoreID
-      });
-  }
+
     // Brett bringing a list of stores
     this.storesService.getStores();
     this.storesSub = this.storesService
@@ -122,6 +112,15 @@ export class FpBuilderEditComponent implements OnInit {
     console.log("loading floorplan");
     this.mode = "edit";
     this.floorplanId = this.floorplansService.getFloorplanToEdit();
+
+    // Sets the store form to the current store that the floorplan belongs to.
+    this.floorplansService.getFloorplan(this.floorplansService.getFloorplanToEdit())
+      .subscribe(fpData => {
+        this.form.setValue({
+          store: fpData.storeId
+        });
+      });
+
     console.log("floorplan id: " + this.floorplanId);
     this.isLoading = true;
     this.floorplansService
@@ -270,7 +269,7 @@ addRect() {
   }
 
   /**
-   * Saves the canvas to the database
+   * Saves the floorplan to the database
   */
   saveCanvas() {
     console.log("Saving Canvas!");
@@ -298,10 +297,15 @@ addRect() {
       this.dialogRef.close();
   }
 
+  /**
+   * Deletes the floorplan with the provided ID from the server.
+   * @param id The ID of the floorplan to be deleted
+   */
   deleteFloorplan(id: string) {
-    // Currently prompts user for name. **TODO
     console.log("Deleting Floorplan with ID: " + id);
 
+        // Checking to see if the default floorplan was just deleted.
+        // If it was, sets default to null.
         this.floorplansService.getFloorplan(id)
         .subscribe(fpData => {
           this.storesService.getStore(fpData.storeId)
@@ -325,6 +329,10 @@ addRect() {
     this.dialogRef.close();
     this.canvas.renderAll();
   }
+
+  /**
+   * Closes the dialog box.
+   */
   onCancel(): void {
     this.dialogRef.close();
   }

@@ -66,12 +66,22 @@ export class FloorplansComponent implements OnInit {
       .subscribe((storeData: { stores: Store[]; storeCount: number }) => {
         this.isLoading = false;
         this.storeList = storeData.stores;
+
+
+        if (this.welcomeService.selectedStoreID != null) {
+          this.selectedStoreID = this.welcomeService.selectedStoreID;
+          this.selectedStoreName = this.welcomeService.selectedStoreName;
+          this.selectedStoreFP = this.welcomeService.selectedFloorplanID;
+        }
+
+        if (this.selectedStoreFP === null) {
+          this.storesService.getStore(this.selectedStoreID)
+            .subscribe(st => {
+              this.selectStore(st._id, st.name, st.defaultFloorplan);
+            });
+        }
       });
-      if (this.welcomeService.selectedStoreID != null) {
-        this.selectedStoreID = this.welcomeService.selectedStoreID;
-        this.selectedStoreName = this.welcomeService.selectedStoreName;
-        this.selectedStoreFP = this.welcomeService.selectedFloorplanID;
-      }
+
   }
 
   /**
@@ -84,9 +94,11 @@ export class FloorplansComponent implements OnInit {
     this.selectedStoreFP = storeFP;
   }
 
+  /**
+   * Sets the default floorplan of a store.
+   * @param fpId the floorplan ID that is to be set to default
+   */
   setDefaultFP(fpId: string) {
-    console.log("Setting default fp for store name: " + this.selectedStoreName
-                + "\nto fp: " + fpId);
     this.storesService
     .updateStore(
       this.selectedStoreID,

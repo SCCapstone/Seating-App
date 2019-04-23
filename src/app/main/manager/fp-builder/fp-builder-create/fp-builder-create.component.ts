@@ -37,9 +37,6 @@ export class FpBuilderCreateComponent implements OnInit {
 
   store: Store;
   storeList: Store[] = [];
-  selectedStoreID: string;
-  selectedStoreName = "Select a Store";
-  defaultFloorplan: string;
   totalStores = 0;
 
   form: FormGroup;
@@ -81,16 +78,12 @@ export class FpBuilderCreateComponent implements OnInit {
           validators: [Validators.required]
      })
     });
-    // Sets selected store
-    if (this.welcomeService.selectedStoreID != null) {
-      this.selectedStoreID = this.welcomeService.selectedStoreID;
-      this.selectedStoreName = this.welcomeService.selectedStoreName;
-      this.form.setValue({
-        store: this.selectedStoreID
-      });
-    }
 
-    // Brett bringing a list of stores
+
+    /**
+     * This is the subscription functionality for stores. Anything that needs
+     * to be done every time the list is updated needs to be done in here.
+     */
     this.storesService.getStores();
     this.storesSub = this.storesService
         .getStoreUpdateListener()
@@ -102,6 +95,13 @@ export class FpBuilderCreateComponent implements OnInit {
             this.isLoading = false;
             this.totalStores = storeData.storeCount;
             this.storeList = storeData.stores;
+
+            // Checks the radio button of the default store.
+            if (this.welcomeService.selectedStoreID != null) {
+              this.form.setValue({
+                store: this.welcomeService.selectedStoreID
+              });
+            }
           }
         );
 
@@ -268,13 +268,13 @@ addRect() {
 
   }
 
-  // Delete the selected object
+  // Delete the selected table object
   discardObject() {
     this.canvas.remove(this.canvas.getActiveObject());
   }
 
   /**
-   * Saves the canvas to the database
+   * Saves the floorplan to the database.
   */
   saveCanvas() {
     console.log("Saving Canvas!");
@@ -289,9 +289,12 @@ addRect() {
         this.form.value.store
       )
        .subscribe((data) => {
-        console.log("New Floorplan ID: ");
-        console.log(data.floorplan);
 
+        /**
+         * This code checks if the store the created floorplan belongs to does
+         * not have a default floorplan. If it does not, it sets the newly
+         * created floorplan as that store's default.
+         */
         this.storesService.getStore(this.form.value.store)
           .subscribe(storeData => {
             if (storeData.defaultFloorplan === null) {
@@ -300,31 +303,10 @@ addRect() {
                 this.storesService.getStores();
               });
             }
-          this.floorplansSub.unsubscribe();
           });
-
+        // Updates the list of floorplans.
         this.floorplansService.getFloorplans();
       });
-
-
-
-      // the code below was created to set a default floorplan upon creation of a floorplan
-      /* let tempStore;
-       this.storesService
-      .getStore(this.form.value.store)
-      .subscribe(storeData => {
-        tempStore = {
-          id: storeData._id,
-          name: storeData.name,
-          creator: storeData.creator,
-          defaultFloorplan: storeData.defaultFloorplan
-        };
-      });
-    if (tempStore.defaultFloorplan === null) {
-      this.storesService.updateStore(tempStore.id, tempStore.name, tempStore.floorplanId);
-    }
-    */
-
     this.dialogRef.close();
   }
   onCancel(): void {

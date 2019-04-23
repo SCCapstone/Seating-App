@@ -2,7 +2,7 @@
   <h3>Floorplan Builder</h3>
   <form [formGroup]="form" (submit)="saveCanvas()" *ngIf="!isLoading">
     <mat-form-field>
-        <mat-label>{{ selectedStoreName }}</mat-label>
+        <mat-label>Store</mat-label>
         <mat-select formControlName="store" placeholder="Select a Store">
           <ng-container *ngFor="let st of storeList">
             <mat-option  *ngIf="userIsAuthenticated && userId === st.creator" [value]="st.id">
