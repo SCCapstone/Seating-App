@@ -85,7 +85,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       }),
       phone: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)]
+        validators: [Validators.required]
       }),
       time: new FormControl(null, {
         validators: [Validators.required]
@@ -164,19 +164,6 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       console.log("Cannot Save. Invalid field");
       return;
-    }
-    if (this.form.value.size < 0 ) {
-      console.log("Invalid number of guests");
-      this.dialog.open(ErrorComponent, { data: { message: "Invalid number of guests or phone" } });
-    }
-
-    if (this.form.value.phone.length < 10 ) {
-      console.log("Invalid phone number");
-      this.dialog.open(ErrorComponent, { data: { message: "Invalid phone" } });
-    }
-    if (this.form.value.phone.length > 10) {
-      console.log("Invalid phone number");
-      this.dialog.open(ErrorComponent, { data: { message: "Invalid phone" } });
     }
     if (this.form.value.date < start ) {
       console.log("Date cannot be in the past");
