@@ -43,21 +43,12 @@ Uses form control built in-->
         formControlName="phone"
         placeholder="Phone Number"
       />
-      <mat-error *ngIf="form.get('phone').invalid">Please enter a phone number without hyphens.</mat-error> 
+      <mat-error *ngIf="form.get('phone').invalid">Please enter a phone number without hyphens.</mat-error>
     </mat-form-field>
     <div class="time-date">
       <mat-form-field>
-        <mat-select
-          placeholder="Dining Time"
-          type="text"
-          formControlName="time"
-          required
-        >
-          <mat-option>--</mat-option>
-          <mat-option *ngFor="let time of times" [value]="time.value">
-            {{ time.viewValue }}
-          </mat-option>
-        </mat-select>
+        <mat-label>Time</mat-label>
+        <input matInput type="time" formControlName="time"/>
         <mat-error *ngIf="form.get('time').invalid"
           >Please choose a dining time.</mat-error
         >

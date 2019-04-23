@@ -7,14 +7,23 @@
       <mat-label>{{ selectedStoreName }}</mat-label>
       <mat-select>
         <ng-container *ngFor="let store of storeList">
-          <mat-option (click)="selectStore(store.id, store.name)" *ngIf="userIsAuthenticated && userId === store.creator">
-            {{store.name}}
+          <mat-option
+            (click)="selectStore(store.id, store.name)"
+            *ngIf="userIsAuthenticated && userId === store.creator"
+          >
+            {{ store.name }}
           </mat-option>
         </ng-container>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [value]="selectedDate" (dateChange)="filterDate($event)">
+      <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Choose a date"
+        [value]="selectedDate"
+        (dateChange)="filterDate($event)"
+      />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -30,23 +39,26 @@
   <mat-accordion multi="true" *ngIf="reservations.length > 0 && !isLoading">
     <mat-expansion-panel *ngFor="let res of reservations">
       <mat-expansion-panel-header
-        *ngIf="userIsAuthenticated && userId === res.creator && res.store === selectedStoreID && res.date === selectedDate.toLocaleDateString()"
+        *ngIf="
+          userIsAuthenticated &&
+          userId === res.creator &&
+          res.store === selectedStoreID &&
+          res.date === selectedDate.toLocaleDateString()
+        "
       >
-        <div class="list-box-time">{{ res.time }}</div>
+        <div class="list-box-time">{{ convertTimeTo12Hour(res.time) }}</div>
         <div class="list-box-date">{{ res.date.substring(0, 10) }}</div>
         <div class="list-box">{{ res.name }}</div>
         <div class="list-box">{{ res.size }}</div>
         <div class="list-box">{{ res.status }}</div>
-
       </mat-expansion-panel-header>
-      <p>Time / Date: {{ res.time }} / {{ res.date.substring(0, 10) }}</p>
+      <p>Date: {{ res.date.substring(0, 10) }}</p>
+      <p>Time: {{ convertTimeTo12Hour(res.time) }}</p>
       <p>Name: {{ res.name }}</p>
       <p>Size: {{ res.size }}</p>
       <p>Phone Number: {{ res.phone }}</p>
       <p>Notes: {{ res.notes }}</p>
-      <mat-action-row
-        *ngIf="userIsAuthenticated && userId === res.creator"
-      >
+      <mat-action-row *ngIf="userIsAuthenticated && userId === res.creator">
         <a
           mat-button
           color="primary"
@@ -60,8 +72,10 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-  <p class="info-text mat-body-1" *ngIf="reservations.length <= 0 && !isLoading">
+  <p
+    class="info-text mat-body-1"
+    *ngIf="reservations.length <= 0 && !isLoading"
+  >
     No reservations added yet!
   </p>
 </div>
-

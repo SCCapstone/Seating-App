@@ -13,10 +13,6 @@ import { WelcomeService } from "../../welcome/welcome.service";
 import { ErrorComponent } from "src/app/error/error.component";
 import { MatDialog } from "@angular/material";
 
-export interface Time {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: "app-reservation-create",
@@ -50,17 +46,6 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
   selectedStoreID: string;
   totalStores = 0;
   selectedStoreName = "Select a Store";
-
-  times: Time[] = [
-    { value: "4:30 pm", viewValue: "4:30 pm" },
-    { value: "5:00 pm", viewValue: "5:00 pm" },
-    { value: "5:30 pm", viewValue: "5:30 pm" },
-    { value: "6:00 pm", viewValue: "6:00 pm" },
-    { value: "6:30 pm", viewValue: "6:30 pm" },
-    { value: "7:00 pm", viewValue: "7:00 pm" },
-    { value: "7:30 pm", viewValue: "7:30 pm" },
-    { value: "8:00 pm", viewValue: "8:00 pm" }
-  ];
 
   constructor(
     public dashboardService: DashboardService,
@@ -108,7 +93,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
       date: new FormControl(null, {
         validators: [Validators.required]
       }),
-      notes: new FormControl(null, { //notes arent required
+      notes: new FormControl(null, { // notes arent required
       }),
       store: new FormControl(null, {
         validators: [Validators.required]
@@ -173,8 +158,8 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
   }
 
   onSaveReservation() {
-    var start = new Date();
-    start.setHours(0,0,0,0);
+    const start = new Date();
+    start.setHours(0, 0, 0, 0);
 
     if (this.form.invalid) {
       console.log("Cannot Save. Invalid field");
@@ -183,9 +168,9 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
     if (this.form.value.size < 0 ) {
       console.log("Invalid number of guests");
       this.dialog.open(ErrorComponent, { data: { message: "Invalid number of guests or phone" } });
-    } 
+    }
 
-    if (this.form.value.phone.length < 10 ){
+    if (this.form.value.phone.length < 10 ) {
       console.log("Invalid phone number");
       this.dialog.open(ErrorComponent, { data: { message: "Invalid phone" } });
     }
@@ -193,13 +178,13 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
       console.log("Invalid phone number");
       this.dialog.open(ErrorComponent, { data: { message: "Invalid phone" } });
     }
-    if (this.form.value.date < start ){
+    if (this.form.value.date < start ) {
       console.log("Date cannot be in the past");
-    }
+    } else {
 
-    else {
     this.isLoading = true;
     if (this.mode === "create") {
+      console.log(this.form.value.time);
       this.reservationsService.addReservation(
         this.form.value.name,
         this.form.value.size,
@@ -230,7 +215,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
     this.form.reset();
   }
 
-  
+
   }
 
   setReservationStore(name: string, storeID: string) {

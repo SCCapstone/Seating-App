@@ -66,6 +66,21 @@ export class SideResosComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * Converts the provided time value into a 12h format with AM or PM.
+   * @param time The time value to be converted
+   */
+  convertTimeTo12Hour(time: string) {
+    let time12Hour = "";
+
+    if (+time.substring(0, 2) > 12 ) {
+      time12Hour = ((+time.substring(0, 2) - 12) + time.substring(2, 5) + " PM");
+    } else {
+      time12Hour = time + " AM";
+    }
+    return time12Hour;
+  }
+
   ngOnDestroy() {
     this.reservationsSub.unsubscribe();
     this.authStatusSub.unsubscribe();

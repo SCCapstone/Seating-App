@@ -15,12 +15,13 @@
           reservation.status === 'New' &&
           reservation.date === currentDate"
         >
-          <div class="list-box-time">{{ reservation.time }}</div>
+          <div class="list-box-time">{{ convertTimeTo12Hour(reservation.time) }}</div>
           <div class="list-box">{{ reservation.name }}</div>
           <div class="list-box">{{ reservation.size }}</div>
 
         </mat-expansion-panel-header>
-        <p>Time / Date: {{ reservation.time }} / {{ reservation.date.substring(0, 10) }}</p>
+        <p>Date: {{ reservation.date.substring(0, 10) }}</p>
+        <p>Time: {{ convertTimeTo12Hour(reservation.time) }}</p>
         <p>Name: {{ reservation.name }}</p>
         <p>Size: {{ reservation.size }}</p>
         <p>Phone Number: {{ reservation.phone }}</p>
