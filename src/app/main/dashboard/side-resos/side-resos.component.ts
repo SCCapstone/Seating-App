@@ -43,6 +43,7 @@ export class SideResosComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.totalReservations = reservationData.reservationCount;
           this.reservations = reservationData.reservations;
+          this.reservations.sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
         }
       );
     this.userIsAuthenticated = this.authService.getIsAuth();

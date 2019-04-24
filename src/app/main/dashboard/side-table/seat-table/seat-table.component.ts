@@ -65,6 +65,7 @@ export class SeatTableComponent implements OnInit {
         this.isLoading = false;
         this.totalReservations = reservationData.reservationCount;
         this.resList = reservationData.reservations;
+        this.resList.sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
       }
     );
     this.userIsAuthenticated = this.authService.getIsAuth();
