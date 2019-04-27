@@ -1,24 +1,36 @@
 <main>
-  <img src="../../../assets/images/logo-nobg-color.png" class="logo" />
-  <mat-video title="Our App" [preload]="true" color="accent" spinner="spin">
-    <source matVideoSource src="../../../assets/images/video.mp4" type="video/mp4">
-  </mat-video>
-  <mat-card class="about">
-    <h3 style="color: #461e64b4">About Us</h3>
-    <p>
-      The Seating-App was founded by a group of University of South Carolina students
-      who wanted to provide a useful tool for restaurant owners in Columbia, SC. We
-      realized that many of these owners could benefit from a web application that
-      efficiently sat customers at tables, tracked reservations, and provided real time
-      statistics in order to make business decisions. We hope you enjoy your experience
-      and thank you for using The Seating App!
-    </p>
-    <mat-card-subtitle style="text-align:right"
-    >-The Seating App Development Team</mat-card-subtitle
-    >
-  </mat-card>
-  <mat-tab-group class="login-reg" mat-align-tabs="center">
-    <mat-tab label="Login"><app-login></app-login></mat-tab>
-    <mat-tab label="Register"><app-signup></app-signup></mat-tab>
-  </mat-tab-group>
+  <div class="container-fluid">
+    <img src="../../../assets/images/logo-nobg-color.png" class="logo" />
+    <div class="row mb-4">
+      <div class="col-sm-12 col-md-7">
+        <mat-card class="about">
+          <h3 style="color: #461e64b4">About Us</h3>
+          <p>
+            The Seating-App was founded by a group of University of South Carolina students
+            who wanted to provide a useful tool for restaurant owners in Columbia, SC. We
+            realized that many of these owners could benefit from a web application that
+            efficiently sat customers at tables, tracked reservations, and provided real time
+            statistics in order to make business decisions. We hope you enjoy your experience
+            and thank you for using The Seating App!
+          </p>
+          <mat-card-subtitle style="text-align:right"
+          >-The Seating App Development Team</mat-card-subtitle
+          >
+        </mat-card>
+      </div>
+      <div class="col-sm-12 col-md-5">
+        <mat-tab-group class="login-reg" mat-align-tabs="center">
+          <mat-tab label="Login"><app-login></app-login></mat-tab>
+          <mat-tab label="Register"><app-signup></app-signup></mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-6 offset-md-3 mt-4">
+        <mat-video title="Seating App Video Demo" [preload]="true" color="accent" spinner="spin">
+          <source matVideoSource src="../../../assets/images/video.mp4" type="video/mp4">
+        </mat-video>
+      </div>
+    </div>
+  </div>
 </main>
