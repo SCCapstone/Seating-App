@@ -124,7 +124,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
               size: this.reservation.size,
               phone: this.reservation.phone,
               time: this.reservation.time,
-              date: this.reservation.date,
+              date: new Date(this.reservation.date),
               notes: this.reservation.notes,
               store: this.reservation.store
             });
