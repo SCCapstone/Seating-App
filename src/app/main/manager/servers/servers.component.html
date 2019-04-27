@@ -9,10 +9,13 @@
     <div></div>
     <mat-form-field>
       <mat-label>{{ selectedStoreName }}</mat-label>
-       <mat-select>
+      <mat-select>
         <ng-container *ngFor="let st of storeList">
-          <mat-option (click)="selectStore(st.id, st.name)" *ngIf="userIsAuthenticated && userId === st.creator">
-            {{st.name}}
+          <mat-option
+            (click)="selectStore(st.id, st.name)"
+            *ngIf="userIsAuthenticated && userId === st.creator"
+          >
+            {{ st.name }}
           </mat-option>
         </ng-container>
       </mat-select>
@@ -21,20 +24,26 @@
       <h4>Server Name</h4>
     </div>
     <div *ngFor="let server of servers">
-    <mat-list *ngIf="userIsAuthenticated && userId === server.creator && server.store === selectedStoreID">
-      <mat-list-item>
-        <div class="color-box" [ngStyle]="{background : server.color}"></div>
-        {{ server.name }}
-        <button
-          class="edit-button"
-          mat-raised-button
-          style="margin-left:auto"
-          (click)="openEditServer(server.id)"
-        >
-          Edit Server
-        </button>
-      </mat-list-item>
-    </mat-list>
-  </div>
+      <mat-list
+        *ngIf="
+          userIsAuthenticated &&
+          userId === server.creator &&
+          server.store === selectedStoreID
+        "
+      >
+        <mat-list-item>
+          <div class="color-box" [ngStyle]="{ background: server.color }"></div>
+          {{ server.name }}
+          <button
+            class="edit-button"
+            mat-raised-button
+            style="margin-left:auto"
+            (click)="openEditServer(server.id)"
+          >
+            Edit Server
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </div>
   </mat-card>
 </div>

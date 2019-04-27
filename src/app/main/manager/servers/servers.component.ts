@@ -136,13 +136,21 @@ export class ServersAddComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
 
+  // The list of colors the user will be able to choose from when creating
+  // a user.
   colors: Color[] = [
     { name: "Red", hex: "#FF0000" },
+    { name: "Garnet", hex: "#73000A" },
+    { name: "Orange", hex: "#FF8000" },
+    { name: "Yellow", hex: "#FFFF00" },
+    { name: "Lime", hex: "#B5E61D" },
+    { name: "Green", hex: "#008000" },
+    { name: "Cyan", hex: "#00D0D0" },
     { name: "Blue", hex: "#0000FF" },
-    { name: "Green", hex: "#00FF00" },
-    { name: "Purple", hex: "#FF00FF" },
-    { name: "Cyan", hex: "#00FFFF" },
-    { name: "Yellow", hex: "#FFFF00" }
+    { name: "Magenta", hex: "#D000D0" },
+    { name: "Pink", hex: "#FF80C0" },
+    { name: "Black", hex: "#202020" },
+    { name: "Grey", hex: "#909090" }
   ];
 
   constructor(
@@ -158,6 +166,7 @@ export class ServersAddComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.storesService.getStores();
     this.userId = this.authService.getUserId();
+    // Subscribe to store updates.
     this.storesSub = this.storesService
       .getStoreUpdateListener()
       .subscribe((storeData: { stores: Store[]; storeCount: number }) => {
@@ -165,12 +174,16 @@ export class ServersAddComponent implements OnInit, OnDestroy {
         this.totalStores = storeData.storeCount;
         this.storeList = storeData.stores;
       });
+
+    // Subscribe to auth updates.
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe(authStatus => {
         this.isLoading = false;
       });
+
+    // Build the form for creating a new server.
     this.form = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required]
@@ -183,7 +196,9 @@ export class ServersAddComponent implements OnInit, OnDestroy {
       })
     });
     this.serverId = null;
-    // Sets selected store
+
+    // Sets selected store value if a store has been selected in the welcome
+    // modal.
     if (this.welcomeService.selectedStoreID != null) {
       this.selectedStoreID = this.welcomeService.selectedStoreID;
       this.selectedStoreName = this.welcomeService.selectedStoreName;
@@ -195,6 +210,9 @@ export class ServersAddComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Saves the server, provided the information is valid.
+   */
   onSaveServer() {
     if (this.form.invalid) {
       return;
@@ -215,15 +233,11 @@ export class ServersAddComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-/*   setServerStore(name: string, storeID: string) {
-    this.selectedStore = name;
-    this.selectedStoreID = storeID;
-  } */
-
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
   }
 
+  // Closes the dialog.
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -253,14 +267,20 @@ export class ServersEditComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
 
-  // Color variable used for picking server color
+  // Color variable used for picking server color.
   colors: Color[] = [
     { name: "Red", hex: "#FF0000" },
+    { name: "Garnet", hex: "#73000A" },
+    { name: "Orange", hex: "#FF8000" },
+    { name: "Yellow", hex: "#FFFF00" },
+    { name: "Lime", hex: "#B5E61D" },
+    { name: "Green", hex: "#008000" },
+    { name: "Cyan", hex: "#00D0D0" },
     { name: "Blue", hex: "#0000FF" },
-    { name: "Green", hex: "#00FF00" },
-    { name: "Purple", hex: "#FF00FF" },
-    { name: "Cyan", hex: "#00FFFF" },
-    { name: "Yellow", hex: "#FFFF00" }
+    { name: "Magenta", hex: "#D000D0" },
+    { name: "Pink", hex: "#FF80C0" },
+    { name: "Black", hex: "#202020" },
+    { name: "Grey", hex: "#909090" }
   ];
 
   constructor(
@@ -274,6 +294,7 @@ export class ServersEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.serverToEdit = this.serversService.getServerToEdit();
     console.log("Editing Server: " + this.serverToEdit);
+    // Subscribe to store updates.
     this.storesService.getStores();
     this.userId = this.authService.getUserId();
     this.storesSub = this.storesService
@@ -283,12 +304,14 @@ export class ServersEditComponent implements OnInit, OnDestroy {
         this.totalStores = storeData.storeCount;
         this.storeList = storeData.stores;
       });
+    // Subscribe to auth updates.
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe(authStatus => {
         this.isLoading = false;
       });
+    // Build form for editing server.
     this.form = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required]
@@ -319,6 +342,9 @@ export class ServersEditComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Updates the server, provided the information is valid.
+   */
   onUpdateServer() {
     if (this.form.invalid) {
       return;
@@ -342,6 +368,9 @@ export class ServersEditComponent implements OnInit, OnDestroy {
     this.form.reset();
   }
 
+  /**
+   * Deleted the selected server from the database.
+   */
   onDelete() {
     this.isLoading = true;
     this.serversService.deleteServer(this.serverToEdit).subscribe(() => {
@@ -355,6 +384,7 @@ export class ServersEditComponent implements OnInit, OnDestroy {
     this.authStatusSub.unsubscribe();
   }
 
+  // Closes the modal.
   onNoClick(): void {
     this.dialogRef.close();
   }

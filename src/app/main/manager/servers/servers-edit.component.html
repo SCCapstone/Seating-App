@@ -3,33 +3,60 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onUpdateServer()" *ngIf="!isLoading">
     <mat-form-field>
-      <input matInput type="text" formControlName="name" placeholder="Server name" />
-      <mat-error *ngIf="form.get('name').invalid">Please enter a server name.</mat-error>
+      <input
+        matInput
+        type="text"
+        formControlName="name"
+        placeholder="Server name"
+      />
+      <mat-error *ngIf="form.get('name').invalid"
+        >Please enter a server name.</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
-        <mat-label>Store</mat-label>
-        <mat-select formControlName="store">
-          <ng-container *ngFor="let st of storeList">
-            <mat-option placeholder="Store" *ngIf="userIsAuthenticated && userId === st.creator" [value]="st.id">
-              {{st.name}}
-            </mat-option>
-          </ng-container>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-          <mat-label>Server Color</mat-label>
-            <mat-select formControlName="color">
-              <mat-option *ngFor="let color of colors" [value]="color.hex">
-                {{color.name}}
-              </mat-option>
-            </mat-select>
-        </mat-form-field>
+      <mat-label>Store</mat-label>
+      <mat-select formControlName="store">
+        <ng-container *ngFor="let st of storeList">
+          <mat-option
+            placeholder="Store"
+            *ngIf="userIsAuthenticated && userId === st.creator"
+            [value]="st.id"
+          >
+            {{ st.name }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Server Color</mat-label>
+      <mat-select formControlName="color">
+        <mat-option *ngFor="let color of colors" [value]="color.hex">
+          {{ color.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <div class="form-btn-group">
-      <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>
-      <button class="form-buttons" mat-raised-button color="accent" (click)="onDelete()">DELETE</button>
+      <button
+        class="form-buttons"
+        mat-raised-button
+        color="accent"
+        type="submit"
+      >
+        Update
+      </button>
+      <button
+        class="form-buttons"
+        mat-raised-button
+        color="accent"
+        (click)="onDelete()"
+      >
+        DELETE
+      </button>
     </div>
   </form>
 </mat-card>
 <div mat-dialog-actions>
-  <button style="margin-left: auto;" mat-button (click)="onNoClick()">Close</button>
+  <button style="margin-left: auto;" mat-button (click)="onNoClick()">
+    Close
+  </button>
 </div>

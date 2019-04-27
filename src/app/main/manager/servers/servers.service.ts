@@ -21,11 +21,12 @@ export class ServersService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  /**
+   * Gets a list of all servers from the backend.
+   */
   getServers() {
     this.http
-      .get<{ message: string; servers: any; maxServers: number }>(
-        BACKEND_URL
-      )
+      .get<{ message: string; servers: any; maxServers: number }>(BACKEND_URL)
       .pipe(
         map(serverData => {
           return {
@@ -55,6 +56,10 @@ export class ServersService {
     return this.serversUpdated.asObservable();
   }
 
+  /**
+   * Gets information for a specified server from the database.
+   * @param id The server to get
+   */
   getServer(id: string) {
     return this.http.get<{
       _id: string;
@@ -65,6 +70,12 @@ export class ServersService {
     }>(BACKEND_URL + id);
   }
 
+  /**
+   * Adds a server to the database.
+   * @param name The name of the server to be added.
+   * @param color The color of the server to be added.
+   * @param store The store of the server to be added.
+   */
   addServer(name: string, color: string, store: string) {
     const serverData: Server = {
       id: null,
@@ -73,10 +84,19 @@ export class ServersService {
       store: store,
       creator: null
     };
-    return this.http
-      .post<{ message: string; store: Server }>(BACKEND_URL, serverData);
+    return this.http.post<{ message: string; store: Server }>(
+      BACKEND_URL,
+      serverData
+    );
   }
 
+  /**
+   * Updates a server on the database.
+   * @param id The id of the server to be updated. Used to pick which server is updated.
+   * @param name The new name of the server to be updated.
+   * @param color The new color of the server to be updated.
+   * @param store The new store of the server to be updated.
+   */
   updateServer(id: string, name: string, color: string, store: string) {
     let serverData: Server;
     serverData = {
@@ -89,10 +109,19 @@ export class ServersService {
     return this.http.put(BACKEND_URL + id, serverData);
   }
 
+  /**
+   * Deleted a server from the database.
+   * @param serverId The server ID to be deleted
+   */
   deleteServer(serverId: string) {
     return this.http.delete(BACKEND_URL + serverId);
   }
 
+  /**
+   * Getter and setter for choosing which server is being updated. Used in
+   * edit modal.
+   * @param id the server id that is being updated.
+   */
   setServerToEdit(id: string) {
     this.serverToUpdate = id;
   }
@@ -100,17 +129,19 @@ export class ServersService {
     return this.serverToUpdate;
   }
 
-  // Deletes all servers associated with store upon deletion
+  /**
+   * Deletes all servers that belong to a certain store.
+   * Used for when deleting a store.
+   * @param storeId The store ID which has been deleted.
+   */
   deleteStoreServers(storeId: string) {
     console.log("Deleting Servers...");
     this.servers.forEach(server => {
       if (server.store === storeId) {
         console.log("Deleted: " + server.name);
-        this.deleteServer(server.id).subscribe(
-          () => {
-            this.getServers();
-          }
-        );
+        this.deleteServer(server.id).subscribe(() => {
+          this.getServers();
+        });
       }
     });
   }
