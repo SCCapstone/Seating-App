@@ -99,7 +99,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         validators: [Validators.required]
       })
     });
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    this.route.paramMap.subscribe((paramMap: ParamMap) => { //gets data from edit res and subscribes to it
       if (paramMap.has("reservationId")) {
         console.log("Edit mode entered");
         this.mode = "edit";
@@ -119,7 +119,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
               store: reservationData.store,
               status: reservationData.status
             };
-            this.form.setValue({
+            this.form.setValue({ //sets form values to data from edit res
               name: this.reservation.name,
               size: this.reservation.size,
               phone: this.reservation.phone,
@@ -140,7 +140,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
-      if (this.welcomeService.selectedStoreID != null) {
+      if (this.welcomeService.selectedStoreID != null) { //set values based off selected store
         this.selectedStoreID = this.welcomeService.selectedStoreID;
         this.selectedStoreName = this.welcomeService.selectedStoreName;
         this.form.setValue({
@@ -157,7 +157,7 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
 
   }
 
-  onSaveReservation() {
+  onSaveReservation() { //saves res and makes date set to today at midnight
     const start = new Date();
     start.setHours(0, 0, 0, 0);
 

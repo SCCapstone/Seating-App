@@ -39,8 +39,7 @@ export class StoreComponent implements OnInit, OnDestroy {
     this.storesService.getStores();
     this.userId = this.authService.getUserId();
     this.storesSub = this.storesService
-      .getStoreUpdateListener()
-      .subscribe(
+      .getStoreUpdateListener().subscribe(
         (storeData: {
           stores: Store[];
         }) => {
@@ -50,8 +49,7 @@ export class StoreComponent implements OnInit, OnDestroy {
       );
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
-      .getAuthStatusListener()
-      .subscribe(isAuthenticated => {
+      .getAuthStatusListener().subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
@@ -117,8 +115,7 @@ export class StoreAddComponent implements OnInit, OnDestroy {
     this.floorplansService.getFloorplans();
     this.userId = this.authService.getUserId();
     this.floorplansSub = this.floorplansService
-      .getFloorplanUpdateListener()
-      .subscribe(
+      .getFloorplanUpdateListener().subscribe(
         (floorplanData: {
           floorplans: Floorplan[];
           floorplanCount: number;
@@ -130,8 +127,7 @@ export class StoreAddComponent implements OnInit, OnDestroy {
       );
       this.userIsAuthenticated = this.authService.getIsAuth();
       this.authStatusSub = this.authService
-      .getAuthStatusListener()
-      .subscribe(isAuthenticated => {
+      .getAuthStatusListener().subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
@@ -155,8 +151,7 @@ export class StoreAddComponent implements OnInit, OnDestroy {
     this.storesService.addStore(
       this.form.value.name,
       null
-    ).subscribe(
-      () => {
+    ).subscribe(() => {
         this.storesService.getStores();
       }
     );
