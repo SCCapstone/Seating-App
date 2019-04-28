@@ -12,7 +12,6 @@ import { ServersService } from "../../manager/servers/servers.service";
 import { AuthService } from "../../../auth/auth.service";
 import { TouchSequence } from "selenium-webdriver";
 import { stringify } from "@angular/core/src/render3/util";
-import { exists } from "fs";
 
 @Component({
   selector: "app-store",
@@ -91,7 +90,6 @@ export class StoreComponent implements OnInit, OnDestroy {
 })
 export class StoreAddComponent implements OnInit, OnDestroy {
   enteredName = "";
-  enteredDefaultFloorplan = "";
   store: Store;
   isLoading = false;
   form: FormGroup;
@@ -184,7 +182,6 @@ export class StoreAddComponent implements OnInit, OnDestroy {
 export class StoreEditComponent implements OnInit, OnDestroy {
   storeToEdit = "none";
   enteredName = "";
-  enteredDefaultFloorplan = "";
   store: Store;
   isLoading = false;
   form: FormGroup;

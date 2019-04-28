@@ -9,7 +9,7 @@
 
     <mat-form-field>
       <mat-label *ngIf="floorplanList.length !== 0">Floorplan</mat-label>
-      <mat-label *ngIf="floorplanList.length === 0">This store has no floorplans</mat-label>
+      <mat-label *ngIf="floorplanList.length === 0">Store has no floorplans</mat-label>
       <mat-select formControlName="defaultFloorplan">
         <ng-container *ngFor="let fp of floorplanList">
           <mat-option placeholder="Floorplan" [value]="fp.id" *ngIf="userIsAuthenticated && userId === fp.creator">
