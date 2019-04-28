@@ -119,29 +119,9 @@ export class FpBuilderCreateComponent implements OnInit {
     this.canvas.setWidth(canvasSpec.clientWidth);
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-
-      if (paramMap.has("floorplanId")) {
-        console.log("loading floorplan");
-        this.mode = "edit";
-        this.floorplanId = paramMap.get("floorplanId");
-        this.isLoading = true;
-        this.floorplansService
-          .getFloorplan(this.floorplanId)
-          .subscribe(floorplanData => {
-            this.isLoading = false;
-            this.floorplan = {
-              id: floorplanData._id,
-              name: floorplanData.name,
-              json: floorplanData.json,
-              creator: floorplanData.creator,
-              storeId: floorplanData.storeId
-            };
-          });
-      } else {
-        console.log("Creating floorplan");
-        this.mode = "create";
-        this.floorplanId = null;
-      }
+      console.log("Creating floorplan");
+      this.mode = "create";
+      this.floorplanId = null;
     });
   }
 
@@ -159,8 +139,8 @@ addRect() {
   } else {
         // creates rectangle object
         this.rectTable = new fabric.Rect({
-          width: 100,
-          height: 100,
+          width: 70,
+          height: 70,
           fill: "#7B638E",
           originX: "center",
           originY: "center",
@@ -195,7 +175,7 @@ addRect() {
         this.textBox = new fabric.Textbox(tableName, {
           originX: "center",
           originY: "center",
-          fontSize: 64,
+          fontSize: 36,
           fill: "white"
         });
 
@@ -219,7 +199,7 @@ addRect() {
       this.addCircle();
     } else {
       this.circleTable = new fabric.Circle({
-        radius: 75,
+        radius: 42,
         fill: "#7B638E",
         originX: "center",
         originY: "center",
@@ -254,7 +234,7 @@ addRect() {
       this.textBox = new fabric.Textbox(tableName, {
         originX: "center",
         originY: "center",
-        fontSize: 64,
+        fontSize: 36,
         fill: "white"
       });
      // groups them together

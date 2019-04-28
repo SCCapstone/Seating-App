@@ -154,8 +154,8 @@ addRect() {
   } else {
         // creates rectangle object
         this.rectTable = new fabric.Rect({
-          width: 100,
-          height: 100,
+          width: 70,
+          height: 70,
           fill: "#7B638E",
           originX: "center",
           originY: "center",
@@ -190,7 +190,7 @@ addRect() {
         this.textBox = new fabric.Textbox(tableName, {
           originX: "center",
           originY: "center",
-          fontSize: 64,
+          fontSize: 36,
           fill: "white"
         });
 
@@ -214,7 +214,7 @@ addRect() {
       this.addCircle();
     } else {
       this.circleTable = new fabric.Circle({
-        radius: 75,
+        radius: 42,
         fill: "#7B638E",
         originX: "center",
         originY: "center",
@@ -249,7 +249,7 @@ addRect() {
       this.textBox = new fabric.Textbox(tableName, {
         originX: "center",
         originY: "center",
-        fontSize: 64,
+        fontSize: 36,
         fill: "white"
       });
      // groups them together
