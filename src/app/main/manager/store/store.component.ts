@@ -12,6 +12,7 @@ import { ServersService } from "../../manager/servers/servers.service";
 import { AuthService } from "../../../auth/auth.service";
 import { TouchSequence } from "selenium-webdriver";
 import { stringify } from "@angular/core/src/render3/util";
+import { exists } from "fs";
 
 @Component({
   selector: "app-store",
@@ -243,7 +244,11 @@ export class StoreEditComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.totalFloorplans = floorplanData.floorplanCount;
           this.floorplanList = floorplanData.floorplans;
-        }
+          this.floorplanList = this.floorplanList.filter(fp => fp.storeId === this.storeToEdit);
+          if (this.floorplanList.length === 0) {
+            this.form.controls.defaultFloorplan.disable();
+          }
+         }
       );
       this.userIsAuthenticated = this.authService.getIsAuth();
       this.authStatusSub = this.authService

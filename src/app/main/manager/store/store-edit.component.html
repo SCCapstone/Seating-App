@@ -8,15 +8,18 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Floorplan</mat-label>
+      <mat-label *ngIf="floorplanList.length !== 0">Floorplan</mat-label>
+      <mat-label *ngIf="floorplanList.length === 0">This store has no floorplans</mat-label>
       <mat-select formControlName="defaultFloorplan">
         <ng-container *ngFor="let fp of floorplanList">
-          <mat-option placeholder="Floorplan" [value]="fp.id" *ngIf="userIsAuthenticated && userId === fp.creator && fp.storeId === storeToEdit">
+          <mat-option placeholder="Floorplan" [value]="fp.id" *ngIf="userIsAuthenticated && userId === fp.creator">
             {{fp.name}}
           </mat-option>
         </ng-container>
       </mat-select>
     </mat-form-field>
+
+
 
     <div class="form-btn-group">
       <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>
