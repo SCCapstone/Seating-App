@@ -8,7 +8,6 @@ import { environment } from "../../../../environments/environment";
 import { Floorplan } from "./floorplan.model";
 import { identifierModuleUrl } from "@angular/compiler";
 
-
 const BACKEND_URL = environment.apiUrl + "/floorplans/";
 
 @Injectable({ providedIn: "root" })
@@ -24,9 +23,7 @@ export class FloorplansService {
 
   getFloorplans() {
     this.http
-      .get<{ message: string; floorplans: any; }>(
-        BACKEND_URL
-      )
+      .get<{ message: string; floorplans: any }>(BACKEND_URL)
       .pipe(
         map(floorplanData => {
           return {
@@ -39,14 +36,13 @@ export class FloorplansService {
                 storeId: floorplan.storeId
               };
             })
-
           };
         })
       )
       .subscribe(transformedFloorplanData => {
         this.floorplans = transformedFloorplanData.floorplans;
         this.floorplansUpdated.next({
-          floorplans: [...this.floorplans],
+          floorplans: [...this.floorplans]
           // floorplanCount: transformedFloorplanData.maxFloorplans
         });
       });
@@ -57,8 +53,8 @@ export class FloorplansService {
   }
 
   getFloorplan(id: string) {
- // getFloorplan(id: string) {
- // Brett here; added storeId for multiple floorplans per store
+    // getFloorplan(id: string) {
+    // Brett here; added storeId for multiple floorplans per store
     return this.http.get<{
       _id: string;
       name: string;
@@ -68,12 +64,7 @@ export class FloorplansService {
     }>(BACKEND_URL + id);
   }
 
-  addFloorplan(
-    name: string,
-    json: JSON,
-    storeId: string
-  ) {
-
+  addFloorplan(name: string, json: JSON, storeId: string) {
     const floorplanData: Floorplan = {
       id: null,
       name: name,
@@ -81,19 +72,13 @@ export class FloorplansService {
       creator: null,
       storeId: storeId
     };
-    return this.http
-      .post<{message: string; floorplan: Floorplan }>(
-        BACKEND_URL,
-        floorplanData
-      );
+    return this.http.post<{ message: string; floorplan: Floorplan }>(
+      BACKEND_URL,
+      floorplanData
+    );
   }
 
-  updateFloorplan(
-    id: string,
-    name: string,
-    json: JSON,
-    storeId: string
-  ) {
+  updateFloorplan(id: string, name: string, json: JSON, storeId: string) {
     let floorplanData: Floorplan;
     floorplanData = {
       id: id,
@@ -130,11 +115,9 @@ export class FloorplansService {
     this.floorplans.forEach(floorplan => {
       if (floorplan.storeId === storeId) {
         console.log("Deleted: " + floorplan.name);
-        this.deleteFloorplans(floorplan.id).subscribe(
-          () => {
-            this.getFloorplans();
-          }
-        );
+        this.deleteFloorplans(floorplan.id).subscribe(() => {
+          this.getFloorplans();
+        });
       }
     });
   }

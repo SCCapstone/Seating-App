@@ -13,7 +13,6 @@ import { Store } from "../../store/store.model";
 import { StoresService } from "../../store/stores.service";
 import { WelcomeService } from "../../../welcome/welcome.service";
 
-
 declare let fabric;
 
 @Component({
@@ -26,7 +25,6 @@ export class FpBuilderEditComponent implements OnInit {
   private rectTable;
   private circleTable;
   private textBox;
-
 
   floorplan: Floorplan;
   floorplanList: Floorplan[] = [];
@@ -76,25 +74,20 @@ export class FpBuilderEditComponent implements OnInit {
       );
 
     this.form = new FormGroup({
-        store: new FormControl(null, {
-          validators: [Validators.required]
-     })
+      store: new FormControl(null, {
+        validators: [Validators.required]
+      })
     });
 
     // Brett bringing a list of stores
     this.storesService.getStores();
     this.storesSub = this.storesService
-        .getStoreUpdateListener()
-        .subscribe(
-          (storeData: {
-            stores: Store[];
-            storeCount: number;
-          }) => {
-            this.isLoading = false;
-            this.totalStores = storeData.storeCount;
-            this.storeList = storeData.stores;
-          }
-        );
+      .getStoreUpdateListener()
+      .subscribe((storeData: { stores: Store[]; storeCount: number }) => {
+        this.isLoading = false;
+        this.totalStores = storeData.storeCount;
+        this.storeList = storeData.stores;
+      });
 
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
@@ -105,7 +98,7 @@ export class FpBuilderEditComponent implements OnInit {
       });
 
     this.canvas = new fabric.Canvas("canvas", {});
-    const canvasSpec  = document.getElementById("canvas-wrap");
+    const canvasSpec = document.getElementById("canvas-wrap");
     this.canvas.setHeight(canvasSpec.clientHeight - 50);
     this.canvas.setWidth(canvasSpec.clientWidth);
 
@@ -114,7 +107,8 @@ export class FpBuilderEditComponent implements OnInit {
     this.floorplanId = this.floorplansService.getFloorplanToEdit();
 
     // Sets the store form to the current store that the floorplan belongs to.
-    this.floorplansService.getFloorplan(this.floorplansService.getFloorplanToEdit())
+    this.floorplansService
+      .getFloorplan(this.floorplansService.getFloorplanToEdit())
       .subscribe(fpData => {
         this.form.setValue({
           store: fpData.storeId
@@ -137,78 +131,83 @@ export class FpBuilderEditComponent implements OnInit {
         console.log(this.floorplan.json);
         this.canvas.loadFromJSON(this.floorplan.json);
       });
-      this.canvas.renderAll();
+    this.canvas.renderAll();
   }
 
-/**
- * Creates a rectangle table object and places it in the center of the canvas.
- */
-addRect() {
+  /**
+   * Creates a rectangle table object and places it in the center of the canvas.
+   */
+  addRect() {
+    const maxNameLength = 4;
+    // prompt to get table number.
+    const tableName = prompt(
+      "What is the table number?",
+      "Please enter a table number."
+    );
+    // remove overlapping word issue by checking input length
+    if (tableName.length > maxNameLength) {
+      this.addRect();
+    } else {
+      // creates rectangle object
+      this.rectTable = new fabric.Rect({
+        width: 70,
+        height: 70,
+        fill: "#7B638E",
+        originX: "center",
+        originY: "center"
+      });
 
-  const maxNameLength = 4;
-  // prompt to get table number.
-  const tableName = prompt("What is the table number?", "Please enter a table number.");
-  // remove overlapping word issue by checking input length
-  if (tableName.length > maxNameLength) {
-    this.addRect();
-  } else {
-        // creates rectangle object
-        this.rectTable = new fabric.Rect({
-          width: 70,
-          height: 70,
-          fill: "#7B638E",
-          originX: "center",
-          originY: "center",
-        });
+      // Adds subclasses for rectangles
+      this.rectTable.toObject = (function(toObject) {
+        return function() {
+          return fabric.util.object.extend(toObject.call(this), {
+            name: this.name,
+            serverId: this.serverId,
+            capacity: this.capacity,
+            partyName: this.partyName,
+            guestsSeated: this.guestsSeated,
+            timeSeated: this.timeSeated,
+            notes: this.notes,
+            resId: this.resId
+          });
+        };
+      })(this.rectTable.toObject);
 
-        // Adds subclasses for rectangles
-        this.rectTable.toObject = (function(toObject) {
-          return function() {
-            return fabric.util.object.extend(toObject.call(this), {
-              name: this.name,
-              serverId: this.serverId,
-              capacity: this.capacity,
-              partyName: this.partyName,
-              guestsSeated: this.guestsSeated,
-              timeSeated: this.timeSeated,
-              notes: this.notes,
-              resId: this.resId
-            });
-          };
-        })(this.rectTable.toObject);
+      this.rectTable.name = tableName;
+      this.rectTable.serverId = "";
+      this.rectTable.capacity = 0;
+      this.rectTable.partyName = "";
+      this.rectTable.guestsSeated = 0;
+      this.rectTable.timeSeated = "";
+      this.rectTable.notes = "";
+      this.rectTable.resId = "";
 
-        this.rectTable.name = tableName;
-        this.rectTable.serverId = "";
-        this.rectTable.capacity = 0;
-        this.rectTable.partyName = "";
-        this.rectTable.guestsSeated = 0;
-        this.rectTable.timeSeated = "";
-        this.rectTable.notes = "";
-        this.rectTable.resId = "";
+      // creates textbox
+      this.textBox = new fabric.Textbox(tableName, {
+        originX: "center",
+        originY: "center",
+        fontSize: 36,
+        fill: "white"
+      });
 
-        // creates textbox
-        this.textBox = new fabric.Textbox(tableName, {
-          originX: "center",
-          originY: "center",
-          fontSize: 36,
-          fill: "white"
-        });
-
-        // groups them together
-        const group = new fabric.Group([this.rectTable, this.textBox ], {
-          top: 100,
-          left: 150
-        });
-        this.canvas.add(group);
-        this.canvas.centerObject(group);
+      // groups them together
+      const group = new fabric.Group([this.rectTable, this.textBox], {
+        top: 100,
+        left: 150
+      });
+      this.canvas.add(group);
+      this.canvas.centerObject(group);
+    }
   }
-}
 
   // Add a circle object to the canvas
   addCircle() {
     const maxNameLength = 4;
     // prompt to get party size
-    const tableName = prompt("What is the table number?", "Please enter a table number.");
+    const tableName = prompt(
+      "What is the table number?",
+      "Please enter a table number."
+    );
     // creates circle
     if (tableName.length > maxNameLength) {
       this.addCircle();
@@ -217,7 +216,7 @@ addRect() {
         radius: 42,
         fill: "#7B638E",
         originX: "center",
-        originY: "center",
+        originY: "center"
       });
 
       // Adds subclassing for circles
@@ -252,15 +251,14 @@ addRect() {
         fontSize: 36,
         fill: "white"
       });
-     // groups them together
-      const group = new fabric.Group([this.circleTable, this.textBox ], {
+      // groups them together
+      const group = new fabric.Group([this.circleTable, this.textBox], {
         top: 100,
         left: 150
       });
       this.canvas.add(group);
       this.canvas.centerObject(group);
     }
-
   }
 
   // Delete the selected object
@@ -270,7 +268,7 @@ addRect() {
 
   /**
    * Saves the floorplan to the database
-  */
+   */
   saveCanvas() {
     console.log("Saving Canvas!");
     const json_data = this.canvas.toJSON([
@@ -283,7 +281,7 @@ addRect() {
       "resId"
     ]);
     console.log("Argument ID: " + this.floorplan.id);
-      this.floorplansService
+    this.floorplansService
       .updateFloorplan(
         this.floorplan.id,
         this.floorplan.name,
@@ -294,7 +292,7 @@ addRect() {
         this.floorplansService.getFloorplans();
       });
 
-      this.dialogRef.close();
+    this.dialogRef.close();
   }
 
   /**
@@ -304,28 +302,25 @@ addRect() {
   deleteFloorplan(id: string) {
     console.log("Deleting Floorplan with ID: " + id);
 
-        // Checking to see if the default floorplan was just deleted.
-        // If it was, sets default to null.
-        this.floorplansService.getFloorplan(id)
-        .subscribe(fpData => {
-          this.storesService.getStore(fpData.storeId)
-            .subscribe(storeData => {
-              if (storeData.defaultFloorplan === id) {
-                console.log("You just deleted the store's default floorplan!");
-                this.storesService.updateStore(storeData._id, storeData.name, null)
-                  .subscribe(() => {
-                    this.storesService.getStores();
-                  });
-              }
+    // Checking to see if the default floorplan was just deleted.
+    // If it was, sets default to null.
+    this.floorplansService.getFloorplan(id).subscribe(fpData => {
+      this.storesService.getStore(fpData.storeId).subscribe(storeData => {
+        if (storeData.defaultFloorplan === id) {
+          console.log("You just deleted the store's default floorplan!");
+          this.storesService
+            .updateStore(storeData._id, storeData.name, null)
+            .subscribe(() => {
+              this.storesService.getStores();
             });
-        });
-
-
-    this.floorplansService.deleteFloorplans(id)
-      .subscribe(() => {
-        console.log("Deleted!");
-        this.floorplansService.getFloorplans();
+        }
       });
+    });
+
+    this.floorplansService.deleteFloorplans(id).subscribe(() => {
+      console.log("Deleted!");
+      this.floorplansService.getFloorplans();
+    });
     this.dialogRef.close();
     this.canvas.renderAll();
   }
@@ -336,6 +331,4 @@ addRect() {
   onCancel(): void {
     this.dialogRef.close();
   }
-
 }
-

@@ -39,17 +39,15 @@ export class StoreComponent implements OnInit, OnDestroy {
     this.storesService.getStores();
     this.userId = this.authService.getUserId();
     this.storesSub = this.storesService
-      .getStoreUpdateListener().subscribe(
-        (storeData: {
-          stores: Store[];
-        }) => {
-          this.isLoading = false;
-          this.stores = storeData.stores;
-        }
-      );
+      .getStoreUpdateListener()
+      .subscribe((storeData: { stores: Store[] }) => {
+        this.isLoading = false;
+        this.stores = storeData.stores;
+      });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
-      .getAuthStatusListener().subscribe(isAuthenticated => {
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
@@ -115,7 +113,8 @@ export class StoreAddComponent implements OnInit, OnDestroy {
     this.floorplansService.getFloorplans();
     this.userId = this.authService.getUserId();
     this.floorplansSub = this.floorplansService
-      .getFloorplanUpdateListener().subscribe(
+      .getFloorplanUpdateListener()
+      .subscribe(
         (floorplanData: {
           floorplans: Floorplan[];
           floorplanCount: number;
@@ -125,9 +124,10 @@ export class StoreAddComponent implements OnInit, OnDestroy {
           this.floorplanList = floorplanData.floorplans;
         }
       );
-      this.userIsAuthenticated = this.authService.getIsAuth();
-      this.authStatusSub = this.authService
-      .getAuthStatusListener().subscribe(isAuthenticated => {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
@@ -148,13 +148,9 @@ export class StoreAddComponent implements OnInit, OnDestroy {
       return;
     }
     this.isLoading = true;
-    this.storesService.addStore(
-      this.form.value.name,
-      null
-    ).subscribe(() => {
-        this.storesService.getStores();
-      }
-    );
+    this.storesService.addStore(this.form.value.name, null).subscribe(() => {
+      this.storesService.getStores();
+    });
     this.isLoading = false;
     this.form.reset();
     this.dialogRef.close();
@@ -207,23 +203,23 @@ export class StoreEditComponent implements OnInit, OnDestroy {
     console.log(this.storeToEdit);
     this.storeId = this.storeToEdit;
     this.isLoading = true;
-    this.storesService
-      .getStore(this.storeId)
-      .subscribe(storeData => {
-        this.isLoading = false;
-        this.store = {
-          id: storeData._id,
-          name: storeData.name,
-          defaultFloorplan: storeData.defaultFloorplan,
-          creator: storeData.creator
-        };
+    this.storesService.getStore(this.storeId).subscribe(storeData => {
+      this.isLoading = false;
+      this.store = {
+        id: storeData._id,
+        name: storeData.name,
+        defaultFloorplan: storeData.defaultFloorplan,
+        creator: storeData.creator
+      };
 
-        console.log("setting default floorplan in form to: " + this.store.defaultFloorplan);
-        this.form.setValue({
-          name: this.store.name,
-          defaultFloorplan: this.store.defaultFloorplan
-        });
+      console.log(
+        "setting default floorplan in form to: " + this.store.defaultFloorplan
+      );
+      this.form.setValue({
+        name: this.store.name,
+        defaultFloorplan: this.store.defaultFloorplan
       });
+    });
     this.userId = this.authService.getUserId();
     this.floorplansService.getFloorplans();
     this.floorplansSub = this.floorplansService
@@ -236,14 +232,16 @@ export class StoreEditComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.totalFloorplans = floorplanData.floorplanCount;
           this.floorplanList = floorplanData.floorplans;
-          this.floorplanList = this.floorplanList.filter(fp => fp.storeId === this.storeToEdit);
+          this.floorplanList = this.floorplanList.filter(
+            fp => fp.storeId === this.storeToEdit
+          );
           if (this.floorplanList.length === 0) {
             this.form.controls.defaultFloorplan.disable();
           }
-         }
+        }
       );
-      this.userIsAuthenticated = this.authService.getIsAuth();
-      this.authStatusSub = this.authService
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
@@ -253,8 +251,7 @@ export class StoreEditComponent implements OnInit, OnDestroy {
       name: new FormControl(null, {
         validators: [Validators.required]
       }),
-      defaultFloorplan: new FormControl(null, {
-      })
+      defaultFloorplan: new FormControl(null, {})
     });
   }
 
@@ -264,15 +261,15 @@ export class StoreEditComponent implements OnInit, OnDestroy {
     }
     this.storeId = this.storeToEdit;
     this.isLoading = true;
-      this.storesService.updateStore(
+    this.storesService
+      .updateStore(
         this.storeId,
         this.form.value.name,
         this.form.value.defaultFloorplan
-    ).subscribe(
-      () => {
+      )
+      .subscribe(() => {
         this.storesService.getStores();
-      }
-    );
+      });
     this.isLoading = false;
     this.form.reset();
     this.dialogRef.close();
@@ -282,13 +279,11 @@ export class StoreEditComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.serversService.deleteStoreServers(this.storeToEdit);
     this.floorplansService.deleteStoreFloorplans(this.storeToEdit);
-    this.storesService.deleteStore(this.storeToEdit).subscribe(
-      () => {
-        this.storesService.getStores();
-        this.dialogRef.close();
-        this.isLoading = false;
-      }
-    );
+    this.storesService.deleteStore(this.storeToEdit).subscribe(() => {
+      this.storesService.getStores();
+      this.dialogRef.close();
+      this.isLoading = false;
+    });
   }
 
   ngOnDestroy() {

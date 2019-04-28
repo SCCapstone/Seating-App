@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import "fabric";
 import { FloorplansService } from "../floorplan.service";
-import { Subscription } from 'rxjs';
+import { Subscription } from "rxjs";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { AuthService } from "src/app/auth/auth.service";
 import { Floorplan } from "../floorplan.model";
@@ -11,7 +11,6 @@ import { Form, FormGroup, Validators, FormControl } from "@angular/forms";
 import { Store } from "../../store/store.model";
 import { StoresService } from "../../store/stores.service";
 import { WelcomeService } from "../../../welcome/welcome.service";
-
 
 declare let fabric;
 
@@ -74,11 +73,10 @@ export class FpBuilderCreateComponent implements OnInit {
       );
 
     this.form = new FormGroup({
-        store: new FormControl(null, {
-          validators: [Validators.required]
-     })
+      store: new FormControl(null, {
+        validators: [Validators.required]
+      })
     });
-
 
     /**
      * This is the subscription functionality for stores. Anything that needs
@@ -86,24 +84,19 @@ export class FpBuilderCreateComponent implements OnInit {
      */
     this.storesService.getStores();
     this.storesSub = this.storesService
-        .getStoreUpdateListener()
-        .subscribe(
-          (storeData: {
-            stores: Store[];
-            storeCount: number;
-          }) => {
-            this.isLoading = false;
-            this.totalStores = storeData.storeCount;
-            this.storeList = storeData.stores;
+      .getStoreUpdateListener()
+      .subscribe((storeData: { stores: Store[]; storeCount: number }) => {
+        this.isLoading = false;
+        this.totalStores = storeData.storeCount;
+        this.storeList = storeData.stores;
 
-            // Checks the radio button of the default store.
-            if (this.welcomeService.selectedStoreID != null) {
-              this.form.setValue({
-                store: this.welcomeService.selectedStoreID
-              });
-            }
-          }
-        );
+        // Checks the radio button of the default store.
+        if (this.welcomeService.selectedStoreID != null) {
+          this.form.setValue({
+            store: this.welcomeService.selectedStoreID
+          });
+        }
+      });
 
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
@@ -114,7 +107,7 @@ export class FpBuilderCreateComponent implements OnInit {
       });
 
     this.canvas = new fabric.Canvas("canvas", {});
-    const canvasSpec  = document.getElementById("canvas-wrap");
+    const canvasSpec = document.getElementById("canvas-wrap");
     this.canvas.setHeight(canvasSpec.clientHeight - 50);
     this.canvas.setWidth(canvasSpec.clientWidth);
 
@@ -125,75 +118,80 @@ export class FpBuilderCreateComponent implements OnInit {
     });
   }
 
-/**
- * Creates a rectangle table object and places it in the center of the canvas.
- */
-addRect() {
+  /**
+   * Creates a rectangle table object and places it in the center of the canvas.
+   */
+  addRect() {
+    const maxNameLength = 4;
+    // prompt to get table number.
+    const tableName = prompt(
+      "What is the table number?",
+      "Please enter a table number."
+    );
+    // remove overlapping word issue by checking input length
+    if (tableName.length > maxNameLength) {
+      this.addRect();
+    } else {
+      // creates rectangle object
+      this.rectTable = new fabric.Rect({
+        width: 70,
+        height: 70,
+        fill: "#7B638E",
+        originX: "center",
+        originY: "center"
+      });
 
-  const maxNameLength = 4;
-  // prompt to get table number.
-  const tableName = prompt("What is the table number?", "Please enter a table number.");
-  // remove overlapping word issue by checking input length
-  if (tableName.length > maxNameLength) {
-    this.addRect();
-  } else {
-        // creates rectangle object
-        this.rectTable = new fabric.Rect({
-          width: 70,
-          height: 70,
-          fill: "#7B638E",
-          originX: "center",
-          originY: "center",
-        });
+      // Adds subclasses for rectangles
+      this.rectTable.toObject = (function(toObject) {
+        return function() {
+          return fabric.util.object.extend(toObject.call(this), {
+            name: this.name,
+            serverId: this.serverId,
+            capacity: this.capacity,
+            partyName: this.partyName,
+            guestsSeated: this.guestsSeated,
+            timeSeated: this.timeSeated,
+            notes: this.notes,
+            resId: this.resId
+          });
+        };
+      })(this.rectTable.toObject);
 
-        // Adds subclasses for rectangles
-        this.rectTable.toObject = (function(toObject) {
-          return function() {
-            return fabric.util.object.extend(toObject.call(this), {
-              name: this.name,
-              serverId: this.serverId,
-              capacity: this.capacity,
-              partyName: this.partyName,
-              guestsSeated: this.guestsSeated,
-              timeSeated: this.timeSeated,
-              notes: this.notes,
-              resId: this.resId
-            });
-          };
-        })(this.rectTable.toObject);
+      this.rectTable.name = tableName;
+      this.rectTable.serverId = "";
+      this.rectTable.capacity = 0;
+      this.rectTable.partyName = "";
+      this.rectTable.guestsSeated = 0;
+      this.rectTable.timeSeated = "";
+      this.rectTable.notes = "";
+      this.rectTable.resId = "";
 
-        this.rectTable.name = tableName;
-        this.rectTable.serverId = "";
-        this.rectTable.capacity = 0;
-        this.rectTable.partyName = "";
-        this.rectTable.guestsSeated = 0;
-        this.rectTable.timeSeated = "";
-        this.rectTable.notes = "";
-        this.rectTable.resId = "";
+      // creates textbox
+      this.textBox = new fabric.Textbox(tableName, {
+        originX: "center",
+        originY: "center",
+        fontSize: 36,
+        fill: "white"
+      });
 
-        // creates textbox
-        this.textBox = new fabric.Textbox(tableName, {
-          originX: "center",
-          originY: "center",
-          fontSize: 36,
-          fill: "white"
-        });
-
-        // groups them together
-        const group = new fabric.Group([this.rectTable, this.textBox ], {
-          top: 100,
-          left: 150
-        });
-        this.canvas.add(group);
-        this.canvas.centerObject(group);
+      // groups them together
+      const group = new fabric.Group([this.rectTable, this.textBox], {
+        top: 100,
+        left: 150
+      });
+      this.canvas.add(group);
+      this.canvas.centerObject(group);
+    }
   }
-}
 
   // Add a circle object to the canvas
   addCircle() {
     const maxNameLength = 4;
     // prompt to get party size
-    const tableName = prompt("What is the table number?", "Please enter a table number.");
+    const tableName = prompt(
+      "What is the table number?",
+      "Please enter a table number."
+    );
     // creates circle
     if (tableName.length > maxNameLength) {
       this.addCircle();
@@ -202,7 +200,7 @@ addRect() {
         radius: 42,
         fill: "#7B638E",
         originX: "center",
-        originY: "center",
+        originY: "center"
       });
 
       // Adds subclassing for circles
@@ -237,15 +235,14 @@ addRect() {
         fontSize: 36,
         fill: "white"
       });
-     // groups them together
-      const group = new fabric.Group([this.circleTable, this.textBox ], {
+      // groups them together
+      const group = new fabric.Group([this.circleTable, this.textBox], {
         top: 100,
         left: 150
       });
       this.canvas.add(group);
       this.canvas.centerObject(group);
     }
-
   }
 
   // Delete the selected table object
@@ -255,7 +252,7 @@ addRect() {
 
   /**
    * Saves the floorplan to the database.
-  */
+   */
   saveCanvas() {
     console.log("Saving Canvas!");
     const json_data = this.canvas.toJSON();
@@ -263,25 +260,22 @@ addRect() {
     const fpName = prompt("Enter name for floorplan", "");
     console.log("Store: " + this.form.value.store);
     this.floorplansService
-      .addFloorplan(
-        fpName,
-        json_data,
-        this.form.value.store
-      )
-       .subscribe((data) => {
-
+      .addFloorplan(fpName, json_data, this.form.value.store)
+      .subscribe(data => {
         /**
          * This code checks if the store the created floorplan belongs to does
          * not have a default floorplan. If it does not, it sets the newly
          * created floorplan as that store's default.
          */
-        this.storesService.getStore(this.form.value.store)
+        this.storesService
+          .getStore(this.form.value.store)
           .subscribe(storeData => {
             if (storeData.defaultFloorplan === null) {
-              this.storesService.updateStore(storeData._id, storeData.name, data.floorplan.id)
-              .subscribe(() => {
-                this.storesService.getStores();
-              });
+              this.storesService
+                .updateStore(storeData._id, storeData.name, data.floorplan.id)
+                .subscribe(() => {
+                  this.storesService.getStores();
+                });
             }
           });
         // Updates the list of floorplans.
