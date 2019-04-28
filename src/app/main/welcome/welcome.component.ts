@@ -42,8 +42,7 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.userIsAuthenticated = this.authService.getIsAuth();
-    this.authStatusSub = this.authService
-    .getAuthStatusListener()
+    this.authStatusSub = this.authService.getAuthStatusListener()
     .subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
       this.userId = this.authService.getUserId();

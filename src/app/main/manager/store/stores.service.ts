@@ -28,13 +28,11 @@ export class StoresService {
     private floorplansService: FloorplansService
     ) {}
 
-  getStores() {
+  getStores() { //gets the stores from db and subs to any changes
     this.http
       .get<{ message: string; stores: any; maxStores: number }>(
         BACKEND_URL
-      )
-      .pipe(
-        map(storeData => {
+      ).pipe(map(storeData => {
           return {
             stores: storeData.stores.map(store => {
               return {
@@ -47,8 +45,7 @@ export class StoresService {
             maxStores: storeData.maxStores
           };
         })
-      )
-      .subscribe(transformedStoreData => {
+      ).subscribe(transformedStoreData => {
         this.stores = transformedStoreData.stores;
         this.storesUpdated.next({
           stores: [...this.stores],
@@ -61,7 +58,7 @@ export class StoresService {
     return this.storesUpdated.asObservable();
   }
 
-  getStore(id: string) {
+  getStore(id: string) { //gets "this" individual store that looking for
     return this.http.get<{
       _id: string;
       name: string;
