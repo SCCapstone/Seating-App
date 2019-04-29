@@ -1,8 +1,8 @@
 <div class=" mat-card fp-builder">
   <h3>Floorplan Builder</h3>
   <form [formGroup]="form" (submit)="saveCanvas()" *ngIf="!isLoading">
-    <mat-form-field>
-        <mat-label>Select a store</mat-label>
+    <mat-form-field style="margin-right:10px;">
+        <mat-label>Store</mat-label>
         <mat-select formControlName="store" placeholder="Select a Store">
           <ng-container *ngFor="let st of storeList">
             <mat-option  *ngIf="userIsAuthenticated && userId === st.creator" [value]="st.id">
@@ -15,9 +15,6 @@
         Save Floorplan
       </button>
   </form>
-  <button mat-rasied-button class="table-button" (click)="onCancel()">
-      Cancel
-  </button>
     <div class="table-button-group">
     <button mat-rasied-button class="table-button" (click)="addRect()">
       Add Rectangle Table
@@ -34,3 +31,6 @@
       <canvas id="canvas" class="canvas" style="border: 1px solid rgb(54, 54, 54);"></canvas>
     </div>
   </div>
+  <button mat-rasied-button class="table-button" (click)="onCancel()">
+    Cancel
+  </button>

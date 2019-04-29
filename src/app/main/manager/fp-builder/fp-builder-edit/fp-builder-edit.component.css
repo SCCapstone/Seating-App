@@ -1,13 +1,12 @@
 .table-view {
   height: 600px;
   padding-top: 15px;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
 }
 
 .canvas-wrap {
-  width: 70vw;
-  height: 72vh;
-  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 .table-button-group {
