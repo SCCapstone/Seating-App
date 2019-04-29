@@ -1,4 +1,4 @@
-import { async, TestBed } from "@angular/core/testing";
+/* import { async, TestBed } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 
 import { AppComponent } from "./app.component";
@@ -19,5 +19,6 @@ describe("MainComponent", () => {
     const fixture = TestBed.createComponent(MainComponent);
     const component = fixture.componentInstance;
     expect(component).toBeDefined();
-  })
-})
+  });
+});
+ */
