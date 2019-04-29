@@ -1,11 +1,10 @@
 <mat-card> <mat-card-title>Account</mat-card-title> </mat-card>
-<div class="container">
-<div class="profile-bar">
+<div class="container-fluid">
+  <div class="profile-bar">
     <mat-card>
-        <button class="edit-button" mat-raised-button style="margin-left:auto" (click)="openEditAccount(account.email)">Edit Email</button>
-        <h3>Settings</h3>
-       <mat-list>
-          <mat-list-item><h4>Email: </h4>  {{ account.email }} </mat-list-item>  
+    <h5>Settings</h5>
+      <mat-list>
+        <mat-list-item><h6 style="margin-bottom:0px;margin-right:10px;">Email:</h6><h6 style="font-weight:400;margin-bottom:0px;">{{ account.email }}</h6> <button class="mat-raised-button edit-button" (click)="openEditAccount(account.email)">Edit Email</button></mat-list-item>
       </mat-list>
     </mat-card>
   </div>

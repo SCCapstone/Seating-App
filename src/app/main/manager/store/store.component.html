@@ -1,13 +1,13 @@
 <div class="store-bar" style="margin-bottom: 15px">
   <mat-card>
     <div class="header">
-      <h3>Stores</h3>
+      <h5>Stores</h5>
     </div>
     <button class="add-button" mat-raised-button (click)="openAddStore()">
       Add Store
     </button>
     <div class="store-header">
-      <h4>Store Name</h4>
+      <h6 style="margin-bottom:0px;">Store Name</h6>
     </div>
     <div *ngFor="let store of stores">
       <mat-list *ngIf="userIsAuthenticated && userId === store.creator">

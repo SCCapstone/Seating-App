@@ -12,10 +12,9 @@ mat-card {
 
 .edit-button {
   margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 10px;
-  background-color: #461e64b4;
+  background-color: #4c86d1;
   color: #ffffff;
+  line-height: 30px;
 }
 
 h4 {
@@ -27,3 +26,4 @@ h4 {
   padding-left: 20px;
   padding-right: 20px;
 }
+

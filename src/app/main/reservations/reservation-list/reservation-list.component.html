@@ -1,9 +1,9 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-<div class="container">
+<div class="container-fluid">
   <mat-card class="header">
-    <h3 class="store-select">Store:</h3>
-    <mat-form-field>
+    <h5 class="store-select">Store:</h5>
+    <mat-form-field style="margin-right:10px;">
       <mat-label>{{ selectedStoreName }}</mat-label>
       <mat-select>
         <ng-container *ngFor="let store of storeList">

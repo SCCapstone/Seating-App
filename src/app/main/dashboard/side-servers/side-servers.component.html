@@ -1,6 +1,6 @@
 <mat-expansion-panel [expanded]="true" style="margin-top: 15px">
   <mat-expansion-panel-header>
-    <h3>Servers</h3>
+    <h5>Servers</h5>
   </mat-expansion-panel-header>
   <div *ngFor="let server of dashboardService.servers">
     <mat-list *ngIf="userIsAuthenticated && userId === server.creator && welcomeService.selectedStoreID === server.store">

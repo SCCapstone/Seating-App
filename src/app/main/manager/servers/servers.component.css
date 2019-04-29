@@ -71,3 +71,12 @@ h4 {
   border-color: black;
   border-width: 2px;
 }
+
+h5 {
+  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+}
+h6 {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
