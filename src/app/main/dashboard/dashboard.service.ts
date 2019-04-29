@@ -6,11 +6,11 @@ import { FloorplansService } from "../manager/fp-builder/floorplan.service";
 import { Server } from "../manager/servers/server.model";
 import { Reservation } from "../reservations/reservation.model";
 import { ServersService } from "../manager/servers/servers.service";
+import { ReservationsService } from "../reservations/reservations.service";
 // import { Reservation } from "../../manager/reservations/reservation.model";
 
 @Injectable({ providedIn: "root" })
 export class DashboardService {
-
   canvas;
 
   selectedStoreID = "None";
@@ -24,7 +24,7 @@ export class DashboardService {
   userIsAuthenticated = false;
   userId: string;
   servers: Server[] = [];
- // reservations: Reservation[] = [];
+  // reservations: Reservation[] = [];
 
   @Output() fpChange: EventEmitter<string> = new EventEmitter();
   @Output() tableChange: EventEmitter<object> = new EventEmitter();
@@ -32,7 +32,8 @@ export class DashboardService {
   constructor(
     private router: Router,
     public floorplansService: FloorplansService,
-    private serversService: ServersService
+    private serversService: ServersService,
+    private reservationsService: ReservationsService
   ) {}
 
   /**
@@ -41,7 +42,7 @@ export class DashboardService {
    * @param name the name of the floorplan that is being loaded
    * @param json the JSON data that is being loaded.
    */
-  dashLoadCanvas (id, name, json, storeId) {
+  dashLoadCanvas(id, name, json, storeId) {
     this.selectedFloorplanID = id;
     this.selectedFloorplanName = name;
     this.selectedFloorplanJSON = json;
@@ -56,7 +57,12 @@ export class DashboardService {
    * Updates the currently selected table.
    * @param guestsSeated the new number of guests sitting at the table.
    */
-  dashUpdateTable(guestsSeated: number, notes: string, server: Server, resId: string) {
+  dashUpdateTable(
+    guestsSeated: number,
+    notes: string,
+    server: Server,
+    resId: string
+  ) {
     this.selectedTable.target._objects[0].guestsSeated = guestsSeated;
     this.selectedTable.target._objects[0].notes = notes;
     this.selectedTable.target._objects[0].serverId = server;
@@ -82,11 +88,12 @@ export class DashboardService {
       "resId"
     ]);
 
-    this.floorplansService.updateFloorplan(
-      this.selectedFloorplanID,
-      this.selectedFloorplanName,
-      this.selectedFloorplanJSON,
-      this.selectedFloorplanStoreID
+    this.floorplansService
+      .updateFloorplan(
+        this.selectedFloorplanID,
+        this.selectedFloorplanName,
+        this.selectedFloorplanJSON,
+        this.selectedFloorplanStoreID
       )
       .subscribe(() => {
         this.floorplansService.getFloorplans();
@@ -127,6 +134,9 @@ export class DashboardService {
     this.tableChange.emit(this.selectedTable);
   }
 
+  /**
+   * Updates a single table.
+   */
   dashUpdateTables() {
     console.log("dashUpdateTables called");
     const tables = this.canvas.getObjects();
@@ -144,15 +154,24 @@ export class DashboardService {
           }
         });
         this.canvas.renderAll();
-        }
-      });
-      this.dashSaveCanvas();
-
+      }
+    });
+    this.dashSaveCanvas();
   }
 
+  /**
+   * Clears all tables on the dashboard.
+   */
   dashClearTables() {
     const tables = this.canvas.getObjects();
     tables.forEach(table => {
+      if (table._objects[0].resId !== "") {
+        this.reservationsService
+          .deleteReservation(table._objects[0].resId)
+          .subscribe(() => {
+            this.reservationsService.getReservations();
+          });
+      }
       table._objects[0].set({
         guestsSeated: 0,
         notes: "",
@@ -162,7 +181,6 @@ export class DashboardService {
         resId: ""
       });
       table._objects[0].setColor("#7B638E");
-      console.log("guests seated: " + table._objects[0].guestsSeated);
     });
     this.canvas.renderAll();
     this.dashSaveCanvas();
@@ -181,11 +199,12 @@ export class DashboardService {
 
     // console.log(this.selectedFloorplanName);
     // console.log(this.selectedFloorplanJSON);
-    this.floorplansService.updateFloorplan(
-      this.selectedFloorplanID,
-      this.selectedFloorplanName,
-      this.selectedFloorplanJSON,
-      this.selectedFloorplanStoreID
+    this.floorplansService
+      .updateFloorplan(
+        this.selectedFloorplanID,
+        this.selectedFloorplanName,
+        this.selectedFloorplanJSON,
+        this.selectedFloorplanStoreID
       )
       .subscribe(() => {
         this.floorplansService.getFloorplans();

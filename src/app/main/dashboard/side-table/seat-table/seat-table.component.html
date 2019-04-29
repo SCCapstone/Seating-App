@@ -1,47 +1,89 @@
 <h1 mat-dialog-title>Seat Table</h1>
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <mat-form-field>
-      <mat-label>Reservations</mat-label>
-      <mat-select placeholder="Select a Reservation">
-        <ng-container *ngFor="let res of resList">
-          <mat-option (click)="loadRes(res.size, res.notes, res.id)" *ngIf="userIsAuthenticated &&
-           userId === res.creator &&
-           res.store === selectedStoreID &&
-           res.status === 'New' &&
-           res.date === currentDate"
-          [value]="res">
-            {{res.name}}
-          </mat-option>
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
   <form [formGroup]="form" (submit)="onUpdateTable()" *ngIf="!isLoading">
     <div class="table-form">
       <mat-form-field>
-        <input matInput type="number" min="0" formControlName="guestsSeated" placeholder="Guests Seated" />
-        <mat-error *ngIf="form.get('guestsSeated').invalid">Please enter the number of guests.</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput type="text" formControlName="notes" placeholder="Notes" />
-        <mat-error *ngIf="form.get('notes').invalid">Please enter valid notes.</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-select formControlName="server" placeholder="Server" [compareWith]="serverComparisonFunction">
-          <ng-container *ngFor="let server of this.dashboardService.servers">
-            <mat-option *ngIf="dashboardService.userIsAuthenticated && dashboardService.selectedStoreID === server.store" [value]="server">
-              {{server.name}}
+        <mat-select
+          placeholder="Select a Reservation"
+          formControlName="reservation"
+        >
+          <ng-container *ngFor="let res of resList">
+            <mat-option
+              (click)="loadRes(res.size, res.notes, res.id)"
+              *ngIf="
+                userIsAuthenticated &&
+                userId === res.creator &&
+                res.store === selectedStoreID &&
+                res.date === currentDate
+              "
+              [value]="res.id"
+            >
+              {{ res.name }}
             </mat-option>
           </ng-container>
         </mat-select>
-        <mat-error *ngIf="form.get('server').invalid">Please select a server.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="number"
+          min="0"
+          formControlName="guestsSeated"
+          placeholder="Guests Seated"
+        />
+        <mat-error *ngIf="form.get('guestsSeated').invalid"
+          >Please enter the number of guests.</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          formControlName="notes"
+          placeholder="Notes"
+        />
+        <mat-error *ngIf="form.get('notes').invalid"
+          >Please enter valid notes.</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select
+          formControlName="server"
+          placeholder="Server"
+          [compareWith]="serverComparisonFunction"
+        >
+          <ng-container *ngFor="let server of this.dashboardService.servers">
+            <mat-option
+              *ngIf="
+                dashboardService.userIsAuthenticated &&
+                dashboardService.selectedStoreID === server.store
+              "
+              [value]="server"
+            >
+              {{ server.name }}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-error *ngIf="form.get('server').invalid"
+          >Please select a server.</mat-error
+        >
       </mat-form-field>
     </div>
     <div class="form-btn-group">
-      <button class="form-buttons" mat-raised-button color="accent" type="submit">Update</button>
+      <button
+        class="form-buttons"
+        mat-raised-button
+        color="accent"
+        type="submit"
+      >
+        Update
+      </button>
     </div>
   </form>
 </mat-card>
 <div mat-dialog-actions>
-  <button style="margin-left: auto;" mat-button (click)="onNoClick()">Close</button>
+  <button style="margin-left: auto;" mat-button (click)="onNoClick()">
+    Close
+  </button>
 </div>
