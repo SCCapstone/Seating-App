@@ -13,12 +13,12 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://dalton:" +
-      process.env.MONGO_ATLAS_PW +
-      "@cluster0-xbpdg.mongodb.net/test?retryWrites=true"
-    // "mongodb+srv://eddie:" +
+    //"mongodb+srv://dalton:" +
     //  process.env.MONGO_ATLAS_PW +
-    //  "@web-db-lv45x.mongodb.net/seating-app"
+    //  "@cluster0-xbpdg.mongodb.net/test?retryWrites=true"
+    "mongodb+srv://eddie:" +
+      process.env.MONGO_ATLAS_PW +
+      "@web-db-lv45x.mongodb.net/seating-app"
     //Dalton's password: "MONGO_ATLAS_PW": 1llhfy52mo31vnMB
     //Eddie's Password  "MONGO_ATLAS_PW": "h9RBvDNJYZIEjYq2",
   )
