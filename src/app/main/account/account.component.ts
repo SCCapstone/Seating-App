@@ -32,11 +32,11 @@ export class AccountComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-   this.isLoading = true;
-   this.authService.getAccounts(); //gets the account to use on the page 
+    this.isLoading = true;
+    this.authService.getAccounts(); //gets the account to use on the page 
     this.userId = this.authService.getUserId();
     this.authStatusSub = this.authService.getAccountUpdateListener()
-    .subscribe((accountData: { accounts: AuthData[] }) => {
+      .subscribe((accountData: { accounts: AuthData[] }) => {
         this.isLoading = false;
         this.accounts = accountData.accounts;
       });
@@ -47,8 +47,8 @@ export class AccountComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
-      
-      this.authService.getUserEmail(this.userId)
+
+    this.authService.getUserEmail(this.userId)
       .subscribe(
         (userData => {
           this.account.email = userData.email;
@@ -101,7 +101,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     public accountsService: AuthService,
     public route: ActivatedRoute,
     public authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.accountToEdit = this.authService.getAccountToEdit();
@@ -111,9 +111,9 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     this.authStatusSub = this.authService
       .getAccountUpdateListener()
       .subscribe((accountData: { accounts: AuthData[] }) => { //subscribes to the changes in auth data's email
-          this.isLoading = false;
-          this.email = accountData.accounts;
-        }); 
+        this.isLoading = false;
+        this.email = accountData.accounts;
+      });
 
     this.userIsAuthenticated = this.authService.getIsAuth(); //ensure the correct user is logged in
     this.authStatusSub = this.authService
@@ -133,10 +133,10 @@ export class AccountEditComponent implements OnInit, OnDestroy {
       this.form.setValue({ //sets default value to the user's current email
         email: accountData.email
       });
-    }); 
+    });
   }
 
-   onUpdateAccount() {
+  onUpdateAccount() {
     if (this.form.invalid) {
       return;
     }
@@ -144,26 +144,27 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     this.userId = this.accountToEdit;
     this.isLoading = true;
     var thisPromise = this; //promises cant read ".this" for some reason so I have to set it as thisPromise to use
-       this.authService.updateAccount(
-        this.form.value.email).then(() => { console.log("log success") 
-      console.log("Updated account " + this.form.value.email);
-      this.isLoading = false;
-      this.dialogRef.close();
-      this.form.reset();
-      thisPromise.account = this.form.value.email;
-      window.location.reload(); //reloads page after changing email
-      this.dialog.open(SuccessComponent, { data: { message: "Email has been successfully updated!" } });
+    this.authService.updateAccount(
+      this.form.value.email).then(() => {
+        console.log("log success")
+        console.log("Updated account " + this.form.value.email);
+        this.isLoading = false;
+        this.dialogRef.close();
+        this.form.reset();
+        thisPromise.account = this.form.value.email;
+        window.location.reload(); //reloads page after changing email
+        this.dialog.open(SuccessComponent, { data: { message: "Email has been successfully updated!" } });
 
-    });  
+      });
   }
 
   onDelete() {
     this.isLoading = true;
-      this.authService.deleteAccount(this.accountToEdit).subscribe(() => {
-        //this.authService.getAccounts(); //maybe
-        this.isLoading = false;
-        this.dialogRef.close();
-      });
+    this.authService.deleteAccount(this.accountToEdit).subscribe(() => {
+      //this.authService.getAccounts(); //maybe
+      this.isLoading = false;
+      this.dialogRef.close();
+    });
   }
 
   ngOnDestroy() {
