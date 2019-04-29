@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 
 describe("MainComponent", () => {
-  it("should create", () => {
+  it("should exist", () => {
     TestBed.configureTestingModule({
       declarations: [ MainComponent, AppComponent, SidenavComponent ],
       imports: [ RouterTestingModule, HttpClientModule, MatSidenavModule, BrowserAnimationsModule, MatDialogModule ],
