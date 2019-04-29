@@ -1,23 +1,35 @@
 <div class=" mat-card fp-builder">
   <h3>Floorplan Builder</h3>
-  <form [formGroup]="form" (submit)="saveCanvas()" *ngIf="!isLoading">
+  <form
+    [formGroup]="form"
+    class="form"
+    (submit)="saveCanvas()"
+    *ngIf="!isLoading"
+  >
     <mat-form-field style="margin-right:10px;">
-        <mat-label>Store</mat-label>
-        <mat-select formControlName="store" placeholder="Select a Store">
-          <ng-container *ngFor="let st of storeList">
-            <mat-option  *ngIf="userIsAuthenticated && userId === st.creator" [value]="st.id">
-              {{st.name}}
-            </mat-option>
-          </ng-container>
-        </mat-select>
-      </mat-form-field>
+      <mat-label>Store</mat-label>
+      <mat-select formControlName="store" placeholder="Select a Store">
+        <ng-container *ngFor="let st of storeList">
+          <mat-option
+            *ngIf="userIsAuthenticated && userId === st.creator"
+            [value]="st.id"
+          >
+            {{ st.name }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
     <button mat-rasied-button class="table-button" type="submit">
-        Save Floorplan
-    </button>
-    <button mat-rasied-button class="delete-button" (click)="deleteFloorplan(floorplan.id)">
-      Delete Floorplan
+      Save Floorplan
     </button>
   </form>
+  <button
+    mat-rasied-button
+    class="delete-button"
+    (click)="deleteFloorplan(floorplan.id)"
+  >
+    Delete Floorplan
+  </button>
   <div class="table-button-group">
     <button mat-rasied-button class="table-button" (click)="addRect()">
       Add Rectangle Table
@@ -31,20 +43,14 @@
   </div>
   <div class="table-view">
     <div class="canvas-wrap" id="canvas-wrap">
-      <canvas id="canvas" class="canvas" style="border: 1px solid rgb(54, 54, 54);"></canvas>
+      <canvas
+        id="canvas"
+        class="canvas"
+        style="border: 1px solid rgb(54, 54, 54);"
+      ></canvas>
     </div>
   </div>
   <button mat-rasied-button class="table-button" (click)="onCancel()">
     Cancel
   </button>
-<!--
-  <div class="table-button-group">
-    <button mat-rasied-button class="delete-button" (click)="deleteFloorplan(floorplan.id)">
-      Delete Floorplan
-    </button>
-    <button mat-rasied-button class="table-button" type="submit">
-      Save Floorplan
-    </button>
-  </div>
 </div>
--->
