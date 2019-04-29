@@ -4,14 +4,12 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { AppComponent } from "./app.component";
 import { AuthService } from "./auth/auth.service";
 import { HttpClientModule } from "@angular/common/http";
-// import { MatDialogModule } from "@angular/common/http";
+
 import { MainComponent } from "./main/main.component";
 import { MatSidenavModule, MatDialogModule } from "@angular/material";
 import { SidenavComponent } from "./main/sidenav/sidenav.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-// import { StoresService } from "./stores.service";
-// import { Store } from "./store.model";
 
 
 describe("MainComponent", () => {
