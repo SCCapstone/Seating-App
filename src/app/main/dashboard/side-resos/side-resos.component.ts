@@ -43,7 +43,18 @@ export class SideResosComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           this.totalReservations = reservationData.reservationCount;
           this.reservations = reservationData.reservations;
-          this.reservations.sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+
+          this.reservations = this.reservations.filter(
+            res =>
+              res.status === "New" &&
+              res.store === this.welcomeService.selectedStoreID &&
+              res.date === this.currentDate
+          );
+
+          this.reservations.sort(
+            (a, b) =>
+              a.date.localeCompare(b.date) || a.time.localeCompare(b.time)
+          );
         }
       );
     this.userIsAuthenticated = this.authService.getIsAuth();
@@ -74,8 +85,8 @@ export class SideResosComponent implements OnInit, OnDestroy {
   convertTimeTo12Hour(time: string) {
     let time12Hour = "";
 
-    if (+time.substring(0, 2) > 12 ) {
-      time12Hour = ((+time.substring(0, 2) - 12) + time.substring(2, 5) + " PM");
+    if (+time.substring(0, 2) > 12) {
+      time12Hour = +time.substring(0, 2) - 12 + time.substring(2, 5) + " PM";
     } else {
       time12Hour = time + " AM";
     }
@@ -87,4 +98,3 @@ export class SideResosComponent implements OnInit, OnDestroy {
     this.authStatusSub.unsubscribe();
   }
 }
-

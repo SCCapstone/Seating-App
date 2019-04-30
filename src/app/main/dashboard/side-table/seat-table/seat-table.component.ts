@@ -116,9 +116,11 @@ export class SeatTableComponent implements OnInit {
     // Checks to see if current form already has a reservation selected. If so,
     // locks the reservation field to changing reservations without clearing
     // table.
-    if (this.form.value.reservation !== "") {
+
+    if (this.form.getRawValue().reservation !== "") {
       this.form.controls.reservation.disable();
     }
+    console.log("Reservation ID: " + this.form.getRawValue().reservation);
   }
 
   onNoClick(): void {
@@ -136,22 +138,23 @@ export class SeatTableComponent implements OnInit {
         data: { message: "Invalid number of guests" }
       });
     } else {
+      console.log("Updating res to: " + this.form.getRawValue().reservation);
       this.dashboardService.dashUpdateTable(
         this.form.value.guestsSeated,
         this.form.value.notes,
         this.form.value.server,
-        this.selectedResID
+        this.form.getRawValue().reservation
       );
 
       this.dashboardService.dashRefreshTable();
       this.dialogRef.close();
     }
     // If reservation is selected, changes status to seated
-    if (this.selectedResID !== "") {
+    if (this.form.getRawValue().reservation !== "") {
       // Getting the whole reservation object
       let tempRes: Reservation;
       this.reservationsService
-        .getReservation(this.selectedResID)
+        .getReservation(this.form.getRawValue().reservation)
         .subscribe(reservationData => {
           tempRes = {
             creator: reservationData.creator,
@@ -189,7 +192,7 @@ export class SeatTableComponent implements OnInit {
     console.log("loadRes called");
     this.selectedResID = resId;
     this.form.setValue({
-      reservation: this.form.value.reservation,
+      reservation: this.form.getRawValue().reservation,
       guestsSeated: size,
       notes: notes,
       server: this.form.value.server
