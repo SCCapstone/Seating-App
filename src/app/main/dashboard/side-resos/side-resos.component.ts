@@ -40,17 +40,10 @@ export class SideResosComponent implements OnInit, OnDestroy {
           reservations: Reservation[];
           reservationCount: number;
         }) => {
-          this.reservationsService.getReservations();
+
           this.isLoading = false;
           this.totalReservations = reservationData.reservationCount;
           this.reservations = reservationData.reservations;
-
-          this.reservations = this.reservations.filter(
-            res =>
-              res.status === "New" &&
-              res.store === this.welcomeService.selectedStoreID &&
-              res.date === this.currentDate
-          );
 
           this.reservations.sort(
             (a, b) =>

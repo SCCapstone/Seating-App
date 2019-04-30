@@ -10,7 +10,10 @@
   <mat-accordion multi="true" *ngIf="reservations.length > 0 && !isLoading">
     <mat-expansion-panel *ngFor="let reservation of reservations">
       <mat-expansion-panel-header
-        *ngIf="userIsAuthenticated && userId === reservation.creator"
+      *ngIf="userIsAuthenticated && userId === reservation.creator &&
+      welcomeService.selectedStoreID === reservation.store &&
+      reservation.status === 'New' &&
+      reservation.date === currentDate"
       >
         <div class="list-box-time">
           {{ convertTimeTo12Hour(reservation.time) }}
