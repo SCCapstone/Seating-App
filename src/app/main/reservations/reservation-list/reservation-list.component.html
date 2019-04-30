@@ -41,7 +41,9 @@
       <mat-expansion-panel-header
         *ngIf="
           userIsAuthenticated &&
-          userId === res.creator
+          userId === res.creator &&
+          res.store === selectedStoreID &&
+          res.date === selectedDate.toLocaleDateString()
         "
       >
         <div class="list-box-time">{{ convertTimeTo12Hour(res.time) }}</div>

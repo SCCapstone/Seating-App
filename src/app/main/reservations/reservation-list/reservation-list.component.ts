@@ -51,16 +51,9 @@ export class ReservationListComponent implements OnInit, OnDestroy {
           reservations: Reservation[];
           reservationCount: number;
         }) => {
-          this.reservationsService.getReservations();
           this.isLoading = false;
           this.totalReservations = reservationData.reservationCount;
           this.reservations = reservationData.reservations;
-
-          this.reservations = this.reservations.filter(
-            res =>
-              res.store === this.selectedStoreID &&
-              res.date === this.selectedDate.toLocaleDateString()
-          );
 
           this.reservations.sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
         }
