@@ -152,33 +152,20 @@ export class SeatTableComponent implements OnInit {
     // If reservation is selected, changes status to seated
     if (this.form.getRawValue().reservation !== "") {
       // Getting the whole reservation object
-      let tempRes: Reservation;
       this.reservationsService
         .getReservation(this.form.getRawValue().reservation)
         .subscribe(reservationData => {
-          tempRes = {
-            creator: reservationData.creator,
-            date: reservationData.date,
-            id: reservationData._id,
-            name: reservationData.name,
-            notes: reservationData.notes,
-            phone: reservationData.phone,
-            size: reservationData.size,
-            status: reservationData.status,
-            store: reservationData.store,
-            time: reservationData.time
-          };
 
           this.reservationsService
             .updateReservation(
-              tempRes.id,
-              tempRes.name,
-              tempRes.size,
-              tempRes.phone,
-              tempRes.time,
-              tempRes.date,
-              tempRes.notes,
-              tempRes.store,
+              reservationData._id,
+              reservationData.name,
+              reservationData.size,
+              reservationData.phone,
+              reservationData.time,
+              reservationData.date,
+              reservationData.notes,
+              reservationData.store,
               "Seated"
             )
             .subscribe(() => {

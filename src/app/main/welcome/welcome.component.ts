@@ -9,6 +9,7 @@ import { StoresService } from 'src/app/main/manager/store/stores.service';
 import { Store } from '../manager/store/store.model';
 import { WelcomeService } from './welcome.service';
 import { ErrorComponent } from 'src/app/error/error.component';
+import { ReservationsService } from '../reservations/reservations.service';
 
 
 @Component({
@@ -36,7 +37,8 @@ export class WelcomeComponent implements OnInit {
     public welcomeService: WelcomeService,
     public storesService: StoresService,
     private authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public reservationsService: ReservationsService
   ) { }
 
   ngOnInit() {
@@ -100,5 +102,7 @@ export class WelcomeComponent implements OnInit {
       this.onNoClick();
     }
     this.storesService.getStores();
+    this.reservationsService.getReservations();
+
   }
 }

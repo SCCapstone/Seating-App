@@ -62,6 +62,11 @@ export class ReservationListComponent implements OnInit, OnDestroy {
       .subscribe((storeData: { stores: Store[]; storeCount: number}) => {
         this.isLoading = false;
         this.storeList = storeData.stores;
+
+        if (this.welcomeService.selectedStoreID != null) {
+          this.selectedStoreID = this.welcomeService.selectedStoreID;
+          this.selectedStoreName = this.welcomeService.selectedStoreName;
+        }
       });
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
@@ -70,10 +75,7 @@ export class ReservationListComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
       });
-    if (this.welcomeService.selectedStoreID != null) {
-      this.selectedStoreID = this.welcomeService.selectedStoreID;
-      this.selectedStoreName = this.welcomeService.selectedStoreName;
-    }
+
   }
 
    /**
