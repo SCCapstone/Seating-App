@@ -13,14 +13,9 @@ const app = express();
 
 mongoose
   .connect(
-    //"mongodb+srv://dalton:" +
-    //  process.env.MONGO_ATLAS_PW +
-    //  "@cluster0-xbpdg.mongodb.net/test?retryWrites=true"
     "mongodb+srv://eddie:" +
       process.env.MONGO_ATLAS_PW +
       "@web-db-lv45x.mongodb.net/seating-app"
-    //Dalton's password: "MONGO_ATLAS_PW": 1llhfy52mo31vnMB
-    //Eddie's Password  "MONGO_ATLAS_PW": "h9RBvDNJYZIEjYq2",
   )
   .then(() => {
     console.log("Connected to database!");
@@ -34,18 +29,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/", express.static(path.join(__dirname, "angular")));
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+//   );
+//   next();
+// });
 
 app.use("/api/user", userRoutes);
 app.use("/api/reservations", reservationsRoutes);
