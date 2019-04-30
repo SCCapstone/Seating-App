@@ -38,7 +38,7 @@ In a seperate command prompt you can then run the tests.
 
 Using the command `selenium-side-runner tests/*.side` will automatically run all our selenium tests.
 
-
+**Selenium side runner has issues with created tests, tests all work in Selenium IDE**
 
 
 
