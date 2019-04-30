@@ -66,8 +66,6 @@ export class CanvasComponent implements OnInit, OnDestroy {
   }
 
   setTable(options) {
-    console.log("Table " + options.target._objects[0].name + " selected.");
-    // this.dashboardService.selectedTable = options;
     this.dashboardService.dashSetTable(options);
   }
 
@@ -88,17 +86,6 @@ export class CanvasComponent implements OnInit, OnDestroy {
       this.dashboardService.canvas.loadFromJSON(this.floorplan.json);
       this.dashboardService.dashUpdateTables();
     });
-  }
-
-  updateCanvas() {
-    console.log("you did it");
-/*     const json_data = this.dashboardService.canvas.toJSON();
-    console.log("Argument ID: " + this.floorplan.id);
-    this.dashboardService.updateFloorplan(
-      this.floorplan.id,
-      this.floorplan.name,
-      json_data
-    ); */
   }
 
   ngOnDestroy() {

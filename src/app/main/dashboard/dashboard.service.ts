@@ -143,7 +143,6 @@ export class DashboardService {
     tables.forEach(table => {
       const server = table._objects[0].serverId;
       if (server !== null && server.id !== null) {
-        // console.log(this.servers);
         this.servers.forEach(tempServer => {
           if (tempServer.id === table._objects[0].serverId.id) {
             table._objects[0].serverId.color = tempServer.color;
@@ -197,8 +196,6 @@ export class DashboardService {
       "resId"
     ]);
 
-    // console.log(this.selectedFloorplanName);
-    // console.log(this.selectedFloorplanJSON);
     this.floorplansService
       .updateFloorplan(
         this.selectedFloorplanID,
@@ -209,6 +206,5 @@ export class DashboardService {
       .subscribe(() => {
         this.floorplansService.getFloorplans();
       });
-    // console.log("THIS IS THE END OF THE FUNCTION");
   }
 }

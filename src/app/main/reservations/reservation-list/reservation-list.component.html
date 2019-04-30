@@ -41,9 +41,7 @@
       <mat-expansion-panel-header
         *ngIf="
           userIsAuthenticated &&
-          userId === res.creator &&
-          res.store === selectedStoreID &&
-          res.date === selectedDate.toLocaleDateString()
+          userId === res.creator
         "
       >
         <div class="list-box-time">{{ convertTimeTo12Hour(res.time) }}</div>
@@ -76,6 +74,6 @@
     class="info-text mat-body-1"
     *ngIf="reservations.length <= 0 && !isLoading"
   >
-    No reservations added yet!
+    No reservations at this store on this date.
   </p>
 </div>

@@ -200,7 +200,6 @@ export class StoreEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading = true;
     this.storeToEdit = this.storesService.getStoreToEdit();
-    console.log(this.storeToEdit);
     this.storeId = this.storeToEdit;
     this.isLoading = true;
     this.storesService.getStore(this.storeId).subscribe(storeData => {

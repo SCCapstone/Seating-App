@@ -33,7 +33,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.authService.getAccounts(); //gets the account to use on the page 
+    this.authService.getAccounts(); //gets the account to use on the page
     this.userId = this.authService.getUserId();
     this.authStatusSub = this.authService.getAccountUpdateListener()
       .subscribe((accountData: { accounts: AuthData[] }) => {
@@ -107,7 +107,6 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     this.accountToEdit = this.authService.getAccountToEdit();
     console.log("Editing: " + this.accountToEdit);
     this.userId = this.authService.getUserId();
-    console.log(this.userId);
     this.authStatusSub = this.authService
       .getAccountUpdateListener()
       .subscribe((accountData: { accounts: AuthData[] }) => { //subscribes to the changes in auth data's email
@@ -140,7 +139,6 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.value.email); //grabs email entered from the user
     this.userId = this.accountToEdit;
     this.isLoading = true;
     var thisPromise = this; //promises cant read ".this" for some reason so I have to set it as thisPromise to use

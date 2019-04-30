@@ -349,7 +349,6 @@ export class ServersEditComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.value.color);
     this.serverId = this.serverToEdit;
     this.isLoading = true;
     this.serversService

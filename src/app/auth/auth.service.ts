@@ -203,8 +203,7 @@ export class AuthService {
         this.router.navigate(["/main/account"]);
       }
     },
-    error => { //not sure what to put in error block
-      //this.authStatusListener.next(false);
+    error => {
       console.log("Something went wrong");
     });
 

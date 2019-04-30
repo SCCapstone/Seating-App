@@ -40,6 +40,7 @@ export class SideResosComponent implements OnInit, OnDestroy {
           reservations: Reservation[];
           reservationCount: number;
         }) => {
+          this.reservationsService.getReservations();
           this.isLoading = false;
           this.totalReservations = reservationData.reservationCount;
           this.reservations = reservationData.reservations;

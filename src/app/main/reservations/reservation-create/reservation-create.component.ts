@@ -171,7 +171,6 @@ export class ReservationCreateComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
     if (this.mode === "create") {
-      console.log(this.form.value.time);
       this.reservationsService.addReservation(
         this.form.value.name,
         this.form.value.size,

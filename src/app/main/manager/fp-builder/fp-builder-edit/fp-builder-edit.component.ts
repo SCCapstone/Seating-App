@@ -128,7 +128,6 @@ export class FpBuilderEditComponent implements OnInit {
           creator: floorplanData.creator,
           storeId: floorplanData.storeId
         };
-        console.log(this.floorplan.json);
         this.canvas.loadFromJSON(this.floorplan.json);
       });
     this.canvas.renderAll();
